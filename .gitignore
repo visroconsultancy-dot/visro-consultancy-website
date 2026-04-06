@@ -1,0 +1,6 @@
+node_modules/
+.claude/
+pradhan-byan.pdf
+server.ps1
+package-lock.json
+package.json
