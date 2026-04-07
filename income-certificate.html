@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Income Certificate / आय प्रमाणपत्र | VISRO Consultancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #0d1b3e; --orange: #e8640a; --orange-light: #f07a28; --green: #22c55e; --white: #fff; --off-white: #f4f6fb; --gray: #64748b; --light-gray: #e2e8f0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Sora', sans-serif; color: var(--navy); background: var(--off-white); line-height: 1.7; }
+  .back-bar { max-width: 900px; margin: 0 auto; padding: 12px 20px 0; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; }
+  .page { max-width: 900px; margin: 12px auto 40px; background: white; border-radius: 12px; box-shadow: 0 4px 24px rgba(13,27,62,0.10); overflow: hidden; }
+  .hero { background: linear-gradient(135deg, var(--navy), #1a3660); color: white; padding: 36px 32px; text-align: center; }
+  .hero h1 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+  .hero .sub { font-size: 14px; opacity: 0.8; }
+  .hero .badge { display: inline-block; background: var(--orange); padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-top: 12px; }
+  .lang-toggle { display: flex; justify-content: center; gap: 0; background: #1a3660; padding: 8px 0; }
+  .lang-btn { padding: 8px 28px; font-size: 13px; font-weight: 700; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; color: rgba(255,255,255,0.7); background: transparent; font-family: inherit; transition: all 0.2s; }
+  .lang-btn:first-child { border-radius: 6px 0 0 6px; }
+  .lang-btn:last-child { border-radius: 0 6px 6px 0; }
+  .lang-btn.active { background: var(--orange); color: white; border-color: var(--orange); }
+  .lang-hi { display: block; } .lang-en { display: none; }
+  body.en .lang-hi { display: none; } body.en .lang-en { display: block; }
+  .content { padding: 28px 32px 40px; }
+  .content h2 { font-size: 20px; font-weight: 800; color: var(--navy); margin: 28px 0 12px; padding-bottom: 8px; border-bottom: 3px solid var(--orange); display: inline-block; }
+  .content h2:first-child { margin-top: 0; }
+  .content h3 { font-size: 16px; font-weight: 700; color: var(--orange); margin: 20px 0 8px; }
+  .content p { font-size: 14px; color: #374151; margin-bottom: 12px; }
+  .content ul, .content ol { margin: 8px 0 16px 20px; }
+  .content li { font-size: 14px; color: #374151; margin-bottom: 8px; line-height: 1.8; }
+  .content li strong { color: var(--navy); }
+  .highlight-box { background: #fff8e1; border-left: 4px solid var(--orange); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 13px; }
+  .highlight-box.green { background: #f0fdf4; border-left-color: var(--green); }
+  .highlight-box.blue { background: #eff6ff; border-left-color: #2563eb; }
+  .info-card { background: var(--off-white); border: 1px solid var(--light-gray); border-radius: 10px; padding: 18px 20px; margin: 14px 0; }
+  .info-card .title { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 22px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; margin: 4px 4px 4px 0; transition: all 0.2s; }
+  .link-btn:hover { background: var(--orange-light); transform: translateY(-1px); }
+  .link-btn.green { background: var(--green); }
+  .link-btn.navy { background: var(--navy); }
+  .doc-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  .doc-table th { background: var(--navy); color: white; padding: 8px 12px; text-align: left; font-size: 12px; }
+  .doc-table td { padding: 8px 12px; border-bottom: 1px solid var(--light-gray); }
+  .doc-table tr:nth-child(even) { background: var(--off-white); }
+  .step-box { display: flex; gap: 14px; margin: 12px 0; align-items: flex-start; }
+  .step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--orange); color: white; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; flex-shrink: 0; }
+  .step-text { flex: 1; }
+  .step-text .title { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .step-text .desc { font-size: 13px; color: #555; margin-top: 2px; }
+  .faq { margin: 14px 0; }
+  .faq-item { border: 1px solid var(--light-gray); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+  .faq-q { padding: 12px 16px; font-size: 13px; font-weight: 700; color: var(--navy); cursor: pointer; background: var(--off-white); }
+  .faq-q:hover { background: #e8f0f8; }
+  .faq-a { padding: 0 16px 12px; font-size: 13px; color: #555; display: none; }
+  .faq-item.open .faq-a { display: block; }
+  .cta-box { background: linear-gradient(135deg, var(--navy), #1a3660); color: white; border-radius: 12px; padding: 28px; text-align: center; margin: 28px 0; }
+  .cta-box h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+  .cta-box p { font-size: 13px; opacity: 0.8; margin-bottom: 16px; }
+  .footer { background: var(--navy); color: rgba(255,255,255,0.6); text-align: center; padding: 16px; font-size: 11px; }
+  @media (max-width: 600px) { .content { padding: 20px 16px 30px; } .hero { padding: 24px 16px; } .hero h1 { font-size: 22px; } }
+</style>
+</head>
+<body>
+
+<div class="back-bar"><a href="index.html" class="back-btn">← Back to Home</a></div>
+
+<div class="page">
+  <div class="hero">
+    <h1 class="lang-hi">आय प्रमाणपत्र (Income Certificate)</h1>
+    <h1 class="lang-en">Income Certificate</h1>
+    <div class="sub lang-hi">eDistrict UP Portal — जनसेवा केंद्र के माध्यम से</div>
+    <div class="sub lang-en">eDistrict UP Portal — Through Jan Seva Kendra</div>
+    <div class="badge">VISRO Consultancy</div>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('hi')">हिन्दी</button>
+    <button class="lang-btn" onclick="setLang('en')">English</button>
+  </div>
+
+  <div class="content">
+
+    <!-- WHAT IS INCOME CERTIFICATE -->
+    <div class="lang-hi">
+    <h2>आय प्रमाणपत्र क्या है?</h2>
+    <p><strong>आय प्रमाणपत्र (Income Certificate)</strong> एक सरकारी दस्तावेज़ है जो बताता है कि आपके परिवार की <strong>सालाना आय (वार्षिक आमदनी) कितनी है</strong>।</p>
+    <p>यह प्रमाणपत्र <strong>तहसीलदार / SDM (उप-जिलाधिकारी)</strong> द्वारा जारी किया जाता है।</p>
+    <div class="highlight-box">
+      <strong>आसान भाषा में:</strong> आय प्रमाणपत्र यह बताता है कि आपका परिवार <strong>कितना कमाता है</strong>। इसकी ज़रूरत <strong>स्कूल/कॉलेज में एडमिशन, स्कॉलरशिप, सरकारी नौकरी, राशन कार्ड, आवास योजना</strong> आदि में पड़ती है।
+    </div>
+    </div>
+    <div class="lang-en">
+    <h2>What is Income Certificate?</h2>
+    <p><strong>Income Certificate</strong> is a government document that states the <strong>annual income of your family</strong>.</p>
+    <p>This certificate is issued by the <strong>Tehsildar / SDM (Sub-Divisional Magistrate)</strong>.</p>
+    <div class="highlight-box">
+      <strong>In Simple Words:</strong> Income Certificate tells how much your family earns. It is needed for <strong>school/college admission, scholarships, government jobs, ration card, housing schemes</strong>, etc.
+    </div>
+    </div>
+
+    <!-- WHY NEEDED -->
+    <div class="lang-hi">
+    <h2>आय प्रमाणपत्र कहाँ-कहाँ लगता है?</h2>
+    <ol>
+      <li><strong>स्कूल / कॉलेज में एडमिशन</strong> — फीस माफी या कम फीस के लिए</li>
+      <li><strong>छात्रवृत्ति (Scholarship)</strong> — SC/ST/OBC/General सभी छात्रवृत्तियों में ज़रूरी</li>
+      <li><strong>सरकारी नौकरी</strong> — आरक्षण (Reservation) का लाभ लेने के लिए</li>
+      <li><strong>EWS प्रमाणपत्र</strong> — आर्थिक रूप से कमज़ोर वर्ग के लिए</li>
+      <li><strong>राशन कार्ड</strong> — BPL/AAY राशन कार्ड बनवाने के लिए</li>
+      <li><strong>PM आवास योजना</strong> — मकान बनवाने की योजना के लिए</li>
+      <li><strong>मुफ्त कानूनी सहायता</strong> — कोर्ट में वकील की मुफ्त सेवा के लिए</li>
+      <li><strong>विधवा / वृद्धा पेंशन</strong> — पेंशन योजनाओं के लिए</li>
+      <li><strong>बैंक लोन / KCC</strong> — किसान क्रेडिट कार्ड या लोन के लिए</li>
+      <li><strong>बेटी बचाओ बेटी पढ़ाओ / सुकन्या योजना</strong></li>
+    </ol>
+    </div>
+    <div class="lang-en">
+    <h2>Where is Income Certificate Required?</h2>
+    <ol>
+      <li><strong>School / College Admission</strong> — For fee waiver or reduced fees</li>
+      <li><strong>Scholarships</strong> — Required for SC/ST/OBC/General scholarships</li>
+      <li><strong>Government Jobs</strong> — To avail reservation benefits</li>
+      <li><strong>EWS Certificate</strong> — For Economically Weaker Section</li>
+      <li><strong>Ration Card</strong> — To get BPL/AAY ration card</li>
+      <li><strong>PM Awas Yojana</strong> — Housing scheme</li>
+      <li><strong>Free Legal Aid</strong> — Free lawyer service in court</li>
+      <li><strong>Widow / Old Age Pension</strong> — Pension schemes</li>
+      <li><strong>Bank Loan / KCC</strong> — Kisan Credit Card or loans</li>
+      <li><strong>Beti Bachao Beti Padhao / Sukanya Yojana</strong></li>
+    </ol>
+    </div>
+
+    <!-- HOW TO APPLY -->
+    <div class="lang-hi">
+    <h2>आय प्रमाणपत्र कैसे बनता है? (UP में)</h2>
+    <p>उत्तर प्रदेश में आय प्रमाणपत्र <strong>eDistrict Portal</strong> के माध्यम से <strong>जनसेवा केंद्र (CSC/Lokvani)</strong> से बनता है।</p>
+    <h3>तरीका 1: VISRO Consultancy से बनवाएँ (सबसे आसान)</h3>
+    </div>
+    <div class="lang-en">
+    <h2>How to Get Income Certificate? (In UP)</h2>
+    <p>In Uttar Pradesh, Income Certificate is made through <strong>eDistrict Portal</strong> via <strong>Jan Seva Kendra (CSC/Lokvani)</strong>.</p>
+    <h3>Method 1: Get it through VISRO Consultancy (Easiest)</h3>
+    </div>
+
+    <div class="lang-hi">
+    <div class="step-box"><div class="step-num">1</div><div class="step-text"><div class="title">हमसे संपर्क करें</div><div class="desc">WhatsApp या फोन पर कॉल करें</div></div></div>
+    <div class="step-box"><div class="step-num">2</div><div class="step-text"><div class="title">दस्तावेज़ दें</div><div class="desc">आधार कार्ड, राशन कार्ड, शपथ पत्र, फोटो — हमें दें</div></div></div>
+    <div class="step-box"><div class="step-num">3</div><div class="step-text"><div class="title">ऑनलाइन आवेदन</div><div class="desc">हम eDistrict Portal पर आपका आवेदन करेंगे</div></div></div>
+    <div class="step-box"><div class="step-num">4</div><div class="step-text"><div class="title">सत्यापन (Verification)</div><div class="desc">लेखपाल / कानूनगो आपके घर आकर जाँच करेंगे</div></div></div>
+    <div class="step-box"><div class="step-num">5</div><div class="step-text"><div class="title">प्रमाणपत्र जारी</div><div class="desc">तहसीलदार / SDM से प्रमाणपत्र जारी होगा — 7-15 दिन में</div></div></div>
+    </div>
+    <div class="lang-en">
+    <div class="step-box"><div class="step-num">1</div><div class="step-text"><div class="title">Contact Us</div><div class="desc">Call or WhatsApp us</div></div></div>
+    <div class="step-box"><div class="step-num">2</div><div class="step-text"><div class="title">Submit Documents</div><div class="desc">Aadhaar Card, Ration Card, Affidavit, Photo — give us</div></div></div>
+    <div class="step-box"><div class="step-num">3</div><div class="step-text"><div class="title">Online Application</div><div class="desc">We will apply on eDistrict Portal for you</div></div></div>
+    <div class="step-box"><div class="step-num">4</div><div class="step-text"><div class="title">Verification</div><div class="desc">Lekhpal / Kanungo will visit your home for verification</div></div></div>
+    <div class="step-box"><div class="step-num">5</div><div class="step-text"><div class="title">Certificate Issued</div><div class="desc">Tehsildar / SDM will issue certificate — within 7-15 days</div></div></div>
+    </div>
+
+    <div class="lang-hi"><h3>तरीका 2: खुद ऑनलाइन अप्लाई करें</h3><p>eDistrict UP Portal पर खुद भी अप्लाई कर सकते हैं:</p></div>
+    <div class="lang-en"><h3>Method 2: Apply Online Yourself</h3><p>You can also apply on eDistrict UP Portal:</p></div>
+    <div style="margin:12px 0;">
+      <a href="https://edistrict.up.gov.in/" target="_blank" class="link-btn navy">eDistrict UP Portal</a>
+      <a href="https://edistrict.up.gov.in/edistrictup/TrackApplication/TrackApplication_v2.aspx" target="_blank" class="link-btn navy">Application Status Track</a>
+    </div>
+
+    <!-- DOCUMENTS -->
+    <div class="lang-hi"><h2>ज़रूरी दस्तावेज़ (Documents)</h2></div>
+    <div class="lang-en"><h2>Required Documents</h2></div>
+
+    <table class="doc-table lang-hi">
+      <tr><th>क्र.</th><th>दस्तावेज़</th><th>विवरण</th></tr>
+      <tr><td>1</td><td><strong>आधार कार्ड</strong></td><td>आवेदक का — नाम, पता, जन्मतिथि सही हो</td></tr>
+      <tr><td>2</td><td><strong>राशन कार्ड</strong></td><td>परिवार के सभी सदस्यों का नाम हो</td></tr>
+      <tr><td>3</td><td><strong>शपथ पत्र (Affidavit)</strong></td><td>₹10 के स्टाम्प पेपर पर — आय की घोषणा</td></tr>
+      <tr><td>4</td><td><strong>पासपोर्ट साइज फोटो</strong></td><td>2 फोटो — ताज़ा</td></tr>
+      <tr><td>5</td><td><strong>मोबाइल नंबर</strong></td><td>आधार से लिंक्ड — OTP आएगा</td></tr>
+      <tr><td>6</td><td><strong>स्व-घोषणा पत्र</strong></td><td>आय का विवरण — खेती, नौकरी, मजदूरी आदि</td></tr>
+      <tr><td>7</td><td><strong>आय का प्रमाण (वैकल्पिक)</strong></td><td>सैलरी स्लिप, बैंक स्टेटमेंट, या खेती के कागज़ात</td></tr>
+    </table>
+    <table class="doc-table lang-en">
+      <tr><th>Sr.</th><th>Document</th><th>Details</th></tr>
+      <tr><td>1</td><td><strong>Aadhaar Card</strong></td><td>Applicant's — name, address, DOB should be correct</td></tr>
+      <tr><td>2</td><td><strong>Ration Card</strong></td><td>Should have names of all family members</td></tr>
+      <tr><td>3</td><td><strong>Affidavit</strong></td><td>On Rs 10 stamp paper — income declaration</td></tr>
+      <tr><td>4</td><td><strong>Passport Size Photo</strong></td><td>2 photos — latest</td></tr>
+      <tr><td>5</td><td><strong>Mobile Number</strong></td><td>Aadhaar-linked — OTP will come</td></tr>
+      <tr><td>6</td><td><strong>Self Declaration</strong></td><td>Income details — farming, job, labor, etc.</td></tr>
+      <tr><td>7</td><td><strong>Income Proof (Optional)</strong></td><td>Salary slip, bank statement, or farming documents</td></tr>
+    </table>
+
+    <div class="highlight-box blue lang-hi">
+      <strong>ध्यान दें:</strong> शपथ पत्र (Affidavit) किसी <strong>नोटरी या वकील</strong> से बनवाएँ। इसमें आपकी <strong>सालाना आय</strong> और <strong>आय के स्रोत</strong> (खेती/नौकरी/मजदूरी) लिखा होना चाहिए।
+    </div>
+    <div class="highlight-box blue lang-en">
+      <strong>Important:</strong> Get the Affidavit made from a <strong>Notary or Lawyer</strong>. It should mention your <strong>annual income</strong> and <strong>source of income</strong> (farming/job/labor).
+    </div>
+
+    <!-- RULES -->
+    <div class="lang-hi">
+    <h2>आय प्रमाणपत्र के नियम</h2>
+    <ol>
+      <li><strong>वैधता (Validity):</strong> आय प्रमाणपत्र आमतौर पर <strong>1 साल</strong> के लिए वैध होता है। हर साल नया बनवाना पड़ता है।</li>
+      <li><strong>कौन बनवा सकता है:</strong> उत्तर प्रदेश का कोई भी <strong>स्थायी निवासी</strong> बनवा सकता है।</li>
+      <li><strong>आय की सीमा:</strong> आय प्रमाणपत्र में <strong>परिवार की कुल सालाना आय</strong> लिखी जाती है — सभी स्रोतों से (खेती + नौकरी + अन्य)।</li>
+      <li><strong>जारीकर्ता:</strong> तहसीलदार / SDM (उप-जिलाधिकारी) द्वारा जारी होता है।</li>
+      <li><strong>सत्यापन:</strong> लेखपाल (पटवारी) आपके गाँव/मोहल्ले में आकर आय की जाँच करता है।</li>
+      <li><strong>शुल्क:</strong> eDistrict Portal पर आवेदन शुल्क ₹10-25 है। जनसेवा केंद्र पर सेवा शुल्क अलग से लगता है।</li>
+      <li><strong>समय:</strong> आवेदन के बाद <strong>7-15 कार्य दिवस</strong> में प्रमाणपत्र जारी होता है।</li>
+      <li><strong>ऑनलाइन डाउनलोड:</strong> प्रमाणपत्र जारी होने के बाद eDistrict Portal से <strong>डाउनलोड</strong> कर सकते हैं।</li>
+    </ol>
+    </div>
+    <div class="lang-en">
+    <h2>Rules for Income Certificate</h2>
+    <ol>
+      <li><strong>Validity:</strong> Income Certificate is usually valid for <strong>1 year</strong>. New one needed every year.</li>
+      <li><strong>Who can apply:</strong> Any <strong>permanent resident</strong> of Uttar Pradesh can apply.</li>
+      <li><strong>Income limit:</strong> Certificate shows <strong>total annual family income</strong> from all sources (farming + job + others).</li>
+      <li><strong>Issuing authority:</strong> Issued by Tehsildar / SDM (Sub-Divisional Magistrate).</li>
+      <li><strong>Verification:</strong> Lekhpal (Patwari) visits your village/locality to verify income.</li>
+      <li><strong>Fee:</strong> Application fee on eDistrict Portal is Rs 10-25. Service charge at Jan Seva Kendra is extra.</li>
+      <li><strong>Time:</strong> Certificate is issued within <strong>7-15 working days</strong> after application.</li>
+      <li><strong>Online Download:</strong> After issuance, certificate can be <strong>downloaded</strong> from eDistrict Portal.</li>
+    </ol>
+    </div>
+
+    <!-- LINKS -->
+    <div class="lang-hi"><h2>ज़रूरी लिंक</h2></div>
+    <div class="lang-en"><h2>Important Links</h2></div>
+    <table class="doc-table lang-hi">
+      <tr><th>काम</th><th>वेबसाइट</th></tr>
+      <tr><td><strong>eDistrict UP Portal</strong></td><td><a href="https://edistrict.up.gov.in/" target="_blank" style="color:var(--orange);">edistrict.up.gov.in</a></td></tr>
+      <tr><td><strong>आवेदन स्थिति जाँचें</strong></td><td><a href="https://edistrict.up.gov.in/edistrictup/TrackApplication/TrackApplication_v2.aspx" target="_blank" style="color:var(--orange);">Track Application</a></td></tr>
+      <tr><td><strong>प्रमाणपत्र सत्यापन</strong></td><td><a href="https://edistrict.up.gov.in/edistrictup/certificateverification/certificateverification.aspx" target="_blank" style="color:var(--orange);">Verify Certificate</a></td></tr>
+      <tr><td><strong>CSC / जनसेवा केंद्र खोजें</strong></td><td><a href="https://locator.csccloud.in/" target="_blank" style="color:var(--orange);">CSC Locator</a></td></tr>
+    </table>
+    <table class="doc-table lang-en">
+      <tr><th>Purpose</th><th>Website</th></tr>
+      <tr><td><strong>eDistrict UP Portal</strong></td><td><a href="https://edistrict.up.gov.in/" target="_blank" style="color:var(--orange);">edistrict.up.gov.in</a></td></tr>
+      <tr><td><strong>Track Application Status</strong></td><td><a href="https://edistrict.up.gov.in/edistrictup/TrackApplication/TrackApplication_v2.aspx" target="_blank" style="color:var(--orange);">Track Application</a></td></tr>
+      <tr><td><strong>Verify Certificate</strong></td><td><a href="https://edistrict.up.gov.in/edistrictup/certificateverification/certificateverification.aspx" target="_blank" style="color:var(--orange);">Verify Certificate</a></td></tr>
+      <tr><td><strong>Find CSC / Jan Seva Kendra</strong></td><td><a href="https://locator.csccloud.in/" target="_blank" style="color:var(--orange);">CSC Locator</a></td></tr>
+    </table>
+
+    <!-- FAQ -->
+    <div class="lang-hi"><h2>अक्सर पूछे जाने वाले सवाल</h2></div>
+    <div class="lang-en"><h2>Frequently Asked Questions</h2></div>
+    <div class="faq lang-hi">
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">1. आय प्रमाणपत्र कितने दिन में बनता है?</div><div class="faq-a">eDistrict से आवेदन के बाद <strong>7-15 कार्य दिवस</strong> में बनता है। लेखपाल की जाँच के बाद तहसीलदार जारी करता है।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">2. आय प्रमाणपत्र कितने साल तक वैध रहता है?</div><div class="faq-a"><strong>1 साल</strong> तक वैध रहता है। हर साल नया बनवाना पड़ता है।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">3. क्या ऑनलाइन आवेदन कर सकते हैं?</div><div class="faq-a">हाँ! <strong>eDistrict UP Portal</strong> (<a href="https://edistrict.up.gov.in/" target="_blank" style="color:var(--orange);">edistrict.up.gov.in</a>) पर ऑनलाइन आवेदन होता है। जनसेवा केंद्र से भी करवा सकते हैं।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">4. शपथ पत्र (Affidavit) कहाँ बनता है?</div><div class="faq-a">किसी भी <strong>नोटरी या वकील</strong> के पास। ₹10 के स्टाम्प पेपर पर बनता है। इसमें आपकी सालाना आय और आय का स्रोत लिखा होता है।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">5. लेखपाल जाँच में क्या देखता है?</div><div class="faq-a">लेखपाल आपके <strong>गाँव/मोहल्ले</strong> में आकर देखता है कि आपकी <strong>ज़मीन कितनी है, क्या काम करते हैं, घर की हालत</strong> कैसी है। वो अपनी रिपोर्ट तहसीलदार को भेजता है।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">6. EWS और आय प्रमाणपत्र में क्या फर्क है?</div><div class="faq-a"><strong>आय प्रमाणपत्र</strong> — परिवार की कुल आय बताता है। <strong>EWS प्रमाणपत्र</strong> — सामान्य वर्ग (General) के गरीब लोगों के लिए है जिनकी आय ₹8 लाख से कम है। EWS के लिए भी पहले आय प्रमाणपत्र बनवाना पड़ता है।</div></div>
+    </div>
+    <div class="faq lang-en">
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">1. How many days does it take to get Income Certificate?</div><div class="faq-a">After applying on eDistrict, it takes <strong>7-15 working days</strong>. Tehsildar issues it after Lekhpal verification.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">2. How long is Income Certificate valid?</div><div class="faq-a">Valid for <strong>1 year</strong>. New one needed every year.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">3. Can I apply online?</div><div class="faq-a">Yes! Apply on <strong>eDistrict UP Portal</strong> (<a href="https://edistrict.up.gov.in/" target="_blank" style="color:var(--orange);">edistrict.up.gov.in</a>). Can also be done through Jan Seva Kendra.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">4. Where to get Affidavit made?</div><div class="faq-a">From any <strong>Notary or Lawyer</strong>. Made on Rs 10 stamp paper. It mentions your annual income and source of income.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">5. What does Lekhpal check during verification?</div><div class="faq-a">Lekhpal visits your village/locality to check <strong>how much land you have, what work you do, condition of your house</strong>. He sends report to Tehsildar.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">6. What is difference between EWS and Income Certificate?</div><div class="faq-a"><strong>Income Certificate</strong> — shows total family income. <strong>EWS Certificate</strong> — for General category poor people with income less than Rs 8 lakh. EWS also requires Income Certificate first.</div></div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-box">
+      <h3 class="lang-hi">आय प्रमाणपत्र बनवाना है?</h3><h3 class="lang-en">Need Income Certificate?</h3>
+      <p class="lang-hi">हमसे संपर्क करें — हम आपका आय प्रमाणपत्र आसानी से बनवा देंगे!</p><p class="lang-en">Contact us — we will get your Income Certificate made easily!</p>
+      <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20mujhe%20Income%20Certificate%20banwana%20hai" class="link-btn" style="background:var(--green);font-size:15px;padding:12px 28px;">💬 WhatsApp</a>
+      <a href="tel:+918840714094" class="link-btn" style="font-size:15px;padding:12px 28px;">📞 Call — 88407 14094</a>
+    </div>
+
+  </div>
+  <div class="footer">VISRO Consultancy | Musafirkhana, Amethi, UP | visroconsultancy.netlify.app</div>
+</div>
+
+<script>
+function setLang(lang) {
+  if (lang === 'en') { document.body.classList.add('en'); } else { document.body.classList.remove('en'); }
+  document.querySelectorAll('.lang-btn').forEach(function(btn, i) {
+    btn.classList.remove('active');
+    if ((lang === 'hi' && i === 0) || (lang === 'en' && i === 1)) btn.classList.add('active');
+  });
+}
+</script>
+</body>
+</html>
