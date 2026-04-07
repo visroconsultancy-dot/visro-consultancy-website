@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aadhaar Services / आधार सेवाएँ | VISRO Consultancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #0d1b3e; --orange: #e8640a; --green: #22c55e; --off-white: #f4f6fb; --gray: #64748b; --light-gray: #e2e8f0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Sora', sans-serif; color: var(--navy); background: var(--off-white); line-height: 1.7; }
+  .back-bar { max-width: 900px; margin: 0 auto; padding: 12px 20px 0; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; }
+  .page { max-width: 900px; margin: 12px auto 40px; background: white; border-radius: 12px; box-shadow: 0 4px 24px rgba(13,27,62,0.10); overflow: hidden; }
+  .hero { background: linear-gradient(135deg, var(--navy), #1a3660); color: white; padding: 36px 32px; text-align: center; }
+  .hero h1 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+  .hero .sub { font-size: 14px; opacity: 0.8; }
+  .hero .badge { display: inline-block; background: var(--orange); padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-top: 12px; }
+  .content { padding: 28px 32px 40px; }
+  .content h2 { font-size: 20px; font-weight: 800; color: var(--navy); margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--orange); display: inline-block; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin: 0 0 20px; }
+  .svc-card { background: white; border: 2px solid var(--light-gray); border-radius: 12px; padding: 22px 18px; text-align: center; transition: all 0.25s; cursor: pointer; text-decoration: none; display: block; }
+  .svc-card:hover { border-color: var(--orange); transform: translateY(-4px); box-shadow: 0 8px 24px rgba(232,100,10,0.12); }
+  .svc-card .num { font-size: 11px; font-weight: 800; color: var(--orange); letter-spacing: 1px; margin-bottom: 6px; }
+  .svc-card .icon { font-size: 36px; margin-bottom: 10px; }
+  .svc-card .name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.3; }
+  .svc-card .name-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 12px; color: var(--orange); font-weight: 600; margin-bottom: 6px; }
+  .svc-card .desc { font-size: 11px; color: var(--gray); line-height: 1.5; }
+  .svc-card .link-tag { display: inline-block; margin-top: 10px; background: var(--navy); color: white; padding: 5px 14px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+  .svc-card:hover .link-tag { background: var(--orange); }
+  .cta-box { background: linear-gradient(135deg, var(--navy), #1a3660); color: white; border-radius: 12px; padding: 28px; text-align: center; margin: 20px 0; }
+  .cta-box h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+  .cta-box p { font-size: 13px; opacity: 0.8; margin-bottom: 16px; }
+  .link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 22px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; margin: 4px; transition: all 0.2s; }
+  .link-btn.green { background: var(--green); }
+  .footer { background: var(--navy); color: rgba(255,255,255,0.6); text-align: center; padding: 16px; font-size: 11px; }
+  @media (max-width: 600px) { .content { padding: 20px 16px 30px; } .hero { padding: 24px 16px; } .hero h1 { font-size: 22px; } .services-grid { grid-template-columns: 1fr 1fr; gap: 10px; } .svc-card { padding: 16px 12px; } }
+</style>
+</head>
+<body>
+
+<div class="back-bar"><a href="index.html" class="back-btn">← Back to Home</a></div>
+
+<div class="page">
+  <div class="hero">
+    <h1>आधार सेवाएँ / Aadhaar Services</h1>
+    <div class="sub">UIDAI — सभी आधार सम्बंधित सेवाएँ एक जगह</div>
+    <div class="badge">VISRO Consultancy — One Stop Solution</div>
+  </div>
+
+  <div class="content">
+    <h2>सेवा चुनें / Choose a Service</h2>
+
+    <div class="services-grid">
+
+      <!-- 01 -->
+      <a href="https://myaadhaar.uidai.gov.in/check-aadhaar-validity/en" target="_blank" class="svc-card">
+        <div class="num">01</div>
+        <div class="icon">✅</div>
+        <div class="name">Check Aadhaar Validity</div>
+        <div class="name-hi">आधार वैधता जाँचें</div>
+        <div class="desc">अपना आधार नंबर सही है या नहीं — ऑनलाइन जाँचें</div>
+        <div class="link-tag">Check Now →</div>
+      </a>
+
+      <!-- 02 -->
+      <a href="https://myaadhaar.uidai.gov.in/genricDownloadAadhaar/en" target="_blank" class="svc-card">
+        <div class="num">02</div>
+        <div class="icon">📥</div>
+        <div class="name">Download e-Aadhaar</div>
+        <div class="name-hi">e-आधार डाउनलोड करें</div>
+        <div class="desc">आधार कार्ड का PDF ऑनलाइन डाउनलोड करें — तुरंत मिलेगा</div>
+        <div class="link-tag">Download →</div>
+      </a>
+
+      <!-- 03 -->
+      <a href="https://myaadhaar.uidai.gov.in/genricPVC/hi" target="_blank" class="svc-card">
+        <div class="num">03</div>
+        <div class="icon">💳</div>
+        <div class="name">Order PVC Aadhaar</div>
+        <div class="name-hi">PVC आधार कार्ड ऑर्डर करें</div>
+        <div class="desc">ATM जैसा प्लास्टिक आधार कार्ड मँगवाएँ — ₹50 शुल्क</div>
+        <div class="link-tag">Order Now →</div>
+      </a>
+
+      <!-- 04 -->
+      <a href="https://tathya.uidai.gov.in/access/login?role=resident" target="_blank" class="svc-card">
+        <div class="num">04</div>
+        <div class="icon">🕊️</div>
+        <div class="name">Report Death of Family Member</div>
+        <div class="name-hi">परिवार के सदस्य की मृत्यु की सूचना दें</div>
+        <div class="desc">मृत व्यक्ति का आधार डीएक्टिवेट करवाएँ</div>
+        <div class="link-tag">Report →</div>
+      </a>
+
+      <!-- 05 -->
+      <a href="https://myaadhaar.uidai.gov.in/du/en_IN" target="_blank" class="svc-card">
+        <div class="num">05</div>
+        <div class="icon">📄</div>
+        <div class="name">Document Update</div>
+        <div class="name-hi">दस्तावेज़ अपडेट करें</div>
+        <div class="desc">आधार में नए दस्तावेज़ (ID/Address Proof) ऑनलाइन अपलोड करें</div>
+        <div class="link-tag">Update →</div>
+      </a>
+
+      <!-- 06 -->
+      <a href="https://myaadhaar.uidai.gov.in/lock-unlock-aadhaar/en" target="_blank" class="svc-card">
+        <div class="num">06</div>
+        <div class="icon">🔒</div>
+        <div class="name">Lock / Unlock Aadhaar</div>
+        <div class="name-hi">आधार लॉक / अनलॉक करें</div>
+        <div class="desc">आधार को सुरक्षित करें — लॉक करें ताकि कोई गलत इस्तेमाल न कर सके</div>
+        <div class="link-tag">Lock/Unlock →</div>
+      </a>
+
+      <!-- 07 -->
+      <a href="https://bookappointment.uidai.gov.in/" target="_blank" class="svc-card">
+        <div class="num">07</div>
+        <div class="icon">📅</div>
+        <div class="name">Book an Appointment</div>
+        <div class="name-hi">अपॉइंटमेंट बुक करें</div>
+        <div class="desc">आधार केंद्र पर जाने के लिए पहले से समय बुक करें — लाइन में न लगें</div>
+        <div class="link-tag">Book Now →</div>
+      </a>
+
+      <!-- 08 -->
+      <div class="svc-card" onclick="document.getElementById('correctionModal').style.display='flex'" style="cursor:pointer;">
+        <div class="num">08</div>
+        <div class="icon">✏️</div>
+        <div class="name">Aadhaar Correction Services</div>
+        <div class="name-hi">आधार सुधार सम्बंधित सेवाएँ</div>
+        <div class="desc">नाम, जन्मतिथि सुधार — DOB Limit Cross / Name Limit Cross</div>
+        <div class="link-tag" style="background:var(--orange);">Open →</div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-box">
+      <h3>आधार से जुड़ी कोई भी समस्या?</h3>
+      <p>हमसे संपर्क करें — हम आपकी मदद करेंगे!</p>
+      <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20mujhe%20Aadhaar%20service%20chahiye" class="link-btn green">💬 WhatsApp — 88407 14094</a>
+      <a href="tel:+918840714094" class="link-btn">📞 Call करें</a>
+    </div>
+
+  </div>
+  <div class="footer">VISRO Consultancy | Musafirkhana, Amethi, UP | visroconsultancy.netlify.app</div>
+</div>
+
+<!-- CORRECTION MODAL -->
+<div id="correctionModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,30,0.75);z-index:1000;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:white;border-radius:14px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 12px 48px rgba(0,0,0,0.3);">
+    <!-- Header -->
+    <div style="background:var(--navy);color:white;padding:16px 20px;border-radius:14px 14px 0 0;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:16px;font-weight:800;">✏️ Aadhaar Correction</div>
+      <button onclick="document.getElementById('correctionModal').style.display='none'" style="background:none;border:none;color:white;font-size:20px;cursor:pointer;">✖</button>
+    </div>
+    <div id="correctionContent" style="padding:20px;">
+      <!-- Step 1: Main options -->
+      <div id="step1">
+        <p style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px;">सुधार का प्रकार चुनें / Choose Correction Type:</p>
+        <div onclick="showStep('step2_dob')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
+          <div style="font-size:15px;font-weight:700;color:var(--navy);">📅 DOB Limit Cross</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px;">जन्मतिथि (Date of Birth) सुधार की सीमा पार हो गई है</div>
+        </div>
+        <div onclick="showStep('step2_name')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
+          <div style="font-size:15px;font-weight:700;color:var(--navy);">📝 Name Limit Cross</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px;">नाम (Name) सुधार की सीमा पार हो गई है</div>
+        </div>
+      </div>
+
+      <!-- Step 2: DOB - Age options -->
+      <div id="step2_dob" style="display:none;">
+        <div onclick="showStep('step1')" style="color:var(--orange);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:12px;">← वापस जाएँ / Back</div>
+        <p style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px;">📅 DOB Limit Cross — आयु वर्ग चुनें:</p>
+        <div onclick="showStep('step3_dob_below18')" style="background:#eff6ff;border:2px solid #93c5fd;border-radius:10px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='#2563eb'" onmouseout="this.style.borderColor='#93c5fd'">
+          <div style="font-size:15px;font-weight:700;color:#1e40af;">👶 Below 18 Years</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px;">18 वर्ष से कम आयु</div>
+        </div>
+        <div onclick="showStep('step3_dob_above18')" style="background:#f0fdf4;border:2px solid #86efac;border-radius:10px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='#16a34a'" onmouseout="this.style.borderColor='#86efac'">
+          <div style="font-size:15px;font-weight:700;color:#166534;">🧑 Above 18 Years</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px;">18 वर्ष से अधिक आयु</div>
+        </div>
+      </div>
+
+      <!-- Step 3: DOB Below 18 - Reason -->
+      <div id="step3_dob_below18" style="display:none;">
+        <div onclick="showStep('step2_dob')" style="color:var(--orange);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:12px;">← वापस जाएँ / Back</div>
+        <p style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;">📅 DOB Limit Cross → Below 18 Years</p>
+        <p style="font-size:12px;color:var(--gray);margin-bottom:14px;">कारण चुनें / Select Reason:</p>
+        <div onclick="showResult('DOB Limit Cross → Below 18 → Valid Document Submitted')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
+          <div style="font-size:14px;font-weight:700;color:var(--navy);">1. पिछले DOB अपडेशन में वैध दस्तावेज़ जमा किया था</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:3px;">In previous DOB updation, valid document was submitted</div>
+        </div>
+        <div onclick="showResult('DOB Limit Cross → Below 18 → Operator Error')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
+          <div style="font-size:14px;font-weight:700;color:var(--navy);">2. ऑपरेटर की गलती</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:3px;">Operator Error</div>
+        </div>
+        <div onclick="showResult('DOB Limit Cross → Below 18 → Fake/Non-Genuine Document')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
+          <div style="font-size:14px;font-weight:700;color:var(--navy);">3. पिछले DOB अपडेशन में फर्जी दस्तावेज़ जमा किया था</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:3px;">In previous DOB updation, fake/non-genuine document was submitted</div>
+        </div>
+      </div>
+
+      <!-- Step 3: DOB Above 18 - Reason -->
+      <div id="step3_dob_above18" style="display:none;">
+        <div onclick="showStep('step2_dob')" style="color:var(--orange);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:12px;">← वापस जाएँ / Back</div>
+        <p style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;">📅 DOB Limit Cross → Above 18 Years</p>
+        <p style="font-size:12px;color:var(--gray);margin-bottom:14px;">कारण चुनें / Select Reason:</p>
+        <div onclick="showResult('DOB Limit Cross → Above 18 → Valid Document Submitted')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
+          <div style="font-size:14px;font-weight:700;color:var(--navy);">1. पिछले DOB अपडेशन में वैध दस्तावेज़ जमा किया था</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:3px;">In previous DOB updation, valid document was submitted</div>
+        </div>
+        <div onclick="showResult('DOB Limit Cross → Above 18 → Operator Error')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
+          <div style="font-size:14px;font-weight:700;color:var(--navy);">2. ऑपरेटर की गलती</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:3px;">Operator Error</div>
+        </div>
+        <div onclick="showResult('DOB Limit Cross → Above 18 → Fake/Non-Genuine Document')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
+          <div style="font-size:14px;font-weight:700;color:var(--navy);">3. पिछले DOB अपडेशन में फर्जी दस्तावेज़ जमा किया था</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:3px;">In previous DOB updation, fake/non-genuine document was submitted</div>
+        </div>
+      </div>
+
+      <!-- Step 2: Name Limit Cross -->
+      <div id="step2_name" style="display:none;">
+        <div onclick="showStep('step1')" style="color:var(--orange);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:12px;">← वापस जाएँ / Back</div>
+        <p style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px;">📝 Name Limit Cross</p>
+        <p style="font-size:12px;color:var(--gray);margin-bottom:14px;">यह सुविधा जल्द उपलब्ध होगी। अभी WhatsApp पर संपर्क करें:</p>
+        <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20mera%20Aadhaar%20Name%20Limit%20Cross%20ho%20gaya%20hai.%20Help%20chahiye." style="display:inline-flex;align-items:center;gap:6px;padding:12px 24px;background:var(--green);color:white;border-radius:8px;text-decoration:none;font-size:14px;font-weight:700;">💬 WhatsApp — 88407 14094</a>
+      </div>
+
+      <!-- Result -->
+      <div id="stepResult" style="display:none;">
+        <div onclick="showStep('step1')" style="color:var(--orange);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:12px;">← शुरू से करें / Start Over</div>
+        <div style="text-align:center;padding:10px 0;">
+          <div style="font-size:40px;margin-bottom:10px;">✅</div>
+          <div style="font-size:16px;font-weight:800;color:var(--navy);margin-bottom:4px;">आपका चयन:</div>
+          <div id="resultText" style="font-size:13px;color:var(--gray);margin-bottom:16px;background:var(--off-white);padding:10px;border-radius:8px;"></div>
+          <p style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px;">इस सेवा के लिए हमसे संपर्क करें:</p>
+          <a href="" id="resultWhatsApp" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:var(--green);color:white;border-radius:8px;text-decoration:none;font-size:15px;font-weight:700;margin-bottom:8px;">💬 WhatsApp — 88407 14094</a>
+          <br>
+          <a href="tel:+918840714094" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:var(--orange);color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;margin-top:6px;">📞 Call करें</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showStep(stepId) {
+  var allSteps = ['step1','step2_dob','step2_name','step3_dob_below18','step3_dob_above18','stepResult'];
+  allSteps.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  var target = document.getElementById(stepId);
+  if (target) target.style.display = 'block';
+}
+
+function showResult(selection) {
+  showStep('stepResult');
+  document.getElementById('resultText').textContent = selection;
+  var msg = encodeURIComponent('Hello VISRO Consultancy, mujhe Aadhaar Correction chahiye.\n\nCategory: ' + selection + '\n\nPlease help.');
+  document.getElementById('resultWhatsApp').href = 'https://wa.me/918840714094?text=' + msg;
+}
+</script>
+</body>
+</html>
