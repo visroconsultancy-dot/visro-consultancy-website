@@ -124,7 +124,7 @@
       </a>
 
       <!-- 08 -->
-      <div class="svc-card" onclick="document.getElementById('correctionModal').style.display='flex'" style="cursor:pointer;">
+      <div class="svc-card" onclick="document.getElementById('correctionModal').style.display='block';document.body.style.overflow='hidden'" style="cursor:pointer;">
         <div class="num">08</div>
         <div class="icon">✏️</div>
         <div class="name">Aadhaar Correction Services</div>
@@ -148,14 +148,14 @@
 </div>
 
 <!-- CORRECTION MODAL -->
-<div id="correctionModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,30,0.75);z-index:1000;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.style.display='none'">
-  <div style="background:white;border-radius:14px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 12px 48px rgba(0,0,0,0.3);">
+<div id="correctionModal" style="display:none;position:fixed;inset:0;background:white;z-index:1000;overflow-y:auto;">
+  <div style="max-width:900px;margin:0 auto;min-height:100vh;">
     <!-- Header -->
-    <div style="background:var(--navy);color:white;padding:16px 20px;border-radius:14px 14px 0 0;display:flex;justify-content:space-between;align-items:center;">
-      <div style="font-size:16px;font-weight:800;">✏️ Aadhaar Correction</div>
-      <button onclick="document.getElementById('correctionModal').style.display='none'" style="background:none;border:none;color:white;font-size:20px;cursor:pointer;">✖</button>
+    <div style="background:var(--navy);color:white;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;">
+      <div style="font-size:18px;font-weight:800;">✏️ Aadhaar Correction — DOB Limit Cross</div>
+      <button onclick="document.getElementById('correctionModal').style.display='none';document.body.style.overflow=''" style="background:var(--orange);border:none;color:white;font-size:14px;font-weight:700;cursor:pointer;padding:8px 18px;border-radius:8px;">← Back</button>
     </div>
-    <div id="correctionContent" style="padding:20px;">
+    <div id="correctionContent" style="padding:24px 28px 40px;">
       <!-- Step 1: Main options -->
       <div id="step1">
         <p style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px;">सुधार का प्रकार चुनें / Choose Correction Type:</p>
@@ -188,15 +188,15 @@
         <div onclick="showStep('step2_dob')" style="color:var(--orange);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:12px;">← वापस जाएँ / Back</div>
         <p style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;">📅 DOB Limit Cross → Below 18 Years</p>
         <p style="font-size:12px;color:var(--gray);margin-bottom:14px;">कारण चुनें / Select Reason:</p>
-        <div onclick="showResult('DOB Limit Cross → Below 18 → Valid Document Submitted')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
+        <div onclick="showResult('below18_valid')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
           <div style="font-size:14px;font-weight:700;color:var(--navy);">1. पिछले DOB अपडेशन में वैध दस्तावेज़ जमा किया था</div>
           <div style="font-size:11px;color:var(--gray);margin-top:3px;">In previous DOB updation, valid document was submitted</div>
         </div>
-        <div onclick="showResult('DOB Limit Cross → Below 18 → Operator Error')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
+        <div onclick="showResult('below18_operator')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
           <div style="font-size:14px;font-weight:700;color:var(--navy);">2. ऑपरेटर की गलती</div>
           <div style="font-size:11px;color:var(--gray);margin-top:3px;">Operator Error</div>
         </div>
-        <div onclick="showResult('DOB Limit Cross → Below 18 → Fake/Non-Genuine Document')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
+        <div onclick="showResult('below18_fake')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
           <div style="font-size:14px;font-weight:700;color:var(--navy);">3. पिछले DOB अपडेशन में फर्जी दस्तावेज़ जमा किया था</div>
           <div style="font-size:11px;color:var(--gray);margin-top:3px;">In previous DOB updation, fake/non-genuine document was submitted</div>
         </div>
@@ -207,15 +207,15 @@
         <div onclick="showStep('step2_dob')" style="color:var(--orange);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:12px;">← वापस जाएँ / Back</div>
         <p style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;">📅 DOB Limit Cross → Above 18 Years</p>
         <p style="font-size:12px;color:var(--gray);margin-bottom:14px;">कारण चुनें / Select Reason:</p>
-        <div onclick="showResult('DOB Limit Cross → Above 18 → Valid Document Submitted')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
+        <div onclick="showResult('above18_valid')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
           <div style="font-size:14px;font-weight:700;color:var(--navy);">1. पिछले DOB अपडेशन में वैध दस्तावेज़ जमा किया था</div>
           <div style="font-size:11px;color:var(--gray);margin-top:3px;">In previous DOB updation, valid document was submitted</div>
         </div>
-        <div onclick="showResult('DOB Limit Cross → Above 18 → Operator Error')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
+        <div onclick="showResult('above18_operator')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
           <div style="font-size:14px;font-weight:700;color:var(--navy);">2. ऑपरेटर की गलती</div>
           <div style="font-size:11px;color:var(--gray);margin-top:3px;">Operator Error</div>
         </div>
-        <div onclick="showResult('DOB Limit Cross → Above 18 → Fake/Non-Genuine Document')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
+        <div onclick="showResult('above18_fake')" style="background:var(--off-white);border:2px solid var(--light-gray);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onmouseover="this.style.borderColor='#e8640a'" onmouseout="this.style.borderColor='var(--light-gray)'">
           <div style="font-size:14px;font-weight:700;color:var(--navy);">3. पिछले DOB अपडेशन में फर्जी दस्तावेज़ जमा किया था</div>
           <div style="font-size:11px;color:var(--gray);margin-top:3px;">In previous DOB updation, fake/non-genuine document was submitted</div>
         </div>
@@ -229,17 +229,14 @@
         <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20mera%20Aadhaar%20Name%20Limit%20Cross%20ho%20gaya%20hai.%20Help%20chahiye." style="display:inline-flex;align-items:center;gap:6px;padding:12px 24px;background:var(--green);color:white;border-radius:8px;text-decoration:none;font-size:14px;font-weight:700;">💬 WhatsApp — 88407 14094</a>
       </div>
 
-      <!-- Result -->
-      <div id="stepResult" style="display:none;">
+      <!-- Form Display -->
+      <div id="stepForm" style="display:none;">
         <div onclick="showStep('step1')" style="color:var(--orange);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:12px;">← शुरू से करें / Start Over</div>
-        <div style="text-align:center;padding:10px 0;">
-          <div style="font-size:40px;margin-bottom:10px;">✅</div>
-          <div style="font-size:16px;font-weight:800;color:var(--navy);margin-bottom:4px;">आपका चयन:</div>
-          <div id="resultText" style="font-size:13px;color:var(--gray);margin-bottom:16px;background:var(--off-white);padding:10px;border-radius:8px;"></div>
-          <p style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px;">इस सेवा के लिए हमसे संपर्क करें:</p>
-          <a href="" id="resultWhatsApp" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:var(--green);color:white;border-radius:8px;text-decoration:none;font-size:15px;font-weight:700;margin-bottom:8px;">💬 WhatsApp — 88407 14094</a>
-          <br>
-          <a href="tel:+918840714094" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:var(--orange);color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;margin-top:6px;">📞 Call करें</a>
+        <div id="formTitle" style="font-size:14px;font-weight:800;color:var(--navy);margin-bottom:10px;padding:8px 12px;background:var(--off-white);border-radius:6px;"></div>
+        <div id="formContent" style="font-size:14px;line-height:3;color:#222;border:1px solid #ccc;border-radius:8px;padding:24px;background:white;"></div>
+        <div style="display:flex;gap:10px;margin-top:14px;justify-content:center;flex-wrap:wrap;">
+          <button onclick="printForm()" style="padding:10px 24px;background:var(--navy);color:white;border:none;border-radius:8px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;">🖨️ Print Form</button>
+          <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20mujhe%20Aadhaar%20DOB%20Correction%20form%20bhrwana%20hai." style="padding:10px 24px;background:var(--green);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">💬 WhatsApp Help</a>
         </div>
       </div>
     </div>
@@ -248,7 +245,7 @@
 
 <script>
 function showStep(stepId) {
-  var allSteps = ['step1','step2_dob','step2_name','step3_dob_below18','step3_dob_above18','stepResult'];
+  var allSteps = ['step1','step2_dob','step2_name','step3_dob_below18','step3_dob_above18','stepForm'];
   allSteps.forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.style.display = 'none';
@@ -257,11 +254,175 @@ function showStep(stepId) {
   if (target) target.style.display = 'block';
 }
 
-function showResult(selection) {
-  showStep('stepResult');
-  document.getElementById('resultText').textContent = selection;
-  var msg = encodeURIComponent('Hello VISRO Consultancy, mujhe Aadhaar Correction chahiye.\n\nCategory: ' + selection + '\n\nPlease help.');
-  document.getElementById('resultWhatsApp').href = 'https://wa.me/918840714094?text=' + msg;
+var is='border:none;border-bottom:2px solid #333;background:#fffde7;font-family:inherit;font-size:13px;color:#000;padding:4px 6px;outline:none;border-radius:2px;';
+function I(ph,w){return '<input type="text" placeholder="'+ph+'" style="'+is+'min-width:'+(w||180)+'px;" class="form-inp">';}
+function IA(ph,w){return '<input type="text" placeholder="'+ph+'" maxlength="12" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,\'\')" style="'+is+'min-width:'+(w||160)+'px;letter-spacing:2px;" class="form-inp">';}
+function ID(ph){return '<input type="date" title="'+(ph||'')+'" style="'+is+'min-width:140px;" class="form-inp">';}
+// Bilingual label: shows Hindi on screen, hides in print
+function H(hi){return '<span class="hi-only" style="color:#888;font-size:11px;"> ('+hi+')</span>';}
+var sel1='<select style="'+is+'min-width:100px;" class="form-inp"><option value="">— choose —</option><option value="never">never</option><option value="once">once</option><option value="more than once">more than once</option></select>';
+var selSD='<select style="'+is+'min-width:60px;" class="form-inp"><option>S/o</option><option>D/o</option><option>W/o</option></select>';
+// Sign box with name auto-print space
+var sign='<div style="display:flex;gap:20px;margin-top:30px;"><div style="flex:1;text-align:center;"><div style="font-size:12px;color:#555;font-weight:700;">Date:<span class="hi-only"> / दिनांक</span></div>'+ID('')+'</div><div style="flex:1;text-align:center;"><div style="height:50px;"></div><div style="border-top:1.5px solid #333;padding-top:4px;"><div style="font-size:12px;color:#000;font-weight:700;">Name & Signature of Resident (Deponent)</div></div></div></div>';
+var signChild='<div style="display:flex;gap:20px;margin-top:30px;"><div style="flex:1;text-align:center;"><div style="font-size:12px;color:#555;font-weight:700;">Date:<span class="hi-only"> / दिनांक</span></div>'+ID('')+'</div><div style="flex:1;text-align:center;"><div style="height:50px;"></div><div style="border-top:1.5px solid #333;padding-top:4px;"><div style="font-size:12px;color:#000;font-weight:700;">Name & Signature of Parent/Guardian of Minor (Deponent)</div></div></div></div>';
+// Notary - no-print class
+var notary='<div class="no-print" style="font-size:11px;color:#555;font-style:italic;margin-top:14px;padding:8px;background:#f9f9f9;border-radius:4px;">(This affidavit may be signed and attested in presence of a Judicial Magistrate or Executive Magistrate/Notary Public)<br><span class="hi-only">(यह शपथ पत्र न्यायिक मजिस्ट्रेट या कार्यकारी मजिस्ट्रेट/नोटरी पब्लिक की उपस्थिति में हस्ताक्षरित और सत्यापित किया जाए)</span></div>';
+// Stamp paper instruction - no-print
+var stampNote='<div class="no-print" style="text-align:center;font-size:11px;color:#555;margin-bottom:16px;background:#fff3e0;padding:6px;border-radius:4px;">यह प्रारूप बच्चे के अभिभावक द्वारा भरा जाएगा जिसे ₹10 के स्टाम्प पेपर पर प्रिंट किया जाएगा<br>This form is to be filled by the guardian of the child and printed on Rs 10 stamp paper</div>';
+var stampNoteAdult='<div class="no-print" style="text-align:center;font-size:11px;color:#555;margin-bottom:16px;background:#fff3e0;padding:6px;border-radius:4px;">यह प्रारूप आवेदक द्वारा भरा जाएगा जिसे ₹10 के नॉन-ज्यूडिशियल स्टाम्प पेपर पर प्रिंट किया जाएगा<br>This form is to be filled by the applicant and printed on Rs 10 non-judicial stamp paper</div>';
+
+var FORMS = {
+  'above18_valid': {
+    title: 'Annexure-I (For Adults) — Affidavit for DOB Updation',
+    subtitle: 'वैध दस्तावेज़ जमा किया | Valid Document | Above 18 Years',
+    html: '<div style="text-align:center;font-size:16px;font-weight:800;margin-bottom:4px;">Annexure-I — For Adults<span class="hi-only"> / वयस्कों के लिए</span></div>'
+      +'<div style="text-align:center;font-size:13px;font-weight:700;margin-bottom:4px;">Affidavit for Date of Birth Updation<span class="hi-only"> / जन्मतिथि सुधार हेतु शपथ पत्र</span></div>'
+      +stampNoteAdult
+      +'<p>1. I,'+H("मैं")+' '+I("अपना पूरा नाम जो आधार पर लिखा है / Your Name as on Aadhaar")+' '+selSD+' '+I("अपने पिता/पति का नाम / Father/Husband Name")+', resident of'+H("निवासी")+' '+I("पूरा पता गाँव/मोहल्ला ब्लॉक जिला पिन कोड / Full Address with PIN",300)+', holding Aadhaar number'+H("आधार नंबर")+' '+IA("अपना 12 अंकों का आधार नंबर / Your 12-digit Aadhaar",160)+', do hereby solemnly affirm and declare as under:-</p>'
+      +'<p style="margin-left:20px;">i) That I am the resident of the above said address.'+H("मैं उपरोक्त पते का निवासी हूँ")+'</p>'
+      +'<p style="margin-left:20px;">ii) That my correct date of birth is'+H("मेरी सही जन्मतिथि")+' '+ID("सही जन्मतिथि चुनें")+'</p>'
+      +'<p style="margin-left:20px;">iii) That the earlier recorded date of birth in Aadhaar is'+H("आधार में दर्ज पुरानी जन्मतिथि")+' '+ID("आधार में पुरानी तारीख")+' based on'+H("के आधार पर")+' '+I("पहले जमा किए गए दस्तावेज़ का नाम जैसे Birth Certificate, School TC / Previous Document Name",250)+' document submitted by me.</p>'
+      +'<p style="margin-left:20px;">iv) That I have '+sel1+' updated my date of birth in Aadhaar.'+H("मैंने आधार में DOB अपडेट किया है")+'</p>'
+      +'<p style="margin-left:20px;">v) That currently a corrected version of the same document as mentioned in (iii) above / birth certificate (choose as applicable) is being provided in support of DoB update request.'+H("सही दस्तावेज़ DOB अपडेट के लिए दिया जा रहा है")+'</p>'
+      +'<p style="margin-left:20px;">vi) That I wish to get my date of birth updated in the Aadhaar as'+H("नई जन्मतिथि")+' '+ID("नई सही जन्मतिथि")+', for which I am submitting '+I("दस्तावेज़ का नाम जैसे Birth Certificate / Document Name",200)+' as proof of date of birth.</p>'
+      +'<p style="margin-left:20px;">vii) That I further undertake that I shall not be eligible for any further updation of my date of birth in Aadhaar.'+H("आगे DOB अपडेट नहीं होगी")+'</p>'
+      +'<p>2. I undertake that if the document submitted as proof of date of birth is found to be fraudulent/false/forged/non-genuine or I was not entitled for the said document, my Aadhaar number may be deactivated as per Regulation 28 of the Aadhaar (Enrolment and Update) Regulations, 2016 and I shall be liable to be prosecuted under provisions of the applicable law.'+H("फर्जी दस्तावेज़ पर आधार निष्क्रिय हो सकता है")+'</p>'
+      +'<p>3. I hereby declare that all the information mentioned above is true to the best of my knowledge. In case of any discrepancies, the undersigned will be held responsible.'+H("उपरोक्त जानकारी सत्य है")+'</p>'
+      +sign+notary
+  },
+  'below18_valid': {
+    title: 'Annexure-IA (For Children) — Affidavit for DOB Updation',
+    subtitle: 'वैध दस्तावेज़ जमा किया | Valid Document | Below 18 Years',
+    html: '<div style="text-align:center;font-size:16px;font-weight:800;margin-bottom:4px;">Annexure-IA — For Children<span class="hi-only"> / बच्चों के लिए</span></div>'
+      +'<div style="text-align:center;font-size:13px;font-weight:700;margin-bottom:4px;">Affidavit for Date of Birth Updation<span class="hi-only"> / जन्मतिथि सुधार हेतु शपथ पत्र</span></div>'
+      +stampNote
+      +'<p>1. I,'+H("मैं")+' '+I("अभिभावक का नाम जो आधार पर लिखा है / Guardian Name as on Aadhaar")+' '+selSD+' '+I("अभिभावक के पिता/पति का नाम / Guardian Father/Husband Name")+', resident of'+H("निवासी")+' '+I("पूरा पता गाँव/मोहल्ला ब्लॉक जिला पिन कोड / Full Address with PIN Code",300)+', holding Aadhaar number'+H("आधार नंबर")+' '+IA("अभिभावक का 12 अंकों का आधार नंबर / 12-digit Aadhaar",160)+', do hereby solemnly affirm and declare as under:-</p>'
+      +'<p>2. That I am the resident of the above said address.'+H("मैं उपरोक्त पते का निवासी हूँ")+'</p>'
+      +'<p style="margin-left:20px;">i) That I am parent/legal guardian of'+H("मैं अभिभावक हूँ")+' '+I("बच्चे का पूरा नाम / Child Full Name")+' holding Aadhaar number'+H("आधार नंबर")+' '+IA("बच्चे का 12 अंकों का आधार नंबर / Child Aadhaar No",160)+'</p>'
+      +'<p style="margin-left:20px;">ii) That correct date of birth of my child/ward is'+H("बच्चे की सही जन्मतिथि")+' '+ID("सही जन्मतिथि चुनें")+'</p>'
+      +'<p style="margin-left:20px;">iii) That the earlier recorded DOB in Aadhaar of my child/ward is'+H("आधार में दर्ज पुरानी जन्मतिथि")+' '+ID("आधार में दर्ज पुरानी तारीख")+' based on'+H("के आधार पर")+' '+I("पहले जमा किए गए दस्तावेज़ का नाम जैसे Birth Certificate, School TC / Previous Document Name",250)+' document submitted by me.</p>'
+      +'<p style="margin-left:20px;">iv) That I have '+sel1+' updated my child/ward date of birth in Aadhaar.'+H("मैंने बच्चे की जन्मतिथि आधार में अपडेट की है")+'</p>'
+      +'<p style="margin-left:20px;">v) That birth certificate of my child/ward is being provided in support of DoB update request.'+H("बच्चे का जन्म प्रमाणपत्र DOB अपडेट के लिए दिया जा रहा है")+'</p>'
+      +'<p style="margin-left:20px;">vi) That I wish to get my child/ward date of birth updated in the Aadhaar as'+H("नई जन्मतिथि")+' '+ID("नई सही जन्मतिथि चुनें")+', for which I am submitting his/her birth certificate as proof of date of birth.</p>'
+      +'<p style="margin-left:20px;">vii) That I further undertake that my child/ward shall not be eligible for any further updation of date of birth in Aadhaar.'+H("बच्चे की जन्मतिथि आगे अपडेट नहीं होगी")+'</p>'
+      +'<p>3. I undertake that if the document submitted as proof of date of birth is found to be fraudulent/false/forged/non-genuine or my child/ward was not entitled for the said document, the Aadhaar number of my child/ward may be deactivated as per Regulation 28 of the Aadhaar (Enrolment and Update) Regulations, 2016 and I shall be liable to be prosecuted under provisions of the applicable law.'+H("यदि दस्तावेज़ फर्जी पाया गया तो आधार निष्क्रिय किया जा सकता है")+'</p>'
+      +'<p>4. I hereby declare that all the information mentioned above is true to the best of my knowledge. In case of any discrepancies, the undersigned will be held responsible.'+H("उपरोक्त जानकारी सत्य है")+'</p>'
+      +signChild+notary
+  },
+  'above18_operator': {
+    title: 'Annexure-II (For Adults) — Operator Error',
+    subtitle: 'ऑपरेटर की गलती | Operator Error | Above 18 Years',
+    html: '<div style="text-align:center;font-size:16px;font-weight:800;margin-bottom:4px;">Annexure-II — For Adults / वयस्कों के लिए</div>'
+      +'<div style="text-align:center;font-size:13px;font-weight:700;margin-bottom:16px;">Operator Mistake / ऑपरेटर की गलती से DOB सुधार</div>'
+      +'<p>1. I / मैं, '+selSD+' '+I("अपना पूरा नाम / Your Full Name")+', resident of / निवासी '+I("पूरा पता / Full Address",250)+', holding Aadhaar number '+IA("12 अंकों का आधार नंबर / 12-digit Aadhaar",150)+', do hereby solemnly affirm and declare as under:-</p>'
+      +'<p style="margin-left:20px;">i) That I am the resident of the above said address.</p>'
+      +'<p style="margin-left:20px;">ii) That I had earlier submitted a valid document — / मैंने पहले वैध दस्तावेज़ जमा किया था '+I("दस्तावेज़ का नाम जैसे: Birth Certificate",200)+', bearing number / नंबर '+I("दस्तावेज़ नंबर",120)+', dated / दिनांक '+ID("दस्तावेज़ की तारीख")+' while enrolment/update through EID number / EID नंबर '+I("EID नंबर",120)+', as proof of date of birth.</p>'
+      +'<p style="margin-left:20px;">iii) That DOB was incorrectly mentioned as / आधार में गलत जन्मतिथि दर्ज है '+ID("आधार में गलत DOB")+', while the correct DOB in document was / दस्तावेज़ में सही DOB '+ID("दस्तावेज़ में सही DOB")+', which is indeed my correct date of birth.</p>'
+      +'<p style="margin-left:20px;">iv) That I do not have possession of earlier submitted document / the document is no longer valid. (choose applicable)</p>'
+      +'<p>2. I request UIDAI to update my DOB based on previously submitted valid document.</p>'
+      +'<p>3. I undertake that if earlier document is found fraudulent, my Aadhaar may be deactivated as per Regulation 28.</p>'
+      +'<p>4. I declare all information is true to the best of my knowledge.</p>'
+      +sign
+  },
+  'below18_operator': {
+    title: 'Annexure-IIA (For Children) — Operator Error',
+    subtitle: 'ऑपरेटर की गलती | Operator Error | Below 18 Years',
+    html: '<div style="text-align:center;font-size:16px;font-weight:800;margin-bottom:4px;">Annexure-IIA — For Children<span class="hi-only"> / बच्चों के लिए</span></div>'
+      +'<div style="text-align:center;font-size:13px;font-weight:700;margin-bottom:4px;">Affidavit for DOB Correction — Operator Mistake<span class="hi-only"> / ऑपरेटर की गलती से DOB सुधार</span></div>'
+      +stampNote
+      +'<p>1. I,'+H("मैं")+' '+I("अभिभावक का नाम जो आधार पर लिखा है / Guardian Name as on Aadhaar")+' '+selSD+' '+I("अभिभावक के पिता/पति का नाम / Guardian Father/Husband Name")+', resident of'+H("निवासी")+' '+I("पूरा पता गाँव/मोहल्ला ब्लॉक जिला पिन कोड / Full Address with PIN",300)+', holding Aadhaar No'+H("आधार नंबर")+' '+IA("अभिभावक का 12 अंकों का आधार नंबर / 12-digit Aadhaar",160)+', do hereby solemnly affirm and declare as under:-</p>'
+      +'<p style="margin-left:20px;">i) That I am the resident of the above said address.'+H("मैं उपरोक्त पते का निवासी हूँ")+'</p>'
+      +'<p style="margin-left:20px;">ii) That I am parent/legal guardian of'+H("मैं अभिभावक हूँ")+' '+I("बच्चे का पूरा नाम / Child Full Name")+' holding Aadhaar No'+H("आधार नंबर")+' '+IA("बच्चे का 12 अंकों का आधार नंबर / Child Aadhaar",160)+'</p>'
+      +'<p style="margin-left:20px;">iii) That I had earlier submitted a valid document —'+H("मैंने पहले वैध दस्तावेज़ जमा किया था")+' '+I("पहले जमा किए गए दस्तावेज़ का नाम जैसे Birth Certificate / Previous Document Name",250)+', bearing number'+H("नंबर")+' '+I("दस्तावेज़ नंबर / Document Number",130)+', dated'+H("दिनांक")+' '+ID("दस्तावेज़ की तारीख")+' while enrolment/update through EID number'+H("EID नंबर")+' '+I("EID नंबर / EID Number",130)+', as proof of date of birth for updating date of birth of my child/ward in Aadhaar.</p>'
+      +'<p style="margin-left:20px;">iv) That the date of birth of my child/ward was wrongly mentioned as'+H("आधार में गलत जन्मतिथि दर्ज है")+' '+ID("आधार में दर्ज गलत DOB")+' in Aadhaar, while the date of birth mentioned in the submitted valid document was'+H("दस्तावेज़ में सही जन्मतिथि")+' '+ID("दस्तावेज़ में सही DOB")+', which is indeed the correct date of birth of my child/ward.</p>'
+      +'<p style="margin-left:20px;">v) That I do not have possession of earlier submitted proof of date of birth document / the document then submitted is no longer a valid proof of date of birth. (choose applicable)'+H("पहले जमा किया गया दस्तावेज़ मेरे पास नहीं है / वह दस्तावेज़ अब मान्य नहीं है")+'</p>'
+      +'<p>2. I request UIDAI to update date of birth of my child/ward based on previously submitted and then valid proof of date of birth document.'+H("मैं UIDAI से अनुरोध करता/करती हूँ कि पहले जमा किए गए दस्तावेज़ के आधार पर बच्चे की DOB अपडेट करें")+'</p>'
+      +'<p>3. I undertake that if the earlier document submitted as proof of date of birth is found to be fraudulent/false/forged/non-genuine or my child/ward was not entitled for the said document, Aadhaar number of my child/ward may be deactivated as per Regulation 28 of the Aadhaar (Enrolment and Update) Regulations, 2016.'+H("फर्जी दस्तावेज़ पर आधार निष्क्रिय हो सकता है")+'</p>'
+      +'<p>4. I hereby declare that all the information mentioned above is true to the best of my knowledge. In case of any discrepancies if arises, the undersigned will be held responsible.'+H("उपरोक्त जानकारी सत्य है")+'</p>'
+      +signChild
+  },
+  'above18_fake': {
+    title: 'Annexure-III (For Adults) — Reactivation of Aadhaar',
+    subtitle: 'फर्जी दस्तावेज़ | Fake Document | Above 18 Years',
+    html: '<div style="text-align:center;font-size:16px;font-weight:800;margin-bottom:4px;">Annexure-III — For Adults / वयस्कों के लिए</div>'
+      +'<div style="text-align:center;font-size:13px;font-weight:700;margin-bottom:4px;">Affidavit for Reactivation of Aadhaar / आधार पुनः सक्रिय करने हेतु शपथ पत्र</div>'
+      +'<div style="text-align:center;font-size:11px;color:#555;margin-bottom:16px;">(₹10 के नॉन-ज्यूडिशियल स्टाम्प पेपर पर प्रिंट करें)</div>'
+      +'<p>1. I / मैं, '+selSD+' '+I("अपना पूरा नाम / Your Full Name")+', resident of / निवासी '+I("पूरा पता / Full Address",250)+', holding Aadhaar number '+IA("12 अंकों का आधार नंबर / 12-digit Aadhaar",150)+', do hereby solemnly affirm and declare as under:-</p>'
+      +'<p style="margin-left:20px;">i) That I am resident of the above said address.</p>'
+      +'<p style="margin-left:20px;">ii) That I had earlier submitted an invalid document — / मैंने पहले अमान्य दस्तावेज़ जमा किया था '+I("दस्तावेज़ का नाम",200)+', bearing number / नंबर '+I("दस्तावेज़ नंबर",120)+', dated / दिनांक '+ID("दस्तावेज़ तारीख")+' and provided false information, while enrolment/update through EID number '+I("EID नंबर",120)+', as proof of date of birth.</p>'
+      +'<p style="margin-left:20px;">iii) That I understand and accept that submission of invalid document is a violation of law / मैं समझता/समझती हूँ कि अमान्य दस्तावेज़ जमा करना कानून का उल्लंघन है।</p>'
+      +'<p style="margin-left:20px;">iv) That I sincerely regret this act and tenders an unconditional apology / मुझे इस गलती पर पछतावा है और मैं बिना शर्त क्षमा माँगता/माँगती हूँ।</p>'
+      +'<p style="margin-left:20px;">v) That I humbly request UIDAI to kindly reactivate my Aadhaar / मैं UIDAI से अनुरोध करता/करती हूँ कि मेरा आधार पुनः सक्रिय किया जाए।</p>'
+      +'<p style="margin-left:20px;">vi) That I undertake to submit only genuine, correct and verifiable proof of DOB / मैं केवल सही और सत्यापन योग्य दस्तावेज़ जमा करूँगा/करूँगी।</p>'
+      +'<p style="margin-left:20px;">vii) That I shall not be eligible for any further DOB updation in Aadhaar.</p>'
+      +'<p>2. I undertake that if document is found fraudulent again, my Aadhaar may be deactivated as per Regulation 28.</p>'
+      +'<p>3. I declare all information is true to the best of my knowledge.</p>'
+      +sign+notary
+  },
+  'below18_fake': {
+    title: 'Annexure-IIIA (For Children) — Reactivation of Aadhaar',
+    subtitle: 'फर्जी दस्तावेज़ | Fake Document | Below 18 Years',
+    html: '<div style="text-align:center;font-size:16px;font-weight:800;margin-bottom:4px;">Annexure-IIIA — For Children<span class="hi-only"> / बच्चों के लिए</span></div>'
+      +'<div style="text-align:center;font-size:13px;font-weight:700;margin-bottom:4px;">Affidavit for Reactivation of Aadhaar<span class="hi-only"> / आधार पुनः सक्रिय करने हेतु शपथ पत्र</span></div>'
+      +stampNote
+      +'<p>1. I,'+H("मैं")+' '+I("अभिभावक का नाम जो आधार पर लिखा है / Guardian Name as on Aadhaar")+' '+selSD+' '+I("अभिभावक के पिता/पति का नाम / Guardian Father/Husband Name")+', resident of'+H("निवासी")+' '+I("पूरा पता गाँव/मोहल्ला ब्लॉक जिला पिन कोड / Full Address with PIN",300)+', holding Aadhaar number'+H("आधार नंबर")+' '+IA("अभिभावक का 12 अंकों का आधार नंबर / 12-digit Aadhaar",160)+', do hereby solemnly affirm and declare as under:-</p>'
+      +'<p style="margin-left:20px;">i) That I am resident of the above said address.'+H("मैं उपरोक्त पते का निवासी हूँ")+'</p>'
+      +'<p style="margin-left:20px;">ii) That I am parent/legal guardian of'+H("मैं अभिभावक हूँ")+' '+I("बच्चे का पूरा नाम / Child Full Name")+' holding Aadhaar No'+H("आधार नंबर")+' '+IA("बच्चे का 12 अंकों का आधार नंबर / Child Aadhaar",160)+'</p>'
+      +'<p style="margin-left:20px;">iii) That I had earlier submitted an invalid document —'+H("मैंने पहले अमान्य दस्तावेज़ जमा किया था")+' '+I("पहले जमा किए गए अमान्य दस्तावेज़ का नाम / Invalid Document Name",250)+', bearing number'+H("नंबर")+' '+I("दस्तावेज़ नंबर / Document Number",130)+', dated'+H("दिनांक")+' '+ID("दस्तावेज़ की तारीख")+' or provided false information, while enrolment/update through EID number'+H("EID नंबर")+' '+I("EID नंबर / EID Number",130)+' as proof of date of birth of my child/ward.</p>'
+      +'<p style="margin-left:20px;">iv) That I understand and accept that submission of such invalid document and false information is a violation of law and legal action may be taken against me for the same under Aadhaar Act and/or any other applicable laws.'+H("मैं समझता/समझती हूँ कि अमान्य दस्तावेज़ जमा करना कानून का उल्लंघन है और मेरे खिलाफ कार्रवाई हो सकती है")+'</p>'
+      +'<p style="margin-left:20px;">v) That I sincerely regret this act and tenders an unconditional apology and ensures that such mistake shall not be repeated.'+H("मुझे इस गलती पर पछतावा है और मैं बिना शर्त क्षमा माँगता/माँगती हूँ। ऐसी गलती दोबारा नहीं होगी")+'</p>'
+      +'<p style="margin-left:20px;">vi) That I humbly seek pardon and request UIDAI to kindly reactivate my child/ward Aadhaar number'+H("आधार नंबर")+' '+IA("बच्चे का 12 अंकों का आधार नंबर / Child 12-digit Aadhaar",160)+' to enable its continued usage.'+H("मैं UIDAI से विनम्र अनुरोध करता/करती हूँ कि बच्चे का आधार पुनः सक्रिय किया जाए")+'</p>'
+      +'<p style="margin-left:20px;">vii) That I undertake to submit only genuine, correct and verifiable proof of date of birth document'+H("दस्तावेज़ का नाम")+' '+I("दस्तावेज़ का नाम जैसे Birth Certificate / Document Name",220)+' in support of my request to reactivate my child/ward Aadhaar.'+H("मैं केवल सही और सत्यापन योग्य दस्तावेज़ जमा करूँगा/करूँगी")+'</p>'
+      +'<p style="margin-left:20px;">viii) That I further undertake that my child/ward shall not be eligible for any further updation of date of birth in Aadhaar.'+H("बच्चे की जन्मतिथि आगे अपडेट नहीं होगी")+'</p>'
+      +'<p>2. I undertake that if the document submitted as proof of date of birth is found to be fraudulent/false/forged/non-genuine or my child/ward was not entitled for the same, Aadhaar number of my child/ward may again be deactivated as per Regulation 28 of the Aadhaar (Enrolment and Update) Regulations, 2016 and I shall be liable to be prosecuted under provisions of the applicable laws.'+H("फर्जी दस्तावेज़ पर बच्चे का आधार फिर से निष्क्रिय हो सकता है")+'</p>'
+      +'<p>3. I hereby declare that all the information mentioned above is true to the best of my knowledge. In case of any discrepancies if arises, the undersigned will be held responsible.'+H("उपरोक्त जानकारी सत्य है")+'</p>'
+      +signChild+notary
+  }
+};
+
+function showResult(formId) {
+  showStep('stepForm');
+  var form = FORMS[formId];
+  document.getElementById('formTitle').innerHTML = '<div style="font-size:13px;font-weight:800;">'+form.title+'</div><div style="font-size:11px;color:var(--orange);">'+form.subtitle+'</div>';
+  document.getElementById('formContent').innerHTML = form.html;
+  document.getElementById('correctionModal').scrollTop = 0;
+}
+
+function printForm() {
+  // First: set all input values as attributes so innerHTML captures them
+  var fc = document.getElementById('formContent');
+  fc.querySelectorAll('input').forEach(function(inp){
+    inp.setAttribute('value', inp.value);
+  });
+  fc.querySelectorAll('select').forEach(function(sel){
+    // Set selected attribute on chosen option
+    for(var i=0;i<sel.options.length;i++){
+      sel.options[i].removeAttribute('selected');
+      if(sel.options[i].value === sel.value || sel.selectedIndex === i){
+        sel.options[i].setAttribute('selected','selected');
+      }
+    }
+  });
+  var content = fc.innerHTML;
+  var w = window.open('','_blank','width=800,height=600');
+  w.document.write('<!DOCTYPE html><html><head><title> </title><style>'
+    +'@page{size:A4 portrait;margin:25mm 14mm 12mm 14mm;marks:none;}'
+    +'@page:first{margin-top:170mm;}'
+    +'html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}'
+    +'body{font-family:Arial,sans-serif;font-size:11px;line-height:1.6;color:#000;margin:0;padding:0 4px;}'
+    +'p{margin:3px 0;}'
+    +'div[style*="text-align:center"]{margin-bottom:2px !important;}'
+    +'div[style*="font-size:16px"]{font-size:13px !important;}'
+    +'div[style*="font-size:13px"]{font-size:11px !important;}'
+    +'input,select{border:none;border-bottom:1px solid #333;background:transparent;font-family:inherit;font-size:11px;font-weight:700;min-width:120px;padding:1px 3px;color:#000;}'
+    +'input[type="date"]{min-width:110px;}'
+    +'div[style*="margin-top:30px"]{margin-top:12px !important;}'
+    +'div[style*="height:50px"]{height:25px !important;}'
+    +'.hi-only{display:none !important;}'
+    +'.no-print{display:none !important;}'
+    +'</style></head><body>'+content+'</body></html>');
+  w.document.close();
+  setTimeout(function(){w.print();},500);
 }
 </script>
 </body>
