@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CM Awas Yojana Application / सीएम आवास योजना आवेदन | VISRO Consultancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="up-locations.js"></script>
+<script src="dob-picker.js"></script>
+<script src="awas-payment.js"></script>
+<style>
+  :root { --navy: #0d1b3e; --orange: #e8640a; --green: #22c55e; --off-white: #f4f6fb; --gray: #64748b; --light-gray: #e2e8f0; --border: #B0C4DE; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans Devanagari', 'Sora', sans-serif; color: var(--navy); background: var(--off-white); line-height: 1.6; font-size: 14px; }
+  .back-bar { max-width: 860px; margin: 0 auto; padding: 12px 20px 0; display: flex; gap: 10px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; }
+  .page { max-width: 860px; margin: 12px auto 40px; background: white; border-radius: 10px; box-shadow: 0 4px 24px rgba(13,27,62,0.10); overflow: hidden; }
+  .header { background: var(--navy); color: white; padding: 20px 28px; text-align: center; }
+  .header h1 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+  .header .sub { font-size: 12px; opacity: 0.7; }
+  .form-body { padding: 24px 28px 36px; }
+  .section { margin-bottom: 20px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .section-title { background: var(--navy); color: white; padding: 8px 14px; font-size: 14px; font-weight: 700; }
+  .section-content { padding: 16px; background: #F8FBFF; }
+  .row { display: flex; gap: 14px; margin-bottom: 12px; flex-wrap: wrap; }
+  .field { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 4px; }
+  .field label { font-size: 12px; color: var(--gray); font-weight: 600; }
+  .field input, .field select, .field textarea { border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; font-family: inherit; font-size: 13px; color: var(--navy); background: white; outline: none; width: 100%; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--orange); }
+  .field textarea { resize: vertical; min-height: 60px; }
+  .checkbox-row { display: flex; align-items: center; gap: 8px; margin: 10px 0; font-size: 13px; }
+  .checkbox-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--orange); }
+  .member-card { background: white; border: 1px solid var(--light-gray); border-radius: 8px; padding: 14px; margin-bottom: 10px; }
+  .member-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .member-num { background: var(--orange); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+  .btn-remove { background: #e74c3c; color: white; border: none; border-radius: 6px; padding: 4px 12px; font-size: 11px; font-weight: 700; cursor: pointer; }
+  .btn-add { background: var(--green); color: white; border: none; border-radius: 8px; padding: 10px 20px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; margin: 10px 0; }
+  .btn-submit { width: 100%; padding: 14px; border-radius: 10px; border: none; background: var(--orange); color: white; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+  .btn-submit:hover { background: #f07a28; }
+
+  /* Preview */
+  .preview-box { background: white; border: 2px solid var(--navy); border-radius: 8px; padding: 28px; margin-top: 20px; display: none; font-size: 14px; line-height: 2; }
+  .preview-box h3 { text-align: center; margin-bottom: 10px; }
+  .preview-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 12px; }
+  .preview-table th { background: var(--navy); color: white; padding: 6px 8px; text-align: left; font-size: 11px; }
+  .preview-table td { padding: 6px 8px; border: 1px solid var(--light-gray); font-size: 12px; }
+  .print-btns { display: flex; gap: 10px; margin-top: 14px; justify-content: center; flex-wrap: wrap; }
+  .print-btns button { padding: 10px 24px; border-radius: 8px; border: none; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+  .footer { background: var(--navy); color: rgba(255,255,255,0.6); text-align: center; padding: 14px; font-size: 11px; }
+
+  @media (max-width: 600px) { .row { flex-direction: column; gap: 8px; } .field { min-width: 100%; } .form-body { padding: 16px; } .preview-box { padding: 16px; font-size: 13px; } }
+
+  @media print {
+    body { background: white; font-size: 13px; }
+    .back-bar, .header, .form-body, .footer, .print-btns, .no-print { display: none !important; }
+    .page { box-shadow: none; margin: 0; max-width: 100%; border-radius: 0; }
+    .preview-box { display: block !important; border: none; padding: 10px 16px; line-height: 1.7; font-size: 12px; }
+    .preview-box * { color: #000 !important; font-weight: 700 !important; }
+    .preview-box div[style*="line-height"] { line-height: 1.7 !important; }
+    .preview-table { font-size: 11px !important; }
+    .preview-table td, .preview-table th { padding: 4px 6px !important; }
+    .preview-table th { background: #333 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    @page { size: A4; margin: 12mm 15mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="back-bar">
+  <a href="cm-awas.html" class="back-btn">← CM Awas Yojana</a>
+  <a href="index.html" class="back-btn" style="background:var(--navy);">🏠 Home</a>
+</div>
+
+<div class="page">
+  <div class="header">
+    <h1>📝 CM आवास योजना (ग्रामीण) — आवेदन पत्र</h1>
+    <div class="sub">Application to खंड विकास अधिकारी (Block Development Officer)</div>
+  </div>
+
+  <div class="form-body" id="formSection">
+
+    <!-- 1. Applicant Details -->
+    <div class="section">
+      <div class="section-title">📋 आवेदक का विवरण / Applicant Details</div>
+      <div class="section-content">
+        <div class="row">
+          <div class="field"><label>आवेदक (मुखिया) का नाम <span style="color:#c0392b">*</span></label><input type="text" id="app_name" placeholder="परिवार के मुखिया का पूरा नाम"></div>
+          <div class="field" style="max-width:130px;"><label>संबंध <span style="color:#c0392b">*</span></label><select id="app_rel"><option>पुत्र / S/o</option><option>पुत्री / D/o</option><option>पत्नी / W/o</option></select></div>
+          <div class="field"><label>पिता / पति का नाम <span style="color:#c0392b">*</span></label><input type="text" id="app_father" placeholder="पिता या पति का पूरा नाम"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>जन्मतिथि (DOB)</label><input type="date" id="app_dob" max="2030-12-31" min="1900-01-01" onchange="calcAge()" class="dob-picker" data-placeholder="जन्मतिथि चुनें (DOB)"></div>
+          <div class="field" style="max-width:100px;"><label>उम्र <span style="color:#c0392b">*</span></label><input type="number" id="app_age" placeholder="वर्ष" min="0" max="120"></div>
+          <div class="field"><label>जाति <span style="color:#c0392b">*</span></label><select id="app_caste"><option value="">— जाति चुनें —</option><option>सामान्य (General)</option><option>अन्य पिछड़ा वर्ग (OBC)</option><option>अनुसूचित जाति (SC)</option><option>अनुसूचित जनजाति (ST)</option></select></div>
+          <div class="field"><label>आधार नंबर <span style="color:#c0392b">*</span></label><input type="text" id="app_aadhaar" maxlength="12" placeholder="12 अंकों का आधार नंबर" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'').substring(0,12)"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>मोबाइल नंबर <span style="color:#c0392b">*</span></label><input type="text" id="app_mobile" maxlength="10" placeholder="10 अंकों का मोबाइल नंबर" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'').substring(0,10)"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bank Details -->
+    <div class="section">
+      <div class="section-title">🏦 बैंक खाता विवरण / Bank Account Details</div>
+      <div class="section-content">
+        <div class="row">
+          <div class="field"><label>बैंक का नाम <span style="color:#c0392b">*</span></label>
+            <select id="app_bank_name" onchange="setBankLimit()">
+              <option value="">— बैंक चुनें —</option>
+              <option value="State Bank of India (SBI)">State Bank of India (SBI)</option>
+              <option value="Bank of Baroda (BOB)">Bank of Baroda (BOB)</option>
+              <option value="Punjab National Bank (PNB)">Punjab National Bank (PNB)</option>
+              <option value="Union Bank of India">Union Bank of India</option>
+              <option value="Central Bank of India">Central Bank of India</option>
+              <option value="Indian Bank">Indian Bank</option>
+              <option value="Bank of India (BOI)">Bank of India (BOI)</option>
+              <option value="Canara Bank">Canara Bank</option>
+              <option value="Indian Overseas Bank (IOB)">Indian Overseas Bank (IOB)</option>
+              <option value="UCO Bank">UCO Bank</option>
+              <option value="Bank of Maharashtra">Bank of Maharashtra</option>
+              <option value="Punjab & Sind Bank">Punjab & Sind Bank</option>
+              <option value="HDFC Bank">HDFC Bank</option>
+              <option value="ICICI Bank">ICICI Bank</option>
+              <option value="Axis Bank">Axis Bank</option>
+              <option value="Kotak Mahindra Bank">Kotak Mahindra Bank</option>
+              <option value="IDBI Bank">IDBI Bank</option>
+              <option value="IndusInd Bank">IndusInd Bank</option>
+              <option value="Yes Bank">Yes Bank</option>
+              <option value="Bandhan Bank">Bandhan Bank</option>
+              <option value="Post Office (India Post)">Post Office (India Post)</option>
+              <option value="Gramin Bank / RRB">Gramin Bank / RRB</option>
+              <option value="अन्य (Other)">अन्य (Other)</option>
+            </select>
+          </div>
+          <div class="field"><label>शाखा (Branch)</label><input type="text" id="app_branch" placeholder="जैसे: मुसाफ़िरखाना"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>IFSC Code <span style="color:#c0392b">*</span></label><input type="text" id="app_ifsc" placeholder="जैसे: SBIN0012345" maxlength="11" style="text-transform:uppercase;" oninput="this.value=this.value.replace(/[^A-Za-z0-9]/g,'').toUpperCase().substring(0,11)"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>खाता संख्या (Account Number) <span style="color:#c0392b">*</span></label><input type="text" id="app_bank_ac" placeholder="खाता नंबर दर्ज करें" inputmode="numeric" oninput="var ml=this.maxLength||18; this.value=this.value.replace(/[^0-9]/g,'').substring(0,ml);" maxlength="18"><div id="acLimitNote" style="font-size:10px; color:var(--gray); margin-top:2px;"></div></div>
+          <div class="field"><label>खाता संख्या पुनः दर्ज करें (Confirm) <span style="color:#c0392b">*</span></label><input type="text" id="app_bank_ac2" placeholder="खाता नंबर दोबारा दर्ज करें" inputmode="numeric" oninput="var ml=this.maxLength||18; this.value=this.value.replace(/[^0-9]/g,'').substring(0,ml); checkAcMatch();" maxlength="18"><div id="acMatchMsg" style="font-size:11px; margin-top:2px;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Address -->
+    <div class="section">
+      <div class="section-title">📍 पता विवरण / Address Details</div>
+      <div class="section-content">
+        <div class="row">
+          <div class="field"><label>जनपद (जिला) <span style="color:#c0392b">*</span></label><select id="app_district" onchange="loadBlocks()"><option value="">— जिला चुनें —</option></select></div>
+          <div class="field"><label>विकासखण्ड (ब्लॉक) <span style="color:#c0392b">*</span></label><select id="app_block" onchange="loadGPs()" disabled><option value="">— पहले जिला चुनें —</option></select></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>ग्राम पंचायत <span style="color:#c0392b">*</span></label><select id="app_gp" disabled><option value="">— पहले ब्लॉक चुनें —</option></select></div>
+          <div class="field"><label>ग्राम / मोहल्ला <span style="color:#c0392b">*</span></label><input type="text" id="app_village" placeholder="गाँव या मोहल्ला का नाम"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Eligibility Category -->
+    <div class="section">
+      <div class="section-title">✅ पात्रता श्रेणी / Eligibility Category</div>
+      <div class="section-content">
+        <div class="field"><label>आप किस श्रेणी में आते हैं? <span style="color:#c0392b">*</span></label>
+          <select id="app_category">
+            <option value="">— श्रेणी चुनें —</option>
+            <option>बेघर / कच्चा-टूटा मकान</option>
+            <option>आपदा प्रभावित (बाढ़ / भूकम्प / आग)</option>
+            <option>गरीब विधवा महिला (18-50 वर्ष)</option>
+            <option>गरीब विकलांग व्यक्ति</option>
+            <option>घुमंतू जनजाति</option>
+            <option>गम्भीर बीमारी से पीड़ित</option>
+            <option>अन्य (Other)</option>
+          </select>
+        </div>
+        <div class="row" style="margin-top:12px;">
+          <div class="field"><label>वर्तमान मकान की स्थिति</label>
+            <select id="app_house_status">
+              <option value="">— चुनें —</option>
+              <option>कोई मकान नहीं (बेघर)</option>
+              <option>कच्चा मकान</option>
+              <option>टूटा-फूटा / जीर्ण-शीर्ण मकान</option>
+              <option>1 कमरे का कच्चा मकान</option>
+              <option>आपदा में क्षतिग्रस्त</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Family Members -->
+    <div class="section">
+      <div class="section-title">👨‍👩‍👧‍👦 परिवार के सदस्य / Family Members</div>
+      <div class="section-content">
+        <div id="membersContainer"></div>
+        <button class="btn-add" onclick="addMember()">➕ सदस्य जोड़ें</button>
+      </div>
+    </div>
+
+    <!-- 5. Land Details -->
+    <div class="section">
+      <div class="section-title">🏗️ भूमि / ज़मीन का विवरण</div>
+      <div class="section-content">
+        <div class="row">
+          <div class="field"><label>क्या ज़मीन उपलब्ध है? <span style="color:#c0392b">*</span></label>
+            <select id="app_land">
+              <option value="">— चुनें —</option>
+              <option>हाँ — अपनी ज़मीन है</option>
+              <option>हाँ — सरकारी आवंटित ज़मीन</option>
+              <option>नहीं — ज़मीन नहीं है</option>
+            </select>
+          </div>
+          <div class="field"><label>भूमि का प्रकार <span style="color:#c0392b">*</span></label>
+            <select id="app_land_type" onchange="toggleGata()">
+              <option value="">— चुनें —</option>
+              <option value="आबादी">आबादी (Abadi)</option>
+              <option value="कृषि / खेती">कृषि / खेती (Agricultural)</option>
+              <option value="सरकारी आवंटित">सरकारी आवंटित (Govt. Allotted)</option>
+              <option value="अन्य">अन्य (Other)</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field"><label>राजस्व गाँव (Revenue Village)</label><input type="text" id="app_rev_village" placeholder="राजस्व गाँव का नाम"></div>
+          <div class="field" id="gataField"><label>गाटा संख्या / खसरा नंबर</label><input type="text" id="app_khasra" placeholder="जैसे: 123/4"></div>
+        </div>
+        <div id="abadiNote" style="display:none; font-size:12px; color:var(--green); background:#f0fdf4; border-left:3px solid var(--green); padding:8px 12px; border-radius:0 6px 6px 0; margin-top:4px;">
+          ℹ️ आबादी भूमि पर गाटा संख्या लिखने की आवश्यकता नहीं है।
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Declaration -->
+    <div class="section">
+      <div class="section-title">📜 घोषणा / Declaration</div>
+      <div class="section-content">
+        <div class="checkbox-row">
+          <input type="checkbox" id="decl1">
+          <label for="decl1">मैं / मेरे परिवार ने पहले किसी सरकारी आवास योजना (PM Awas / CM Awas / IAY) का लाभ नहीं लिया है।</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="decl2">
+          <label for="decl2">मेरे पास या मेरे परिवार के किसी सदस्य के पास पक्का मकान नहीं है।</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="decl3">
+          <label for="decl3">मेरे द्वारा दी गई सभी जानकारी सत्य है। गलत पाए जाने पर कार्रवाई की जा सकती है।</label>
+        </div>
+        <div class="row" style="margin-top:14px;">
+          <div class="field"><label>दिनांक <span style="color:#c0392b">*</span></label><input type="date" id="app_date"></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-submit" onclick="showPreview()">📄 आवेदन पत्र देखें (Preview)</button>
+  </div>
+
+  <!-- Preview -->
+  <div class="preview-box" id="previewBox">
+    <div id="previewContent"></div>
+    <div class="print-btns no-print">
+      <button onclick="document.getElementById('previewBox').style.display='none'; document.getElementById('formSection').style.display='block';" style="background:var(--navy); color:white;">✏️ Edit Form</button>
+      <button onclick="showPaymentGate('form', printPreview)" style="background:var(--green); color:white;">🖨️ Print / PDF — ₹29</button>
+    </div>
+  </div>
+
+  <div class="footer">VISRO Consultancy | Gomtinagar Vistar, Lucknow, UP | visroconsultancy.netlify.app</div>
+</div>
+
+<script>
+// UP Blocks data for all districts (same as family-register-new.html)
+var UP_ALL_BLOCKS = {
+  'Agra':['Achhnera','Akola','Bah','Baroli Ahir','Etmadpur','Fatehabad','Fatehpur Sikri','Jaitpur Kalan','Khandauli','Kheragarh','Pinahat','Sayian','Shamsabad','Shamshabad','Saiyan'],
+  'Aligarh':['Atrauli','Bijauli','Chandaus','Dhanipur','Gangiri','Gonda','Iglas','Jawan Sikandarpur','Khair','Lodha','Tappal'],
+  'Ambedkar Nagar':['Akbarpur','Alapur','Baskhari','Bhiti','Jalalpur','Katehari','Ramnagar','Tanda'],
+  'Amethi (अमेठी)':['अमेठी (Amethi)','बहादुरपुर (Bahadurpur)','भदर (Bhadar)','भेटुआ (Bhetua)','गौरीगंज (Gauriganj)','जगदीशपुर (Jagdishpur)','जामो (Jamo)','मुसाफिरखाना (Musafirkhana)','संग्रामपुर (Sangrampur)','शाहगढ़ (Shahgarh)','शुक्ल बाज़ार (Shukul Bazar)','सिंहपुर (Singhpur)','तिलोई (Tiloi)'],
+  'Amroha':['Amroha','Dhanaura','Gajraula','Hasanpur','Joya','Naugawan Sadat'],
+  'Auraiya':['Achhalda','Auraiya','Bhagyanagar','Bidhuna','Erwan','Sahar'],
+  'Ayodhya':['Bikapur','Goshainganj','Inayatpur','Maya Bazar','Milkipur','Rudauli','Sohawal','Tarun'],
+  'Azamgarh':['Atraulia','Azamgarh','Haraiya','Koilsa','Lalganj','Martinganj','Mehnagar','Mohammadpur','Phulpur','Sagri','Tahbarpur','Tarwa'],
+  'Baghpat':['Baghpat','Baraut','Binauli','Chhaprauli','Khekra','Pilana','Singhawali Ahir'],
+  'Bahraich':['Bahraich','Balha','Chitaura','Fakharpur','Huzoorpur','Jarwal','Kaiserganj','Mahasi','Mihinpurwa','Nanpara','Nawabganj','Payagpur','Risia','Shivpur','Tejwapur','Visheshwarganj'],
+  'Ballia':['Bairiya','Ballia','Bansdih','Belhari','Chilkahar','Dubhar','Garwar','Hanumanganj','Maniar','Nagra','Pandah','Rasra','Reoti','Sikandarpur','Siar','Sohaon'],
+  'Balrampur':['Balrampur','Gaindas Bujurg','Harraiya Satgharwa','Pachpedwa','Rehra Bazar','Shriduttganj','Tulsipur','Utraula'],
+  'Banda':['Atarra','Baberu','Badokhar Khurd','Banda','Bisanda','Jaspura','Kamasin','Mahua','Naraini','Tindwari'],
+  'Barabanki':['Banki','Barabanki','Dewa','Fatehpur','Haidergarh','Harakh','Masauli','Nindura','Pure Dalai','Ram Sanehi Ghat','Sirauli Gauspur','Suratganj','Trivediganj'],
+  'Bareilly':['Aonla','Baheri','Bhamora','Bithari Chainpur','Dalel Nagar','Faridpur','Kyara','Meerganj','Mirganj','Nawabganj','Ramnagar','Richha','Shergarh'],
+  'Basti':['Basti','Bahadurpur','Bankati','Dubauliya','Gaur','Harraiya','Kaptanganj','Kudarha','Parasrampur','Ramnagar','Rudhauli','Salhani','Vikramjot'],
+  'Bhadohi':['Aurai','Bhadohi','Deegh','Gyanpur','Suriyawan'],
+  'Bijnor':['Afzalgarh','Chandpur','Dhampur','Haldaur','Jalilpur','Kotwali','Mandawar','Mohammedpur','Nagina','Najibabad','Noorpur','Seohara'],
+  'Budaun':['Ambiapur','Bisauli','Budaun','Dataganj','Gunnaur','Islamnagar','Jagat','Kakrala','Mion','Sahswan','Samrer','Salarpur','Ujhani','Usawan','Wazirganj'],
+  'Bulandshahr':['Agauta','Anupshahar','Araniya','Bulandshahr','Danpur','Debai','Gulaothi','Jahangirabad','Khurja','Lakhaoti','Pahasu','Shikarpur','Siana','Sikandrabad','Syana'],
+  'Chandauli':['Barhani','Chakiya','Chandauli','Dhanapur','Naugarh','Niyamatabad','Sahabganj','Sakaldiha'],
+  'Chitrakoot':['Karwi','Mau','Manikpur','Pahadi','Ramnagar'],
+  'Deoria':['Baitalpur','Bankata','Barhaj','Bhatni','Bhatpar Rani','Deoria','Desai Deoria','Gauri Bazar','Lar','Pathardeva','Rampur Karkhana','Rudrapur','Salempur','Tarkulwa'],
+  'Etah':['Aliganj','Awagarh','Etah','Jalesar','Kasganj','Mare','Nidhauli Kalan','Sakeet','Sheetalpur'],
+  'Etawah':['Basrehar','Barhpura','Bharthana','Chakarnagar','Etawah','Jaswantnagar','Lakhna','Mahewa','Saifai','Takha'],
+  'Farrukhabad':['Amritpur','Farrukhabad','Kaimganj','Kamalganj','Mohammadabad','Nawabganj','Rajepur','Shamshabad'],
+  'Fatehpur':['Amauli','Bahua','Bhitaura','Bindki','Dhata','Gajipur','Hathgram','Hussainganj','Jahanabad','Khaga','Malwan','Teliyani','Vijaipur'],
+  'Firozabad':['Eka','Firozabad','Hathwant','Jasrana','Narkhi','Shikohabad','Tundla'],
+  'Gautam Buddha Nagar':['Bisrakh','Dadri','Dankaur','Jewar','Rabupura'],
+  'Ghaziabad':['Bhojpur','Dhaulana','Ghaziabad','Loni','Modinagar','Muradnagar','Razapur'],
+  'Ghazipur':['Bhadaura','Birno','Deokali','Ghazipur','Jakhanian','Karanda','Mardah','Mohammadabad','Muhammdabad','Sadat','Saidpur','Zamania'],
+  'Gonda':['Colonelganj','Haldharmau','Karnailganj','Katra Bazar','Mankapur','Nawabganj','Paraspur','Tarabganj','Wazirganj'],
+  'Gorakhpur':['Bansgar','Bansgaon','Belghat','Brahmpur','Campierganj','Chauri Chaura','Chargawan','Gola','Jungle Kaudia','Khorabar','Khajni','Pali','Pipraich','Piprauli','Sardar Nagar','Shahjanwa','Uruwa Bazar'],
+  'Hamirpur':['Gohand','Hamirpur','Kurara','Maudaha','Muskara','Rath','Sarila','Sumerpur'],
+  'Hapur':['Dhaulana','Garhmukteshwar','Hapur','Pilkhuwa','Simbhaoli'],
+  'Hardoi':['Ahirori','Baawan','Beniganj','Bharkhani','Bilgram','Gopamau','Hardoi','Kachhauna','Kothawan','Madhoganj','Mallawan','Pali','Pihani','Sandila','Shahabad','Sandi','Sursa','Tandiyawan','Tondarpur'],
+  'Hathras':['Hasayan','Hathras','Mursan','Sadabad','Sasni','Sehpau','Sikandra Rao'],
+  'Jalaun':['Dakor','Jalaun','Kadaura','Konch','Kuthaund','Madhogarh','Maheba','Nadigaon','Orai','Rampura'],
+  'Jaunpur':['Badlapur','Baksha','Barsathi','Dharmapur','Jaunpur','Karakat','Khuthan','Machhali Shahar','Maharajganj','Mariahu','Muftiganj','Mungra Badshahpur','Ramnagar','Ram Nagar','Shahganj','Sirkoni','Suithakalan'],
+  'Jhansi':['Babina','Bamour','Bangra','Chirgaon','Garautha','Gursarai','Jhansi','Karera','Mauranipur','Moth','Sipri'],
+  'Kannauj':['Chhibramau','Gugrapur','Jalalabad','Kannauj','Saurikh','Tirwa','Umarda'],
+  'Kanpur Dehat':['Akbarpur','Amraudha','Bhognipur','Derapur','Ghatampur','Jhinjhak','Kalyanpur','Maitha','Rasoolabad','Sandalpur','Sarbankhera','Sikandra'],
+  'Kanpur Nagar':['Bhitargaon','Bilhaur','Chaubepur','Ghatampur','Kakwan','Kalyanpur','Sarsaul','Shivrajpur'],
+  'Kasganj':['Amanpur','Ganj Dundwara','Kasganj','Patiyali','Sahawar','Soron'],
+  'Kaushambi':['Chail','Kara','Kaushambi','Manjhanpur','Mooratganj','Newada','Saini','Sirathu'],
+  'Kheri':['Behjam','Dhaurahara','Gola','Isanagar','Kumbhi','Lakhimpur','Mitauli','Mohammadi','Nighasan','Oel','Palia','Pasgawan','Phoolbehar','Ramia Behar','Srinagar'],
+  'Kushinagar':['Dudahi','Fazilnagar','Hata','Kaptanganj','Kasia','Kushinagar','Motichak','Nebua Naurangia','Padrauna','Ramkola','Seorahi','Sukrauli','Tamkuhi Raj','Vishunpura'],
+  'Lalitpur':['Bar','Birdha','Jakhaura','Lalitpur','Madawara','Maharoni','Mehrauni','Pali','Talbehat'],
+  'Lucknow':['Bakshi Ka Talab','Chinhat','Gosainganj','Kakori','Lucknow','Mal','Malihabad','Mohanlalganj','Nagram','Sarojini Nagar'],
+  'Maharajganj':['Bridgemanganj','Ghughuli','Kolhui','Laxmipur','Maharajganj','Mithaura','Nautanwa','Nichlaul','Paniyara','Partawal','Pharenda','Siswa Bazar'],
+  'Mahoba':['Charkhari','Jaitpur','Kabrai','Kulpahar','Mahoba','Panwari','Srinagar'],
+  'Mainpuri':['Barnahal','Bhogaon','Ghiror','Jagir','Karhal','Kishni','Kurawali','Mainpuri','Sultanpur'],
+  'Mathura':['Baldeo','Chata','Chhata','Farah','Govardhan','Mant','Mat','Mathura','Naujheel','Raya','Sonai'],
+  'Mau':['Doharighat','Fatehpur Mandaw','Ghosi','Kopaganj','Madhuban','Mohammadabad Gohna','Pardaha','Ratanpura'],
+  'Meerut':['Daurala','Hastinapur','Jani Khurd','Kharkhoda','Machra','Mawana','Meerut','Parikshitgarh','Rajpura','Rohta','Sardhana','Sarurpur Khurd'],
+  'Mirzapur':['Chunar','Hallia','Jamalpur','Lalganj','Madihan','Marihan','Mirzapur','Narayanpur','Patehra','Rajgarh','Shikhar'],
+  'Moradabad':['Bilari','Chhajlet','Chandausi','Dilari','Kundarki','Moradabad','Mundha Pande','Thakurdwara'],
+  'Muzaffarnagar':['Baghra','Budhana','Charthawal','Jansath','Khatauli','Morna','Muzaffarnagar','Purkazi','Shahpur','Un'],
+  'Pilibhit':['Amariya','Barkhera','Bilsanda','Bisalpur','Lalaurikhera','Madhotanda','Marori','Pilibhit','Puranpur'],
+  'Pratapgarh':['Babaganj','Bela','Gaura','Kalakankar','Kunda','Lalganj','Mandhata','Manikpur','Patti','Pratapgarh','Raniganj','Sangipur','Shivgarh'],
+  'Prayagraj':['Bahria','Bara','Chaka','Dhanupur','Handia','Holagarh','Jasra','Karchana','Kaudhiyara','Kaundhiara','Koraon','Mauaima','Meja','Phulpur','Pratappur','Saidabad','Shankargarh','Soraon','Sringverpur','Uruwan'],
+  'Rae Bareli':['Bachhrawan','Dalmau','Deeh','Harchandpur','Jagatpur','Khiron','Lalganj','Maharajganj','Marwan','Parasadepur','Rae Bareli','Rahi','Salon','Sareni','Shivgarh','Tiloi','Unchahar'],
+  'Rampur':['Bilaspur','Chamraua','Milak','Rampur','Shahabad','Suar','Tanda'],
+  'Saharanpur':['Behat','Deoband','Gangoh','Muzaffarabad','Nagal','Nakur','Rampur Maniharan','Saharanpur','Sarsawa'],
+  'Sambhal':['Asmoli','Bahjoi','Baniyakhera','Chandausi','Gunnaur','Junawai','Panwasa','Rajpura','Sambhal'],
+  'Sant Kabir Nagar':['Baghauli','Belhar Kalan','Dhanghata','Hainsar Bazar','Khalilabad','Mehdawal','Nath Nagar','Santha'],
+  'Shahjahanpur':['Bhawal Khera','Dadrol','Jaitipur','Jalalabad','Kant','Katra','Khutar','Mirzapur','Nigohi','Powayan','Shahjahanpur','Tilhar'],
+  'Shamli':['Jhinjhana','Kairana','Kandhla','Shamli','Thana Bhawan','Un'],
+  'Shravasti':['Bhinga','Gilaula','Hariharpur Rani','Ikauna','Jamunha','Malhihaan','Nayagaon','Patherwa','Shravasti','Sirsiya'],
+  'Siddharthnagar':['Bansi','Bhanwapur','Birdpur','Domariyaganj','Itwa','Jogia','Khesraha','Khuniyaon','Lotan','Mithwal','Naugarh','Shohratgarh','Uska Bazar'],
+  'Sitapur':['Aimma','Behta','Biswan','Gondlamau','Hargaon','Kasmanda','Khairabad','Laharpur','Macchrehta','Mahmoodabad','Misrikh','Parsendi','Pisawan','Ramkot','Reusa','Sakran','Sidhauli','Sitapur','Tambour'],
+  'Sonbhadra':['Babhani','Chopan','Duddhi','Ghorawal','Myorpur','Nagwa','Obra','Robertsganj'],
+  'Sultanpur':['Akhandnagar','Baldirai','Bhadaiya','Dhanpatganj','Dostpur','Dubeypur','Jaisinghpur','Kadipur','Kardiha','Kurebhar','Lambhua','Motigarpur','Musafirkhana','Sultanpur'],
+  'Unnao':['Asoha','Bangarmau','Bichhiya','Fatehpur Chaurasi','Ganj Moradabad','Hasanganj','Hilowli','Miyaganj','Nawabganj','Purwa','Safipur','Sumerpur','Unnao'],
+  'Varanasi':['Arajiline','Baragaon','Chiraigaon','Cholapur','Harahua','Kashi Vidyapeeth','Pindra','Sewapuri']
+};
+
+// ── DOB to Age ──
+function calcAge() {
+  var dob = document.getElementById('app_dob').value;
+  if (!dob) return;
+  var birth = new Date(dob);
+  var today = new Date();
+  var age = today.getFullYear() - birth.getFullYear();
+  var m = today.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+  document.getElementById('app_age').value = age;
+}
+
+// ── Populate Districts ──
+document.addEventListener('DOMContentLoaded', function() {
+  var distSel = document.getElementById('app_district');
+  var districts = Object.keys(UP_ALL_BLOCKS).sort();
+  districts.forEach(function(d) {
+    // For Amethi key "Amethi (अमेठी)" — display as "अमेठी (Amethi)" (Hindi first)
+    var label = d;
+    if (d.indexOf('Amethi') !== -1 && d.indexOf('अमेठी') !== -1) {
+      label = 'अमेठी (Amethi)';
+    }
+    distSel.add(new Option(label, d));
+  });
+  // Set today's date
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('app_date').value = today;
+
+  // Restrict year to 4 digits on all date inputs
+  document.addEventListener('input', function(e) {
+    if (e.target.type === 'date' && e.target.value) {
+      var parts = e.target.value.split('-');
+      if (parts[0] && parts[0].length > 4) {
+        e.target.value = parts[0].substring(0,4) + '-' + (parts[1]||'01') + '-' + (parts[2]||'01');
+      }
+    }
+  });
+  // Add first member
+  addMember();
+});
+
+function loadBlocks() {
+  var dist = document.getElementById('app_district').value;
+  var blkSel = document.getElementById('app_block');
+  var gpSel = document.getElementById('app_gp');
+  blkSel.innerHTML = '<option value="">— ब्लॉक चुनें —</option>';
+  gpSel.innerHTML = '<option value="">— पहले ब्लॉक चुनें —</option>';
+  blkSel.disabled = true;
+  gpSel.disabled = true;
+  if (!dist) return;
+  var blocks = UP_ALL_BLOCKS[dist] || [];
+  blocks.forEach(function(b) { blkSel.add(new Option(b, b)); });
+  if (blocks.length) blkSel.disabled = false;
+}
+
+function loadGPs() {
+  var gpSel = document.getElementById('app_gp');
+  gpSel.innerHTML = '<option value="">— ग्राम पंचायत चुनें —</option>';
+  gpSel.disabled = true;
+  var blkVal = document.getElementById('app_block').value;
+  var distVal = document.getElementById('app_district').value;
+  if (!blkVal || !distVal) return;
+  // Extract English names for UP_GPS lookup
+  var distEn = distVal.split('(')[0].trim().split(' ')[0].trim();
+  if (!distEn || /[\u0900-\u097F]/.test(distEn)) { var m=distVal.match(/\(([A-Za-z\s]+)\)/); distEn=m?m[1].trim():distVal; }
+  var blkEn = blkVal.match(/\(([A-Za-z\s]+)\)/);
+  blkEn = blkEn ? blkEn[1].trim() : blkVal.split('(')[0].trim();
+  // Try various key formats for UP_GPS
+  if (typeof UP_GPS === 'undefined') return;
+  var keys = [
+    distEn + '-' + distEn + '-' + blkEn,
+    'Amethi-Amethi-' + blkEn,
+    'Amethi-Gauriganj-' + blkEn,
+    'Amethi-Musafirkhana-' + blkEn,
+    'Amethi-Tiloi-' + blkEn
+  ];
+  for (var i = 0; i < keys.length; i++) {
+    if (UP_GPS[keys[i]]) {
+      gpSel.disabled = false;
+      UP_GPS[keys[i]].forEach(function(g) { gpSel.add(new Option(g, g)); });
+      return;
+    }
+  }
+  // Try partial match
+  for (var key in UP_GPS) {
+    if (key.indexOf(blkEn) !== -1) {
+      gpSel.disabled = false;
+      UP_GPS[key].forEach(function(g) { gpSel.add(new Option(g, g)); });
+      return;
+    }
+  }
+}
+
+// ── Member DOB to Age ──
+function calcMemberAge(dobInput) {
+  var dob = dobInput.value;
+  if (!dob) return;
+  var birth = new Date(dob);
+  var today = new Date();
+  var age = today.getFullYear() - birth.getFullYear();
+  var m = today.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+  var card = dobInput.closest('.member-card');
+  if (card) card.querySelector('.m_age').value = age;
+}
+
+// ── Bank Account Limit per Bank ──
+function setBankLimit() {
+  var bank = document.getElementById('app_bank_name').value;
+  var ac1 = document.getElementById('app_bank_ac');
+  var ac2 = document.getElementById('app_bank_ac2');
+  var note = document.getElementById('acLimitNote');
+  var limits = {
+    'State Bank of India (SBI)': {min:11, max:11, note:'SBI: 11 अंक'},
+    'Bank of Baroda (BOB)': {min:14, max:14, note:'BOB: 14 अंक'},
+    'Punjab National Bank (PNB)': {min:16, max:16, note:'PNB: 16 अंक'},
+    'Union Bank of India': {min:14, max:15, note:'Union Bank: 14-15 अंक'},
+    'Central Bank of India': {min:10, max:10, note:'Central Bank: 10 अंक'},
+    'Indian Bank': {min:9, max:17, note:'Indian Bank: 9-17 अंक'},
+    'Bank of India (BOI)': {min:15, max:15, note:'BOI: 15 अंक'},
+    'Canara Bank': {min:13, max:13, note:'Canara Bank: 13 अंक'},
+    'Indian Overseas Bank (IOB)': {min:15, max:15, note:'IOB: 15 अंक'},
+    'UCO Bank': {min:14, max:14, note:'UCO Bank: 14 अंक'},
+    'Bank of Maharashtra': {min:11, max:11, note:'Bank of Maharashtra: 11 अंक'},
+    'Punjab & Sind Bank': {min:14, max:14, note:'Punjab & Sind: 14 अंक'},
+    'HDFC Bank': {min:14, max:14, note:'HDFC: 14 अंक'},
+    'ICICI Bank': {min:12, max:12, note:'ICICI: 12 अंक'},
+    'Axis Bank': {min:15, max:15, note:'Axis: 15 अंक'},
+    'Kotak Mahindra Bank': {min:14, max:14, note:'Kotak: 14 अंक'},
+    'IDBI Bank': {min:13, max:16, note:'IDBI: 13-16 अंक'},
+    'IndusInd Bank': {min:14, max:14, note:'IndusInd: 14 अंक'},
+    'Yes Bank': {min:15, max:15, note:'Yes Bank: 15 अंक'},
+    'Bandhan Bank': {min:12, max:15, note:'Bandhan: 12-15 अंक'},
+    'Post Office (India Post)': {min:11, max:16, note:'Post Office: 11-16 अंक'},
+    'Gramin Bank / RRB': {min:9, max:16, note:'Gramin Bank: 9-16 अंक'}
+  };
+  var info = limits[bank];
+  if (info) {
+    ac1.maxLength = info.max;
+    ac2.maxLength = info.max;
+    note.textContent = info.note;
+    note.style.color = 'var(--orange)';
+  } else {
+    ac1.maxLength = 18;
+    ac2.maxLength = 18;
+    note.textContent = 'अधिकतम 18 अंक';
+    note.style.color = 'var(--gray)';
+  }
+  ac1.value = '';
+  ac2.value = '';
+  document.getElementById('acMatchMsg').textContent = '';
+}
+
+// ── Account Number Match Check ──
+function checkAcMatch() {
+  var ac1 = document.getElementById('app_bank_ac').value;
+  var ac2 = document.getElementById('app_bank_ac2').value;
+  var msg = document.getElementById('acMatchMsg');
+  if (!ac2) { msg.textContent = ''; return; }
+  if (ac1 === ac2) {
+    msg.textContent = '✅ खाता नंबर मेल खाता है';
+    msg.style.color = 'var(--green)';
+  } else {
+    msg.textContent = '❌ खाता नंबर मेल नहीं खाता';
+    msg.style.color = '#e74c3c';
+  }
+}
+
+// ── Land Type Toggle ──
+function toggleGata() {
+  var landType = document.getElementById('app_land_type').value;
+  var gataField = document.getElementById('gataField');
+  var abadiNote = document.getElementById('abadiNote');
+  if (landType === 'आबादी') {
+    gataField.style.display = 'none';
+    abadiNote.style.display = 'block';
+    document.getElementById('app_khasra').value = '';
+  } else {
+    gataField.style.display = 'flex';
+    abadiNote.style.display = 'none';
+  }
+}
+
+// ── Family Members ──
+var memberCount = 0;
+function addMember() {
+  memberCount++;
+  var c = document.createElement('div');
+  c.className = 'member-card';
+  c.id = 'member_' + memberCount;
+  c.innerHTML = '<div class="member-header"><div style="display:flex;align-items:center;gap:8px;"><div class="member-num">' + memberCount + '</div><strong>सदस्य ' + memberCount + '</strong></div>' + (memberCount > 1 ? '<button class="btn-remove" onclick="removeMember(\'' + c.id + '\')">✕ हटाएँ</button>' : '') + '</div>' +
+    '<div class="row"><div class="field"><label>नाम</label><input class="m_name" placeholder="सदस्य का पूरा नाम"></div>' +
+    '<div class="field" style="max-width:130px;"><label>संबंध</label><select class="m_rel"><option>मुखिया</option><option>पत्नी</option><option>पुत्र</option><option>पुत्री</option><option>पिता</option><option>माता</option><option>भाई</option><option>बहन</option><option>पुत्रवधू</option><option>पोता</option><option>पोती</option><option>अन्य</option></select></div>' +
+    '<div class="field" style="max-width:80px;"><label>लिंग</label><select class="m_gender"><option>पुरुष</option><option>महिला</option><option>अन्य</option></select></div></div>' +
+    '<div class="row"><div class="field"><label>जन्मतिथि (DOB)</label><input class="m_dob" type="date" max="2030-12-31" min="1900-01-01" onchange="calcMemberAge(this)" data-placeholder="जन्मतिथि चुनें"></div>' +
+    '<div class="field" style="max-width:80px;"><label>उम्र</label><input class="m_age" type="number" placeholder="वर्ष" min="0" max="120"></div>' +
+    '<div class="field"><label>आधार नंबर</label><input class="m_aadhaar" maxlength="12" placeholder="12 अंकों का आधार" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').substring(0,12)"></div></div>';
+  document.getElementById('membersContainer').appendChild(c);
+  // Init DOB picker for new member
+  var mDobInput = c.querySelector('.m_dob');
+  if (mDobInput && window.initDobPicker) initDobPicker(mDobInput);
+}
+function removeMember(id) {
+  document.getElementById(id).remove();
+  // Renumber
+  var cards = document.querySelectorAll('#membersContainer .member-card');
+  cards.forEach(function(c, i) {
+    c.querySelector('.member-num').textContent = i + 1;
+    c.querySelector('strong').textContent = 'सदस्य ' + (i + 1);
+  });
+  memberCount = cards.length;
+}
+
+// ── Preview ──
+function showPreview() {
+  var name = document.getElementById('app_name').value.trim();
+  var rel = document.getElementById('app_rel').value;
+  var father = document.getElementById('app_father').value.trim();
+  var age = document.getElementById('app_age').value;
+  var dob = document.getElementById('app_dob').value;
+  var dobStr = '';
+  if (dob) { var dd = new Date(dob); dobStr = dd.getDate().toString().padStart(2,'0') + '/' + (dd.getMonth()+1).toString().padStart(2,'0') + '/' + dd.getFullYear(); }
+  var caste = document.getElementById('app_caste').value;
+  var aadhaar = document.getElementById('app_aadhaar').value;
+  var mobile = document.getElementById('app_mobile').value;
+  var bankAc = document.getElementById('app_bank_ac').value;
+  var bankAc2 = document.getElementById('app_bank_ac2').value;
+  var bankName = document.getElementById('app_bank_name').value;
+  var branch = document.getElementById('app_branch').value;
+  var ifsc = document.getElementById('app_ifsc').value;
+  // Validate account match
+  if (bankAc && bankAc2 && bankAc !== bankAc2) { alert('⚠️ खाता संख्या मेल नहीं खाती! कृपया दोबारा जाँचें।'); return; }
+  var district = document.getElementById('app_district').value;
+  var block = document.getElementById('app_block').value;
+  var gp = document.getElementById('app_gp').value;
+  var village = document.getElementById('app_village').value.trim();
+  var category = document.getElementById('app_category').value;
+  var houseStatus = document.getElementById('app_house_status').value;
+  var land = document.getElementById('app_land').value;
+  var landType = document.getElementById('app_land_type').value;
+  var revVillage = document.getElementById('app_rev_village').value.trim();
+  var khasra = document.getElementById('app_khasra').value;
+  var appDate = document.getElementById('app_date').value;
+
+  if (!name || !father || !district || !block || !village || !category) {
+    alert('कृपया सभी अनिवार्य (*) फ़ील्ड भरें।'); return;
+  }
+
+  // Format date
+  var dateStr = '';
+  if (appDate) {
+    var d = new Date(appDate);
+    dateStr = d.getDate().toString().padStart(2,'0') + '/' + (d.getMonth()+1).toString().padStart(2,'0') + '/' + d.getFullYear();
+  }
+
+  // Collect members
+  var members = [];
+  document.querySelectorAll('#membersContainer .member-card').forEach(function(card) {
+    var mDob = card.querySelector('.m_dob').value;
+    var mDobStr = '';
+    if (mDob) { var md = new Date(mDob); mDobStr = md.getDate().toString().padStart(2,'0') + '/' + (md.getMonth()+1).toString().padStart(2,'0') + '/' + md.getFullYear(); }
+    members.push({
+      name: card.querySelector('.m_name').value.trim(),
+      rel: card.querySelector('.m_rel').value,
+      dob: mDobStr,
+      age: card.querySelector('.m_age').value,
+      gender: card.querySelector('.m_gender').value,
+      aadhaar: card.querySelector('.m_aadhaar').value
+    });
+  });
+
+  var relText = rel.split('/')[0].trim();
+  var fullAddr = 'ग्राम — ' + village + ', ग्राम पंचायत — ' + gp + ', विकासखण्ड — ' + block + ', जनपद — ' + district;
+
+  // Get display district name
+  var distDisplay = district;
+  var distOpt = document.getElementById('app_district');
+  if (distOpt.selectedIndex > 0) distDisplay = distOpt.options[distOpt.selectedIndex].text;
+
+  // Build preview — matching photo format
+  var html = '';
+  html += '<div style="line-height:1.9;">';
+
+  // ── Category header (top-right corner) ──
+  html += '<div style="text-align:right; margin-bottom:8px;"><span style="background:#0d1b3e; color:white; font-size:14px; font-weight:800; padding:6px 16px; border-radius:6px; display:inline-block;">श्रेणी: ' + (category || '—') + '</span></div>';
+
+  // ── सेवा में ──
+  html += '<strong>सेवा में,</strong><br>';
+  html += '&emsp;&emsp;<strong>खंड विकास अधिकारी</strong><br>';
+  html += '&emsp;&emsp;विकासखण्ड— <strong>' + (block || '___________') + '</strong><br>';
+  html += '&emsp;&emsp;जनपद — <strong>' + (distDisplay || '___________') + '</strong><br>';
+
+  // ── विषय ──
+  html += '<strong>विषय— मुख्यमंत्री आवास योजना अंतर्गत पक्का आवास निर्माण हेतु माँग पत्र /आवेदन पत्र।</strong><br><br>';
+
+  // ── महोदय ──
+  html += '<strong>महोदय,</strong><br>';
+  html += '&emsp;&emsp;सविनय निवेदन है कि मैं <strong>' + name + '</strong> ' + relText + ' <strong>' + father + '</strong>, उम्र <strong>' + (age || '____') + ' वर्ष</strong>, जाति— <strong>' + (caste || '____') + '</strong>, निवासी ग्राम <strong>' + village + '</strong>, ग्राम पंचायत—<strong>' + (gp || '____') + '</strong>, विकासखण्ड —<strong>' + (block || '____') + '</strong> जनपद <strong>' + (distDisplay || '____') + '</strong> का मूल निवासी हूँ। प्रार्थी अत्यंत गरीब व्यक्ति है जिसके पास अपना स्वयं का मकान बनाने की क्षमता नहीं है।<br>';
+
+  // ── Para 2 — आर्थिक स्थिति ──
+  html += '&emsp;&emsp;मेरे परिवार की आर्थिक स्थिति अत्यंत कमजोर है। मेरे पास अपना स्वयं का पक्का मकान बनाने की क्षमता नहीं है जिसके कारण प्रार्थी के परिवार को जीवन यापन करने में अत्यंत कठिनाई का सामना करना पड़ रहा है।<br>';
+
+  // ── Para 3 — निवेदन ──
+  html += '&emsp;&emsp;आपसे विनम्र निवेदन है कि मेरी स्थिति को देखते हुए मुझे मुख्यमंत्री आवास योजना का लाभ प्रदान किया जाए जिससे मैं अपने परिवार के लिए पक्का मकान बना सकूँ।<br>';
+
+  // ── Para 4 — आभार ──
+  html += '&emsp;&emsp;मुझे आवास का लाभ प्रदान किया जाता है तो मैं सदैव आपका और माननीय मुख्यमंत्री जी का जीवनभर आभारी रहूँगा।<br><br>';
+
+  // ── व्यक्तिगत विवरण ──
+  html += '<strong>मेरा व्यक्तिगत विवरण निम्नानुसार है —</strong><br><br>';
+
+  // Applicant info table
+  html += '<table class="preview-table">';
+  html += '<tr><td style="width:35%;"><strong>आवेदक का नाम:</strong></td><td>' + name + '</td></tr>';
+  html += '<tr><td><strong>' + relText + ' का नाम:</strong></td><td>' + father + '</td></tr>';
+  html += '<tr><td><strong>जन्मतिथि:</strong></td><td>' + (dobStr || '—') + '</td></tr>';
+  html += '<tr><td><strong>उम्र:</strong></td><td>' + (age || '—') + ' वर्ष</td></tr>';
+  html += '<tr><td><strong>जाति:</strong></td><td>' + (caste || '—') + '</td></tr>';
+  html += '<tr><td><strong>आधार नंबर:</strong></td><td>' + (aadhaar || '—') + '</td></tr>';
+  html += '<tr><td><strong>मोबाइल नंबर:</strong></td><td>' + (mobile || '—') + '</td></tr>';
+  html += '<tr><td><strong>पता:</strong></td><td>ग्राम — ' + village + ', ग्राम पंचायत — ' + (gp || '—') + ', विकासखण्ड — ' + (block || '—') + ', जनपद — ' + (distDisplay || '—') + '</td></tr>';
+  html += '<tr style="background:#fff3e8;"><td><strong>पात्रता श्रेणी:</strong></td><td><strong style="font-size:14px; color:#e8640a;">' + (category || '—') + '</strong></td></tr>';
+  html += '<tr><td><strong>वर्तमान मकान स्थिति:</strong></td><td>' + (houseStatus || '—') + '</td></tr>';
+  if (bankAc) {
+    html += '<tr><td><strong>बैंक का नाम:</strong></td><td>' + bankName + (branch ? ', शाखा — ' + branch : '') + '</td></tr>';
+    html += '<tr><td><strong>IFSC Code:</strong></td><td>' + (ifsc || '—') + '</td></tr>';
+    html += '<tr><td><strong>खाता संख्या:</strong></td><td>' + bankAc + '</td></tr>';
+  }
+  html += '<tr><td><strong>भूमि उपलब्धता:</strong></td><td>' + (land || '—') + '</td></tr>';
+  html += '<tr><td><strong>भूमि का प्रकार:</strong></td><td>' + (landType || '—') + '</td></tr>';
+  if (revVillage) {
+    html += '<tr><td><strong>राजस्व गाँव:</strong></td><td>' + revVillage + '</td></tr>';
+  }
+  if (landType !== 'आबादी' && khasra) {
+    html += '<tr><td><strong>गाटा/खसरा संख्या:</strong></td><td>' + khasra + '</td></tr>';
+  }
+  html += '</table>';
+
+  // Family members table
+  if (members.length > 0 && members[0].name) {
+    html += '<div style="page-break-before:always;"></div>';
+    html += '<strong>परिवार के सदस्यों का विवरण:</strong><br>';
+    html += '<table class="preview-table">';
+    html += '<tr><th>क्र.</th><th>नाम</th><th>संबंध</th><th>जन्मतिथि</th><th>उम्र</th><th>लिंग</th><th>आधार</th></tr>';
+    members.forEach(function(m, i) {
+      if (m.name) {
+        html += '<tr><td>' + (i+1) + '</td><td>' + m.name + '</td><td>' + m.rel + '</td><td>' + (m.dob || '—') + '</td><td>' + (m.age || '—') + '</td><td>' + m.gender + '</td><td>' + (m.aadhaar || '—') + '</td></tr>';
+      }
+    });
+    html += '</table>';
+  }
+
+  // ── संलग्न दस्तावेज़ ──
+  html += '<br><strong>संलग्न दस्तावेज़:</strong><br>';
+  html += '1. आधार कार्ड की छायाप्रति<br>';
+  html += '2. राशन कार्ड / BPL कार्ड की छायाप्रति<br>';
+  html += '3. बैंक पासबुक की छायाप्रति<br>';
+  html += '4. पासपोर्ट साइज़ फोटो<br>';
+  if (land && land.indexOf('हाँ') !== -1) {
+    if (landType === 'आबादी') {
+      html += '5. भूमि सम्बंधी कागज़ात — आबादी भूमि' + (revVillage ? ', राजस्व गाँव — ' + revVillage : '') + '<br>';
+    } else {
+      html += '5. भूमि सम्बंधी कागज़ात (खसरा/खतौनी)' + (revVillage ? ' — राजस्व गाँव: ' + revVillage : '') + (khasra ? ', गाटा नं. ' + khasra : '') + '<br>';
+    }
+  }
+
+  // ── घोषणा ──
+  html += '<div style="border:1px solid #999; padding:10px 14px; border-radius:6px; margin:8px 0; font-size:12px;">';
+  html += 'मैं घोषणा करता हूँ /करती हूँ कि मैंने /मेरे परिवार ने इससे पहले किसी भी सरकारी आवास योजना का लाभ नहीं लिया है तथा उपरोक्त सभी जानकारी सत्य है। यदि मेरे द्वारा प्रस्तुत जानकारी असत्य पाई जाती है तो झूठी जानकारी प्रस्तुत करने के दंड से मैं भली भांति अवगत हूँ।';
+  html += '</div>';
+
+  // ── Signature ──
+  html += '<div style="display:flex; justify-content:space-between; margin-top:16px;">';
+  html += '<div><strong>दिनांक —</strong> ' + dateStr + '<br><strong>स्थान —</strong> ' + (village || '________') + '</div>';
+  html += '<div style="text-align:center;"><br><br>________________________<br><strong>आवेदक के हस्ताक्षर / अंगूठा</strong><br>' + name + '<br>मो. ' + (mobile || '________') + '</div>';
+  html += '</div>';
+
+  html += '</div>'; // close line-height div
+
+
+  document.getElementById('previewContent').innerHTML = html;
+  document.getElementById('formSection').style.display = 'none';
+  document.getElementById('previewBox').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function printPreview() {
+  // Capture values before print
+  var inputs = document.querySelectorAll('#previewBox input');
+  inputs.forEach(function(inp) { inp.setAttribute('value', inp.value); });
+  document.title = ' ';
+  window.print();
+  document.title = 'CM Awas Yojana Application / सीएम आवास योजना आवेदन | VISRO Consultancy';
+}
+</script>
+
+</body>
+</html>

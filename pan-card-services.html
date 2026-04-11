@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAN Card Services | VISRO Consultancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #0d1b3e; --orange: #e8640a; --orange-light: #f07a28; --green: #22c55e; --white: #fff; --off-white: #f4f6fb; --gray: #64748b; --light-gray: #e2e8f0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Sora', sans-serif; color: var(--navy); background: var(--off-white); line-height: 1.7; }
+  .back-bar { max-width: 900px; margin: 0 auto; padding: 12px 20px 0; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; }
+  .page { max-width: 900px; margin: 12px auto 40px; background: white; border-radius: 12px; box-shadow: 0 4px 24px rgba(13,27,62,0.10); overflow: hidden; }
+  .hero { background: linear-gradient(135deg, var(--navy), #1a3660); color: white; padding: 36px 32px; text-align: center; }
+  .hero h1 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+  .hero .sub { font-size: 14px; opacity: 0.8; }
+  .hero .badge { display: inline-block; background: var(--orange); padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-top: 12px; }
+  .content { padding: 28px 32px 40px; }
+  .content h2 { font-size: 20px; font-weight: 800; color: var(--navy); margin: 28px 0 12px; padding-bottom: 8px; border-bottom: 3px solid var(--orange); display: inline-block; }
+  .content h2:first-child { margin-top: 0; }
+  .content h3 { font-size: 16px; font-weight: 700; color: var(--orange); margin: 20px 0 8px; }
+  .content p { font-size: 14px; color: #374151; margin-bottom: 12px; }
+  .content ul, .content ol { margin: 8px 0 16px 20px; }
+  .content li { font-size: 14px; color: #374151; margin-bottom: 8px; line-height: 1.8; }
+  .content li strong { color: var(--navy); }
+  .highlight-box { background: #fff8e1; border-left: 4px solid var(--orange); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 13px; }
+  .highlight-box.green { background: #f0fdf4; border-left-color: var(--green); }
+  .highlight-box.blue { background: #eff6ff; border-left-color: #2563eb; }
+  .info-card { background: var(--off-white); border: 1px solid var(--light-gray); border-radius: 10px; padding: 18px 20px; margin: 14px 0; }
+  .info-card .title { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .service-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin: 16px 0; }
+  .service-item { background: white; border: 2px solid var(--light-gray); border-radius: 10px; padding: 18px; transition: all 0.2s; }
+  .service-item:hover { border-color: var(--orange); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(232,100,10,0.1); }
+  .service-item .icon { font-size: 28px; margin-bottom: 8px; }
+  .service-item .name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .service-item .desc { font-size: 12px; color: var(--gray); }
+  .service-item .fee { font-size: 13px; font-weight: 700; color: var(--orange); margin-top: 6px; }
+  .link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 22px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; margin: 4px 4px 4px 0; transition: all 0.2s; }
+  .link-btn:hover { background: var(--orange-light); transform: translateY(-1px); }
+  .link-btn.green { background: var(--green); }
+  .link-btn.navy { background: var(--navy); }
+  .doc-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  .doc-table th { background: var(--navy); color: white; padding: 8px 12px; text-align: left; font-size: 12px; }
+  .doc-table td { padding: 8px 12px; border-bottom: 1px solid var(--light-gray); }
+  .doc-table tr:nth-child(even) { background: var(--off-white); }
+  .step-box { display: flex; gap: 14px; margin: 12px 0; align-items: flex-start; }
+  .step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--orange); color: white; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; flex-shrink: 0; }
+  .step-text { flex: 1; }
+  .step-text .title { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .step-text .desc { font-size: 13px; color: #555; margin-top: 2px; }
+  .faq { margin: 14px 0; }
+  .faq-item { border: 1px solid var(--light-gray); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+  .faq-q { padding: 12px 16px; font-size: 13px; font-weight: 700; color: var(--navy); cursor: pointer; background: var(--off-white); }
+  .faq-q:hover { background: #e8f0f8; }
+  .faq-a { padding: 0 16px 12px; font-size: 13px; color: #555; display: none; }
+  .faq-item.open .faq-a { display: block; }
+  .cta-box { background: linear-gradient(135deg, var(--navy), #1a3660); color: white; border-radius: 12px; padding: 28px; text-align: center; margin: 28px 0; }
+  .cta-box h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+  .cta-box p { font-size: 13px; opacity: 0.8; margin-bottom: 16px; }
+  .cta-box .link-btn { background: var(--orange); font-size: 15px; padding: 12px 28px; }
+  .footer { background: var(--navy); color: rgba(255,255,255,0.6); text-align: center; padding: 16px; font-size: 11px; }
+  .lang-toggle { display: flex; justify-content: center; gap: 0; margin: 0; background: #1a3660; padding: 8px 0; }
+  .lang-btn { padding: 8px 28px; font-size: 13px; font-weight: 700; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; color: rgba(255,255,255,0.7); background: transparent; font-family: inherit; transition: all 0.2s; }
+  .lang-btn:first-child { border-radius: 6px 0 0 6px; }
+  .lang-btn:last-child { border-radius: 0 6px 6px 0; }
+  .lang-btn.active { background: var(--orange); color: white; border-color: var(--orange); }
+  .lang-hi { display: block; }
+  .lang-en { display: none; }
+  body.en .lang-hi { display: none; }
+  body.en .lang-en { display: block; }
+  @media (max-width: 600px) { .content { padding: 20px 16px 30px; } .hero { padding: 24px 16px; } .hero h1 { font-size: 22px; } .service-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="back-bar"><a href="index.html" class="back-btn">← Back to Home</a></div>
+
+<div class="page">
+  <div class="hero">
+    <h1 class="lang-hi">पैन कार्ड सेवाएँ</h1>
+    <h1 class="lang-en">PAN Card Services</h1>
+    <div class="sub lang-hi">नया पैन कार्ड, सुधार, रिप्रिंट, स्टेटस चेक</div>
+    <div class="sub lang-en">New PAN Card, Correction, Reprint, Status Check</div>
+    <div class="badge">VISRO Consultancy — One Stop Solution</div>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('hi')">हिन्दी</button>
+    <button class="lang-btn" onclick="setLang('en')">English</button>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== WHAT IS PAN ===== -->
+    <div class="lang-hi">
+    <h2>पैन कार्ड क्या है?</h2>
+    <p><strong>PAN</strong> का मतलब है — <strong>Permanent Account Number</strong> (स्थायी खाता संख्या)।</p>
+    <p>यह एक <strong>10 अंकों का अनोखा नंबर</strong> होता है जो <strong>आयकर विभाग, भारत सरकार</strong> देती है। यह एक <strong>प्लास्टिक कार्ड</strong> पर छपा होता है जिसमें आपका <strong>नाम, फोटो, जन्मतिथि और PAN नंबर</strong> होता है।</p>
+
+    <div class="highlight-box">
+      <strong>आसान भाषा में समझें:</strong> PAN Card आपकी <strong>पहचान (ID)</strong> है जो बताता है कि आप <strong>टैक्स (कर)</strong> देते हैं या नहीं। यह <strong>बैंक खाता खोलने, ज़मीन-मकान खरीदने, बड़ा पेमेंट</strong> करने के लिए ज़रूरी है।
+    </div>
+
+    <h3>PAN Card का उदाहरण:</h3>
+    <div class="info-card">
+      <div class="title">PAN नंबर का फॉर्मेट: ABCDE1234F</div>
+      <ul>
+        <li>पहले 5 अक्षर (A-Z) — <strong>ABCDE</strong></li>
+        <li>बीच के 4 नंबर (0-9) — <strong>1234</strong></li>
+        <li>आखिरी 1 अक्षर (A-Z) — <strong>F</strong></li>
+      </ul>
+    </div>
+    </div>
+
+    <div class="lang-en">
+    <h2>What is PAN Card?</h2>
+    <p><strong>PAN</strong> stands for <strong>Permanent Account Number</strong>.</p>
+    <p>It is a <strong>unique 10-digit alphanumeric number</strong> issued by the <strong>Income Tax Department, Government of India</strong>. It is printed on a <strong>plastic card</strong> containing your <strong>name, photo, date of birth, and PAN number</strong>.</p>
+
+    <div class="highlight-box">
+      <strong>In Simple Words:</strong> PAN Card is your <strong>identity (ID)</strong> for tax purposes. It is required for <strong>opening bank accounts, buying property, making large payments</strong>, and more.
+    </div>
+
+    <h3>PAN Card Example:</h3>
+    <div class="info-card">
+      <div class="title">PAN Number Format: ABCDE1234F</div>
+      <ul>
+        <li>First 5 letters (A-Z) — <strong>ABCDE</strong></li>
+        <li>Middle 4 digits (0-9) — <strong>1234</strong></li>
+        <li>Last 1 letter (A-Z) — <strong>F</strong></li>
+      </ul>
+    </div>
+    </div>
+
+    <!-- ===== WHY PAN IS NEEDED ===== -->
+    <div class="lang-hi">
+    <h2>पैन कार्ड क्यों ज़रूरी है?</h2>
+    <ol>
+      <li><strong>बैंक खाता खोलने के लिए</strong> — बिना PAN के बैंक अकाउंट नहीं खुल सकता</li>
+      <li><strong>इनकम टैक्स रिटर्न (ITR) भरने के लिए</strong> — टैक्स फाइल करने के लिए PAN ज़रूरी है</li>
+      <li><strong>50,000 से ज़्यादा का लेन-देन</strong> — बैंक में 50,000+ रुपये जमा करने या निकालने के लिए PAN चाहिए</li>
+      <li><strong>ज़मीन / मकान खरीदने के लिए</strong> — रजिस्ट्री करने में PAN लगता है</li>
+      <li><strong>गाड़ी (कार/बाइक) खरीदने के लिए</strong></li>
+      <li><strong>म्यूचुअल फंड / शेयर मार्केट में निवेश करने के लिए</strong></li>
+      <li><strong>क्रेडिट कार्ड लेने के लिए</strong></li>
+      <li><strong>लोन (कर्ज़ा) लेने के लिए</strong> — होम लोन, पर्सनल लोन में PAN ज़रूरी</li>
+      <li><strong>सरकारी योजना का लाभ लेने के लिए</strong> — कई सरकारी स्कीम में PAN माँगा जाता है</li>
+      <li><strong>पहचान पत्र (ID Proof)</strong> — PAN Card एक वैध सरकारी पहचान पत्र है</li>
+    </ol>
+    <div class="highlight-box green">
+      <strong>याद रखें:</strong> हर भारतीय नागरिक को PAN Card बनवाना चाहिए — चाहे आप नौकरीपेशा हों, किसान हों, या गृहिणी हों। यह आपके लिए बहुत काम की चीज़ है!
+    </div>
+    </div>
+
+    <div class="lang-en">
+    <h2>Why is PAN Card Important?</h2>
+    <ol>
+      <li><strong>To Open a Bank Account</strong> — Bank account cannot be opened without PAN</li>
+      <li><strong>To File Income Tax Return (ITR)</strong> — PAN is mandatory for filing taxes</li>
+      <li><strong>For Transactions Above Rs 50,000</strong> — PAN is required for depositing or withdrawing Rs 50,000+ from bank</li>
+      <li><strong>To Buy Property (Land/House)</strong> — PAN is needed for property registration</li>
+      <li><strong>To Buy a Vehicle (Car/Bike)</strong></li>
+      <li><strong>To Invest in Mutual Funds / Share Market</strong></li>
+      <li><strong>To Get a Credit Card</strong></li>
+      <li><strong>To Take a Loan</strong> — Home loan, personal loan require PAN</li>
+      <li><strong>To Avail Government Schemes</strong> — Many government schemes require PAN</li>
+      <li><strong>As Identity Proof (ID)</strong> — PAN Card is a valid government ID</li>
+    </ol>
+    <div class="highlight-box green">
+      <strong>Remember:</strong> Every Indian citizen should get a PAN Card — whether you are an employee, farmer, or homemaker. It is very useful for you!
+    </div>
+    </div>
+
+    <!-- ===== OUR SERVICES ===== -->
+    <div class="lang-hi"><h2>हमारी पैन कार्ड सेवाएँ</h2></div>
+    <div class="lang-en"><h2>Our PAN Card Services</h2></div>
+
+    <div class="service-grid">
+      <div class="service-item">
+        <div class="icon">🆕</div>
+        <div class="name lang-hi">नया पैन कार्ड बनवाना</div><div class="name lang-en">New PAN Card</div>
+        <div class="desc lang-hi">पहली बार PAN Card बनवाना है? हम आपका Form 49A भरकर PAN अप्लाई करवा देंगे</div><div class="desc lang-en">First time applying for PAN? We will fill Form 49A and apply for you</div>
+        <div style="margin-top:8px;"><a href="https://www.pan.utiitsl.com/PAN/mainform.html" target="_blank" class="link-btn navy" style="font-size:11px;padding:6px 14px;">NSDL Apply</a> <a href="https://wa.me/918840714094?text=Hello%2C%20mujhe%20naya%20PAN%20Card%20banwana%20hai" target="_blank" class="link-btn green" style="font-size:11px;padding:6px 14px;">WhatsApp</a></div>
+      </div>
+      <div class="service-item">
+        <div class="icon">✏️</div>
+        <div class="name lang-hi">पैन कार्ड में सुधार (Correction)</div><div class="name lang-en">PAN Card Correction</div>
+        <div class="desc lang-hi">नाम, जन्मतिथि, फोटो, हस्ताक्षर, पता में गलती है? हम ठीक करवा देंगे</div><div class="desc lang-en">Wrong name, DOB, photo, signature, or address? We will get it corrected</div>
+        <div style="margin-top:8px;"><a href="https://www.pan.utiitsl.com/PAN/mainform.html" target="_blank" class="link-btn navy" style="font-size:11px;padding:6px 14px;">NSDL Correction</a> <a href="https://wa.me/918840714094?text=Hello%2C%20mujhe%20PAN%20Card%20mein%20correction%20karwana%20hai" target="_blank" class="link-btn green" style="font-size:11px;padding:6px 14px;">WhatsApp</a></div>
+      </div>
+      <div class="service-item">
+        <div class="icon">🔄</div>
+        <div class="name lang-hi">पैन कार्ड रिप्रिंट / डुप्लीकेट</div><div class="name lang-en">PAN Card Reprint / Duplicate</div>
+        <div class="desc lang-hi">PAN Card खो गया या टूट गया? हम नया कार्ड प्रिंट करवा देंगे (वही नंबर रहेगा)</div><div class="desc lang-en">Lost or damaged PAN Card? We will get a new card printed (same number)</div>
+        <div style="margin-top:8px;"><a href="https://www.pan.utiitsl.com/PAN/mainform.html" target="_blank" class="link-btn navy" style="font-size:11px;padding:6px 14px;">NSDL Reprint</a> <a href="https://wa.me/918840714094?text=Hello%2C%20mera%20PAN%20Card%20kho%20gaya%20hai%2C%20reprint%20chahiye" target="_blank" class="link-btn green" style="font-size:11px;padding:6px 14px;">WhatsApp</a></div>
+      </div>
+      <div class="service-item">
+        <div class="icon">🔗</div>
+        <div class="name lang-hi">PAN-आधार लिंक</div><div class="name lang-en">PAN-Aadhaar Linking</div>
+        <div class="desc lang-hi">PAN Card को आधार से लिंक करना ज़रूरी है। हम आपका लिंक करवा देंगे</div><div class="desc lang-en">Linking PAN with Aadhaar is mandatory. We will link it for you</div>
+        <div style="margin-top:8px;"><a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/bl-link-aadhaar" target="_blank" class="link-btn navy" style="font-size:11px;padding:6px 14px;">Link Now</a> <a href="https://wa.me/918840714094?text=Hello%2C%20mujhe%20PAN-Aadhaar%20link%20karwana%20hai" target="_blank" class="link-btn green" style="font-size:11px;padding:6px 14px;">WhatsApp</a></div>
+      </div>
+      <div class="service-item">
+        <div class="icon">📱</div>
+        <div class="name lang-hi">e-PAN डाउनलोड</div><div class="name lang-en">e-PAN Download</div>
+        <div class="desc lang-hi">ऑनलाइन PAN Card का PDF डाउनलोड करवाना — तुरंत मिलता है</div><div class="desc lang-en">Download your PAN Card PDF online — instant delivery</div>
+        <div style="margin-top:8px;"><a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/instant-e-pan" target="_blank" class="link-btn navy" style="font-size:11px;padding:6px 14px;">Download e-PAN</a> <a href="https://wa.me/918840714094?text=Hello%2C%20mujhe%20e-PAN%20download%20karwana%20hai" target="_blank" class="link-btn green" style="font-size:11px;padding:6px 14px;">WhatsApp</a></div>
+      </div>
+      <div class="service-item">
+        <div class="icon">🔍</div>
+        <div class="name lang-hi">PAN Card स्टेटस चेक</div><div class="name lang-en">PAN Card Status Check</div>
+        <div class="desc lang-hi">अप्लाई किया है? हम आपके PAN Card का स्टेटस चेक कर देंगे</div><div class="desc lang-en">Already applied? We will check your PAN Card application status</div>
+        <div style="margin-top:8px;"><a href="https://www.trackpan.utiitsl.com/JEEUTIPANCARD/panabortioncardstatus" target="_blank" class="link-btn navy" style="font-size:11px;padding:6px 14px;">Check Status</a> <a href="https://wa.me/918840714094?text=Hello%2C%20mera%20PAN%20Card%20ka%20status%20check%20karna%20hai" target="_blank" class="link-btn green" style="font-size:11px;padding:6px 14px;">WhatsApp</a></div>
+      </div>
+    </div>
+
+    <!-- ===== DOCUMENTS NEEDED ===== -->
+    <div class="lang-hi"><h2>ज़रूरी दस्तावेज़</h2><h3>नया PAN Card बनवाने के लिए:</h3></div>
+    <div class="lang-en"><h2>Documents Required</h2><h3>For New PAN Card:</h3></div>
+    <table class="doc-table lang-hi">
+      <tr><th>क्र.</th><th>दस्तावेज़ का नाम</th><th>विवरण</th></tr>
+      <tr><td>1</td><td><strong>आधार कार्ड</strong></td><td>सबसे ज़रूरी — नाम, जन्मतिथि, फोटो मैच होना चाहिए</td></tr>
+      <tr><td>2</td><td><strong>पासपोर्ट साइज फोटो</strong></td><td>2 फोटो — सफ़ेद बैकग्राउंड, ताज़ा फोटो</td></tr>
+      <tr><td>3</td><td><strong>हस्ताक्षर / अंगूठा</strong></td><td>सफ़ेद कागज़ पर काली स्याही से हस्ताक्षर या बाएँ अंगूठे का निशान</td></tr>
+      <tr><td>4</td><td><strong>मोबाइल नंबर</strong></td><td>आधार से लिंक्ड मोबाइल नंबर (OTP आएगा)</td></tr>
+      <tr><td>5</td><td><strong>ईमेल ID (वैकल्पिक)</strong></td><td>अगर है तो दें — PAN Card ईमेल पर भी मिलेगा</td></tr>
+    </table>
+    <table class="doc-table lang-en">
+      <tr><th>Sr.</th><th>Document Name</th><th>Details</th></tr>
+      <tr><td>1</td><td><strong>Aadhaar Card</strong></td><td>Most important — name, DOB, photo should match</td></tr>
+      <tr><td>2</td><td><strong>Passport Size Photo</strong></td><td>2 photos — white background, latest</td></tr>
+      <tr><td>3</td><td><strong>Signature / Thumb</strong></td><td>Signature or left thumb impression on white paper with black ink</td></tr>
+      <tr><td>4</td><td><strong>Mobile Number</strong></td><td>Aadhaar-linked mobile number (OTP will be sent)</td></tr>
+      <tr><td>5</td><td><strong>Email ID (Optional)</strong></td><td>If available — PAN card will also be sent on email</td></tr>
+    </table>
+
+    <div class="lang-hi"><h3>PAN Card सुधार (Correction) के लिए:</h3></div>
+    <div class="lang-en"><h3>For PAN Card Correction:</h3></div>
+    <table class="doc-table lang-hi">
+      <tr><th>क्र.</th><th>दस्तावेज़ का नाम</th><th>विवरण</th></tr>
+      <tr><td>1</td><td><strong>पुराना PAN Card</strong></td><td>जिसमें गलती है — उसकी फोटोकॉपी</td></tr>
+      <tr><td>2</td><td><strong>आधार कार्ड</strong></td><td>सही नाम / जन्मतिथि वाला आधार कार्ड</td></tr>
+      <tr><td>3</td><td><strong>नया फोटो + हस्ताक्षर</strong></td><td>ताज़ा फोटो और हस्ताक्षर</td></tr>
+      <tr><td>4</td><td><strong>मोबाइल नंबर</strong></td><td>आधार से लिंक्ड</td></tr>
+    </table>
+    <table class="doc-table lang-en">
+      <tr><th>Sr.</th><th>Document Name</th><th>Details</th></tr>
+      <tr><td>1</td><td><strong>Old PAN Card</strong></td><td>Photocopy of the PAN card with errors</td></tr>
+      <tr><td>2</td><td><strong>Aadhaar Card</strong></td><td>Aadhaar with correct name / DOB</td></tr>
+      <tr><td>3</td><td><strong>New Photo + Signature</strong></td><td>Latest photo and signature</td></tr>
+      <tr><td>4</td><td><strong>Mobile Number</strong></td><td>Aadhaar-linked</td></tr>
+    </table>
+
+    <div class="lang-hi"><h3>PAN Card रिप्रिंट / डुप्लीकेट के लिए:</h3></div>
+    <div class="lang-en"><h3>For PAN Card Reprint / Duplicate:</h3></div>
+    <table class="doc-table lang-hi">
+      <tr><th>क्र.</th><th>दस्तावेज़ का नाम</th><th>विवरण</th></tr>
+      <tr><td>1</td><td><strong>PAN नंबर</strong></td><td>आपका 10 अंकों का PAN नंबर (याद हो या पुरानी कॉपी हो)</td></tr>
+      <tr><td>2</td><td><strong>आधार कार्ड</strong></td><td>पहचान के लिए</td></tr>
+      <tr><td>3</td><td><strong>मोबाइल नंबर</strong></td><td>आधार से लिंक्ड</td></tr>
+    </table>
+    <table class="doc-table lang-en">
+      <tr><th>Sr.</th><th>Document Name</th><th>Details</th></tr>
+      <tr><td>1</td><td><strong>PAN Number</strong></td><td>Your 10-digit PAN number (remembered or old copy)</td></tr>
+      <tr><td>2</td><td><strong>Aadhaar Card</strong></td><td>For identity verification</td></tr>
+      <tr><td>3</td><td><strong>Mobile Number</strong></td><td>Aadhaar-linked</td></tr>
+    </table>
+
+    <div class="highlight-box blue lang-hi">
+      <strong>ध्यान दें:</strong> PAN Card अप्लाई करते समय <strong>आधार कार्ड में नाम और जन्मतिथि सही होना चाहिए</strong>। अगर आधार में गलती है तो <strong>पहले आधार सुधरवाएँ</strong>, फिर PAN अप्लाई करें।
+    </div>
+    <div class="highlight-box blue lang-en">
+      <strong>Important:</strong> When applying for PAN Card, <strong>name and date of birth in Aadhaar Card must be correct</strong>. If there is an error in Aadhaar, <strong>get Aadhaar corrected first</strong>, then apply for PAN.
+    </div>
+
+    <!-- ===== HOW TO APPLY ===== -->
+    <div class="lang-hi"><h2>पैन कार्ड कैसे बनवाएँ?</h2><p>आप <strong>दो तरीके</strong> से PAN Card बनवा सकते हैं:</p><h3>तरीका 1: VISRO Consultancy से बनवाएँ (सबसे आसान)</h3></div>
+    <div class="lang-en"><h2>How to Get PAN Card?</h2><p>You can get PAN Card in <strong>two ways</strong>:</p><h3>Method 1: Get it through VISRO Consultancy (Easiest)</h3></div>
+    <div class="lang-hi">
+    <div class="step-box"><div class="step-num">1</div><div class="step-text"><div class="title">हमसे संपर्क करें</div><div class="desc">WhatsApp या फोन पर कॉल करें — हम आपको पूरी जानकारी देंगे</div></div></div>
+    <div class="step-box"><div class="step-num">2</div><div class="step-text"><div class="title">दस्तावेज़ दें</div><div class="desc">आधार कार्ड, फोटो, हस्ताक्षर हमें दें — बाकी सब हम करेंगे</div></div></div>
+    <div class="step-box"><div class="step-num">3</div><div class="step-text"><div class="title">फॉर्म भर देंगे</div><div class="desc">हम आपका Form 49A ऑनलाइन भर देंगे — आपको कुछ नहीं करना</div></div></div>
+    <div class="step-box"><div class="step-num">4</div><div class="step-text"><div class="title">OTP वेरिफाई</div><div class="desc">आपके मोबाइल पर OTP आएगा — वो हमें बता दें</div></div></div>
+    <div class="step-box"><div class="step-num">5</div><div class="step-text"><div class="title">PAN Card आ जाएगा</div><div class="desc">15-20 दिन में PAN Card आपके पते पर आ जाएगा। e-PAN तुरंत ईमेल पर मिलेगा</div></div></div>
+    </div>
+    <div class="lang-en">
+    <div class="step-box"><div class="step-num">1</div><div class="step-text"><div class="title">Contact Us</div><div class="desc">Call or WhatsApp us — we will guide you completely</div></div></div>
+    <div class="step-box"><div class="step-num">2</div><div class="step-text"><div class="title">Submit Documents</div><div class="desc">Give us Aadhaar card, photo, signature — we will do the rest</div></div></div>
+    <div class="step-box"><div class="step-num">3</div><div class="step-text"><div class="title">We Fill the Form</div><div class="desc">We will fill Form 49A online — you don't have to do anything</div></div></div>
+    <div class="step-box"><div class="step-num">4</div><div class="step-text"><div class="title">OTP Verification</div><div class="desc">OTP will come on your mobile — share it with us</div></div></div>
+    <div class="step-box"><div class="step-num">5</div><div class="step-text"><div class="title">PAN Card Delivered</div><div class="desc">PAN Card will arrive at your address in 15-20 days. e-PAN will be sent instantly on email</div></div></div>
+    </div>
+
+    <div class="lang-hi"><h3>तरीका 2: खुद ऑनलाइन अप्लाई करें</h3><p>अगर आप खुद करना चाहते हैं तो ये सरकारी वेबसाइट इस्तेमाल करें:</p></div>
+    <div class="lang-en"><h3>Method 2: Apply Online Yourself</h3><p>If you want to do it yourself, use these government websites:</p></div>
+    <div style="margin:12px 0;">
+      <a href="https://www.pan.utiitsl.com/PAN/mainform.html" target="_blank" class="link-btn navy">NSDL - New PAN Apply</a>
+      <a href="https://www.pan.utiitsl.com/PAN/" target="_blank" class="link-btn navy">UTIITSL - PAN Apply</a>
+      <a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/instant-e-pan" target="_blank" class="link-btn navy">Instant e-PAN (Free)</a>
+    </div>
+
+    <!-- ===== USEFUL LINKS ===== -->
+    <div class="lang-hi"><h2>ज़रूरी लिंक</h2></div>
+    <div class="lang-en"><h2>Important Links</h2></div>
+    <table class="doc-table lang-hi">
+      <tr><th>काम</th><th>वेबसाइट</th></tr>
+      <tr><td><strong>नया PAN अप्लाई (NSDL)</strong></td><td><a href="https://www.pan.utiitsl.com/PAN/mainform.html" target="_blank" style="color:var(--orange);">onlineservices.nsdl.com</a></td></tr>
+      <tr><td><strong>नया PAN अप्लाई (UTIITSL)</strong></td><td><a href="https://www.pan.utiitsl.com/PAN/" target="_blank" style="color:var(--orange);">pan.utiitsl.com</a></td></tr>
+      <tr><td><strong>Instant e-PAN (मुफ्त — आधार से)</strong></td><td><a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/instant-e-pan" target="_blank" style="color:var(--orange);">incometax.gov.in</a></td></tr>
+      <tr><td><strong>PAN Card स्टेटस चेक</strong></td><td><a href="https://www.trackpan.utiitsl.com/JEEUTIPANCARD/panabortioncardstatus" target="_blank" style="color:var(--orange);">tin.nsdl.com/status</a></td></tr>
+      <tr><td><strong>PAN-आधार लिंक चेक</strong></td><td><a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/link-aadhaar-status" target="_blank" style="color:var(--orange);">incometax.gov.in/link-status</a></td></tr>
+      <tr><td><strong>PAN-आधार लिंक करें</strong></td><td><a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/bl-link-aadhaar" target="_blank" style="color:var(--orange);">incometax.gov.in/link-aadhaar</a></td></tr>
+      <tr><td><strong>PAN Card सत्यापित करें</strong></td><td><a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/verifyYourPAN" target="_blank" style="color:var(--orange);">incometax.gov.in/verify</a></td></tr>
+      <tr><td><strong>e-PAN डाउनलोड</strong></td><td><a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/instant-e-pan" target="_blank" style="color:var(--orange);">nsdl.com/ePAN</a></td></tr>
+      <tr><td><strong>PAN सुधार (NSDL)</strong></td><td><a href="https://www.pan.utiitsl.com/PAN/mainform.html" target="_blank" style="color:var(--orange);">nsdl.com/correction</a></td></tr>
+    </table>
+    <table class="doc-table lang-en">
+      <tr><th>Purpose</th><th>Website</th></tr>
+      <tr><td><strong>New PAN Apply (NSDL)</strong></td><td><a href="https://www.pan.utiitsl.com/PAN/mainform.html" target="_blank" style="color:var(--orange);">onlineservices.nsdl.com</a></td></tr>
+      <tr><td><strong>New PAN Apply (UTIITSL)</strong></td><td><a href="https://www.pan.utiitsl.com/PAN/" target="_blank" style="color:var(--orange);">pan.utiitsl.com</a></td></tr>
+      <tr><td><strong>Instant e-PAN (Free)</strong></td><td><a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/instant-e-pan" target="_blank" style="color:var(--orange);">incometax.gov.in</a></td></tr>
+      <tr><td><strong>PAN Card Status Check</strong></td><td><a href="https://www.trackpan.utiitsl.com/JEEUTIPANCARD/panabortioncardstatus" target="_blank" style="color:var(--orange);">tin.nsdl.com/status</a></td></tr>
+      <tr><td><strong>PAN-Aadhaar Link Status</strong></td><td><a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/link-aadhaar-status" target="_blank" style="color:var(--orange);">incometax.gov.in/link-status</a></td></tr>
+      <tr><td><strong>Link PAN-Aadhaar</strong></td><td><a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/bl-link-aadhaar" target="_blank" style="color:var(--orange);">incometax.gov.in/link-aadhaar</a></td></tr>
+      <tr><td><strong>Verify PAN Card</strong></td><td><a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/verifyYourPAN" target="_blank" style="color:var(--orange);">incometax.gov.in/verify</a></td></tr>
+      <tr><td><strong>e-PAN Download</strong></td><td><a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/instant-e-pan" target="_blank" style="color:var(--orange);">nsdl.com/ePAN</a></td></tr>
+      <tr><td><strong>PAN Correction (NSDL)</strong></td><td><a href="https://www.pan.utiitsl.com/PAN/mainform.html" target="_blank" style="color:var(--orange);">nsdl.com/correction</a></td></tr>
+    </table>
+
+    <!-- ===== PAN-AADHAAR LINK ===== -->
+    <div class="lang-hi"><h2>PAN-आधार लिंक कैसे करें?</h2><p>सरकार ने <strong>PAN को आधार से लिंक करना ज़रूरी</strong> कर दिया है। अगर लिंक नहीं किया तो PAN Card <strong>बंद (inactive)</strong> हो जाएगा।</p></div>
+    <div class="lang-en"><h2>How to Link PAN with Aadhaar?</h2><p>Government has made it <strong>mandatory to link PAN with Aadhaar</strong>. If not linked, your PAN Card will become <strong>inactive</strong>.</p></div>
+
+    <div class="lang-hi">
+    <div class="step-box"><div class="step-num">1</div><div class="step-text"><div class="title">Income Tax Portal खोलें</div><div class="desc"><a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/bl-link-aadhaar" target="_blank" style="color:var(--orange);">incometax.gov.in/link-aadhaar</a> पर जाएँ</div></div></div>
+    <div class="step-box"><div class="step-num">2</div><div class="step-text"><div class="title">PAN नंबर डालें</div><div class="desc">अपना 10 अंकों का PAN नंबर टाइप करें</div></div></div>
+    <div class="step-box"><div class="step-num">3</div><div class="step-text"><div class="title">आधार नंबर डालें</div><div class="desc">अपना 12 अंकों का आधार नंबर टाइप करें</div></div></div>
+    <div class="step-box"><div class="step-num">4</div><div class="step-text"><div class="title">शुल्क भुगतान करें (अगर माँगे)</div><div class="desc">₹1000 शुल्क ऑनलाइन भुगतान करें (डेडलाइन के बाद अप्लाई करने पर)</div></div></div>
+    <div class="step-box"><div class="step-num">5</div><div class="step-text"><div class="title">OTP से वेरिफाई करें</div><div class="desc">मोबाइल पर OTP आएगा — डाल दें — PAN-आधार लिंक हो जाएगा</div></div></div>
+    <div class="highlight-box"><strong>ध्यान दें:</strong> अगर PAN और आधार में <strong>नाम या जन्मतिथि अलग</strong> है तो लिंक नहीं होगा। पहले आधार या PAN में सुधार करवाएँ।</div>
+    </div>
+    <div class="lang-en">
+    <div class="step-box"><div class="step-num">1</div><div class="step-text"><div class="title">Open Income Tax Portal</div><div class="desc">Go to <a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/bl-link-aadhaar" target="_blank" style="color:var(--orange);">incometax.gov.in/link-aadhaar</a></div></div></div>
+    <div class="step-box"><div class="step-num">2</div><div class="step-text"><div class="title">Enter PAN Number</div><div class="desc">Type your 10-digit PAN number</div></div></div>
+    <div class="step-box"><div class="step-num">3</div><div class="step-text"><div class="title">Enter Aadhaar Number</div><div class="desc">Type your 12-digit Aadhaar number</div></div></div>
+    <div class="step-box"><div class="step-num">4</div><div class="step-text"><div class="title">Pay Fee (If Required)</div><div class="desc">Pay Rs 1000 fee online (if applying after deadline)</div></div></div>
+    <div class="step-box"><div class="step-num">5</div><div class="step-text"><div class="title">Verify with OTP</div><div class="desc">OTP will come on mobile — enter it — PAN-Aadhaar will be linked</div></div></div>
+    <div class="highlight-box"><strong>Important:</strong> If <strong>name or date of birth is different</strong> in PAN and Aadhaar, linking will fail. Get Aadhaar or PAN corrected first.</div>
+    </div>
+
+    <!-- ===== FAQ ===== -->
+    <div class="lang-hi"><h2>अक्सर पूछे जाने वाले सवाल (FAQ)</h2></div>
+    <div class="lang-en"><h2>Frequently Asked Questions (FAQ)</h2></div>
+    <div class="faq lang-hi">
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">1. PAN Card कितने दिन में आता है?</div><div class="faq-a">ऑनलाइन अप्लाई करने के बाद <strong>15-20 दिन</strong> में PAN Card आपके पते पर आ जाता है। e-PAN तुरंत ईमेल पर मिल जाता है।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">2. क्या बच्चों का भी PAN Card बनता है?</div><div class="faq-a">हाँ! <strong>किसी भी उम्र</strong> के बच्चे का PAN Card बन सकता है। बच्चे के लिए <strong>माता-पिता का आधार</strong> भी चाहिए होता है।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">3. एक आदमी के कितने PAN Card हो सकते हैं?</div><div class="faq-a"><strong>सिर्फ एक!</strong> एक से ज़्यादा PAN रखना <strong>कानून के खिलाफ</strong> है। अगर आपके पास 2 PAN हैं तो एक सरेंडर करें।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">4. PAN Card खो गया — क्या करना चाहिए?</div><div class="faq-a"><strong>चिंता मत करें!</strong> हम आपका <strong>डुप्लीकेट PAN Card</strong> बनवा देंगे — वही नंबर रहेगा, नई कार्ड आ जाएगी। e-PAN भी तुरंत डाउनलोड हो सकता है।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">5. PAN Card में नाम गलत है — कैसे ठीक होगा?</div><div class="faq-a">हम आपका <strong>PAN Correction</strong> करवा देंगे। आधार कार्ड में सही नाम होना चाहिए — फिर PAN में सुधार हो जाएगा।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">6. Instant e-PAN क्या है?</div><div class="faq-a">अगर आपके पास आधार है और मोबाइल से लिंक्ड है तो <strong>10 मिनट में मुफ्त PAN Card</strong> मिल सकता है — <a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/instant-e-pan" target="_blank" style="color:var(--orange);">Income Tax Portal</a> से।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">7. PAN-आधार लिंक नहीं किया तो क्या होगा?</div><div class="faq-a">PAN Card <strong>बंद (inactive)</strong> हो जाएगा। आप बैंक में बड़ा लेन-देन नहीं कर पाएँगे, ITR फाइल नहीं कर पाएँगे। जल्दी से जल्दी लिंक करवाएँ!</div></div>
+    </div>
+    <div class="faq lang-en">
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">1. How many days does it take to get PAN Card?</div><div class="faq-a">After online application, PAN Card arrives at your address in <strong>15-20 days</strong>. e-PAN is delivered instantly on email.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">2. Can children also get PAN Card?</div><div class="faq-a">Yes! PAN Card can be made for a child of <strong>any age</strong>. <strong>Parents' Aadhaar</strong> is also required for the child's application.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">3. How many PAN Cards can one person have?</div><div class="faq-a"><strong>Only one!</strong> Having more than one PAN is <strong>against the law</strong>. If you have 2 PANs, surrender one.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">4. PAN Card is lost — what to do?</div><div class="faq-a"><strong>Don't worry!</strong> We will get your <strong>duplicate PAN Card</strong> made — same number, new card. e-PAN can also be downloaded instantly.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">5. PAN Card has wrong name — how to fix?</div><div class="faq-a">We will get your <strong>PAN Correction</strong> done. Aadhaar Card must have the correct name — then PAN will be corrected.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">6. What is Instant e-PAN?</div><div class="faq-a">If you have Aadhaar linked with mobile, you can get a <strong>FREE PAN Card in 10 minutes</strong> from <a href="https://eportal.incometax.gov.in/iec/foloiportl/#/pre-login/instant-e-pan" target="_blank" style="color:var(--orange);">Income Tax Portal</a>.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">7. What happens if PAN-Aadhaar is not linked?</div><div class="faq-a">PAN Card will become <strong>inactive</strong>. You won't be able to do large bank transactions or file ITR. Get it linked as soon as possible!</div></div>
+    </div>
+
+    <!-- ===== CTA ===== -->
+    <div class="cta-box">
+      <h3 class="lang-hi">PAN Card बनवाना है?</h3><h3 class="lang-en">Need a PAN Card?</h3>
+      <p class="lang-hi">हमसे संपर्क करें — हम आपका PAN Card आसानी से बनवा देंगे!</p><p class="lang-en">Contact us — we will get your PAN Card made easily!</p>
+      <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20mujhe%20PAN%20Card%20ki%20service%20chahiye." class="link-btn" style="background:var(--green);font-size:15px;padding:12px 28px;">💬 WhatsApp Par Sampark Karein</a>
+      <a href="tel:+918840714094" class="link-btn" style="font-size:15px;padding:12px 28px;">📞 Call Karein — 88407 14094</a>
+    </div>
+
+  </div>
+
+  <div class="footer">VISRO Consultancy | Musafirkhana, Amethi, Uttar Pradesh | visroconsultancy.netlify.app</div>
+</div>
+
+<script>
+function setLang(lang) {
+  if (lang === 'en') {
+    document.body.classList.add('en');
+  } else {
+    document.body.classList.remove('en');
+  }
+  document.querySelectorAll('.lang-btn').forEach(function(btn, i) {
+    btn.classList.remove('active');
+    if ((lang === 'hi' && i === 0) || (lang === 'en' && i === 1)) btn.classList.add('active');
+  });
+}
+</script>
+</body>
+</html>

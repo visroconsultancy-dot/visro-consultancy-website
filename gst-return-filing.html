@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GST Return Filing / जीएसटी रिटर्न फाइलिंग | VISRO Consultancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #0d1b3e; --orange: #e8640a; --green: #22c55e; --off-white: #f4f6fb; --gray: #64748b; --light-gray: #e2e8f0; --red: #ef4444; --blue: #3b82f6; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Sora', sans-serif; color: var(--navy); background: var(--off-white); line-height: 1.7; }
+  .back-bar { max-width: 900px; margin: 0 auto; padding: 12px 20px 0; display: flex; gap: 8px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; }
+  .page { max-width: 900px; margin: 12px auto 40px; background: white; border-radius: 12px; box-shadow: 0 4px 24px rgba(13,27,62,0.10); overflow: hidden; }
+  .hero { background: linear-gradient(135deg, var(--navy), #1a3660); color: white; padding: 36px 32px; text-align: center; }
+  .hero h1 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+  .hero .sub { font-size: 14px; opacity: 0.8; }
+  .hero .badge { display: inline-block; background: var(--orange); padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-top: 12px; }
+  .content { padding: 28px 32px 40px; }
+  .content h2 { font-size: 20px; font-weight: 800; color: var(--navy); margin: 28px 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--orange); display: inline-block; }
+  .content h2:first-child { margin-top: 0; }
+
+  .info-box { background: #eef2ff; border-left: 4px solid var(--navy); border-radius: 8px; padding: 18px 20px; margin: 0 0 24px; }
+  .info-box p { font-size: 14px; line-height: 1.8; font-family: 'Noto Sans Devanagari', sans-serif; }
+
+  /* Return Type Cards */
+  .return-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 0 0 28px; }
+  .return-card { background: white; border: 2px solid var(--light-gray); border-radius: 14px; padding: 22px; transition: all 0.25s; position: relative; overflow: hidden; }
+  .return-card:hover { border-color: var(--orange); box-shadow: 0 6px 20px rgba(232,100,10,0.10); transform: translateY(-3px); }
+  .return-card .ribbon { position: absolute; top: 12px; right: -30px; background: var(--orange); color: white; font-size: 10px; font-weight: 800; padding: 3px 36px; transform: rotate(45deg); }
+  .return-card .ribbon.green { background: var(--green); }
+  .return-card .ribbon.blue { background: var(--blue); }
+  .return-card .ribbon.red { background: var(--red); }
+  .return-card .icon { font-size: 36px; margin-bottom: 8px; }
+  .return-card .name { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 2px; }
+  .return-card .name-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 13px; color: var(--orange); font-weight: 600; margin-bottom: 10px; }
+  .return-card .detail { font-size: 12px; color: var(--gray); line-height: 1.7; }
+  .return-card .detail b { color: var(--navy); }
+  .return-card .meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .return-card .meta span { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: 700; }
+  .meta .freq { background: #dbeafe; color: #1d4ed8; }
+  .meta .due { background: #fef3c7; color: #92400e; }
+  .meta .who { background: #f3e8ff; color: #7c3aed; }
+
+  /* Due Date Table */
+  .due-table { width: 100%; border-collapse: collapse; margin: 0 0 28px; border-radius: 10px; overflow: hidden; font-size: 13px; }
+  .due-table th { background: var(--navy); color: white; padding: 12px 14px; text-align: left; font-size: 12px; }
+  .due-table td { padding: 10px 14px; border-bottom: 1px solid var(--light-gray); }
+  .due-table tr:last-child td { border-bottom: none; }
+  .due-table tr:hover td { background: #f8fafc; }
+  .due-table .highlight { background: #fff7ed; font-weight: 700; }
+
+  /* Penalty Box */
+  .penalty-box { background: #fef2f2; border: 2px solid #fecaca; border-radius: 12px; padding: 20px; margin: 0 0 28px; }
+  .penalty-box h3 { font-size: 16px; font-weight: 800; color: var(--red); margin-bottom: 10px; }
+  .penalty-box ul { list-style: none; padding: 0; }
+  .penalty-box li { font-size: 13px; padding: 5px 0; display: flex; align-items: flex-start; gap: 8px; line-height: 1.7; }
+  .penalty-box li::before { content: "⚠️"; font-size: 14px; }
+
+  /* Steps */
+  .steps { margin: 0 0 28px; }
+  .step { display: flex; gap: 16px; margin-bottom: 16px; }
+  .step-num { min-width: 44px; height: 44px; border-radius: 50%; background: var(--navy); color: white; font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-content { flex: 1; padding-top: 4px; }
+  .step-content .step-title { font-size: 15px; font-weight: 800; color: var(--navy); }
+  .step-content .step-title-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 13px; color: var(--orange); font-weight: 600; }
+  .step-content .step-desc { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+  /* Tip Box */
+  .tip-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 20px; margin: 0 0 28px; }
+  .tip-box h3 { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; }
+  .tip-box ul { list-style: none; padding: 0; }
+  .tip-box li { font-size: 13px; padding: 4px 0; display: flex; align-items: flex-start; gap: 8px; line-height: 1.7; }
+  .tip-box li::before { content: "✅"; font-size: 14px; }
+
+  /* Doc list */
+  .doc-list { list-style: none; margin: 0 0 28px; }
+  .doc-list li { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: white; border: 1px solid var(--light-gray); border-radius: 10px; margin-bottom: 10px; transition: all 0.2s; }
+  .doc-list li:hover { border-color: var(--orange); background: #fff8f3; }
+  .doc-list .num { min-width: 32px; height: 32px; border-radius: 50%; background: var(--orange); color: white; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .doc-list .doc-info { flex: 1; }
+  .doc-list .doc-name { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .doc-list .doc-name-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 13px; color: var(--orange); font-weight: 600; }
+  .doc-list .doc-desc { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+  /* FAQ */
+  .faq { margin: 0 0 28px; }
+  .faq-item { border: 1px solid var(--light-gray); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+  .faq-q { padding: 14px 18px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: white; transition: background 0.2s; }
+  .faq-q:hover { background: #f8fafc; }
+  .faq-q::after { content: '▼'; font-size: 11px; color: var(--orange); transition: transform 0.3s; }
+  .faq-item.open .faq-q::after { transform: rotate(180deg); }
+  .faq-a { padding: 0 18px; max-height: 0; overflow: hidden; transition: max-height 0.3s, padding 0.3s; font-size: 13px; color: var(--gray); line-height: 1.8; }
+  .faq-item.open .faq-a { padding: 0 18px 16px; max-height: 300px; }
+
+  /* CTA */
+  .cta-box { background: linear-gradient(135deg, var(--navy), #1a3660); color: white; border-radius: 12px; padding: 28px; text-align: center; margin: 20px 0; }
+  .cta-box h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+  .cta-box p { font-size: 13px; opacity: 0.8; margin-bottom: 16px; }
+  .link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 12px 24px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 700; margin: 6px; transition: all 0.2s; }
+  .link-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+  .link-btn.green { background: var(--green); }
+  .link-btn.navy { background: var(--navy); border: 2px solid white; }
+  .or-divider { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 16px 0 8px; color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 700; }
+  .or-divider::before, .or-divider::after { content: ''; width: 60px; height: 1px; background: rgba(255,255,255,0.3); }
+
+  .footer { background: var(--navy); color: rgba(255,255,255,0.6); text-align: center; padding: 16px; font-size: 11px; }
+
+  @media (max-width: 600px) {
+    .content { padding: 20px 16px 30px; }
+    .hero { padding: 24px 16px; }
+    .hero h1 { font-size: 22px; }
+    .return-grid { grid-template-columns: 1fr; }
+    .link-btn { display: flex; justify-content: center; }
+    .due-table { font-size: 11px; }
+    .due-table th, .due-table td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="back-bar">
+  <a href="gst-services.html" class="back-btn">← GST Services</a>
+  <a href="index.html" class="back-btn" style="background:var(--navy);">🏠 Home</a>
+</div>
+
+<div class="page">
+  <div class="hero">
+    <h1>📄 GST Return Filing</h1>
+    <div class="sub">जीएसटी रिटर्न फाइलिंग — GSTR-1, GSTR-3B, Annual Return</div>
+    <div class="badge">VISRO Consultancy</div>
+  </div>
+
+  <div class="content">
+
+    <!-- What is GST Return -->
+    <h2>GST Return क्या है?</h2>
+    <div class="info-box">
+      <p>
+        <b>GST Return</b> एक ऐसा फॉर्म है जिसमें आप अपनी <b>बिक्री (Sales)</b>, <b>खरीदारी (Purchases)</b>, <b>टैक्स वसूला (Output Tax)</b> और <b>टैक्स भरा (Input Tax Credit)</b> की जानकारी सरकार को देते हैं।<br><br>
+        हर GST रजिस्टर्ड व्यापारी को <b>समय पर रिटर्न फाइल</b> करना अनिवार्य है — चाहे उस महीने कोई बिक्री हुई हो या नहीं (<b>NIL Return</b> भी भरना ज़रूरी है)।
+      </p>
+    </div>
+
+    <!-- Types of Returns -->
+    <h2>रिटर्न के प्रकार / Types of Returns</h2>
+    <div class="return-grid">
+
+      <div class="return-card">
+        <div class="ribbon">सबसे ज़रूरी</div>
+        <div class="icon">📤</div>
+        <div class="name">GSTR-1</div>
+        <div class="name-hi">बिक्री का विवरण (Outward Supplies)</div>
+        <div class="detail">
+          आपने जो <b>बिक्री</b> की है उसकी पूरी डिटेल — किसको बेचा, कितने का बेचा, कितना टैक्स लगा। <b>B2B</b> (बिज़नेस को) और <b>B2C</b> (ग्राहक को) दोनों शामिल।
+        </div>
+        <div class="meta">
+          <span class="freq">📅 हर महीने</span>
+          <span class="due">⏰ अगले महीने की 11 तारीख</span>
+          <span class="who">👤 Regular Taxpayer</span>
+        </div>
+      </div>
+
+      <div class="return-card">
+        <div class="ribbon green">सबसे ज़रूरी</div>
+        <div class="icon">📊</div>
+        <div class="name">GSTR-3B</div>
+        <div class="name-hi">सारांश रिटर्न (Summary Return)</div>
+        <div class="detail">
+          महीने की कुल <b>बिक्री, खरीदारी, ITC</b> और <b>टैक्स भुगतान</b> का सारांश। इसी में <b>टैक्स जमा</b> करते हैं। GSTR-1 के बाद यह भरना ज़रूरी है।
+        </div>
+        <div class="meta">
+          <span class="freq">📅 हर महीने</span>
+          <span class="due">⏰ अगले महीने की 20 तारीख</span>
+          <span class="who">👤 Regular Taxpayer</span>
+        </div>
+      </div>
+
+      <div class="return-card">
+        <div class="icon">📥</div>
+        <div class="name">GSTR-2A / 2B</div>
+        <div class="name-hi">खरीदारी का विवरण (Auto-Generated)</div>
+        <div class="detail">
+          आपके <b>सप्लायर्स</b> ने जो GSTR-1 में आपका बिल डाला है, वह <b>ऑटो</b> यहाँ दिखता है। इसे <b>मैच</b> करें अपनी खरीदारी से — ITC क्लेम इसी से होता है।
+        </div>
+        <div class="meta">
+          <span class="freq">📅 Auto-Generated</span>
+          <span class="who">👤 सभी Taxpayers</span>
+        </div>
+      </div>
+
+      <div class="return-card">
+        <div class="icon">📑</div>
+        <div class="name">GSTR-4</div>
+        <div class="name-hi">कम्पोज़ीशन स्कीम रिटर्न</div>
+        <div class="detail">
+          <b>Composition Scheme</b> वाले व्यापारी इसे भरते हैं। सालाना एक बार फाइल करना होता है। कम टैक्स (1-6%) लगता है लेकिन ITC नहीं मिलता।
+        </div>
+        <div class="meta">
+          <span class="freq">📅 सालाना (Annual)</span>
+          <span class="due">⏰ 30 अप्रैल</span>
+          <span class="who">👤 Composition Dealer</span>
+        </div>
+      </div>
+
+      <div class="return-card">
+        <div class="ribbon blue">वार्षिक</div>
+        <div class="icon">📚</div>
+        <div class="name">GSTR-9</div>
+        <div class="name-hi">वार्षिक रिटर्न (Annual Return)</div>
+        <div class="detail">
+          पूरे साल का <b>सारांश</b> — 12 महीनों की सभी बिक्री, खरीदारी, ITC, टैक्स भुगतान की <b>एक जगह Summary</b>। ₹2 करोड़+ टर्नओवर वालों के लिए अनिवार्य।
+        </div>
+        <div class="meta">
+          <span class="freq">📅 साल में एक बार</span>
+          <span class="due">⏰ 31 दिसंबर</span>
+          <span class="who">👤 ₹2Cr+ Turnover</span>
+        </div>
+      </div>
+
+      <div class="return-card">
+        <div class="icon">🔍</div>
+        <div class="name">GSTR-9C</div>
+        <div class="name-hi">GST ऑडिट (Reconciliation Statement)</div>
+        <div class="detail">
+          <b>₹5 करोड़+</b> टर्नओवर वालों को CA से <b>GST Audit</b> करवाकर यह फॉर्म भरना होता है। GSTR-9 के साथ फाइल होता है।
+        </div>
+        <div class="meta">
+          <span class="freq">📅 साल में एक बार</span>
+          <span class="due">⏰ 31 दिसंबर</span>
+          <span class="who">👤 ₹5Cr+ Turnover</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Due Dates -->
+    <h2>डेडलाइन / Due Dates</h2>
+    <table class="due-table">
+      <tr>
+        <th>रिटर्न</th>
+        <th>कब भरें</th>
+        <th>आखिरी तारीख</th>
+        <th>किसके लिए</th>
+      </tr>
+      <tr class="highlight">
+        <td><b>GSTR-1</b></td>
+        <td>हर महीने</td>
+        <td><b>11 तारीख</b> (अगले महीने)</td>
+        <td>Regular Taxpayer</td>
+      </tr>
+      <tr class="highlight">
+        <td><b>GSTR-3B</b></td>
+        <td>हर महीने</td>
+        <td><b>20 तारीख</b> (अगले महीने)</td>
+        <td>Regular Taxpayer</td>
+      </tr>
+      <tr>
+        <td>GSTR-1 (QRMP)</td>
+        <td>तिमाही</td>
+        <td>तिमाही खत्म होने के 13 दिन बाद</td>
+        <td>₹5Cr से कम Turnover</td>
+      </tr>
+      <tr>
+        <td>IFF (Invoice Furnishing)</td>
+        <td>हर महीने (Optional)</td>
+        <td>अगले महीने की 13 तारीख</td>
+        <td>QRMP Scheme वाले</td>
+      </tr>
+      <tr>
+        <td>CMP-08</td>
+        <td>तिमाही</td>
+        <td>तिमाही खत्म होने के 18 दिन बाद</td>
+        <td>Composition Dealer</td>
+      </tr>
+      <tr>
+        <td>GSTR-4</td>
+        <td>सालाना</td>
+        <td><b>30 अप्रैल</b></td>
+        <td>Composition Dealer</td>
+      </tr>
+      <tr>
+        <td>GSTR-9</td>
+        <td>सालाना</td>
+        <td><b>31 दिसंबर</b></td>
+        <td>₹2Cr+ Turnover</td>
+      </tr>
+      <tr>
+        <td>GSTR-9C</td>
+        <td>सालाना</td>
+        <td><b>31 दिसंबर</b></td>
+        <td>₹5Cr+ Turnover</td>
+      </tr>
+    </table>
+
+    <!-- Filing Process -->
+    <h2>रिटर्न कैसे भरें / Filing Process</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">GST Portal पर लॉगिन करें</div>
+          <div class="step-title-hi">www.gst.gov.in → Login</div>
+          <div class="step-desc">अपना GSTIN / Username और Password डालकर लॉगिन करें</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Returns Dashboard खोलें</div>
+          <div class="step-title-hi">Services → Returns → Returns Dashboard</div>
+          <div class="step-desc">Financial Year और Return Filing Period (महीना) चुनें</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">पहले GSTR-1 भरें (बिक्री)</div>
+          <div class="step-title-hi">सभी बिक्री Invoice की डिटेल डालें</div>
+          <div class="step-desc">B2B Invoices (₹2.5L+), B2C Sales, Credit/Debit Notes, Exports, HSN Summary डालें → Submit → File with DSC/EVC</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">GSTR-2B चेक करें (खरीदारी)</div>
+          <div class="step-title-hi">Auto-Generated Purchase Data Verify करें</div>
+          <div class="step-desc">सप्लायर्स ने जो बिल डाले हैं वो GSTR-2B में दिखेंगे — अपनी खरीदारी से मैच करें</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">GSTR-3B भरें (Summary + Tax Payment)</div>
+          <div class="step-title-hi">सारांश भरें और टैक्स जमा करें</div>
+          <div class="step-desc">Output Tax, ITC Claimed, Net Tax Payable भरें → Tax जमा करें (Cash/ITC से) → File with DSC/EVC</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <div class="step-title">ARN मिलेगा — Filing Complete ✅</div>
+          <div class="step-title-hi">Acknowledgement Reference Number</div>
+          <div class="step-desc">Filing सफल होने पर ARN मिलेगा — इसे सेव रखें। Receipt डाउनलोड कर लें।</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- What You Need -->
+    <h2>क्या-क्या चाहिए / What You Need</h2>
+    <ul class="doc-list">
+      <li>
+        <div class="num">1</div>
+        <div class="doc-info">
+          <div class="doc-name">GST Login Credentials</div>
+          <div class="doc-name-hi">GSTIN, Username, Password</div>
+          <div class="doc-desc">GST Portal का लॉगिन — अगर भूल गए हैं तो Forgot Password से रिसेट करें</div>
+        </div>
+      </li>
+      <li>
+        <div class="num">2</div>
+        <div class="doc-info">
+          <div class="doc-name">Sales Invoices (बिक्री बिल)</div>
+          <div class="doc-name-hi">सभी बिक्री के बिल</div>
+          <div class="doc-desc">महीने की सभी बिक्री — Invoice Number, Date, Party Name, GSTIN, Amount, Tax</div>
+        </div>
+      </li>
+      <li>
+        <div class="num">3</div>
+        <div class="doc-info">
+          <div class="doc-name">Purchase Invoices (खरीदारी बिल)</div>
+          <div class="doc-name-hi">सभी खरीदारी के बिल</div>
+          <div class="doc-desc">महीने की सभी खरीदारी — ITC क्लेम करने के लिए सप्लायर का GSTIN ज़रूरी</div>
+        </div>
+      </li>
+      <li>
+        <div class="num">4</div>
+        <div class="doc-info">
+          <div class="doc-name">HSN / SAC Codes</div>
+          <div class="doc-name-hi">वस्तु / सेवा कोड</div>
+          <div class="doc-desc">हर वस्तु (HSN) और सेवा (SAC) का कोड — सही टैक्स रेट लगाने के लिए ज़रूरी</div>
+        </div>
+      </li>
+      <li>
+        <div class="num">5</div>
+        <div class="doc-info">
+          <div class="doc-name">Bank Statement / Cash Ledger</div>
+          <div class="doc-name-hi">बैंक स्टेटमेंट</div>
+          <div class="doc-desc">टैक्स भुगतान के लिए — Electronic Cash Ledger में पैसे डालने होंगे (Net Banking/NEFT/RTGS)</div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- Late Filing Penalty -->
+    <div class="penalty-box">
+      <h3>⚠️ देर से फाइल करने पर जुर्माना / Late Filing Penalty</h3>
+      <ul>
+        <li><b>GSTR-3B देरी:</b> ₹50/दिन (₹25 CGST + ₹25 SGST) — अधिकतम ₹10,000 प्रति रिटर्न</li>
+        <li><b>NIL Return देरी:</b> ₹20/दिन (₹10 CGST + ₹10 SGST)</li>
+        <li><b>GSTR-1 देरी:</b> ₹50/दिन (NIL के लिए ₹20/दिन)</li>
+        <li><b>GSTR-9 देरी:</b> ₹200/दिन (₹100 CGST + ₹100 SGST) — अधिकतम टर्नओवर का 0.25%</li>
+        <li><b>ब्याज (Interest):</b> बकाया टैक्स पर <b>18% सालाना</b> ब्याज लगता है</li>
+        <li><b>6 महीने+ देरी:</b> GST रजिस्ट्रेशन <b>Suo Motu Cancel</b> हो सकता है</li>
+        <li><b>E-Way Bill Block:</b> 2 महीने+ GSTR-3B पेंडिंग होने पर E-Way Bill जनरेट नहीं होगा</li>
+      </ul>
+    </div>
+
+    <!-- Tips -->
+    <div class="tip-box">
+      <h3>💡 ज़रूरी टिप्स / Important Tips</h3>
+      <ul>
+        <li>हमेशा <b>पहले GSTR-1</b> भरें, उसके बाद <b>GSTR-3B</b> भरें</li>
+        <li><b>NIL Return</b> भी समय पर भरें — वरना जुर्माना लगेगा</li>
+        <li>GSTR-2B से <b>ITC मैच</b> करके ही क्लेम करें — मिसमैच होने पर नोटिस आ सकता है</li>
+        <li><b>QRMP Scheme</b> (₹5Cr से कम टर्नओवर) में तिमाही रिटर्न भर सकते हैं — Portal पर ऑप्ट-इन करें</li>
+        <li>टैक्स भुगतान <b>20 तारीख से पहले</b> करें — बाद में 18% ब्याज लगेगा</li>
+        <li>सभी Invoices का <b>बैकअप</b> रखें — कम से कम 6 साल तक</li>
+        <li><b>Credit/Debit Notes</b> की एंट्री करना न भूलें</li>
+        <li>Composition Dealer को <b>हर तिमाही CMP-08</b> और <b>साल में GSTR-4</b> भरना होता है</li>
+      </ul>
+    </div>
+
+    <!-- FAQ -->
+    <h2>अक्सर पूछे जाने वाले सवाल / FAQ</h2>
+    <div class="faq">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">अगर कोई बिक्री नहीं हुई तो भी रिटर्न भरना ज़रूरी है?</div>
+        <div class="faq-a">हाँ, <b>NIL Return</b> भरना अनिवार्य है। बिना बिक्री के भी GSTR-1 और GSTR-3B दोनों भरने होंगे। नहीं भरने पर ₹20/दिन जुर्माना लगेगा।</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">GSTR-1 और GSTR-3B में क्या फर्क है?</div>
+        <div class="faq-a"><b>GSTR-1</b> में हर Invoice की Detail डालते हैं (किसको बेचा, कितना)। <b>GSTR-3B</b> में कुल Summary डालते हैं और <b>टैक्स जमा</b> करते हैं। दोनों भरना ज़रूरी है।</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">ITC (Input Tax Credit) क्या है?</div>
+        <div class="faq-a">जो टैक्स आपने <b>खरीदारी पर भरा</b> है, वह आप <b>बिक्री के टैक्स से घटा</b> सकते हैं — इसे ITC कहते हैं। उदाहरण: ₹1000 बिक्री टैक्स - ₹600 खरीदारी टैक्स = ₹400 ही जमा करना होगा।</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">क्या मोबाइल से GST Return भर सकते हैं?</div>
+        <div class="faq-a">हाँ, GST Portal मोबाइल ब्राउज़र पर काम करता है। साथ ही <b>GST PMT App</b> से टैक्स भुगतान भी कर सकते हैं। हालाँकि, बड़े डेटा के लिए कंप्यूटर बेहतर है।</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">GSTR-1 में गलती हो गई तो क्या करें?</div>
+        <div class="faq-a">GSTR-1 Filed होने के बाद <b>अगले महीने के GSTR-1</b> में Amendment Section में सुधार कर सकते हैं। या Credit/Debit Note जारी करके ठीक कर सकते हैं।</div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-box">
+      <h3>GST Return Filing करवाएँ</h3>
+      <p>खुद करें GST Portal पर, या हमसे करवाएँ!</p>
+
+      <a href="https://services.gst.gov.in/services/login" target="_blank" class="link-btn navy">🌐 Self File करें — GST Portal</a>
+
+      <div class="or-divider">─── या / OR ───</div>
+
+      <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20mujhe%20GST%20Return%20Filing%20karwani%20hai" class="link-btn green">💬 हमसे करवाएँ — WhatsApp</a>
+      <a href="tel:+918840714094" class="link-btn">📞 Call करें — 88407 14094</a>
+    </div>
+
+  </div>
+  <div class="footer">VISRO Consultancy | Gomtinagar Vistar, Lucknow, UP | visroconsultancy.netlify.app</div>
+</div>
+
+</body>
+</html>

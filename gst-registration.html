@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GST Registration / जीएसटी रजिस्ट्रेशन | VISRO Consultancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #0d1b3e; --orange: #e8640a; --green: #22c55e; --off-white: #f4f6fb; --gray: #64748b; --light-gray: #e2e8f0; --red: #ef4444; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Sora', sans-serif; color: var(--navy); background: var(--off-white); line-height: 1.7; }
+  .back-bar { max-width: 900px; margin: 0 auto; padding: 12px 20px 0; display: flex; gap: 8px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; }
+  .page { max-width: 900px; margin: 12px auto 40px; background: white; border-radius: 12px; box-shadow: 0 4px 24px rgba(13,27,62,0.10); overflow: hidden; }
+  .hero { background: linear-gradient(135deg, var(--navy), #1a3660); color: white; padding: 36px 32px; text-align: center; }
+  .hero h1 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+  .hero .sub { font-size: 14px; opacity: 0.8; }
+  .hero .badge { display: inline-block; background: var(--orange); padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-top: 12px; }
+  .content { padding: 28px 32px 40px; }
+  .content h2 { font-size: 20px; font-weight: 800; color: var(--navy); margin: 28px 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--orange); display: inline-block; }
+  .content h2:first-child { margin-top: 0; }
+
+  /* Info box */
+  .info-box { background: #eef2ff; border-left: 4px solid var(--navy); border-radius: 8px; padding: 18px 20px; margin: 0 0 24px; }
+  .info-box p { font-size: 14px; line-height: 1.8; }
+  .info-box .hi { font-family: 'Noto Sans Devanagari', sans-serif; }
+
+  /* Rules cards */
+  .rule-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 0 0 28px; }
+  .rule-card { background: white; border: 2px solid var(--light-gray); border-radius: 12px; padding: 20px; transition: all 0.2s; }
+  .rule-card:hover { border-color: var(--orange); box-shadow: 0 4px 16px rgba(232,100,10,0.08); }
+  .rule-card .icon { font-size: 32px; margin-bottom: 8px; }
+  .rule-card .title { font-size: 15px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+  .rule-card .title-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 13px; color: var(--orange); font-weight: 600; margin-bottom: 8px; }
+  .rule-card .detail { font-size: 12px; color: var(--gray); line-height: 1.7; }
+
+  /* Document list */
+  .doc-list { list-style: none; margin: 0 0 28px; }
+  .doc-list li { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: white; border: 1px solid var(--light-gray); border-radius: 10px; margin-bottom: 10px; transition: all 0.2s; }
+  .doc-list li:hover { border-color: var(--orange); background: #fff8f3; }
+  .doc-list .num { min-width: 32px; height: 32px; border-radius: 50%; background: var(--orange); color: white; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .doc-list .doc-info { flex: 1; }
+  .doc-list .doc-name { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .doc-list .doc-name-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 13px; color: var(--orange); font-weight: 600; }
+  .doc-list .doc-desc { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+  /* Mandatory box */
+  .mandatory-box { background: #fef2f2; border: 2px solid #fecaca; border-radius: 12px; padding: 20px; margin: 0 0 28px; }
+  .mandatory-box h3 { font-size: 16px; font-weight: 800; color: var(--red); margin-bottom: 10px; }
+  .mandatory-box ul { list-style: none; padding: 0; }
+  .mandatory-box li { font-size: 13px; padding: 4px 0; display: flex; align-items: flex-start; gap: 8px; }
+  .mandatory-box li::before { content: "⚠️"; font-size: 14px; }
+
+  /* Voluntary box */
+  .voluntary-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 20px; margin: 0 0 28px; }
+  .voluntary-box h3 { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; }
+  .voluntary-box ul { list-style: none; padding: 0; }
+  .voluntary-box li { font-size: 13px; padding: 4px 0; display: flex; align-items: flex-start; gap: 8px; }
+  .voluntary-box li::before { content: "✅"; font-size: 14px; }
+
+  /* Steps */
+  .steps { margin: 0 0 28px; }
+  .step { display: flex; gap: 16px; margin-bottom: 16px; }
+  .step-num { min-width: 44px; height: 44px; border-radius: 50%; background: var(--navy); color: white; font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .step-content { flex: 1; padding-top: 4px; }
+  .step-content .step-title { font-size: 15px; font-weight: 800; color: var(--navy); }
+  .step-content .step-title-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 13px; color: var(--orange); font-weight: 600; }
+  .step-content .step-desc { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+  /* Fees */
+  .fee-table { width: 100%; border-collapse: collapse; margin: 0 0 28px; border-radius: 10px; overflow: hidden; }
+  .fee-table th { background: var(--navy); color: white; padding: 12px 16px; font-size: 13px; text-align: left; }
+  .fee-table td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid var(--light-gray); }
+  .fee-table tr:last-child td { border-bottom: none; }
+  .fee-table tr:hover td { background: #f8fafc; }
+
+  /* CTA */
+  .cta-box { background: linear-gradient(135deg, var(--navy), #1a3660); color: white; border-radius: 12px; padding: 28px; text-align: center; margin: 20px 0; }
+  .cta-box h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+  .cta-box p { font-size: 13px; opacity: 0.8; margin-bottom: 16px; }
+  .link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 12px 24px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 700; margin: 6px; transition: all 0.2s; }
+  .link-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+  .link-btn.green { background: var(--green); }
+  .link-btn.navy { background: var(--navy); border: 2px solid white; }
+
+  .or-divider { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 16px 0 8px; color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 700; }
+  .or-divider::before, .or-divider::after { content: ''; width: 60px; height: 1px; background: rgba(255,255,255,0.3); }
+
+  .footer { background: var(--navy); color: rgba(255,255,255,0.6); text-align: center; padding: 16px; font-size: 11px; }
+
+  @media (max-width: 600px) {
+    .content { padding: 20px 16px 30px; }
+    .hero { padding: 24px 16px; }
+    .hero h1 { font-size: 22px; }
+    .rule-grid { grid-template-columns: 1fr; }
+    .link-btn { display: flex; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="back-bar">
+  <a href="gst-services.html" class="back-btn">← GST Services</a>
+  <a href="index.html" class="back-btn" style="background:var(--navy);">🏠 Home</a>
+</div>
+
+<div class="page">
+  <div class="hero">
+    <h1>🆕 नया GST रजिस्ट्रेशन</h1>
+    <div class="sub">New GST Registration — Rules, Documents & Apply</div>
+    <div class="badge">VISRO Consultancy</div>
+  </div>
+
+  <div class="content">
+
+    <!-- What is GST -->
+    <h2>GST क्या है? / What is GST?</h2>
+    <div class="info-box">
+      <p class="hi">
+        <b>GST (Goods and Services Tax)</b> — यह एक अप्रत्यक्ष कर (Indirect Tax) है जो पूरे भारत में वस्तुओं और सेवाओं की बिक्री पर लगता है।<br>
+        GST रजिस्ट्रेशन करवाने के बाद आपको एक <b>15 अंकों का GSTIN नंबर</b> मिलता है, जिससे आप कानूनी रूप से व्यापार कर सकते हैं, बिल बना सकते हैं और इनपुट टैक्स क्रेडिट (ITC) ले सकते हैं।
+      </p>
+    </div>
+
+    <!-- Rules / Norms -->
+    <h2>GST रजिस्ट्रेशन के नियम / Rules</h2>
+
+    <div class="mandatory-box">
+      <h3>⚠️ अनिवार्य (Mandatory) — इन लोगों को GST लेना ज़रूरी है</h3>
+      <ul>
+        <li>जिनका सालाना टर्नओवर <b>₹40 लाख से ज़्यादा</b> है (वस्तुओं / Goods के लिए)</li>
+        <li>जिनका सालाना टर्नओवर <b>₹20 लाख से ज़्यादा</b> है (सेवाओं / Services के लिए)</li>
+        <li><b>Special Category States</b> (NE States, Uttarakhand, HP, J&K) में <b>₹10 लाख</b> से ज़्यादा टर्नओवर पर</li>
+        <li>जो <b>दूसरे राज्य में</b> माल बेचते हैं (Inter-State Supply) — चाहे टर्नओवर कुछ भी हो</li>
+        <li>जो <b>E-Commerce</b> (Amazon, Flipkart, Meesho आदि) पर सामान बेचते हैं</li>
+        <li>जो <b>Casual Taxable Person</b> हैं — अस्थायी रूप से किसी दूसरे राज्य में व्यापार करते हैं</li>
+        <li>जो <b>Input Service Distributor</b> हैं</li>
+        <li>जो <b>TDS/TCS</b> काटने के लिए ज़िम्मेदार हैं</li>
+      </ul>
+    </div>
+
+    <div class="voluntary-box">
+      <h3>✅ स्वैच्छिक (Voluntary) — चाहें तो GST ले सकते हैं</h3>
+      <ul>
+        <li>जिनका टर्नओवर सीमा से कम है — लेकिन <b>बिल बनाने</b> या <b>ITC लेने</b> के लिए GST लेना चाहते हैं</li>
+        <li>जो <b>सरकारी टेंडर</b> या <b>बड़ी कंपनियों</b> को सामान/सेवा देना चाहते हैं</li>
+        <li>जो अपने व्यापार को <b>कानूनी पहचान</b> देना चाहते हैं</li>
+        <li>स्टार्टअप या नया बिज़नेस शुरू कर रहे हैं और <b>प्रोफेशनल बिलिंग</b> चाहते हैं</li>
+      </ul>
+    </div>
+
+    <!-- GST Types -->
+    <h2>GST के प्रकार / Types of GST Registration</h2>
+    <div class="rule-grid">
+      <div class="rule-card">
+        <div class="icon">📦</div>
+        <div class="title">Regular GST</div>
+        <div class="title-hi">सामान्य जीएसटी</div>
+        <div class="detail">₹40L+ टर्नओवर वालों के लिए। हर महीने GSTR-1, GSTR-3B फाइल करना होता है। ITC का फायदा मिलता है।</div>
+      </div>
+      <div class="rule-card">
+        <div class="icon">📋</div>
+        <div class="title">Composition Scheme</div>
+        <div class="title-hi">कम्पोज़ीशन स्कीम</div>
+        <div class="detail">₹1.5 करोड़ तक टर्नओवर वालों के लिए। कम टैक्स (1-6%), तिमाही रिटर्न, लेकिन ITC नहीं मिलता।</div>
+      </div>
+      <div class="rule-card">
+        <div class="icon">🌐</div>
+        <div class="title">Casual Taxable Person</div>
+        <div class="title-hi">अस्थायी करदाता</div>
+        <div class="detail">जो अस्थायी रूप से किसी राज्य में व्यापार करते हैं — जैसे मेले, प्रदर्शनी आदि में।</div>
+      </div>
+      <div class="rule-card">
+        <div class="icon">🏪</div>
+        <div class="title">E-Commerce Seller</div>
+        <div class="title-hi">ई-कॉमर्स विक्रेता</div>
+        <div class="detail">Amazon, Flipkart, Meesho जैसे प्लेटफॉर्म पर बेचने वालों को GST अनिवार्य है, चाहे टर्नओवर कम हो।</div>
+      </div>
+    </div>
+
+    <!-- Required Documents -->
+    <h2>ज़रूरी दस्तावेज़ / Required Documents</h2>
+    <ul class="doc-list">
+      <li>
+        <div class="num">1</div>
+        <div class="doc-info">
+          <div class="doc-name">PAN Card</div>
+          <div class="doc-name-hi">पैन कार्ड</div>
+          <div class="doc-desc">व्यक्ति / पार्टनरशिप / कंपनी का PAN Card (अनिवार्य)</div>
+        </div>
+      </li>
+      <li>
+        <div class="num">2</div>
+        <div class="doc-info">
+          <div class="doc-name">Aadhaar Card</div>
+          <div class="doc-name-hi">आधार कार्ड</div>
+          <div class="doc-desc">मालिक / सभी पार्टनर्स / डायरेक्टर्स का आधार कार्ड</div>
+        </div>
+      </li>
+      <li>
+        <div class="num">3</div>
+        <div class="doc-info">
+          <div class="doc-name">Photo (Passport Size)</div>
+          <div class="doc-name-hi">फोटो (पासपोर्ट साइज़)</div>
+          <div class="doc-desc">मालिक / सभी पार्टनर्स / डायरेक्टर्स की पासपोर्ट साइज़ फोटो</div>
+        </div>
+      </li>
+      <li>
+        <div class="num">4</div>
+        <div class="doc-info">
+          <div class="doc-name">Business Address Proof</div>
+          <div class="doc-name-hi">व्यापार का पता प्रमाण</div>
+          <div class="doc-desc">
+            <b>खुद की प्रॉपर्टी:</b> बिजली बिल / प्रॉपर्टी टैक्स रसीद / रजिस्ट्री<br>
+            <b>किराये पर:</b> रेंट एग्रीमेंट + मकान मालिक का NOC + बिजली बिल
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="num">5</div>
+        <div class="doc-info">
+          <div class="doc-name">Bank Account Details</div>
+          <div class="doc-name-hi">बैंक खाता विवरण</div>
+          <div class="doc-desc">बैंक पासबुक की कॉपी या कैंसल्ड चेक (खाता नंबर, IFSC कोड)</div>
+        </div>
+      </li>
+      <li>
+        <div class="num">6</div>
+        <div class="doc-info">
+          <div class="doc-name">Business Registration Proof</div>
+          <div class="doc-name-hi">व्यापार रजिस्ट्रेशन प्रमाण</div>
+          <div class="doc-desc">
+            Proprietorship: कोई अलग डॉक्यूमेंट नहीं चाहिए<br>
+            Partnership: Partnership Deed<br>
+            LLP/Company: Certificate of Incorporation, MOA, AOA
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="num">7</div>
+        <div class="doc-info">
+          <div class="doc-name">Digital Signature (DSC)</div>
+          <div class="doc-name-hi">डिजिटल सिग्नेचर</div>
+          <div class="doc-desc">LLP और Company के लिए अनिवार्य। Proprietorship / Partnership में ज़रूरी नहीं।</div>
+        </div>
+      </li>
+      <li>
+        <div class="num">8</div>
+        <div class="doc-info">
+          <div class="doc-name">Authorization Letter / Board Resolution</div>
+          <div class="doc-name-hi">अधिकार पत्र</div>
+          <div class="doc-desc">अगर किसी और व्यक्ति को GST आवेदन करने का अधिकार दिया गया है (Company/LLP के लिए)</div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- Process Steps -->
+    <h2>GST रजिस्ट्रेशन की प्रक्रिया / Process</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">GST Portal पर जाएँ</div>
+          <div class="step-title-hi">Visit www.gst.gov.in</div>
+          <div class="step-desc">Services → Registration → New Registration पर क्लिक करें</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Part-A: OTP Verification</div>
+          <div class="step-title-hi">PAN, मोबाइल और ईमेल वेरिफिकेशन</div>
+          <div class="step-desc">PAN, मोबाइल नंबर और ईमेल डालें → OTP से वेरिफाई करें → TRN (Temporary Reference Number) मिलेगा</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Part-B: Full Application</div>
+          <div class="step-title-hi">पूरा फॉर्म भरें</div>
+          <div class="step-desc">TRN से लॉगिन करें → Business Details, Promoter Info, Place of Business, Bank Details भरें → सभी Documents अपलोड करें</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Aadhaar Authentication / DSC</div>
+          <div class="step-title-hi">आधार ऑथेंटिकेशन या डिजिटल सिग्नेचर</div>
+          <div class="step-desc">Aadhaar OTP से वेरिफाई करें या DSC लगाकर Submit करें</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">ARN मिलेगा</div>
+          <div class="step-title-hi">Application Reference Number</div>
+          <div class="step-desc">Submit होने के बाद ARN नंबर मिलेगा — इससे Application Track कर सकते हैं</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <div class="step-title">GSTIN मिलेगा (3-7 दिन में)</div>
+          <div class="step-title-hi">GST Certificate Download</div>
+          <div class="step-desc">अगर सब सही है तो 3-7 Working Days में GSTIN नंबर और Certificate मिल जाएगा</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fees -->
+    <h2>शुल्क / Fees</h2>
+    <table class="fee-table">
+      <tr>
+        <th>विवरण / Description</th>
+        <th>शुल्क / Fees</th>
+      </tr>
+      <tr>
+        <td>सरकारी शुल्क (Government Fees)</td>
+        <td><b style="color:var(--green);">₹0 (निःशुल्क / Free)</b></td>
+      </tr>
+      <tr>
+        <td>VISRO Consultancy Service Charge</td>
+        <td><b style="color:var(--orange);">संपर्क करें / Contact Us</b></td>
+      </tr>
+    </table>
+
+    <!-- Important Notes -->
+    <h2>ध्यान रखें / Important Notes</h2>
+    <div class="info-box">
+      <p class="hi" style="font-size:13px;">
+        ✔️ GST रजिस्ट्रेशन <b>सरकारी पोर्टल पर बिल्कुल मुफ्त</b> है — कोई सरकारी फीस नहीं लगती।<br>
+        ✔️ Aadhaar Authentication ज़रूरी है — बिना Aadhaar के Physical Verification होगा।<br>
+        ✔️ बैंक खाता बाद में भी जोड़ सकते हैं (45 दिन के अंदर)।<br>
+        ✔️ Composition Scheme चुनने पर Inter-State Supply नहीं कर सकते।<br>
+        ✔️ GST Cancel करवाना भी मुफ्त है — Portal से Online कर सकते हैं।<br>
+        ⚠️ <b>फर्जी GST एजेंट से सावधान</b> — हमेशा gst.gov.in पर ही Apply करें।
+      </p>
+    </div>
+
+    <!-- CTA: Self Apply or Contact Us -->
+    <div class="cta-box">
+      <h3>GST रजिस्ट्रेशन करवाएँ</h3>
+      <p>खुद करें या हमसे बनवाएँ — दोनों विकल्प उपलब्ध हैं!</p>
+
+      <a href="https://reg.gst.gov.in/registration/" target="_blank" class="link-btn navy">🌐 Self Apply करें — GST Portal</a>
+
+      <div class="or-divider">─── या / OR ───</div>
+
+      <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20mujhe%20naya%20GST%20Registration%20karwana%20hai" class="link-btn green">💬 हमसे बनवाएँ — WhatsApp</a>
+      <a href="tel:+918840714094" class="link-btn">📞 Call करें — 88407 14094</a>
+    </div>
+
+  </div>
+  <div class="footer">VISRO Consultancy | Gomtinagar Vistar, Lucknow, UP | visroconsultancy.netlify.app</div>
+</div>
+
+</body>
+</html>

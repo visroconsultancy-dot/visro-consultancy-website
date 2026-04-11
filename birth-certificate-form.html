@@ -259,7 +259,7 @@
       <div class="field-group"><label>ग्राम प्रधान का नाम <span class="req">*</span></label><input type="text" id="gp_pradhan_name" oninput="updateGPStatement()"></div>
       <div class="field-group"><label>मोबाइल नंबर</label><input type="tel" id="gp_pradhan_mobile" maxlength="10"></div>
       <div class="field-group"><label>ग्राम पंचायत (auto)</label><input type="text" id="gp_panchayat_field" readonly style="background:#f5f5f5;"></div>
-      <div class="field-group"><label>बयान की तिथि</label><input type="date" id="gp_statement_date"></div>
+      <div class="field-group"><label>बयान की तिथि</label><input type="date" id="gp_statement_date" class="dob-picker" data-placeholder="तिथि चुनें"></div>
       <div class="field-group"><label>स्थान</label><input type="text" id="gp_place" placeholder="ग्राम पंचायत भवन"></div>
     </div>
     <div style="background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;padding:12px 14px;margin-bottom:14px;"><div style="font-size:12px;font-weight:700;color:#1B5E20;margin-bottom:10px;">👥 साक्षी</div><div class="fields two-col"><div class="field-group"><label>साक्षी-1</label><input type="text" id="gp_witness1"></div><div class="field-group"><label>साक्षी-2</label><input type="text" id="gp_witness2"></div></div></div>
@@ -269,14 +269,14 @@
   <!-- ASHA/ANM Statement -->
   <div style="background:#7B1FA2;color:white;padding:8px 16px;font-size:13px;font-weight:700;">आशा बहू / ANM का बयान</div>
   <div class="section" style="margin:0;border-radius:0;"><div class="section-title" style="background:#6A1B9A;"><span class="num" style="background:#FF6B00;">A</span> आशा/ANM प्रमाण-पत्र</div><div class="section-content" style="background:#fdf4ff;">
-    <div class="fields" style="margin-bottom:14px;"><div class="field-group"><label>आशा/ANM का नाम <span class="req">*</span></label><input type="text" id="asha_name"></div><div class="field-group"><label>पदनाम</label><select id="asha_designation"><option value="आशा बहू">आशा बहू</option><option value="ANM">ANM</option></select></div><div class="field-group"><label>मजरा / उप-केंद्र</label><input type="text" id="asha_center"></div><div class="field-group"><label>मोबाइल</label><input type="tel" id="asha_mobile" maxlength="10"></div><div class="field-group"><label>बयान तिथि</label><input type="date" id="asha_statement_date"></div></div>
+    <div class="fields" style="margin-bottom:14px;"><div class="field-group"><label>आशा/ANM का नाम <span class="req">*</span></label><input type="text" id="asha_name"></div><div class="field-group"><label>पदनाम</label><select id="asha_designation"><option value="आशा बहू">आशा बहू</option><option value="ANM">ANM</option></select></div><div class="field-group"><label>मजरा / उप-केंद्र</label><input type="text" id="asha_center"></div><div class="field-group"><label>मोबाइल</label><input type="tel" id="asha_mobile" maxlength="10"></div><div class="field-group"><label>बयान तिथि</label><input type="date" id="asha_statement_date" class="dob-picker" data-placeholder="तिथि चुनें"></div></div>
     <div style="max-width:320px;text-align:center;"><div style="width:110px;height:90px;border:1.5px solid #aaa;border-radius:4px;margin:10px auto 6px;background:#fff;"></div><div style="font-size:12px;color:#7B1FA2;font-weight:600;">आशा / ANM हस्ताक्षर</div></div>
   </div></div>
 
   <!-- Panchayat Sahayak -->
   <div style="background:#E65100;color:white;padding:8px 16px;font-size:13px;font-weight:700;">पंचायत सहायक / रोजगार सेवक का बयान</div>
   <div class="section" style="margin:0;border-radius:0;"><div class="section-title" style="background:#BF360C;"><span class="num" style="background:#1B5E20;">PS</span> पंचायत सहायक प्रमाण-पत्र</div><div class="section-content" style="background:#fff8f5;">
-    <div class="fields" style="margin-bottom:14px;"><div class="field-group"><label>पंचायत सहायक का नाम <span class="req">*</span></label><input type="text" id="ps_name"></div><div class="field-group"><label>पदनाम</label><select id="ps_designation"><option value="पंचायत सहायक">पंचायत सहायक</option><option value="रोजगार सेवक">रोजगार सेवक</option></select></div><div class="field-group"><label>मोबाइल</label><input type="tel" id="ps_mobile" maxlength="10"></div><div class="field-group"><label>बयान तिथि</label><input type="date" id="ps_statement_date"></div></div>
+    <div class="fields" style="margin-bottom:14px;"><div class="field-group"><label>पंचायत सहायक का नाम <span class="req">*</span></label><input type="text" id="ps_name"></div><div class="field-group"><label>पदनाम</label><select id="ps_designation"><option value="पंचायत सहायक">पंचायत सहायक</option><option value="रोजगार सेवक">रोजगार सेवक</option></select></div><div class="field-group"><label>मोबाइल</label><input type="tel" id="ps_mobile" maxlength="10"></div><div class="field-group"><label>बयान तिथि</label><input type="date" id="ps_statement_date" class="dob-picker" data-placeholder="तिथि चुनें"></div></div>
     <div style="max-width:320px;text-align:center;"><div style="width:110px;height:90px;border:1.5px solid #aaa;border-radius:4px;margin:10px auto 6px;background:#fff;"></div><div style="font-size:12px;color:#E65100;font-weight:600;">पंचायत सहायक हस्ताक्षर</div></div>
   </div></div>
 
@@ -308,6 +308,7 @@
 <div class="toast" id="toast"></div>
 
 <script src="up-locations.js"></script>
+<script src="dob-picker.js"></script>
 <script>
 // ===== CORE FUNCTIONS (same as death form) =====
 function hdrDistrictChange(){var d=document.getElementById('hdr_district').value;var ts=document.getElementById('hdr_tehsil');var b=document.getElementById('hdr_block');var g=document.getElementById('hdr_gp');ts.innerHTML='<option value="">— तहसील चुनें —</option>';b.innerHTML='<option value="">— ब्लॉक चुनें —</option>';g.innerHTML='<option value="">— ग्राम पंचायत चुनें —</option>';ts.disabled=true;b.disabled=true;g.disabled=true;if(!d)return;var tehsils=UP_TEHSILS[d]||[];if(tehsils.length){tehsils.forEach(function(t){ts.add(new Option(t,t));});ts.disabled=false;}}

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voter Services / मतदाता सेवाएँ | VISRO Consultancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #0d1b3e; --orange: #e8640a; --orange-light: #f07a28; --green: #22c55e; --white: #fff; --off-white: #f4f6fb; --gray: #64748b; --light-gray: #e2e8f0; --red: #ef4444; --blue: #3b82f6; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Sora', sans-serif; color: var(--navy); background: var(--off-white); line-height: 1.7; }
+  .back-bar { max-width: 900px; margin: 0 auto; padding: 12px 20px 0; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; }
+  .page { max-width: 900px; margin: 12px auto 40px; background: white; border-radius: 12px; box-shadow: 0 4px 24px rgba(13,27,62,0.10); overflow: hidden; }
+  .hero { background: linear-gradient(135deg, var(--navy), #1a3660); color: white; padding: 36px 32px; text-align: center; }
+  .hero h1 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+  .hero .sub { font-size: 14px; opacity: 0.8; }
+  .hero .badge { display: inline-block; background: var(--orange); padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-top: 12px; }
+  .lang-toggle { display: flex; justify-content: center; gap: 0; background: #1a3660; padding: 8px 0; }
+  .lang-btn { padding: 8px 28px; font-size: 13px; font-weight: 700; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; color: rgba(255,255,255,0.7); background: transparent; font-family: inherit; transition: all 0.2s; }
+  .lang-btn:first-child { border-radius: 6px 0 0 6px; }
+  .lang-btn:last-child { border-radius: 0 6px 6px 0; }
+  .lang-btn.active { background: var(--orange); color: white; border-color: var(--orange); }
+  .lang-hi { display: block; } .lang-en { display: none; }
+  body.en .lang-hi { display: none; } body.en .lang-en { display: block; }
+  .content { padding: 28px 32px 40px; }
+  .content h2 { font-size: 20px; font-weight: 800; color: var(--navy); margin: 28px 0 12px; padding-bottom: 8px; border-bottom: 3px solid var(--orange); display: inline-block; }
+  .content h2:first-child { margin-top: 0; }
+  .content p { font-size: 14px; color: #374151; margin-bottom: 12px; }
+  .content ul, .content ol { margin: 8px 0 16px 20px; }
+  .content li { font-size: 14px; color: #374151; margin-bottom: 8px; line-height: 1.8; }
+  .content li strong { color: var(--navy); }
+  .highlight-box { background: #fff8e1; border-left: 4px solid var(--orange); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 13px; }
+  .highlight-box.green { background: #f0fdf4; border-left-color: var(--green); }
+  .highlight-box.blue { background: #eff6ff; border-left-color: #2563eb; }
+  .highlight-box.red { background: #fef2f2; border-left-color: #dc2626; }
+
+  /* Service Section */
+  .service-section { background: white; border: 2px solid var(--light-gray); border-radius: 14px; padding: 24px; margin: 20px 0; transition: all 0.2s; }
+  .service-section:hover { border-color: var(--orange); box-shadow: 0 4px 16px rgba(232,100,10,0.08); }
+  .service-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 2px solid var(--light-gray); }
+  .service-header .s-num { width: 44px; height: 44px; border-radius: 50%; background: var(--orange); color: white; font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .service-header .s-icon { font-size: 32px; }
+  .service-header .s-info { flex: 1; }
+  .service-header .s-name { font-size: 17px; font-weight: 800; color: var(--navy); }
+  .service-header .s-name-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 13px; color: var(--orange); font-weight: 600; }
+  .service-body { font-size: 13px; color: #374151; }
+  .service-body h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin: 14px 0 6px; }
+  .service-body h4:first-child { margin-top: 0; }
+  .service-body ul { margin: 4px 0 10px 18px; }
+  .service-body li { font-size: 13px; margin-bottom: 4px; line-height: 1.7; }
+  .service-body .note { background: #f8fafc; border-left: 3px solid var(--orange); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; font-size: 12px; color: var(--gray); }
+  .service-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--light-gray); }
+
+  .link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; transition: all 0.2s; }
+  .link-btn:hover { background: var(--orange-light); transform: translateY(-1px); }
+  .link-btn.green { background: var(--green); }
+  .link-btn.navy { background: var(--navy); }
+  .link-btn.sm { font-size: 12px; padding: 8px 16px; }
+
+  .doc-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  .doc-table th { background: var(--navy); color: white; padding: 8px 12px; text-align: left; font-size: 12px; }
+  .doc-table td { padding: 8px 12px; border-bottom: 1px solid var(--light-gray); }
+  .doc-table tr:nth-child(even) { background: var(--off-white); }
+
+  .faq { margin: 14px 0; }
+  .faq-item { border: 1px solid var(--light-gray); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+  .faq-q { padding: 12px 16px; font-size: 13px; font-weight: 700; color: var(--navy); cursor: pointer; background: var(--off-white); display: flex; justify-content: space-between; align-items: center; }
+  .faq-q:hover { background: #e8f0f8; }
+  .faq-q::after { content: '▼'; font-size: 10px; color: var(--orange); transition: transform 0.3s; }
+  .faq-item.open .faq-q::after { transform: rotate(180deg); }
+  .faq-a { padding: 0 16px; max-height: 0; overflow: hidden; transition: max-height 0.3s, padding 0.3s; font-size: 13px; color: #555; }
+  .faq-item.open .faq-a { padding: 0 16px 14px; max-height: 300px; }
+
+  .cta-box { background: linear-gradient(135deg, var(--navy), #1a3660); color: white; border-radius: 12px; padding: 28px; text-align: center; margin: 28px 0; }
+  .cta-box h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+  .cta-box p { font-size: 13px; opacity: 0.8; margin-bottom: 16px; }
+  .footer { background: var(--navy); color: rgba(255,255,255,0.6); text-align: center; padding: 16px; font-size: 11px; }
+  @media (max-width: 600px) { .content { padding: 20px 16px 30px; } .hero { padding: 24px 16px; } .hero h1 { font-size: 22px; } .service-header { flex-wrap: wrap; } }
+</style>
+</head>
+<body>
+
+<div class="back-bar"><a href="index.html" class="back-btn">← Back to Home</a></div>
+
+<div class="page">
+  <div class="hero">
+    <h1 class="lang-hi">मतदाता सेवाएँ (Voter Services)</h1>
+    <h1 class="lang-en">Voter Services</h1>
+    <div class="sub lang-hi">EPIC Card — नया बनवाना, सुधार, शिफ्ट, डाउनलोड, नाम हटवाना</div>
+    <div class="sub lang-en">EPIC Card — New Registration, Correction, Shift, Download, Deletion</div>
+    <div class="badge">VISRO Consultancy</div>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('hi')">हिन्दी</button>
+    <button class="lang-btn" onclick="setLang('en')">English</button>
+  </div>
+
+  <div class="content">
+
+    <!-- WHAT IS VOTER ID -->
+    <div class="lang-hi">
+    <h2>Voter ID Card क्या है?</h2>
+    <p><strong>Voter ID Card (EPIC — Electors Photo Identity Card)</strong> भारत निर्वाचन आयोग (Election Commission of India) द्वारा जारी किया जाने वाला पहचान पत्र है।</p>
+    <div class="highlight-box">
+      <strong>आसान भाषा में:</strong> Voter ID Card वह कार्ड है जिससे आप <strong>चुनाव (Election) में वोट</strong> डाल सकते हैं। यह एक <strong>सरकारी पहचान पत्र (ID Proof)</strong> भी है। <strong>18 साल या उससे ज़्यादा उम्र</strong> का हर भारतीय नागरिक बनवा सकता है।
+    </div>
+    </div>
+    <div class="lang-en">
+    <h2>What is Voter ID Card?</h2>
+    <p><strong>Voter ID Card (EPIC — Electors Photo Identity Card)</strong> is an identity card issued by the <strong>Election Commission of India</strong>.</p>
+    <div class="highlight-box">
+      <strong>In Simple Words:</strong> Voter ID Card lets you <strong>vote in elections</strong>. It is also a valid <strong>government ID proof</strong>. Every Indian citizen <strong>aged 18 or above</strong> can get it.
+    </div>
+    </div>
+
+    <!-- WHY NEEDED -->
+    <div class="lang-hi">
+    <h2>Voter ID क्यों ज़रूरी है?</h2>
+    <ol>
+      <li><strong>वोट डालने के लिए</strong> — चुनाव में वोट देने का अधिकार</li>
+      <li><strong>पहचान पत्र (ID Proof)</strong> — बैंक, सरकारी कामों में वैध ID</li>
+      <li><strong>पता प्रमाण (Address Proof)</strong> — कई जगह पते के प्रमाण के रूप में चलता है</li>
+      <li><strong>सरकारी योजनाएँ</strong> — कई सरकारी स्कीम में Voter ID माँगा जाता है</li>
+      <li><strong>SIM कार्ड / बैंक खाता / LPG कनेक्शन</strong> — ID Proof के रूप में</li>
+      <li><strong>नागरिकता का प्रमाण</strong> — भारतीय नागरिक होने का प्रमाण</li>
+    </ol>
+    </div>
+    <div class="lang-en">
+    <h2>Why is Voter ID Important?</h2>
+    <ol>
+      <li><strong>To Vote</strong> — Right to vote in elections</li>
+      <li><strong>Identity Proof</strong> — Valid ID for banks, government offices</li>
+      <li><strong>Address Proof</strong> — Accepted as address proof in many places</li>
+      <li><strong>Government Schemes</strong> — Many schemes require Voter ID</li>
+      <li><strong>SIM Card / Bank Account / LPG</strong> — As ID proof</li>
+      <li><strong>Proof of Citizenship</strong> — Proves Indian citizenship</li>
+    </ol>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SERVICES WITH FULL DETAIL -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <div class="lang-hi"><h2>हमारी सेवाएँ (विस्तार से)</h2></div>
+    <div class="lang-en"><h2>Our Services (Detailed)</h2></div>
+
+    <!-- ── SERVICE 1: New Voter ID ── -->
+    <div class="service-section">
+      <div class="service-header">
+        <div class="s-num">1</div>
+        <div class="s-icon">🆕</div>
+        <div class="s-info">
+          <div class="s-name lang-hi">नया Voter ID बनवाना (Form 6)</div>
+          <div class="s-name lang-en">New Voter ID Registration (Form 6)</div>
+          <div class="s-name-hi lang-hi">पहली बार मतदाता पहचान पत्र बनवाना</div>
+          <div class="s-name-hi lang-en">First time voter registration</div>
+        </div>
+      </div>
+      <div class="service-body">
+        <div class="lang-hi">
+          <h4>यह सेवा किसके लिए है?</h4>
+          <ul>
+            <li>जिनकी <strong>उम्र 18 साल</strong> या उससे ज़्यादा है और पहली बार Voter ID बनवाना है</li>
+            <li>जो <strong>17 साल</strong> के हैं लेकिन अगले साल <strong>1 जनवरी तक 18</strong> हो जाएँगे — वे भी अप्लाई कर सकते हैं</li>
+            <li>जिनके पास पहले कभी Voter ID <strong>नहीं बना</strong> है</li>
+          </ul>
+          <h4>ज़रूरी दस्तावेज़:</h4>
+          <ul>
+            <li><strong>आधार कार्ड</strong> — पहचान और पते का प्रमाण</li>
+            <li><strong>पासपोर्ट साइज़ फोटो</strong> — 2 फोटो (ताज़ा, रंगीन)</li>
+            <li><strong>आयु प्रमाण</strong> — जन्म प्रमाणपत्र / 10वीं Marksheet / आधार (कोई एक)</li>
+            <li><strong>पता प्रमाण</strong> — आधार / राशन कार्ड / बिजली बिल (कोई एक)</li>
+            <li><strong>मोबाइल नंबर</strong> — OTP वेरिफिकेशन के लिए</li>
+          </ul>
+          <h4>प्रक्रिया:</h4>
+          <ul>
+            <li><strong>Step 1:</strong> Voter Portal पर <strong>Form 6</strong> ऑनलाइन भरें</li>
+            <li><strong>Step 2:</strong> दस्तावेज़ अपलोड करें (Aadhaar, Photo, Age Proof)</li>
+            <li><strong>Step 3:</strong> OTP से वेरिफाई करें → Application Submit</li>
+            <li><strong>Step 4:</strong> <strong>BLO (Booth Level Officer)</strong> आपके घर आकर जाँच करेगा</li>
+            <li><strong>Step 5:</strong> सत्यापन के बाद <strong>15-30 दिन</strong> में Voter ID जारी</li>
+          </ul>
+          <div class="note"><strong>शुल्क:</strong> बिल्कुल <strong>मुफ्त (Free)</strong> — कोई सरकारी फीस नहीं लगती।</div>
+        </div>
+        <div class="lang-en">
+          <h4>Who is this for?</h4>
+          <ul>
+            <li>Those <strong>aged 18 or above</strong> getting Voter ID for the first time</li>
+            <li>Those <strong>turning 18 by January 1st</strong> of next year can also apply</li>
+            <li>Anyone who <strong>never had</strong> a Voter ID before</li>
+          </ul>
+          <h4>Required Documents:</h4>
+          <ul>
+            <li><strong>Aadhaar Card</strong> — Identity and address proof</li>
+            <li><strong>Passport Size Photo</strong> — 2 photos (latest, color)</li>
+            <li><strong>Age Proof</strong> — Birth Certificate / 10th Marksheet / Aadhaar (any one)</li>
+            <li><strong>Address Proof</strong> — Aadhaar / Ration Card / Electricity bill (any one)</li>
+            <li><strong>Mobile Number</strong> — For OTP verification</li>
+          </ul>
+          <h4>Process:</h4>
+          <ul>
+            <li><strong>Step 1:</strong> Fill <strong>Form 6</strong> online on Voter Portal</li>
+            <li><strong>Step 2:</strong> Upload documents (Aadhaar, Photo, Age Proof)</li>
+            <li><strong>Step 3:</strong> Verify via OTP → Submit Application</li>
+            <li><strong>Step 4:</strong> <strong>BLO (Booth Level Officer)</strong> visits for home verification</li>
+            <li><strong>Step 5:</strong> Voter ID issued in <strong>15-30 days</strong> after verification</li>
+          </ul>
+          <div class="note"><strong>Fee:</strong> Completely <strong>Free</strong> — no government charges.</div>
+        </div>
+      </div>
+      <div class="service-btns">
+        <a href="https://voters.eci.gov.in/signup" target="_blank" class="link-btn navy sm">🌐 Self Apply — Voter Portal</a>
+        <a href="https://wa.me/918840714094?text=Hello%2C%20mujhe%20naya%20Voter%20ID%20banwana%20hai" target="_blank" class="link-btn green sm">💬 हमसे बनवाएँ — WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- ── SERVICE 2: Correction ── -->
+    <div class="service-section">
+      <div class="service-header">
+        <div class="s-num">2</div>
+        <div class="s-icon">✏️</div>
+        <div class="s-info">
+          <div class="s-name lang-hi">Voter ID में सुधार (Form 8)</div>
+          <div class="s-name lang-en">Voter ID Correction (Form 8)</div>
+          <div class="s-name-hi lang-hi">नाम, पता, फोटो, जन्मतिथि सुधारना</div>
+          <div class="s-name-hi lang-en">Correct name, address, photo, date of birth</div>
+        </div>
+      </div>
+      <div class="service-body">
+        <div class="lang-hi">
+          <h4>यह सेवा किसके लिए है?</h4>
+          <ul>
+            <li>Voter ID में <strong>नाम</strong> गलत लिखा है (spelling mistake)</li>
+            <li><strong>जन्मतिथि</strong> गलत है</li>
+            <li><strong>फोटो</strong> पुरानी है या गलत लगी है</li>
+            <li><strong>पिता/पति का नाम</strong> गलत है</li>
+            <li><strong>लिंग (Gender)</strong> गलत है</li>
+            <li>कोई भी जानकारी गलत है जिसे <strong>सही</strong> करवाना है</li>
+          </ul>
+          <h4>ज़रूरी दस्तावेज़:</h4>
+          <ul>
+            <li><strong>मौजूदा Voter ID Card</strong> — जिसमें गलती है</li>
+            <li><strong>सही जानकारी का प्रमाण</strong> — जैसे नाम सुधार के लिए आधार / पासपोर्ट / 10वीं Marksheet</li>
+            <li><strong>नई पासपोर्ट साइज़ फोटो</strong> — अगर फोटो बदलनी है</li>
+            <li><strong>जन्म प्रमाणपत्र</strong> — अगर जन्मतिथि सुधारनी है</li>
+          </ul>
+          <h4>प्रक्रिया:</h4>
+          <ul>
+            <li><strong>Step 1:</strong> Voter Portal पर Login करें</li>
+            <li><strong>Step 2:</strong> <strong>Form 8</strong> (Correction) चुनें</li>
+            <li><strong>Step 3:</strong> गलत जानकारी को <strong>सही करें</strong> और दस्तावेज़ अपलोड करें</li>
+            <li><strong>Step 4:</strong> Submit → BLO सत्यापन (ज़रूरत होने पर)</li>
+            <li><strong>Step 5:</strong> सुधार होने पर <strong>Updated Voter ID</strong> जारी</li>
+          </ul>
+          <div class="note"><strong>समय:</strong> 15-30 दिन। <strong>शुल्क:</strong> मुफ्त।</div>
+        </div>
+        <div class="lang-en">
+          <h4>Who is this for?</h4>
+          <ul>
+            <li>Voter ID has <strong>wrong name</strong> (spelling mistake)</li>
+            <li><strong>Date of birth</strong> is incorrect</li>
+            <li><strong>Photo</strong> is old or wrong</li>
+            <li><strong>Father's/Husband's name</strong> is wrong</li>
+            <li><strong>Gender</strong> is incorrect</li>
+            <li>Any information that needs to be <strong>corrected</strong></li>
+          </ul>
+          <h4>Required Documents:</h4>
+          <ul>
+            <li><strong>Existing Voter ID Card</strong> — the one with errors</li>
+            <li><strong>Proof of correct info</strong> — Aadhaar / Passport / 10th Marksheet for name correction</li>
+            <li><strong>New passport size photo</strong> — if photo change needed</li>
+            <li><strong>Birth Certificate</strong> — if DOB correction needed</li>
+          </ul>
+          <h4>Process:</h4>
+          <ul>
+            <li><strong>Step 1:</strong> Login to Voter Portal</li>
+            <li><strong>Step 2:</strong> Select <strong>Form 8</strong> (Correction)</li>
+            <li><strong>Step 3:</strong> <strong>Correct the wrong info</strong> and upload documents</li>
+            <li><strong>Step 4:</strong> Submit → BLO verification (if needed)</li>
+            <li><strong>Step 5:</strong> <strong>Updated Voter ID</strong> issued after correction</li>
+          </ul>
+          <div class="note"><strong>Time:</strong> 15-30 days. <strong>Fee:</strong> Free.</div>
+        </div>
+      </div>
+      <div class="service-btns">
+        <a href="https://voters.eci.gov.in/" target="_blank" class="link-btn navy sm">🌐 Self Correct — Voter Portal</a>
+        <a href="https://wa.me/918840714094?text=Hello%2C%20Voter%20ID%20mein%20correction%20karwana%20hai" target="_blank" class="link-btn green sm">💬 हमसे करवाएँ — WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- ── SERVICE 3: Address Shift ── -->
+    <div class="service-section">
+      <div class="service-header">
+        <div class="s-num">3</div>
+        <div class="s-icon">📍</div>
+        <div class="s-info">
+          <div class="s-name lang-hi">पता बदलवाना / शिफ्ट (Form 8A)</div>
+          <div class="s-name lang-en">Address Change / Shift (Form 8A)</div>
+          <div class="s-name-hi lang-hi">एक जगह से दूसरी जगह Voter ID ट्रांसफर</div>
+          <div class="s-name-hi lang-en">Transfer Voter ID from one place to another</div>
+        </div>
+      </div>
+      <div class="service-body">
+        <div class="lang-hi">
+          <h4>यह सेवा किसके लिए है?</h4>
+          <ul>
+            <li>आप <strong>दूसरे गाँव/शहर/राज्य</strong> में शिफ्ट हो गए हैं</li>
+            <li><strong>शादी के बाद</strong> ससुराल में पता बदलना है</li>
+            <li>पुराने पते पर Voter ID है, अब <strong>नए पते पर</strong> करवाना है</li>
+            <li><strong>एक ही विधानसभा क्षेत्र</strong> में पता बदला है या <strong>दूसरे क्षेत्र</strong> में</li>
+          </ul>
+          <h4>ज़रूरी दस्तावेज़:</h4>
+          <ul>
+            <li><strong>मौजूदा Voter ID Card</strong></li>
+            <li><strong>नए पते का प्रमाण</strong> — आधार / राशन कार्ड / बिजली बिल / रेंट एग्रीमेंट</li>
+            <li><strong>पासपोर्ट साइज़ फोटो</strong></li>
+            <li><strong>Self Declaration</strong> — कि पुराने पते पर अब नहीं रहते</li>
+          </ul>
+          <h4>प्रक्रिया:</h4>
+          <ul>
+            <li><strong>Step 1:</strong> Voter Portal पर Login → <strong>Form 8A</strong> चुनें</li>
+            <li><strong>Step 2:</strong> <strong>नया पता</strong> डालें और दस्तावेज़ अपलोड करें</li>
+            <li><strong>Step 3:</strong> Submit → नई जगह का <strong>BLO सत्यापन</strong></li>
+            <li><strong>Step 4:</strong> पुराने पते से <strong>नाम हटेगा</strong>, नए पते पर <strong>जुड़ेगा</strong></li>
+          </ul>
+          <div class="note">
+            <strong>⚠️ ध्यान रखें:</strong> एक से ज़्यादा जगह Voter ID रखना <strong>गैरकानूनी</strong> है। शिफ्ट करने पर पुराने पते से नाम अपने आप हट जाता है।
+          </div>
+        </div>
+        <div class="lang-en">
+          <h4>Who is this for?</h4>
+          <ul>
+            <li>You have <strong>shifted to another village/city/state</strong></li>
+            <li><strong>After marriage</strong> — need to change address to in-laws' place</li>
+            <li>Voter ID is on old address, need to <strong>transfer to new address</strong></li>
+            <li>Address changed <strong>within same constituency</strong> or to a <strong>different one</strong></li>
+          </ul>
+          <h4>Required Documents:</h4>
+          <ul>
+            <li><strong>Existing Voter ID Card</strong></li>
+            <li><strong>New address proof</strong> — Aadhaar / Ration Card / Electricity bill / Rent Agreement</li>
+            <li><strong>Passport size photo</strong></li>
+            <li><strong>Self Declaration</strong> — that you no longer live at old address</li>
+          </ul>
+          <h4>Process:</h4>
+          <ul>
+            <li><strong>Step 1:</strong> Login to Voter Portal → Select <strong>Form 8A</strong></li>
+            <li><strong>Step 2:</strong> Enter <strong>new address</strong> and upload documents</li>
+            <li><strong>Step 3:</strong> Submit → <strong>BLO verification</strong> at new place</li>
+            <li><strong>Step 4:</strong> Name <strong>removed from old address</strong>, <strong>added to new one</strong></li>
+          </ul>
+          <div class="note"><strong>⚠️ Note:</strong> Having Voter ID in multiple places is <strong>illegal</strong>. On transfer, name is automatically removed from old address.</div>
+        </div>
+      </div>
+      <div class="service-btns">
+        <a href="https://voters.eci.gov.in/" target="_blank" class="link-btn navy sm">🌐 Self Shift — Voter Portal</a>
+        <a href="https://wa.me/918840714094?text=Hello%2C%20Voter%20ID%20shift%20karwana%20hai" target="_blank" class="link-btn green sm">💬 हमसे करवाएँ — WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- ── SERVICE 4: e-EPIC Download ── -->
+    <div class="service-section">
+      <div class="service-header">
+        <div class="s-num">4</div>
+        <div class="s-icon">📱</div>
+        <div class="s-info">
+          <div class="s-name lang-hi">e-EPIC डाउनलोड</div>
+          <div class="s-name lang-en">e-EPIC Download</div>
+          <div class="s-name-hi lang-hi">डिजिटल Voter ID Card (PDF) डाउनलोड</div>
+          <div class="s-name-hi lang-en">Download Digital Voter ID Card (PDF)</div>
+        </div>
+      </div>
+      <div class="service-body">
+        <div class="lang-hi">
+          <h4>e-EPIC क्या है?</h4>
+          <ul>
+            <li><strong>e-EPIC</strong> आपके Voter ID Card का <strong>डिजिटल वर्शन</strong> (PDF) है</li>
+            <li>इसे <strong>मोबाइल में रख सकते हैं</strong> — कहीं भी दिखा सकते हैं</li>
+            <li>यह <strong>QR Code</strong> वाला होता है — verify हो सकता है</li>
+            <li><strong>Physical Card</strong> की तरह ही मान्य है</li>
+          </ul>
+          <h4>कैसे डाउनलोड करें?</h4>
+          <ul>
+            <li><strong>Step 1:</strong> <strong>Voter Portal</strong> (voters.eci.gov.in) पर जाएँ</li>
+            <li><strong>Step 2:</strong> अपने <strong>EPIC Number</strong> या <strong>Aadhaar</strong> से Login करें</li>
+            <li><strong>Step 3:</strong> <strong>e-EPIC Download</strong> सेक्शन में जाएँ</li>
+            <li><strong>Step 4:</strong> OTP वेरिफाई करें → <strong>PDF डाउनलोड</strong> हो जाएगा</li>
+          </ul>
+          <div class="note"><strong>DigiLocker</strong> से भी डाउनलोड कर सकते हैं। <strong>Voter Helpline App</strong> (Google Play) से भी।</div>
+        </div>
+        <div class="lang-en">
+          <h4>What is e-EPIC?</h4>
+          <ul>
+            <li><strong>e-EPIC</strong> is the <strong>digital version</strong> (PDF) of your Voter ID Card</li>
+            <li>Can be <strong>kept on mobile</strong> — show anywhere</li>
+            <li>Contains <strong>QR Code</strong> — can be verified</li>
+            <li><strong>Valid just like</strong> physical card</li>
+          </ul>
+          <h4>How to Download?</h4>
+          <ul>
+            <li><strong>Step 1:</strong> Go to <strong>Voter Portal</strong> (voters.eci.gov.in)</li>
+            <li><strong>Step 2:</strong> Login with <strong>EPIC Number</strong> or <strong>Aadhaar</strong></li>
+            <li><strong>Step 3:</strong> Go to <strong>e-EPIC Download</strong> section</li>
+            <li><strong>Step 4:</strong> Verify OTP → <strong>PDF downloaded</strong></li>
+          </ul>
+          <div class="note">Also available on <strong>DigiLocker</strong> and <strong>Voter Helpline App</strong> (Google Play).</div>
+        </div>
+      </div>
+      <div class="service-btns">
+        <a href="https://voters.eci.gov.in/" target="_blank" class="link-btn navy sm">🌐 Download — Voter Portal</a>
+        <a href="https://wa.me/918840714094?text=Hello%2C%20e-EPIC%20download%20karwana%20hai" target="_blank" class="link-btn green sm">💬 हमसे करवाएँ — WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- ── SERVICE 5: Search Name ── -->
+    <div class="service-section">
+      <div class="service-header">
+        <div class="s-num">5</div>
+        <div class="s-icon">🔍</div>
+        <div class="s-info">
+          <div class="s-name lang-hi">मतदाता सूची में नाम खोजें</div>
+          <div class="s-name lang-en">Search Name in Voter List</div>
+          <div class="s-name-hi lang-hi">अपना नाम मतदाता सूची में है या नहीं — जाँचें</div>
+          <div class="s-name-hi lang-en">Check if your name is in the electoral roll</div>
+        </div>
+      </div>
+      <div class="service-body">
+        <div class="lang-hi">
+          <h4>यह सेवा किसके लिए है?</h4>
+          <ul>
+            <li>जानना है कि आपका <strong>नाम Voter List में है या नहीं</strong></li>
+            <li>अपना <strong>Voter ID Number (EPIC No.)</strong> पता करना है</li>
+            <li>अपना <strong>Polling Booth</strong> (मतदान केंद्र) जानना है</li>
+            <li>अपने क्षेत्र का <strong>BLO (Booth Level Officer)</strong> कौन है — पता करना है</li>
+            <li><strong>चुनाव से पहले</strong> जाँचना है कि नाम है या नहीं</li>
+          </ul>
+          <h4>कैसे खोजें?</h4>
+          <ul>
+            <li><strong>तरीका 1:</strong> <strong>EPIC Number</strong> डालकर खोजें (अगर पता है)</li>
+            <li><strong>तरीका 2:</strong> <strong>नाम + पिता/पति का नाम + राज्य + जिला</strong> डालकर खोजें</li>
+            <li>नतीजे में <strong>Voter ID No., Part No., Section No., Polling Station</strong> सब दिखेगा</li>
+          </ul>
+          <div class="note"><strong>Voter Helpline App</strong> से भी खोज सकते हैं। Toll-Free: <strong>1950</strong></div>
+        </div>
+        <div class="lang-en">
+          <h4>Who is this for?</h4>
+          <ul>
+            <li>Want to know if your <strong>name is in voter list or not</strong></li>
+            <li>Find your <strong>Voter ID Number (EPIC No.)</strong></li>
+            <li>Know your <strong>Polling Booth</strong> (voting center)</li>
+            <li>Find your <strong>BLO (Booth Level Officer)</strong></li>
+            <li><strong>Before elections</strong> — verify your name is listed</li>
+          </ul>
+          <h4>How to Search?</h4>
+          <ul>
+            <li><strong>Method 1:</strong> Search by <strong>EPIC Number</strong> (if known)</li>
+            <li><strong>Method 2:</strong> Search by <strong>Name + Father/Husband's name + State + District</strong></li>
+            <li>Results show <strong>Voter ID No., Part No., Section No., Polling Station</strong></li>
+          </ul>
+          <div class="note">Also available on <strong>Voter Helpline App</strong>. Toll-Free: <strong>1950</strong></div>
+        </div>
+      </div>
+      <div class="service-btns">
+        <a href="https://electoralsearch.eci.gov.in/" target="_blank" class="link-btn navy sm">🔍 Search — Electoral Search</a>
+      </div>
+    </div>
+
+    <!-- ── SERVICE 6: Delete Name ── -->
+    <div class="service-section">
+      <div class="service-header">
+        <div class="s-num">6</div>
+        <div class="s-icon">❌</div>
+        <div class="s-info">
+          <div class="s-name lang-hi">नाम कटवाना (Form 7)</div>
+          <div class="s-name lang-en">Delete Name from Voter List (Form 7)</div>
+          <div class="s-name-hi lang-hi">मृत व्यक्ति या दोहरे नाम को सूची से हटवाना</div>
+          <div class="s-name-hi lang-en">Remove deceased or duplicate names from list</div>
+        </div>
+      </div>
+      <div class="service-body">
+        <div class="lang-hi">
+          <h4>यह सेवा किसके लिए है?</h4>
+          <ul>
+            <li>परिवार में किसी की <strong>मृत्यु हो गई</strong> है — उनका नाम Voter List से हटवाना है</li>
+            <li>किसी का <strong>नाम दो बार (Duplicate)</strong> लिस्ट में है — एक हटवाना है</li>
+            <li>कोई व्यक्ति <strong>स्थायी रूप से शिफ्ट</strong> हो गया है और पुराने पते का नाम हटवाना है</li>
+            <li><strong>फर्जी नाम</strong> (bogus entry) Voter List में है — शिकायत करनी है</li>
+          </ul>
+          <h4>ज़रूरी दस्तावेज़:</h4>
+          <ul>
+            <li><strong>मृत्यु प्रमाणपत्र</strong> — अगर मृत व्यक्ति का नाम हटवाना है</li>
+            <li><strong>Voter ID Card</strong> — जिसका नाम हटवाना है (कॉपी)</li>
+            <li><strong>आवेदक का ID</strong> — जो शिकायत कर रहा है (आधार / Voter ID)</li>
+            <li><strong>सम्बन्ध का प्रमाण</strong> — मृतक से क्या रिश्ता है</li>
+          </ul>
+          <h4>प्रक्रिया:</h4>
+          <ul>
+            <li><strong>Step 1:</strong> Voter Portal पर Login → <strong>Form 7</strong> (Objection for Deletion) चुनें</li>
+            <li><strong>Step 2:</strong> जिसका नाम हटवाना है उसकी जानकारी भरें</li>
+            <li><strong>Step 3:</strong> कारण चुनें — <strong>मृत्यु / दोहरा नाम / शिफ्ट</strong></li>
+            <li><strong>Step 4:</strong> दस्तावेज़ अपलोड करें → Submit</li>
+            <li><strong>Step 5:</strong> <strong>ERO (Electoral Registration Officer)</strong> सत्यापन के बाद नाम हटेगा</li>
+          </ul>
+          <div class="note"><strong>समय:</strong> 15-30 दिन। <strong>शुल्क:</strong> मुफ्त।</div>
+        </div>
+        <div class="lang-en">
+          <h4>Who is this for?</h4>
+          <ul>
+            <li>A family member has <strong>passed away</strong> — remove their name from Voter List</li>
+            <li>Someone's <strong>name appears twice (Duplicate)</strong> — remove one entry</li>
+            <li>Person has <strong>permanently shifted</strong> — remove old address name</li>
+            <li><strong>Fake/bogus name</strong> in Voter List — file complaint</li>
+          </ul>
+          <h4>Required Documents:</h4>
+          <ul>
+            <li><strong>Death Certificate</strong> — if removing deceased person's name</li>
+            <li><strong>Voter ID Card</strong> — of person whose name to remove (copy)</li>
+            <li><strong>Applicant's ID</strong> — who is filing (Aadhaar / Voter ID)</li>
+            <li><strong>Relationship proof</strong> — relation with the deceased</li>
+          </ul>
+          <h4>Process:</h4>
+          <ul>
+            <li><strong>Step 1:</strong> Login to Voter Portal → Select <strong>Form 7</strong></li>
+            <li><strong>Step 2:</strong> Fill details of person whose name to remove</li>
+            <li><strong>Step 3:</strong> Select reason — <strong>Death / Duplicate / Shifted</strong></li>
+            <li><strong>Step 4:</strong> Upload documents → Submit</li>
+            <li><strong>Step 5:</strong> Name removed after <strong>ERO verification</strong></li>
+          </ul>
+          <div class="note"><strong>Time:</strong> 15-30 days. <strong>Fee:</strong> Free.</div>
+        </div>
+      </div>
+      <div class="service-btns">
+        <a href="https://wa.me/918840714094?text=Hello%2C%20Voter%20list%20se%20naam%20katwana%20hai" target="_blank" class="link-btn green sm">💬 हमसे करवाएँ — WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- RULES -->
+    <div class="lang-hi">
+    <h2>Voter ID के नियम</h2>
+    <ol>
+      <li><strong>उम्र:</strong> <strong>18 साल</strong> पूरे होने पर Voter ID बनवा सकते हैं</li>
+      <li><strong>वैधता:</strong> Voter ID Card <strong>आजीवन</strong> वैध रहता है</li>
+      <li><strong>शुल्क:</strong> सभी Voter ID सेवाएँ <strong>बिल्कुल मुफ्त</strong> हैं</li>
+      <li><strong>BLO सत्यापन:</strong> नया/शिफ्ट आवेदन के बाद <strong>BLO</strong> घर आकर जाँच करता है</li>
+      <li><strong>समय:</strong> आवेदन के बाद <strong>15-30 दिन</strong> में Voter ID बनता है</li>
+      <li><strong>e-EPIC:</strong> डिजिटल Voter ID <strong>तुरंत डाउनलोड</strong> कर सकते हैं</li>
+      <li><strong>एक ही जगह:</strong> एक से ज़्यादा जगह Voter ID रखना <strong>गैरकानूनी</strong> है</li>
+      <li><strong>Helpline:</strong> Voter Helpline Toll-Free Number: <strong>1950</strong></li>
+    </ol>
+    </div>
+    <div class="lang-en">
+    <h2>Voter ID Rules</h2>
+    <ol>
+      <li><strong>Age:</strong> Must be <strong>18 years</strong> or above</li>
+      <li><strong>Validity:</strong> Voter ID is valid for <strong>lifetime</strong></li>
+      <li><strong>Fee:</strong> All Voter ID services are <strong>completely free</strong></li>
+      <li><strong>BLO Verification:</strong> <strong>BLO</strong> visits home after new/shift applications</li>
+      <li><strong>Time:</strong> Takes <strong>15-30 days</strong> after application</li>
+      <li><strong>e-EPIC:</strong> Digital Voter ID can be <strong>downloaded instantly</strong></li>
+      <li><strong>One Location Only:</strong> Having Voter ID in multiple places is <strong>illegal</strong></li>
+      <li><strong>Helpline:</strong> Voter Helpline Toll-Free: <strong>1950</strong></li>
+    </ol>
+    </div>
+
+    <!-- IMPORTANT LINKS -->
+    <div class="lang-hi"><h2>ज़रूरी लिंक</h2></div>
+    <div class="lang-en"><h2>Important Links</h2></div>
+    <table class="doc-table lang-hi">
+      <tr><th>काम</th><th>वेबसाइट</th></tr>
+      <tr><td><strong>Voter Portal (नया/सुधार/शिफ्ट)</strong></td><td><a href="https://voters.eci.gov.in/" target="_blank" style="color:var(--orange);">voters.eci.gov.in</a></td></tr>
+      <tr><td><strong>मतदाता सूची में नाम खोजें</strong></td><td><a href="https://electoralsearch.eci.gov.in/" target="_blank" style="color:var(--orange);">electoralsearch.eci.gov.in</a></td></tr>
+      <tr><td><strong>e-EPIC डाउनलोड</strong></td><td><a href="https://voters.eci.gov.in/" target="_blank" style="color:var(--orange);">voters.eci.gov.in → e-EPIC</a></td></tr>
+      <tr><td><strong>अपना BLO जानें</strong></td><td><a href="https://electoralsearch.eci.gov.in/" target="_blank" style="color:var(--orange);">Electoral Search → BLO Details</a></td></tr>
+      <tr><td><strong>भारत निर्वाचन आयोग</strong></td><td><a href="https://eci.gov.in/" target="_blank" style="color:var(--orange);">eci.gov.in</a></td></tr>
+      <tr><td><strong>Voter Helpline App</strong></td><td><a href="https://play.google.com/store/apps/details?id=com.eci.citizen" target="_blank" style="color:var(--orange);">Google Play Store</a></td></tr>
+    </table>
+    <table class="doc-table lang-en">
+      <tr><th>Purpose</th><th>Website</th></tr>
+      <tr><td><strong>Voter Portal (New/Correction/Shift)</strong></td><td><a href="https://voters.eci.gov.in/" target="_blank" style="color:var(--orange);">voters.eci.gov.in</a></td></tr>
+      <tr><td><strong>Search Name in Voter List</strong></td><td><a href="https://electoralsearch.eci.gov.in/" target="_blank" style="color:var(--orange);">electoralsearch.eci.gov.in</a></td></tr>
+      <tr><td><strong>e-EPIC Download</strong></td><td><a href="https://voters.eci.gov.in/" target="_blank" style="color:var(--orange);">voters.eci.gov.in → e-EPIC</a></td></tr>
+      <tr><td><strong>Know Your BLO</strong></td><td><a href="https://electoralsearch.eci.gov.in/" target="_blank" style="color:var(--orange);">Electoral Search → BLO Details</a></td></tr>
+      <tr><td><strong>Election Commission of India</strong></td><td><a href="https://eci.gov.in/" target="_blank" style="color:var(--orange);">eci.gov.in</a></td></tr>
+      <tr><td><strong>Voter Helpline App</strong></td><td><a href="https://play.google.com/store/apps/details?id=com.eci.citizen" target="_blank" style="color:var(--orange);">Google Play Store</a></td></tr>
+    </table>
+
+    <!-- FAQ -->
+    <div class="lang-hi"><h2>अक्सर पूछे जाने वाले सवाल</h2></div>
+    <div class="lang-en"><h2>Frequently Asked Questions</h2></div>
+    <div class="faq lang-hi">
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">1. Voter ID बनवाने में कितना पैसा लगता है?</div><div class="faq-a"><strong>बिल्कुल मुफ्त!</strong> Voter ID बनवाना, सुधार, शिफ्ट — सब निःशुल्क है।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">2. Voter ID कितने दिन में बनता है?</div><div class="faq-a">ऑनलाइन अप्लाई करने के बाद <strong>15-30 दिन</strong> में। BLO सत्यापन के बाद जारी होता है।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">3. BLO कौन होता है?</div><div class="faq-a"><strong>BLO (Booth Level Officer)</strong> चुनाव आयोग का अधिकारी है जो आपके मोहल्ले/गाँव का प्रभारी होता है। Voter ID बनवाने के बाद वो घर आकर <strong>जाँच</strong> करता है।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">4. Voter ID में गलती है — कैसे सुधारें?</div><div class="faq-a"><a href="https://voters.eci.gov.in/" target="_blank" style="color:var(--orange);">Voter Portal</a> पर <strong>Form 8</strong> भरें → सही जानकारी डालें → दस्तावेज़ अपलोड करें → सुधार हो जाएगा।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">5. e-EPIC क्या है? कैसे डाउनलोड करें?</div><div class="faq-a"><strong>e-EPIC</strong> डिजिटल Voter ID Card है (PDF)। <a href="https://voters.eci.gov.in/" target="_blank" style="color:var(--orange);">Voter Portal</a> पर login → e-EPIC section → <strong>Download</strong>। मोबाइल में रखें।</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">6. दूसरे शहर/राज्य में शिफ्ट हो गए — क्या करें?</div><div class="faq-a"><strong>Form 8A</strong> भरें → नया पता डालें → पुराने पते से नाम हट जाएगा, नए पर जुड़ जाएगा। <strong>एक से ज़्यादा जगह Voter ID रखना गैरकानूनी है।</strong></div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">7. मतदाता सूची में नाम कैसे देखें?</div><div class="faq-a"><a href="https://electoralsearch.eci.gov.in/" target="_blank" style="color:var(--orange);">electoralsearch.eci.gov.in</a> पर जाएँ → नाम, राज्य, जिला डालें → Voter ID नंबर, polling booth दिखेगा।</div></div>
+    </div>
+    <div class="faq lang-en">
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">1. How much does Voter ID cost?</div><div class="faq-a"><strong>Completely free!</strong> New, correction, shift — all services are free.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">2. How many days does it take?</div><div class="faq-a"><strong>15-30 days</strong> after online application. Issued after BLO verification.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">3. Who is BLO?</div><div class="faq-a"><strong>BLO (Booth Level Officer)</strong> is an Election Commission official who verifies your application by visiting your home.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">4. Name/address is wrong — how to correct?</div><div class="faq-a">Fill <strong>Form 8</strong> on <a href="https://voters.eci.gov.in/" target="_blank" style="color:var(--orange);">Voter Portal</a> → Enter correct info → Upload docs → Done.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">5. What is e-EPIC?</div><div class="faq-a"><strong>e-EPIC</strong> is digital Voter ID Card (PDF). Login to Voter Portal → e-EPIC section → Download.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">6. Shifted to another city/state?</div><div class="faq-a">Fill <strong>Form 8A</strong> → Enter new address → Name transfers automatically. <strong>Multiple Voter IDs is illegal.</strong></div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">7. How to check name in voter list?</div><div class="faq-a">Go to <a href="https://electoralsearch.eci.gov.in/" target="_blank" style="color:var(--orange);">electoralsearch.eci.gov.in</a> → Search by name or EPIC number.</div></div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-box">
+      <h3 class="lang-hi">Voter ID बनवाना है?</h3><h3 class="lang-en">Need Voter ID Card?</h3>
+      <p class="lang-hi">हमसे संपर्क करें — हम आपका Voter ID आसानी से बनवा देंगे!</p>
+      <p class="lang-en">Contact us — we will get your Voter ID made easily!</p>
+      <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20mujhe%20Voter%20ID%20banwana%20hai" class="link-btn" style="background:var(--green);font-size:15px;padding:12px 28px;">💬 WhatsApp — 88407 14094</a>
+      <a href="tel:+918840714094" class="link-btn" style="font-size:15px;padding:12px 28px;">📞 Call करें</a>
+    </div>
+
+  </div>
+  <div class="footer">VISRO Consultancy | Gomtinagar Vistar, Lucknow, UP | visroconsultancy.netlify.app</div>
+</div>
+
+<script>
+function setLang(lang) {
+  if (lang === 'en') { document.body.classList.add('en'); } else { document.body.classList.remove('en'); }
+  document.querySelectorAll('.lang-btn').forEach(function(btn, i) {
+    btn.classList.remove('active');
+    if ((lang === 'hi' && i === 0) || (lang === 'en' && i === 1)) btn.classList.add('active');
+  });
+}
+</script>
+</body>
+</html>

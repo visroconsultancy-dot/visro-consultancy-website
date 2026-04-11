@@ -306,12 +306,26 @@
   .contact-item-val { font-size: .9rem; font-weight: 600; color: var(--navy); }
   .contact-item-val a { color: var(--navy); text-decoration: none; }
   .contact-item-val a:hover { color: var(--orange); }
-  .map-placeholder {
-    background: #e2e8f0; border-radius: 14px; height: 160px;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--gray); font-size: .85rem; border: 2px dashed #cbd5e1; margin-top: 8px;
-    flex-direction: column; gap: 4px;
+  .contact-banner {
+    border-radius: 14px; margin-top: 8px; overflow: hidden;
+    background: linear-gradient(135deg, #0d1b3e, #1a3660);
+    padding: 28px 24px; text-align: center; color: white; position: relative;
   }
+  .contact-banner::before {
+    content: ''; position: absolute; top: -40px; right: -40px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: rgba(232,100,10,0.15);
+  }
+  .contact-banner::after {
+    content: ''; position: absolute; bottom: -30px; left: -30px;
+    width: 90px; height: 90px; border-radius: 50%;
+    background: rgba(34,197,94,0.12);
+  }
+  .contact-banner .cb-icon { font-size: 42px; margin-bottom: 10px; }
+  .contact-banner .cb-title { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+  .contact-banner .cb-sub { font-size: 12px; opacity: 0.7; margin-bottom: 14px; }
+  .contact-banner .cb-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+  .contact-banner .cb-tag { background: rgba(255,255,255,0.12); padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; backdrop-filter: blur(4px); }
 
   .contact-right { flex: 1; min-width: 280px; background: #fff; border-radius: 20px; padding: 36px 32px; box-shadow: var(--card-shadow); }
   .contact-right h3 { font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
@@ -535,89 +549,89 @@
       <div class="service-name-hi">मृत्यु प्रमाणपत्र आवेदन</div>
       <div class="service-desc">Official death certificate registration</div>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal service-card-link" onclick="window.location.href='family-register.html'" title="Family Register Application" style="cursor:pointer;">
       <div class="service-num">03</div>
       <div class="service-icon">👨‍👩‍👧‍👦</div>
-      <div class="service-name">Family Register Application</div>
+      <div class="service-name">Family Register Application <span class="card-link-badge">Apply →</span></div>
       <div class="service-name-hi">परिवार रजिस्टर आवेदन</div>
       <div class="service-desc">Parivar register nakal &amp; updates</div>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal service-card-link" onclick="window.location.href='aadhaar-services.html'" title="Aadhaar Services" style="cursor:pointer;">
       <div class="service-num">04</div>
       <div class="service-icon">🪪</div>
-      <div class="service-name">Aadhar Correction Application</div>
-      <div class="service-name-hi">आधार सुधार आवेदन</div>
-      <div class="service-desc">Name, DOB, address &amp; mobile correction</div>
+      <div class="service-name">Aadhaar Services <span class="card-link-badge">Details →</span></div>
+      <div class="service-name-hi">आधार सेवाएँ</div>
+      <div class="service-desc">Download, Correction, PVC, Lock/Unlock &amp; more</div>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal service-card-link" onclick="window.location.href='pan-card-services.html'" title="PAN Card Services" style="cursor:pointer;">
       <div class="service-num">05</div>
       <div class="service-icon">💳</div>
-      <div class="service-name">PAN Card Services</div>
+      <div class="service-name">PAN Card Services <span class="card-link-badge">Details →</span></div>
       <div class="service-name-hi">पैन कार्ड सेवाएँ</div>
       <div class="service-desc">New PAN, correction &amp; reprint</div>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal service-card-link" onclick="window.location.href='income-certificate.html'" title="Income Certificate" style="cursor:pointer;">
       <div class="service-num">06</div>
       <div class="service-icon">📋</div>
-      <div class="service-name">Income Certificate</div>
+      <div class="service-name">Income Certificate <span class="card-link-badge">Details →</span></div>
       <div class="service-name-hi">आय प्रमाणपत्र</div>
       <div class="service-desc">Income proof documentation</div>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal service-card-link" onclick="window.location.href='pm-awas.html'" title="PM Awas Yojana" style="cursor:pointer;">
       <div class="service-num">07</div>
       <div class="service-icon">🏠</div>
-      <div class="service-name">PM Awas Application</div>
+      <div class="service-name">PM Awas Application <span class="card-link-badge">Details →</span></div>
       <div class="service-name-hi">पीएम आवास आवेदन</div>
       <div class="service-desc">Pradhan Mantri Awas Yojana registration</div>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal service-card-link" onclick="window.location.href='cm-awas.html'" title="CM Awas Yojana" style="cursor:pointer;">
       <div class="service-num">08</div>
       <div class="service-icon">🏡</div>
-      <div class="service-name">CM Awas Application</div>
+      <div class="service-name">CM Awas Application <span class="card-link-badge">Details →</span></div>
       <div class="service-name-hi">सीएम आवास आवेदन</div>
       <div class="service-desc">Chief Minister Awas Yojana registration</div>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal service-card-link" onclick="window.location.href='caste-certificate.html'" title="Caste Certificate" style="cursor:pointer;">
       <div class="service-num">09</div>
       <div class="service-icon">🏷️</div>
-      <div class="service-name">Caste Certificate</div>
+      <div class="service-name">Caste Certificate <span class="card-link-badge">Details →</span></div>
       <div class="service-name-hi">जाति प्रमाणपत्र</div>
       <div class="service-desc">OBC, SC, ST certificates</div>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal service-card-link" onclick="window.location.href='residence-certificate.html'" title="Residence Certificate" style="cursor:pointer;">
       <div class="service-num">10</div>
       <div class="service-icon">🏘️</div>
-      <div class="service-name">Residence Certificate</div>
+      <div class="service-name">Residence Certificate <span class="card-link-badge">Details →</span></div>
       <div class="service-name-hi">निवास प्रमाणपत्र</div>
       <div class="service-desc">Domicile &amp; residence proof</div>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal" onclick="showComingSoon('Pension Services / पेंशन सेवाएँ')" style="cursor:pointer;">
       <div class="service-num">11</div>
       <div class="service-icon">👴</div>
-      <div class="service-name">Pension Services</div>
+      <div class="service-name">Pension Services <span style="font-size:9px;background:#f59e0b;color:white;padding:2px 6px;border-radius:4px;font-weight:700;vertical-align:middle;">Coming Soon</span></div>
       <div class="service-name-hi">पेंशन सेवाएँ</div>
       <div class="service-desc">Pension application &amp; renewal</div>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal" onclick="showComingSoon('Online Form Filling / ऑनलाइन फॉर्म भरना')" style="cursor:pointer;">
       <div class="service-num">12</div>
       <div class="service-icon">📝</div>
-      <div class="service-name">Online Form Filling</div>
+      <div class="service-name">Online Form Filling <span style="font-size:9px;background:#f59e0b;color:white;padding:2px 6px;border-radius:4px;font-weight:700;vertical-align:middle;">Coming Soon</span></div>
       <div class="service-name-hi">ऑनलाइन फॉर्म भरना</div>
       <div class="service-desc">All govt. form filling assistance</div>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal service-card-link" onclick="window.location.href='voter-id-services.html'" title="Voter Services" style="cursor:pointer;">
       <div class="service-num">13</div>
       <div class="service-icon">🗳️</div>
-      <div class="service-name">Voter ID Services</div>
-      <div class="service-name-hi">मतदाता पहचान पत्र</div>
+      <div class="service-name">Voter Services <span class="card-link-badge">Details →</span></div>
+      <div class="service-name-hi">मतदाता सेवाएँ</div>
       <div class="service-desc">New voter ID &amp; corrections</div>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal service-card-link" onclick="window.location.href='gst-services.html'" title="GST Services" style="cursor:pointer;">
       <div class="service-num">14</div>
       <div class="service-icon">🧾</div>
-      <div class="service-name">GST Filing</div>
-      <div class="service-name-hi">जीएसटी फाइलिंग</div>
-      <div class="service-desc">GST registration &amp; return filing</div>
+      <div class="service-name">GST Services <span class="card-link-badge">Details →</span></div>
+      <div class="service-name-hi">जीएसटी सेवाएँ</div>
+      <div class="service-desc">GST Check, Filing &amp; Registration</div>
     </div>
   </div>
 </section>
@@ -762,12 +776,21 @@
         <div class="contact-icon ci-gray">📍</div>
         <div>
           <div class="contact-item-label">Address / पता</div>
-          <div class="contact-item-val">Musafirkhana, Sub District Musafirkhana, District Amethi, Uttar Pradesh</div>
+          <div class="contact-item-val">Gomtinagar Vistar, Lucknow, Uttar Pradesh</div>
         </div>
       </div>
-      <div class="map-placeholder">
-        <span>🗺️ Google Map Location</span>
-        <small>Replace with your Google Maps embed</small>
+      <div class="contact-banner">
+        <div class="cb-icon">🏛️</div>
+        <div class="cb-title">VISRO Consultancy</div>
+        <div class="cb-sub">Visionary Integrated Services & Resource Organization</div>
+        <div class="cb-tags">
+          <span class="cb-tag">📜 सरकारी सेवाएँ</span>
+          <span class="cb-tag">📝 फॉर्म भरवाना</span>
+          <span class="cb-tag">🏠 आवास योजना</span>
+          <span class="cb-tag">📄 प्रमाणपत्र</span>
+          <span class="cb-tag">🆔 आधार सेवाएँ</span>
+          <span class="cb-tag">💼 GST सेवाएँ</span>
+        </div>
       </div>
     </div>
     <div class="contact-right reveal">
@@ -789,7 +812,7 @@
             <option>Birth Certificate Application</option>
             <option>Death Certificate Application</option>
             <option>Family Register Application</option>
-            <option>Aadhar Correction Application</option>
+            <option>Aadhaar Services</option>
             <option>PAN Card Services</option>
             <option>Income Certificate</option>
             <option>PM Awas Application</option>
@@ -798,8 +821,8 @@
             <option>Residence Certificate</option>
             <option>Pension Services</option>
             <option>Online Form Filling</option>
-            <option>Voter ID Services</option>
-            <option>GST Filing</option>
+            <option>Voter Services</option>
+            <option>GST Services</option>
           </select>
         </div>
         <div class="form-group">
@@ -888,6 +911,29 @@
 </div>
 
 <script>
+  // ── COMING SOON MODAL ──
+  function showComingSoon(serviceName) {
+    var overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;';
+    overlay.onclick = function(e) { if(e.target===overlay) overlay.remove(); };
+    overlay.innerHTML = '<div style="background:white;border-radius:16px;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3);overflow:hidden;animation:fadeIn 0.3s ease;">' +
+      '<div style="background:linear-gradient(135deg,#0d1b3e,#1a3660);color:white;padding:24px;text-align:center;">' +
+        '<div style="font-size:48px;margin-bottom:8px;">🚧</div>' +
+        '<h3 style="font-size:18px;font-weight:800;">' + serviceName + '</h3>' +
+      '</div>' +
+      '<div style="padding:24px;text-align:center;">' +
+        '<p style="font-size:15px;font-weight:700;color:#0d1b3e;margin-bottom:8px;">यह सेवा आपके लिए जल्द ही लाइव की जाएगी।</p>' +
+        '<p style="font-size:13px;color:#64748b;margin-bottom:20px;">किसी भी प्रकार की मदद के लिए हमें ईमेल कर सकते हैं।</p>' +
+        '<a href="mailto:VisroConsultancy@Gmail.Com?subject=' + encodeURIComponent(serviceName + ' — सहायता चाहिए') + '" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#e8640a;color:white;border-radius:10px;text-decoration:none;font-size:14px;font-weight:700;">📧 VisroConsultancy@Gmail.Com</a>' +
+        '<br><br>' +
+        '<a href="https://wa.me/918840714094?text=Hello%20VISRO%2C%20' + encodeURIComponent(serviceName) + '%20ke%20baare%20mein%20jaankari%20chahiye" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#22c55e;color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;">💬 WhatsApp — 88407 14094</a>' +
+        '<br><br>' +
+        '<button onclick="this.closest(\'div[style]\').parentElement.parentElement.remove()" style="background:none;border:none;color:#64748b;font-size:13px;cursor:pointer;font-family:inherit;">✕ बंद करें</button>' +
+      '</div>' +
+    '</div>';
+    document.body.appendChild(overlay);
+  }
+
   // ── HAMBURGER MENU ──
   var hamburger = document.getElementById('hamburger');
   var mobileNav = document.getElementById('mobileNav');

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PM Awas Shapath Patra / पीएम आवास शपथ पत्र | VISRO Consultancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="up-locations.js"></script>
+<script src="dob-picker.js"></script>
+<script src="awas-payment.js"></script>
+<style>
+  :root { --navy: #0d1b3e; --orange: #e8640a; --green: #22c55e; --off-white: #f4f6fb; --gray: #64748b; --light-gray: #e2e8f0; --border: #B0C4DE; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans Devanagari', 'Sora', sans-serif; color: var(--navy); background: var(--off-white); line-height: 1.6; font-size: 14px; }
+  .back-bar { max-width: 860px; margin: 0 auto; padding: 12px 20px 0; display: flex; gap: 10px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; }
+  .page { max-width: 860px; margin: 12px auto 40px; background: white; border-radius: 10px; box-shadow: 0 4px 24px rgba(13,27,62,0.10); overflow: hidden; }
+  .header { background: var(--navy); color: white; padding: 20px 28px; text-align: center; }
+  .header h1 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+  .header .sub { font-size: 12px; opacity: 0.7; }
+  .form-body { padding: 24px 28px 36px; }
+  .section { margin-bottom: 20px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .section-title { background: var(--navy); color: white; padding: 8px 14px; font-size: 14px; font-weight: 700; }
+  .section-content { padding: 16px; background: #F8FBFF; }
+  .row { display: flex; gap: 14px; margin-bottom: 12px; flex-wrap: wrap; }
+  .field { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 4px; }
+  .field label { font-size: 12px; color: var(--gray); font-weight: 600; }
+  .field input, .field select { border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; font-family: inherit; font-size: 13px; color: var(--navy); background: white; outline: none; width: 100%; }
+  .field input:focus, .field select:focus { border-color: var(--orange); }
+  .stamp-note { background: #fff8e1; border: 2px dashed var(--orange); border-radius: 10px; padding: 14px 18px; text-align: center; font-size: 13px; color: var(--orange); font-weight: 700; margin-bottom: 20px; }
+  .btn-submit { width: 100%; padding: 14px; border-radius: 10px; border: none; background: var(--orange); color: white; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+  .btn-submit:hover { background: #f07a28; }
+  .preview-box { background: white; border: 2px solid var(--navy); border-radius: 8px; padding: 28px; margin-top: 20px; display: none; font-size: 14px; line-height: 2; }
+  .print-btns { display: flex; gap: 10px; margin-top: 14px; justify-content: center; flex-wrap: wrap; }
+  .print-btns button { padding: 10px 24px; border-radius: 8px; border: none; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+  .footer { background: var(--navy); color: rgba(255,255,255,0.6); text-align: center; padding: 14px; font-size: 11px; }
+  @media (max-width: 600px) { .row { flex-direction: column; gap: 8px; } .field { min-width: 100%; } .form-body { padding: 16px; } .preview-box { padding: 16px; } }
+  @media print {
+    body { background: white; font-size: 13px; }
+    .back-bar, .header, .form-body, .footer, .print-btns, .no-print, .stamp-note { display: none !important; }
+    .page { box-shadow: none; margin: 0; max-width: 100%; border-radius: 0; }
+    .preview-box { display: block !important; border: none; padding: 16px; line-height: 1.8; font-size: 13px; }
+    .preview-box * { color: #000 !important; font-weight: 700 !important; }
+    @page { size: A4; margin: 15mm; }
+    @page:first { margin-top: 170mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="back-bar">
+  <a href="pm-awas.html" class="back-btn">← PM Awas Yojana</a>
+  <a href="index.html" class="back-btn" style="background:var(--navy);">🏠 Home</a>
+</div>
+
+<div class="page">
+  <div class="header">
+    <h1>📜 आवास हेतु शपथ पत्र</h1>
+    <div class="sub">Affidavit for PM Awas Yojana — खंड विकास अधिकारी को</div>
+  </div>
+
+  <div class="form-body" id="formSection">
+
+    <div class="stamp-note">⚠️ यह शपथ पत्र ₹10 के स्टाम्प पेपर पर नोटरी करवाकर जमा करें</div>
+
+    <!-- Applicant -->
+    <div class="section">
+      <div class="section-title">📋 आवेदक का विवरण</div>
+      <div class="section-content">
+        <div class="row">
+          <div class="field"><label>आवेदक का नाम <span style="color:#c0392b">*</span></label><input type="text" id="s_name" placeholder="पूरा नाम"></div>
+          <div class="field" style="max-width:130px;"><label>संबंध <span style="color:#c0392b">*</span></label><select id="s_rel"><option>पुत्र / S/o</option><option>पुत्री / D/o</option><option>पत्नी / W/o</option></select></div>
+          <div class="field"><label>पिता / पति का नाम <span style="color:#c0392b">*</span></label><input type="text" id="s_father" placeholder="पिता या पति का नाम"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>जन्मतिथि</label><input type="date" id="s_dob" class="dob-picker" data-placeholder="जन्मतिथि चुनें" onchange="calcSAge()"></div>
+          <div class="field" style="max-width:100px;"><label>उम्र <span style="color:#c0392b">*</span></label><input type="number" id="s_age" placeholder="वर्ष" min="0" max="120"></div>
+          <div class="field"><label>जाति</label><select id="s_caste"><option value="">— चुनें —</option><option>सामान्य (General)</option><option>OBC</option><option>SC</option><option>ST</option></select></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>आधार नंबर</label><input type="text" id="s_aadhaar" maxlength="12" placeholder="12 अंक" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'').substring(0,12)"></div>
+          <div class="field"><label>मोबाइल</label><input type="text" id="s_mobile" maxlength="10" placeholder="10 अंक" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'').substring(0,10)"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Address -->
+    <div class="section">
+      <div class="section-title">📍 पता</div>
+      <div class="section-content">
+        <div class="row">
+          <div class="field"><label>ग्राम / मोहल्ला <span style="color:#c0392b">*</span></label><input type="text" id="s_village" placeholder="गाँव का नाम"></div>
+          <div class="field"><label>ग्राम पंचायत</label><input type="text" id="s_gp" placeholder="ग्राम पंचायत"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>विकासखण्ड (ब्लॉक) <span style="color:#c0392b">*</span></label><input type="text" id="s_block" placeholder="ब्लॉक का नाम"></div>
+          <div class="field"><label>जनपद (जिला) <span style="color:#c0392b">*</span></label><input type="text" id="s_district" placeholder="जिले का नाम"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PMAY ID -->
+    <div class="section">
+      <div class="section-title">🆔 आवास ID / लाभार्थी ID</div>
+      <div class="section-content">
+        <div class="row">
+          <div class="field"><label>आवास ID / लाभार्थी ID</label><input type="text" id="s_awas_id" placeholder="PMAY 2024 सर्वे ID (खाली छोड़ सकते हैं)"></div>
+        </div>
+        <div style="font-size:12px; color:var(--gray); background:#fff8e1; border-left:3px solid #f59e0b; padding:8px 12px; border-radius:0 6px 6px 0;">ℹ️ नहीं पता तो खाली छोड़ दें — ग्राम प्रधान/सचिव बाद में भर देंगे।</div>
+      </div>
+    </div>
+
+    <!-- Category -->
+    <div class="section">
+      <div class="section-title">✅ पात्रता श्रेणी</div>
+      <div class="section-content">
+        <div class="row">
+          <div class="field"><label>श्रेणी <span style="color:#c0392b">*</span></label>
+            <select id="s_category">
+              <option value="">— चुनें —</option>
+              <option>बेघर / कच्चा-टूटा मकान</option>
+              <option>आपदा प्रभावित (बाढ़ / भूकम्प / आग)</option>
+              <option>गरीब विधवा महिला (18-50 वर्ष)</option>
+              <option>गरीब विकलांग व्यक्ति</option>
+              <option>घुमंतू जनजाति</option>
+              <option>गम्भीर बीमारी से पीड़ित</option>
+              <option>अन्य</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Date -->
+    <div class="section">
+      <div class="section-title">📅 दिनांक</div>
+      <div class="section-content">
+        <div class="row">
+          <div class="field"><label>शपथ पत्र की तिथि <span style="color:#c0392b">*</span></label><input type="date" id="s_date"></div>
+          <div class="field"><label>स्थान</label><input type="text" id="s_place" placeholder="जैसे: मुसाफ़िरखाना"></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-submit" onclick="showPreview()">📄 शपथ पत्र देखें (Preview)</button>
+  </div>
+
+  <!-- Preview -->
+  <div class="preview-box" id="previewBox">
+    <div id="previewContent"></div>
+    <div class="print-btns no-print">
+      <button onclick="document.getElementById('previewBox').style.display='none'; document.getElementById('formSection').style.display='block';" style="background:var(--navy); color:white;">✏️ Edit</button>
+      <button onclick="showPaymentGate('shapath', printIt)" style="background:var(--green); color:white;">🖨️ Print / PDF — ₹9</button>
+    </div>
+  </div>
+
+  <div class="footer">VISRO Consultancy | Gomtinagar Vistar, Lucknow, UP | visroconsultancy.netlify.app</div>
+</div>
+
+<script>
+// Set today
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('s_date').value = new Date().toISOString().split('T')[0];
+});
+
+function calcSAge() {
+  var dob = document.getElementById('s_dob').value;
+  if (!dob) return;
+  var b = new Date(dob);
+  var t = new Date();
+  var a = t.getFullYear() - b.getFullYear();
+  var m = t.getMonth() - b.getMonth();
+  if (m < 0 || (m === 0 && t.getDate() < b.getDate())) a--;
+  document.getElementById('s_age').value = a;
+}
+
+function fmtDate(v) {
+  if (!v) return '____';
+  var d = new Date(v);
+  return d.getDate().toString().padStart(2,'0') + '/' + (d.getMonth()+1).toString().padStart(2,'0') + '/' + d.getFullYear();
+}
+
+function showPreview() {
+  var name = document.getElementById('s_name').value.trim();
+  var rel = document.getElementById('s_rel').value.split('/')[0].trim();
+  var father = document.getElementById('s_father').value.trim();
+  var age = document.getElementById('s_age').value;
+  var caste = document.getElementById('s_caste').value;
+  var aadhaar = document.getElementById('s_aadhaar').value;
+  var mobile = document.getElementById('s_mobile').value;
+  var village = document.getElementById('s_village').value.trim();
+  var gp = document.getElementById('s_gp').value.trim();
+  var block = document.getElementById('s_block').value.trim();
+  var district = document.getElementById('s_district').value.trim();
+  var awasId = document.getElementById('s_awas_id').value.trim();
+  var category = document.getElementById('s_category').value;
+  var dt = document.getElementById('s_date').value;
+  var place = document.getElementById('s_place').value.trim();
+
+  if (!name || !father || !block || !district || !village) {
+    alert('कृपया सभी अनिवार्य (*) फ़ील्ड भरें।'); return;
+  }
+
+  var addr = 'ग्राम — ' + village + (gp ? ', ग्राम पंचायत — ' + gp : '') + ', विकासखण्ड — ' + block + ', जनपद — ' + district;
+
+  var h = '';
+
+  // ── Stamp paper note (screen only) ──
+  h += '<div class="no-print" style="text-align:center;background:#fff8e1;border:2px dashed #e8640a;border-radius:8px;padding:10px;margin-bottom:16px;font-size:12px;color:#e8640a;font-weight:700;">⚠️ पहला पेज ₹10 के स्टाम्प पेपर पर प्रिंट होगा (ऊपर 60% खाली रहेगा)</div>';
+
+  // ── Title ──
+  h += '<div style="text-align:center; font-size:16px; font-weight:800; margin-bottom:6px; text-decoration:underline;">शपथ पत्र</div>';
+  h += '<div style="text-align:center; font-size:12px; color:#555; margin-bottom:16px;">(प्रधानमंत्री आवास योजना — ग्रामीण के अंतर्गत)</div>';
+
+  // ── Body ──
+  h += '<div style="line-height:2;">';
+
+  h += '<strong>सेवा में,</strong><br>';
+  h += '&emsp;&emsp;<strong>खंड विकास अधिकारी</strong>,<br>';
+  h += '&emsp;&emsp;विकासखण्ड — <strong>' + block + '</strong>,<br>';
+  h += '&emsp;&emsp;जनपद — <strong>' + district + '</strong><br><br>';
+
+  h += '<strong>विषय:</strong> प्रधानमंत्री आवास योजना (ग्रामीण) के अंतर्गत आवास निर्माण हेतु शपथ पत्र।<br><br>';
+
+  // Para 1 — Introduction
+  h += '&emsp;&emsp;मैं <strong>' + name + '</strong> ' + rel + ' <strong>' + father + '</strong>, उम्र <strong>' + (age || '____') + ' वर्ष</strong>, जाति — <strong>' + (caste || '____') + '</strong>, निवासी <strong>' + addr + '</strong>, आधार संख्या — <strong>' + (aadhaar || '____________') + '</strong>, आवास ID / लाभार्थी ID — <strong>' + (awasId || '__________') + '</strong> सशपथ घोषणा करता/करती हूँ कि —<br><br>';
+
+  // Oath Points
+  h += '<strong>1.</strong> मैं उपरोक्त पते का स्थायी निवासी हूँ तथा मेरा सर्वे <strong>प्रधानमंत्री आवास योजना 2024</strong> के अंतर्गत हुआ है। मैं <strong>"' + (category || '____') + '"</strong> श्रेणी के अंतर्गत इस योजना का पात्र/पात्रा हूँ।<br><br>';
+
+  h += '<strong>2.</strong> मैंने या मेरे परिवार के किसी भी सदस्य ने इससे पूर्व <strong>प्रधानमंत्री आवास योजना (PMAY), इंदिरा आवास योजना (IAY), प्रधानमंत्री आवास योजना</strong> या किसी भी अन्य सरकारी आवास योजना के अंतर्गत <strong>पक्का मकान बनाने हेतु कोई लाभ/सहायता प्राप्त नहीं</strong> की है।<br><br>';
+
+  h += '<strong>3.</strong> मेरे पास या मेरे परिवार के किसी भी सदस्य के नाम <strong>कोई पक्का मकान नहीं</strong> है।<br><br>';
+
+  h += '<strong>4.</strong> मैं शपथपूर्वक वचन देता/देती हूँ कि आवास निर्माण हेतु प्राप्त धनराशि का उपयोग <strong>केवल पक्का मकान बनाने</strong> के लिए ही करूँगा/करूँगी तथा इसका <strong>किसी अन्य कार्य में दुरुपयोग नहीं</strong> करूँगा/करूँगी।<br><br>';
+
+  h += '<strong>5.</strong> मैं <strong>नियमानुसार कार्य</strong> करूँगा/करूँगी तथा शासन/विभाग द्वारा निर्धारित <strong>सभी नियमों व शर्तों का पालन</strong> करूँगा/करूँगी।<br><br>';
+
+  h += '<strong>6.</strong> मैं स्वीकृति के बाद <strong>निर्धारित समय सीमा (90 दिन)</strong> के अंदर आवास का निर्माण कार्य <strong>पूर्ण</strong> करूँगा/करूँगी।<br><br>';
+
+  h += '<strong>7.</strong> निर्माण के प्रत्येक चरण (नींव, लिंटल, छत) की <strong>Geo-Tagged फोटो</strong> खिंचवाऊँगा/खिंचवाऊँगी तथा विभागीय अधिकारी को <strong>निरीक्षण</strong> की अनुमति दूँगा/दूँगी।<br><br>';
+
+  h += '<strong>8.</strong> मकान का निर्माण न्यूनतम <strong>25 वर्ग मीटर</strong> क्षेत्रफल में करूँगा/करूँगी तथा मकान में <strong>शौचालय का निर्माण</strong> अवश्य करवाऊँगा/करवाऊँगी।<br><br>';
+
+  h += '<strong>9.</strong> आवास का स्वामित्व <strong>महिला सदस्य</strong> या <strong>पति-पत्नी के संयुक्त नाम</strong> से होगा।<br><br>';
+
+  h += '<strong>10.</strong> मैं आवास प्राप्ति के बाद <strong>5 वर्ष तक</strong> इस मकान को <strong>बेचूँगा/बेचूँगी नहीं</strong>।<br><br>';
+
+  h += '<strong>11.</strong> यदि किसी भी समय मेरे द्वारा दी गई जानकारी <strong>असत्य/गलत</strong> पाई जाती है या मैं <strong>अपात्र</strong> पाया/पाई जाती हूँ तो मुझे प्राप्त <strong>सम्पूर्ण धनराशि की वसूली (Recovery)</strong> मुझसे की जा सकती है तथा मेरे विरुद्ध <strong>कानूनी कार्रवाई</strong> की जा सकती है। इसके लिए मैं पूर्णतः सहमत हूँ।<br><br>';
+
+  h += '<strong>12.</strong> उपरोक्त सभी कथन <strong>मेरी जानकारी एवं विश्वास के अनुसार सत्य</strong> हैं। झूठी जानकारी प्रस्तुत करने के दंड से मैं <strong>भली भांति अवगत</strong> हूँ।<br><br>';
+
+  // ── Signature ──
+  h += '<div style="display:flex; justify-content:space-between; margin-top:20px;">';
+  h += '<div><strong>दिनांक —</strong> ' + fmtDate(dt) + '<br><strong>स्थान —</strong> ' + (place || village || '________') + '</div>';
+  h += '<div style="text-align:center;"><br><br>________________________<br><strong>शपथकर्ता के हस्ताक्षर / अंगूठा</strong><br>' + name + '<br>' + rel + ' ' + father + '<br>मो. ' + (mobile || '________') + '</div>';
+  h += '</div>';
+
+  h += '</div>'; // close line-height
+
+
+  document.getElementById('previewContent').innerHTML = h;
+  document.getElementById('formSection').style.display = 'none';
+  document.getElementById('previewBox').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function printIt() {
+  document.title = ' ';
+  window.print();
+  document.title = 'PM Awas Shapath Patra / पीएम आवास शपथ पत्र | VISRO Consultancy';
+}
+</script>
+
+</body>
+</html>

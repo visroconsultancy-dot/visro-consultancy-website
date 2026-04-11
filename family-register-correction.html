@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Register Correction / परिवार रजिस्टर सुधार | VISRO Consultancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #0d1b3e; --orange: #e8640a; --green: #22c55e; --off-white: #f4f6fb; --gray: #64748b; --light-gray: #e2e8f0; --border: #B0C4DE; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans Devanagari', 'Sora', sans-serif; color: var(--navy); background: var(--off-white); line-height: 1.6; font-size: 14px; }
+  .back-bar { max-width: 860px; margin: 0 auto; padding: 12px 20px 0; display: flex; gap: 10px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; background: var(--orange); color: white; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; }
+  .page { max-width: 860px; margin: 12px auto 40px; background: white; border-radius: 10px; box-shadow: 0 4px 24px rgba(13,27,62,0.10); overflow: hidden; }
+  .header { background: var(--navy); color: white; padding: 20px 28px; text-align: center; }
+  .header h1 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+  .header .sub { font-size: 12px; opacity: 0.7; }
+  .form-body { padding: 24px 28px 36px; }
+  .section { margin-bottom: 20px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .section-title { background: var(--navy); color: white; padding: 8px 14px; font-size: 14px; font-weight: 700; }
+  .section-content { padding: 16px; background: #F8FBFF; }
+  .row { display: flex; gap: 14px; margin-bottom: 12px; flex-wrap: wrap; }
+  .field { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 4px; }
+  .field label { font-size: 12px; color: var(--gray); font-weight: 600; }
+  .field input, .field select, .field textarea { border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; font-family: inherit; font-size: 13px; color: var(--navy); background: white; outline: none; width: 100%; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--orange); }
+  .field textarea { resize: vertical; min-height: 60px; }
+  .member-card { background: white; border: 1px solid var(--light-gray); border-radius: 8px; padding: 14px; margin-bottom: 10px; }
+  .member-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .member-num { background: var(--orange); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+  .btn-remove { background: #e74c3c; color: white; border: none; border-radius: 6px; padding: 4px 12px; font-size: 11px; font-weight: 700; cursor: pointer; }
+  .btn-add { background: var(--green); color: white; border: none; border-radius: 8px; padding: 10px 20px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; margin: 10px 0; }
+  .btn-submit { width: 100%; padding: 14px; border-radius: 10px; border: none; background: var(--orange); color: white; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+  .btn-submit:hover { background: #f07a28; }
+  .preview-box { background: white; border: 2px solid var(--navy); border-radius: 8px; padding: 24px; margin-top: 20px; display: none; font-size: 14px; line-height: 2; }
+  .preview-box h3 { text-align: center; margin-bottom: 10px; }
+  .preview-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 12px; }
+  .preview-table th { background: var(--navy); color: white; padding: 6px 8px; text-align: left; font-size: 11px; }
+  .preview-table td { padding: 6px 8px; border: 1px solid var(--light-gray); font-size: 12px; }
+  .print-btns { display: flex; gap: 10px; margin-top: 14px; justify-content: center; }
+  .print-btns button, .print-btns a { padding: 10px 24px; border-radius: 8px; border: none; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .footer { background: var(--navy); color: rgba(255,255,255,0.6); text-align: center; padding: 14px; font-size: 11px; }
+  @media (max-width: 600px) { .row { flex-direction: column; gap: 8px; } .field { min-width: 100%; } .form-body { padding: 16px; } }
+</style>
+</head>
+<body>
+
+<div class="back-bar">
+  <a href="family-register.html" class="back-btn">← Back</a>
+</div>
+
+<div class="page">
+  <div class="header">
+    <h1>परिवार रजिस्टर सुधार आवेदन</h1>
+    <div class="sub">Family Register Correction Application — सहायक विकास अधिकारी (पंचायत) को</div>
+  </div>
+
+  <div class="form-body">
+
+    <!-- Applicant Details -->
+    <div class="section">
+      <div class="section-title">📋 आवेदक का विवरण / Applicant Details</div>
+      <div class="section-content">
+        <div class="row">
+          <div class="field"><label>आवेदक (मुखिया) का नाम <span style="color:#c0392b">*</span></label><input type="text" id="app_name" placeholder="परिवार के मुखिया का पूरा नाम"></div>
+          <div class="field" style="max-width:130px;"><label>संबंध <span style="color:#c0392b">*</span></label><select id="app_sdo"><option>पुत्र / S/o</option><option>पुत्री / D/o</option><option>पत्नी / W/o</option></select></div>
+          <div class="field"><label>पिता / पति का नाम <span style="color:#c0392b">*</span></label><input type="text" id="app_father" placeholder="पिता या पति का पूरा नाम"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>जनपद (जिला) <span style="color:#c0392b">*</span></label><select id="app_district" onchange="loadBlocks()"><option value="">— जिला चुनें —</option></select></div>
+          <div class="field"><label>विकासखण्ड (ब्लॉक) <span style="color:#c0392b">*</span></label><select id="app_block" disabled><option value="">— पहले जिला चुनें —</option></select></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>ग्राम पंचायत <span style="color:#c0392b">*</span></label><select id="app_gp" disabled><option value="">— पहले ब्लॉक चुनें —</option></select></div>
+          <div class="field"><label>ग्राम / मोहल्ला <span style="color:#c0392b">*</span></label><input type="text" id="app_village" placeholder="गाँव या मोहल्ला का नाम"></div>
+          <div class="field"><label>मोबाइल नंबर <span style="color:#c0392b">*</span></label><input type="tel" id="app_mobile" maxlength="10" placeholder="10 अंकों का मोबाइल नंबर" oninput="this.value=this.value.replace(/\D/g,'')"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Family Members Table -->
+    <div class="section">
+      <div class="section-title" style="background:#e65100;">✏️ सुधार का विवरण / Correction Details</div>
+      <div class="section-content" style="background:#fff8f5;">
+        <div style="font-size:12px;color:var(--gray);margin-bottom:12px;background:#fff3e0;border-left:4px solid var(--orange);padding:8px 12px;">एक या एक से अधिक सुधार जोड़ सकते हैं। / You can add one or more corrections.</div>
+        <div id="correctionsContainer">
+          <!-- Correction 1 -->
+          <div class="member-card" id="corr_1">
+            <div class="member-header"><div style="display:flex;align-items:center;gap:8px;"><div class="member-num">1</div><span style="font-size:13px;font-weight:700;">सुधार 1 / Correction 1</span></div></div>
+            <div class="row">
+              <div class="field"><label>सदस्य का नाम <span style="color:#c0392b">*</span><br><small>Member Name</small></label><input type="text" class="c_member" placeholder="जिस सदस्य का सुधार करना है"></div>
+              <div class="field"><label>सुधार का प्रकार <span style="color:#c0392b">*</span><br><small>Correction Type</small></label><select class="c_type"><option value="">— चुनें —</option><option value="नाम में सुधार">नाम में सुधार / Name</option><option value="पिता/पति नाम सुधार">पिता/पति नाम / Father/Husband</option><option value="जन्मतिथि सुधार">जन्मतिथि / DOB</option><option value="जाति सुधार">जाति / Caste</option><option value="व्यवसाय सुधार">व्यवसाय / Occupation</option><option value="संबंध सुधार">संबंध / Relation</option><option value="अन्य सुधार">अन्य / Other</option></select></div>
+            </div>
+            <div class="row">
+              <div class="field"><label>वर्तमान में क्या लिखा है (गलत) <span style="color:#c0392b">*</span><br><small>Currently written (Wrong)</small></label><input type="text" class="c_wrong" placeholder="जो गलत दर्ज है"></div>
+              <div class="field"><label>सही क्या होना चाहिए <span style="color:#c0392b">*</span><br><small>What should be correct</small></label><input type="text" class="c_right" placeholder="सही जानकारी"></div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-add" onclick="addCorrection()" style="background:#e65100;">➕ और सुधार जोड़ें / Add More Correction</button>
+      </div>
+    </div>
+
+    <!-- 5 Rural Witnesses -->
+    <div class="section">
+      <div class="section-title" style="background:#37474F;">👥 ग्रामीण गवाहों की गवाही / 5 Rural Witnesses</div>
+      <div class="section-content" style="background:#f9f9f9;">
+        <div style="font-size:12px;color:var(--gray);margin-bottom:14px;background:#fff3e0;border-left:4px solid var(--orange);padding:8px 12px;">नीचे दिए गए 5 ग्रामीण व्यक्ति जो आवेदक के परिवार से परिचित हैं, अपना विवरण भरें।</div>
+        <div style="background:white;border:1px solid #ddd;border-radius:6px;padding:14px 16px;margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:#37474F;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:6px;">गवाह 1 / Witness 1</div><div class="row"><div class="field"><label>नाम</label><input type="text" id="w1_name" placeholder="नाम"></div><div class="field"><label>पिता का नाम</label><input type="text" id="w1_father" placeholder="पिता"></div><div class="field"><label>जाति</label><input type="text" id="w1_caste" placeholder="जाति"></div><div class="field"><label>पुरवा / मजरा</label><input type="text" id="w1_purava" placeholder="पुरवा"></div><div class="field"><label>मोबाइल</label><input type="tel" id="w1_mobile" maxlength="10" placeholder="मोबाइल"></div></div></div>
+        <div style="background:white;border:1px solid #ddd;border-radius:6px;padding:14px 16px;margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:#37474F;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:6px;">गवाह 2 / Witness 2</div><div class="row"><div class="field"><label>नाम</label><input type="text" id="w2_name" placeholder="नाम"></div><div class="field"><label>पिता का नाम</label><input type="text" id="w2_father" placeholder="पिता"></div><div class="field"><label>जाति</label><input type="text" id="w2_caste" placeholder="जाति"></div><div class="field"><label>पुरवा / मजरा</label><input type="text" id="w2_purava" placeholder="पुरवा"></div><div class="field"><label>मोबाइल</label><input type="tel" id="w2_mobile" maxlength="10" placeholder="मोबाइल"></div></div></div>
+        <div style="background:white;border:1px solid #ddd;border-radius:6px;padding:14px 16px;margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:#37474F;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:6px;">गवाह 3 / Witness 3</div><div class="row"><div class="field"><label>नाम</label><input type="text" id="w3_name" placeholder="नाम"></div><div class="field"><label>पिता का नाम</label><input type="text" id="w3_father" placeholder="पिता"></div><div class="field"><label>जाति</label><input type="text" id="w3_caste" placeholder="जाति"></div><div class="field"><label>पुरवा / मजरा</label><input type="text" id="w3_purava" placeholder="पुरवा"></div><div class="field"><label>मोबाइल</label><input type="tel" id="w3_mobile" maxlength="10" placeholder="मोबाइल"></div></div></div>
+        <div style="background:white;border:1px solid #ddd;border-radius:6px;padding:14px 16px;margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:#37474F;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:6px;">गवाह 4 / Witness 4</div><div class="row"><div class="field"><label>नाम</label><input type="text" id="w4_name" placeholder="नाम"></div><div class="field"><label>पिता का नाम</label><input type="text" id="w4_father" placeholder="पिता"></div><div class="field"><label>जाति</label><input type="text" id="w4_caste" placeholder="जाति"></div><div class="field"><label>पुरवा / मजरा</label><input type="text" id="w4_purava" placeholder="पुरवा"></div><div class="field"><label>मोबाइल</label><input type="tel" id="w4_mobile" maxlength="10" placeholder="मोबाइल"></div></div></div>
+        <div style="background:white;border:1px solid #ddd;border-radius:6px;padding:14px 16px;"><div style="font-size:12px;font-weight:700;color:#37474F;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:6px;">गवाह 5 / Witness 5</div><div class="row"><div class="field"><label>नाम</label><input type="text" id="w5_name" placeholder="नाम"></div><div class="field"><label>पिता का नाम</label><input type="text" id="w5_father" placeholder="पिता"></div><div class="field"><label>जाति</label><input type="text" id="w5_caste" placeholder="जाति"></div><div class="field"><label>पुरवा / मजरा</label><input type="text" id="w5_purava" placeholder="पुरवा"></div><div class="field"><label>मोबाइल</label><input type="tel" id="w5_mobile" maxlength="10" placeholder="मोबाइल"></div></div></div>
+      </div>
+    </div>
+
+    <!-- Preview & Submit -->
+    <button class="btn-submit" onclick="generatePreview()">👁 आवेदन Preview देखें / View Application Preview</button>
+
+    <!-- Preview Box -->
+    <div class="preview-box" id="previewBox">
+      <div id="previewContent"></div>
+      <div class="print-btns">
+        <button onclick="printApplication()" style="background:var(--navy);color:white;">🖨️ Print करें</button>
+        <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20maine%20Family%20Register%20Correction%20form%20bhar%20diya%20hai.%20Please%20help." style="background:var(--green);color:white;">💬 WhatsApp Help</a>
+        <button onclick="document.getElementById('previewBox').style.display='none'" style="background:#e74c3c;color:white;">✖ बंद करें</button>
+      </div>
+    </div>
+
+    <!-- Instructions Section -->
+    <div class="section" style="margin-top:20px;">
+      <div class="section-title" style="background:#1B5E20;">📋 आवेदन के साथ सामान्य निर्देश / General Instructions with Application</div>
+      <div class="section-content" style="background:#f1f8e9;">
+
+        <!-- Hindi Instructions -->
+        <div style="margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:800;color:#1B5E20;margin-bottom:10px;border-bottom:2px solid #1B5E20;padding-bottom:6px;">📌 आवेदन के साथ सामान्य निर्देश अवश्य पढ़ें।</div>
+          <ol style="font-size:13px;line-height:2;color:#222;padding-left:20px;">
+            <li>आवेदन से पूर्व अपने सभी महत्वपूर्ण अभिलेख/कागजात एकत्र कर लें।</li>
+            <li>परिवार रजिस्टर में अंकन हेतु आवेदक को <b>न्यूनतम 02 वर्ष</b> से निरंतर उस ग्राम पंचायत का निवासी होना चाहिए।</li>
+            <li>प्रत्येक सदस्य जिसको परिवार रजिस्टर में अंकित किया जाना है उसका <b>दस्तावेज आवेदन पत्र के साथ संलग्न</b> करना आवश्यक है।</li>
+            <li>परिवार रजिस्टर में छोटे बच्चों का नाम अंकित कराने हेतु उनका <b>जन्म प्रमाण पत्र</b> संलग्न करें।</li>
+            <li>दस्तावेजों में एक <b>फोटोयुक्त पहचान का प्रमाण पत्र</b> (आधार कार्ड, पैनकार्ड आदि) तथा <b>निवास का कोई प्रमाण पत्र</b> (निवास प्रमाण पत्र, राशनकार्ड, मनरेगा जॉब कार्ड आदि) प्रस्तुत किया जाना अनिवार्य है।</li>
+            <li>आवेदन पत्र अपने <b>विकासखण्ड में सहायक विकास अधिकारी (पं0) कार्यालय</b> में जमा करें।</li>
+            <li>विवाह के पश्चात किसी सदस्य का नाम अंकित करने हेतु उस सदस्य के <b>मूल निवास की ग्राम पंचायत</b> (यदि लागू हो तो) से <b>एन.ए.सी. सर्टिफिकेट</b> (उस ग्राम पंचायत के परिवार रजिस्टर में नाम खारिज होने का या नाम न होने का प्रमाण पत्र) लगाना अनिवार्य होगा।</li>
+            <li>यदि किसी सदस्य का नाम रजिस्टर से <b>खारिज</b> किया जाना है तो आवेदक को इस हेतु <b>नोटरी शपथ पत्र</b> के साथ आवेदन प्रस्तुत करना होगा।</li>
+            <li>किसी सदस्य की <b>मृत्यु</b> हो जाने की दशा में नाम खारिज करने हेतु <b>मृत्यु प्रमाण पत्र</b> के साथ आवेदन प्रस्तुत करना होगा।</li>
+            <li>आवेदन पत्र <b>हिन्दी अथवा अंग्रेजी</b> भाषा में या दोनों में प्रस्तुत किया जा सकता है।</li>
+            <li>आवेदनपत्र को स्वीकृत करने अथवा निरस्त करने का अधिकार <b>सहायक विकास अधिकारी (पं0)</b> में निहित है।</li>
+            <li>यदि कोई आवेदक सहा0 वि0 अधि0(पं0) के आदेश से संतुष्ट नहीं है तो वह <b>उपजिलाधिकारी के न्यायालय</b> में अपील प्रस्तुत कर सकता है।</li>
+          </ol>
+        </div>
+
+        <!-- English Instructions -->
+        <div style="border-top:2px solid #a5d6a7;padding-top:14px;">
+          <div style="font-size:15px;font-weight:800;color:#1B5E20;margin-bottom:10px;border-bottom:2px solid #1B5E20;padding-bottom:6px;">📌 General Instructions — Please read carefully before applying.</div>
+          <ol style="font-size:13px;line-height:2;color:#222;padding-left:20px;">
+            <li>Collect all your important documents/records before applying.</li>
+            <li>For registration in the Family Register, the applicant must be a <b>continuous resident of that Gram Panchayat for at least 02 years</b>.</li>
+            <li>Documents of <b>each member</b> to be registered in the Family Register must be <b>attached with the application</b>.</li>
+            <li>For registering <b>small children</b> in the Family Register, their <b>Birth Certificate</b> must be attached.</li>
+            <li>It is mandatory to submit a <b>photo identity proof</b> (Aadhaar Card, PAN Card etc.) and a <b>residence proof</b> (Residence Certificate, Ration Card, MGNREGA Job Card etc.) with the documents.</li>
+            <li>Submit the application at the <b>Assistant Development Officer (Panchayat) office</b> of your Block.</li>
+            <li>For adding a member's name <b>after marriage</b>, it is mandatory to attach a <b>NAC Certificate</b> (proof of name deletion or non-existence from the Family Register of the original Gram Panchayat) from that member's native Gram Panchayat (if applicable).</li>
+            <li>If a member's name is to be <b>deleted</b> from the register, the applicant must submit an application with a <b>Notary Affidavit</b>.</li>
+            <li>In case of <b>death</b> of any member, an application must be submitted with the <b>Death Certificate</b> for name deletion.</li>
+            <li>The application can be submitted in <b>Hindi or English</b> language or both.</li>
+            <li>The authority to approve or reject the application is vested with the <b>Assistant Development Officer (Panchayat)</b>.</li>
+            <li>If any applicant is not satisfied with the ADO(P) order, they can file an <b>appeal in the court of Sub-Divisional Magistrate</b>.</li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">VISRO Consultancy | Gomtinagar Vistar, Lucknow, UP | visroconsultancy.netlify.app</div>
+</div>
+
+<script src="up-locations.js"></script>
+<script>
+// UP Blocks data for all districts
+var UP_ALL_BLOCKS = {
+  'Agra':['Achhnera','Akola','Bah','Baroli Ahir','Etmadpur','Fatehabad','Fatehpur Sikri','Jaitpur Kalan','Khandauli','Kheragarh','Pinahat','Sayian','Shamsabad','Shamshabad','Saiyan'],
+  'Aligarh':['Atrauli','Bijauli','Chandaus','Dhanipur','Gangiri','Gonda','Iglas','Jawan Sikandarpur','Khair','Lodha','Tappal'],
+  'Ambedkar Nagar':['Akbarpur','Alapur','Baskhari','Bhiti','Jalalpur','Katehari','Ramnagar','Tanda'],
+  'Amethi (अमेठी)':['अमेठी (Amethi)','बहादुरपुर (Bahadurpur)','भदर (Bhadar)','भेटुआ (Bhetua)','गौरीगंज (Gauriganj)','जगदीशपुर (Jagdishpur)','जामो (Jamo)','मुसाफिरखाना (Musafirkhana)','संग्रामपुर (Sangrampur)','शाहगढ़ (Shahgarh)','शुक्ल बाज़ार (Shukul Bazar)','सिंहपुर (Singhpur)','तिलोई (Tiloi)'],
+  'Amroha':['Amroha','Dhanaura','Gajraula','Hasanpur','Joya','Naugawan Sadat'],
+  'Auraiya':['Achhalda','Auraiya','Bhagyanagar','Bidhuna','Erwan','Sahar'],
+  'Ayodhya':['Bikapur','Goshainganj','Inayatpur','Maya Bazar','Milkipur','Rudauli','Sohawal','Tarun'],
+  'Azamgarh':['Atraulia','Azamgarh','Haraiya','Koilsa','Lalganj','Martinganj','Mehnagar','Mohammadpur','Phulpur','Sagri','Tahbarpur','Tarwa'],
+  'Baghpat':['Baghpat','Baraut','Binauli','Chhaprauli','Khekra','Pilana','Singhawali Ahir'],
+  'Bahraich':['Bahraich','Balha','Chitaura','Fakharpur','Huzoorpur','Jarwal','Kaiserganj','Mahasi','Mihinpurwa','Nanpara','Nawabganj','Payagpur','Risia','Shivpur','Tejwapur','Visheshwarganj'],
+  'Ballia':['Bairiya','Ballia','Bansdih','Belhari','Chilkahar','Dubhar','Garwar','Hanumanganj','Maniar','Nagra','Pandah','Rasra','Reoti','Sikandarpur','Siar','Sohaon'],
+  'Balrampur':['Balrampur','Gaindas Bujurg','Harraiya Satgharwa','Pachpedwa','Rehra Bazar','Shriduttganj','Tulsipur','Utraula'],
+  'Banda':['Atarra','Baberu','Badokhar Khurd','Banda','Bisanda','Jaspura','Kamasin','Mahua','Naraini','Tindwari'],
+  'Barabanki':['Banki','Barabanki','Dewa','Fatehpur','Haidergarh','Harakh','Masauli','Nindura','Pure Dalai','Ram Sanehi Ghat','Sirauli Gauspur','Suratganj','Trivediganj'],
+  'Bareilly':['Aonla','Baheri','Bhamora','Bithari Chainpur','Dalel Nagar','Faridpur','Kyara','Meerganj','Mirganj','Nawabganj','Ramnagar','Richha','Shergarh'],
+  'Basti':['Basti','Bahadurpur','Bankati','Dubauliya','Gaur','Harraiya','Kaptanganj','Kudarha','Parasrampur','Ramnagar','Rudhauli','Salhani','Vikramjot'],
+  'Bhadohi':['Aurai','Bhadohi','Deegh','Gyanpur','Suriyawan'],
+  'Bijnor':['Afzalgarh','Chandpur','Dhampur','Haldaur','Jalilpur','Kotwali','Mandawar','Mohammedpur','Nagina','Najibabad','Noorpur','Seohara'],
+  'Budaun':['Ambiapur','Bisauli','Budaun','Dataganj','Gunnaur','Islamnagar','Jagat','Kakrala','Mion','Sahswan','Samrer','Salarpur','Ujhani','Usawan','Wazirganj'],
+  'Bulandshahr':['Agauta','Anupshahar','Araniya','Bulandshahr','Danpur','Debai','Gulaothi','Jahangirabad','Khurja','Lakhaoti','Pahasu','Shikarpur','Siana','Sikandrabad','Syana'],
+  'Chandauli':['Barhani','Chakiya','Chandauli','Dhanapur','Naugarh','Niyamatabad','Sahabganj','Sakaldiha'],
+  'Chitrakoot':['Karwi','Mau','Manikpur','Pahadi','Ramnagar'],
+  'Deoria':['Baitalpur','Bankata','Barhaj','Bhatni','Bhatpar Rani','Deoria','Desai Deoria','Gauri Bazar','Lar','Pathardeva','Rampur Karkhana','Rudrapur','Salempur','Tarkulwa'],
+  'Etah':['Aliganj','Awagarh','Etah','Jalesar','Kasganj','Mare','Nidhauli Kalan','Sakeet','Sheetalpur'],
+  'Etawah':['Basrehar','Barhpura','Bharthana','Chakarnagar','Etawah','Jaswantnagar','Lakhna','Mahewa','Saifai','Takha'],
+  'Farrukhabad':['Amritpur','Farrukhabad','Kaimganj','Kamalganj','Mohammadabad','Nawabganj','Rajepur','Shamshabad'],
+  'Fatehpur':['Amauli','Bahua','Bhitaura','Bindki','Dhata','Gajipur','Hathgram','Hussainganj','Jahanabad','Khaga','Malwan','Teliyani','Vijaipur'],
+  'Firozabad':['Eka','Firozabad','Hathwant','Jasrana','Narkhi','Shikohabad','Tundla'],
+  'Gautam Buddha Nagar':['Bisrakh','Dadri','Dankaur','Jewar','Rabupura'],
+  'Ghaziabad':['Bhojpur','Dhaulana','Ghaziabad','Loni','Modinagar','Muradnagar','Razapur'],
+  'Ghazipur':['Bhadaura','Birno','Deokali','Ghazipur','Jakhanian','Karanda','Mardah','Mohammadabad','Muhammdabad','Sadat','Saidpur','Zamania'],
+  'Gonda':['Colonelganj','Haldharmau','Karnailganj','Katra Bazar','Mankapur','Nawabganj','Paraspur','Tarabganj','Wazirganj'],
+  'Gorakhpur':['Bansgar','Bansgaon','Belghat','Brahmpur','Campierganj','Chauri Chaura','Chargawan','Gola','Jungle Kaudia','Khorabar','Khajni','Pali','Pipraich','Piprauli','Sardar Nagar','Shahjanwa','Uruwa Bazar'],
+  'Hamirpur':['Gohand','Hamirpur','Kurara','Maudaha','Muskara','Rath','Sarila','Sumerpur'],
+  'Hapur':['Dhaulana','Garhmukteshwar','Hapur','Pilkhuwa','Simbhaoli'],
+  'Hardoi':['Ahirori','Baawan','Beniganj','Bharkhani','Bilgram','Gopamau','Hardoi','Kachhauna','Kothawan','Madhoganj','Mallawan','Pali','Pihani','Sandila','Shahabad','Sandi','Sursa','Tandiyawan','Tondarpur'],
+  'Hathras':['Hasayan','Hathras','Mursan','Sadabad','Sasni','Sehpau','Sikandra Rao'],
+  'Jalaun':['Dakor','Jalaun','Kadaura','Konch','Kuthaund','Madhogarh','Maheba','Nadigaon','Orai','Rampura'],
+  'Jaunpur':['Badlapur','Baksha','Barsathi','Dharmapur','Jaunpur','Karakat','Khuthan','Machhali Shahar','Maharajganj','Mariahu','Muftiganj','Mungra Badshahpur','Ramnagar','Ram Nagar','Shahganj','Sirkoni','Suithakalan'],
+  'Jhansi':['Babina','Bamour','Bangra','Chirgaon','Garautha','Gursarai','Jhansi','Karera','Mauranipur','Moth','Sipri'],
+  'Kannauj':['Chhibramau','Gugrapur','Jalalabad','Kannauj','Saurikh','Tirwa','Umarda'],
+  'Kanpur Dehat':['Akbarpur','Amraudha','Bhognipur','Derapur','Ghatampur','Jhinjhak','Kalyanpur','Maitha','Rasoolabad','Sandalpur','Sarbankhera','Sikandra'],
+  'Kanpur Nagar':['Bhitargaon','Bilhaur','Chaubepur','Ghatampur','Kakwan','Kalyanpur','Sarsaul','Shivrajpur'],
+  'Kasganj':['Amanpur','Ganj Dundwara','Kasganj','Patiyali','Sahawar','Soron'],
+  'Kaushambi':['Chail','Kara','Kaushambi','Manjhanpur','Mooratganj','Newada','Saini','Sirathu'],
+  'Kheri':['Behjam','Dhaurahara','Gola','Isanagar','Kumbhi','Lakhimpur','Mitauli','Mohammadi','Nighasan','Oel','Palia','Pasgawan','Phoolbehar','Ramia Behar','Srinagar'],
+  'Kushinagar':['Dudahi','Fazilnagar','Hata','Kaptanganj','Kasia','Kushinagar','Motichak','Nebua Naurangia','Padrauna','Ramkola','Seorahi','Sukrauli','Tamkuhi Raj','Vishunpura'],
+  'Lalitpur':['Bar','Birdha','Jakhaura','Lalitpur','Madawara','Maharoni','Mehrauni','Pali','Talbehat'],
+  'Lucknow':['Bakshi Ka Talab','Chinhat','Gosainganj','Kakori','Lucknow','Mal','Malihabad','Mohanlalganj','Nagram','Sarojini Nagar'],
+  'Maharajganj':['Bridgemanganj','Ghughuli','Kolhui','Laxmipur','Maharajganj','Mithaura','Nautanwa','Nichlaul','Paniyara','Partawal','Pharenda','Siswa Bazar'],
+  'Mahoba':['Charkhari','Jaitpur','Kabrai','Kulpahar','Mahoba','Panwari','Srinagar'],
+  'Mainpuri':['Barnahal','Bhogaon','Ghiror','Jagir','Karhal','Kishni','Kurawali','Mainpuri','Sultanpur'],
+  'Mathura':['Baldeo','Chata','Chhata','Farah','Govardhan','Mant','Mat','Mathura','Naujheel','Raya','Sonai'],
+  'Mau':['Doharighat','Fatehpur Mandaw','Ghosi','Kopaganj','Madhuban','Mohammadabad Gohna','Pardaha','Ratanpura'],
+  'Meerut':['Daurala','Hastinapur','Jani Khurd','Kharkhoda','Machra','Mawana','Meerut','Parikshitgarh','Rajpura','Rohta','Sardhana','Sarurpur Khurd'],
+  'Mirzapur':['Chunar','Hallia','Jamalpur','Lalganj','Madihan','Marihan','Mirzapur','Narayanpur','Patehra','Rajgarh','Shikhar'],
+  'Moradabad':['Bilari','Chhajlet','Chandausi','Dilari','Kundarki','Moradabad','Mundha Pande','Thakurdwara'],
+  'Muzaffarnagar':['Baghra','Budhana','Charthawal','Jansath','Khatauli','Morna','Muzaffarnagar','Purkazi','Shahpur','Un'],
+  'Pilibhit':['Amariya','Barkhera','Bilsanda','Bisalpur','Lalaurikhera','Madhotanda','Marori','Pilibhit','Puranpur'],
+  'Pratapgarh':['Babaganj','Bela','Gaura','Kalakankar','Kunda','Lalganj','Mandhata','Manikpur','Patti','Pratapgarh','Raniganj','Sangipur','Shivgarh'],
+  'Prayagraj':['Bahria','Bara','Chaka','Dhanupur','Handia','Holagarh','Jasra','Karchana','Kaudhiyara','Kaundhiara','Koraon','Mauaima','Meja','Phulpur','Pratappur','Saidabad','Shankargarh','Soraon','Sringverpur','Uruwan'],
+  'Rae Bareli':['Bachhrawan','Dalmau','Deeh','Harchandpur','Jagatpur','Khiron','Lalganj','Maharajganj','Marwan','Parasadepur','Rae Bareli','Rahi','Salon','Sareni','Shivgarh','Tiloi','Unchahar'],
+  'Rampur':['Bilaspur','Chamraua','Milak','Rampur','Shahabad','Suar','Tanda'],
+  'Saharanpur':['Behat','Deoband','Gangoh','Muzaffarabad','Nagal','Nakur','Rampur Maniharan','Saharanpur','Sarsawa'],
+  'Sambhal':['Asmoli','Bahjoi','Baniyakhera','Chandausi','Gunnaur','Junawai','Panwasa','Rajpura','Sambhal'],
+  'Sant Kabir Nagar':['Baghauli','Belhar Kalan','Dhanghata','Hainsar Bazar','Khalilabad','Mehdawal','Nath Nagar','Santha'],
+  'Shahjahanpur':['Bhawal Khera','Dadrol','Jaitipur','Jalalabad','Kant','Katra','Khutar','Mirzapur','Nigohi','Powayan','Shahjahanpur','Tilhar'],
+  'Shamli':['Jhinjhana','Kairana','Kandhla','Shamli','Thana Bhawan','Un'],
+  'Shravasti':['Bhinga','Gilaula','Hariharpur Rani','Ikauna','Jamunha','Malhihaan','Nayagaon','Patherwa','Shravasti','Sirsiya'],
+  'Siddharthnagar':['Bansi','Bhanwapur','Birdpur','Domariyaganj','Itwa','Jogia','Khesraha','Khuniyaon','Lotan','Mithwal','Naugarh','Shohratgarh','Uska Bazar'],
+  'Sitapur':['Aimma','Behta','Biswan','Gondlamau','Hargaon','Kasmanda','Khairabad','Laharpur','Macchrehta','Mahmoodabad','Misrikh','Parsendi','Pisawan','Ramkot','Reusa','Sakran','Sidhauli','Sitapur','Tambour'],
+  'Sonbhadra':['Babhani','Chopan','Duddhi','Ghorawal','Myorpur','Nagwa','Obra','Robertsganj'],
+  'Sultanpur':['Akhandnagar','Baldirai','Bhadaiya','Dhanpatganj','Dostpur','Dubeypur','Jaisinghpur','Kadipur','Kardiha','Kurebhar','Lambhua','Motigarpur','Musafirkhana','Sultanpur'],
+  'Unnao':['Asoha','Bangarmau','Bichhiya','Fatehpur Chaurasi','Ganj Moradabad','Hasanganj','Hilowli','Miyaganj','Nawabganj','Purwa','Safipur','Sumerpur','Unnao'],
+  'Varanasi':['Arajiline','Baragaon','Chiraigaon','Cholapur','Harahua','Kashi Vidyapeeth','Pindra','Sewapuri']
+};
+
+// Populate district dropdown on load
+document.addEventListener('DOMContentLoaded', function() {
+  var distSel = document.getElementById('app_district');
+  var districts = Object.keys(UP_ALL_BLOCKS).sort();
+  districts.forEach(function(d) {
+    distSel.add(new Option(d, d));
+  });
+});
+
+function loadBlocks() {
+  var dist = document.getElementById('app_district').value;
+  var blkSel = document.getElementById('app_block');
+  var gpSel = document.getElementById('app_gp');
+  blkSel.innerHTML = '<option value="">— ब्लॉक चुनें —</option>';
+  gpSel.innerHTML = '<option value="">— पहले ब्लॉक चुनें —</option>';
+  blkSel.disabled = true;
+  gpSel.disabled = true;
+  if (!dist) return;
+  var blocks = UP_ALL_BLOCKS[dist] || [];
+  blocks.forEach(function(b) {
+    blkSel.add(new Option(b, b));
+  });
+  if (blocks.length) blkSel.disabled = false;
+  blkSel.onchange = loadGPs;
+}
+
+function loadGPs() {
+  var gpSel = document.getElementById('app_gp');
+  gpSel.innerHTML = '<option value="">— ग्राम पंचायत चुनें —</option>';
+  gpSel.disabled = true;
+  // Extract English block name from "जामो (Jamo)" format
+  var blkVal = document.getElementById('app_block').value;
+  var distVal = document.getElementById('app_district').value;
+  if (!blkVal || !distVal) return;
+  // Extract English names for UP_GPS lookup
+  // Format is "Amethi (अमेठी)" or "अमेठी (Amethi)" — extract the part without Hindi
+  var distEn = distVal.split('(')[0].trim().split(' ')[0].trim();
+  if (!distEn || /[\u0900-\u097F]/.test(distEn)) { var m=distVal.match(/\(([A-Za-z\s]+)\)/); distEn=m?m[1].trim():distVal; }
+  var blkEn = blkVal.match(/\(([A-Za-z\s]+)\)/);
+  blkEn = blkEn ? blkEn[1].trim() : blkVal.split('(')[0].trim();
+  // Find tehsil - try all tehsils for this district
+  var tehsils = (typeof UP_TEHSILS !== 'undefined' && UP_TEHSILS[distEn]) ? UP_TEHSILS[distEn] : [];
+  var gps = [];
+  tehsils.forEach(function(teh) {
+    var key = distEn + '-' + teh + '-' + blkEn;
+    if (typeof UP_GPS !== 'undefined' && UP_GPS[key]) {
+      gps = UP_GPS[key];
+    }
+  });
+  if (gps.length) {
+    gps.forEach(function(g) {
+      gpSel.add(new Option(g, g));
+    });
+    gpSel.disabled = false;
+  } else {
+    // No GP data - allow manual entry
+    gpSel.innerHTML = '<option value="">— GP डेटा उपलब्ध नहीं — नीचे लिखें —</option>';
+    var inp = document.createElement('input');
+    inp.type = 'text';
+    inp.id = 'app_gp_manual';
+    inp.placeholder = 'ग्राम पंचायत का नाम लिखें';
+    inp.style.cssText = 'border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:inherit;font-size:13px;width:100%;margin-top:6px;';
+    gpSel.parentNode.appendChild(inp);
+  }
+}
+
+var corrCount = 1;
+
+function addCorrection() {
+  corrCount++;
+  var div = document.createElement('div');
+  div.className = 'member-card';
+  div.id = 'corr_' + corrCount;
+  div.innerHTML = '<div class="member-header"><div style="display:flex;align-items:center;gap:8px;"><div class="member-num">' + corrCount + '</div><span style="font-size:13px;font-weight:700;">सुधार ' + corrCount + ' / Correction ' + corrCount + '</span></div><button class="btn-remove" onclick="removeCorrection(\'' + div.id + '\')">✖ हटाएँ</button></div>'
+    + '<div class="row"><div class="field"><label>सदस्य का नाम <span style="color:#c0392b">*</span></label><input type="text" class="c_member" placeholder="जिस सदस्य का सुधार करना है"></div>'
+    + '<div class="field"><label>सुधार का प्रकार <span style="color:#c0392b">*</span></label><select class="c_type"><option value="">— चुनें —</option><option value="नाम में सुधार">नाम / Name</option><option value="पिता/पति नाम सुधार">पिता/पति / Father</option><option value="जन्मतिथि सुधार">जन्मतिथि / DOB</option><option value="जाति सुधार">जाति / Caste</option><option value="व्यवसाय सुधार">व्यवसाय / Occupation</option><option value="संबंध सुधार">संबंध / Relation</option><option value="अन्य सुधार">अन्य / Other</option></select></div></div>'
+    + '<div class="row"><div class="field"><label>वर्तमान में (गलत) <span style="color:#c0392b">*</span></label><input type="text" class="c_wrong" placeholder="जो गलत दर्ज है"></div>'
+    + '<div class="field"><label>सही जानकारी <span style="color:#c0392b">*</span></label><input type="text" class="c_right" placeholder="सही जानकारी"></div></div>';
+  document.getElementById('correctionsContainer').appendChild(div);
+}
+
+function removeCorrection(id) {
+  var el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+function generatePreview() {
+  var name = document.getElementById('app_name').value || '___________';
+  var sdoSel = document.getElementById('app_sdo');
+  var sdoHi = sdoSel.options[sdoSel.selectedIndex].text.split('/')[0].trim() || 'पुत्र';
+  var father = document.getElementById('app_father').value || '___________';
+  var village = document.getElementById('app_village').value || '___________';
+  var gp = document.getElementById('app_gp').value || (document.getElementById('app_gp_manual')?document.getElementById('app_gp_manual').value:'') || '___________';
+  var block = document.getElementById('app_block').value || '___________';
+  var district = document.getElementById('app_district').value || '___________';
+  var mobile = document.getElementById('app_mobile').value || '______________';
+  var today = new Date(); var dd=String(today.getDate()).padStart(2,'0'); var mm=String(today.getMonth()+1).padStart(2,'0'); var yyyy=today.getFullYear(); var dateStr=dd+'/'+mm+'/'+yyyy;
+
+  // (No family members section — corrections only)
+
+  // Collect all corrections
+  var corrCards = document.querySelectorAll('#correctionsContainer .member-card');
+  var corrRows = '';
+  var corrSummary = '';
+  var corrCount2 = 0;
+  corrCards.forEach(function(card, i) {
+    var cMember = card.querySelector('.c_member').value || '';
+    var cType = card.querySelector('.c_type').value || '';
+    var cWrong = card.querySelector('.c_wrong').value || '';
+    var cRight = card.querySelector('.c_right').value || '';
+    if (cMember) {
+      corrCount2++;
+      corrRows += '<tr><td style="text-align:center;">' + corrCount2 + '</td><td>' + cMember + '</td><td>' + cType + '</td><td style="color:#c0392b;font-weight:700;">' + cWrong + '</td><td style="color:#1B5E20;font-weight:700;">' + cRight + '</td></tr>';
+      corrSummary += (corrSummary ? ', ' : '') + cMember + ' (' + cType + ')';
+    }
+  });
+  var firstCorrMember = corrCards.length > 0 ? (corrCards[0].querySelector('.c_member').value || '___________') : '___________';
+
+  var html = '<div style="font-size:14px;line-height:2.2;">'
+    + '<div>सेवा में,</div>'
+    + '<div style="margin-left:60px;font-weight:700;">सहायक विकास अधिकारी(पं0)</div>'
+    + '<div style="margin-left:60px;">विकासखण्ड–<b>' + block + '</b> जनपद–<b>' + district + '</b>।</div>'
+    + '<div style="margin-top:10px;"><b>विषय–परिवार रजिस्टर में सुधार के सम्बन्ध में।</b></div>'
+    + '<div style="margin-top:10px;">महोदय,</div>'
+    + '<p style="text-align:justify;text-indent:40px;margin-top:6px;">सादर अवगत कराना है कि प्रार्थी <b>' + name + '</b> ' + sdoHi + ' <b>' + father + '</b> निवासी ग्राम–<b>' + village + '</b> ग्राम पंचायत–<b>' + gp + '</b> वि0ख0–<b>' + block + '</b>, जनपद <b>' + district + '</b> का मूल निवासी है। ग्राम पंचायत के परिवार रजिस्टर का अवलोकन करने पर ज्ञात हुआ कि प्रार्थी के परिवार के सदस्यों की जानकारी में त्रुटि है जिसका सुधार होना आवश्यक है।</p>'
+    + '<p style="text-indent:40px;margin-top:6px;"><b>सुधार का विवरण निम्नवत् है–</b></p>'
+    + '</div>'
+    + '<table class="preview-table"><tr><th style="width:5%;">क्र.</th><th>सदस्य का नाम</th><th>सुधार का प्रकार</th><th>वर्तमान में दर्ज (गलत)</th><th>सही जानकारी</th></tr>' + corrRows + '</table>'
+    + '<div style="font-size:14px;line-height:2.2;">'
+    + '<p style="text-align:justify;">अतः आपसे अनुरोध है कि प्रार्थी के परिवार रजिस्टर में उपरोक्त सुधार करने हेतु सम्बन्धित को निर्देशित करने की कृपा करें।</p>'
+    + '</div>'
+    + '<div style="display:flex;justify-content:flex-end;margin-top:40px;"><div style="text-align:center;font-size:14px;line-height:2;"><div style="font-weight:700;">प्रार्थी</div><div style="height:40px;"></div><div><b>' + name + '</b> ' + sdoHi + ' <b>' + father + '</b></div><div>निवासी–ग्राम पंचायत <b>' + gp + '</b></div><div>वि0ख0–<b>' + block + '</b>, जनपद–<b>' + district + '</b>।</div><div>दिनांक– <b>' + dateStr + '</b></div><div>मोबाइल नं.– <b>' + mobile + '</b></div></div></div>'
+    // Page 2: 5 Witnesses
+    + '<div style="page-break-before:always;"></div>'
+    + '<div style="background:#37474F;color:white;padding:12px 16px;text-align:center;border-radius:6px 6px 0 0;margin-top:20px;"><div style="font-size:18px;font-weight:700;">ग्रामीण गवाहों की गवाही | Statement of Rural Witnesses</div><div style="font-size:10px;opacity:.8;">परिवार रजिस्टर आवेदन | Family Register Application</div></div>'
+    + '<div style="background:#f5f5f5;border-bottom:2px solid #FF6B00;padding:6px 14px;display:flex;flex-wrap:wrap;gap:4px 16px;font-size:11px;"><div>ग्राम पंचायत: <b>' + gp + '</b></div><div>ब्लॉक: <b>' + block + '</b></div><div>जिला: <b>' + district + '</b></div><div>आवेदक: <b>' + name + '</b></div><div>' + sdoHi + ': <b>' + father + '</b></div><div>दिनांक: <b>' + dateStr + '</b></div></div>'
+    + '<div style="background:#fff8e1;border:1px solid #FFD600;padding:14px 18px;font-size:14px;line-height:2.2;margin:10px 0;">हम नीचे हस्ताक्षरकर्ता ग्रामीण गवाह शपथपूर्वक गवाही प्रस्तुत करते हैं कि <b>' + name + '</b> ' + sdoHi + ' <b>' + father + '</b> वि0ख0–<b>' + block + '</b> जनपद–<b>' + district + '</b> का निवासी है। इनके परिवार रजिस्टर में निम्न सदस्यों की जानकारी में त्रुटि है — <b>' + corrSummary + '</b>। हम सब इनको और इनके परिवार के सदस्यों को भली भांति जानते पहचानते हैं। यह गवाही हमारी स्वेच्छा से और सत्य तथ्यों पर आधारित है। झूठी गवाही देने के दण्ड से हम सभी भली भांति परिचित हैं।</div>'
+    + (function(){
+      var wTable='<table style="width:100%;border-collapse:collapse;font-size:12px;margin:8px 0;"><tr style="background:#37474F;color:white;"><th style="padding:6px 8px;border:1px solid #455A64;width:5%;">क्र.<br><span style="font-size:9px;">Sr.</span></th><th style="padding:6px 8px;border:1px solid #455A64;">गवाह का नाम<br><span style="font-size:9px;">Witness Name</span></th><th style="padding:6px 8px;border:1px solid #455A64;">पिता का नाम<br><span style="font-size:9px;">Father\'s Name</span></th><th style="padding:6px 8px;border:1px solid #455A64;">जाति<br><span style="font-size:9px;">Caste</span></th><th style="padding:6px 8px;border:1px solid #455A64;">पुरवा / मजरा<br><span style="font-size:9px;">Hamlet</span></th><th style="padding:6px 8px;border:1px solid #455A64;">मोबाइल<br><span style="font-size:9px;">Mobile</span></th><th style="padding:6px 8px;border:1px solid #455A64;width:12%;">हस्ताक्षर / अंगूठा<br><span style="font-size:9px;">Signature / Thumb</span></th></tr>';
+      for(var wi=1;wi<=5;wi++){
+        var wn=document.getElementById('w'+wi+'_name')?document.getElementById('w'+wi+'_name').value:'';
+        var wf=document.getElementById('w'+wi+'_father')?document.getElementById('w'+wi+'_father').value:'';
+        var wc=document.getElementById('w'+wi+'_caste')?document.getElementById('w'+wi+'_caste').value:'';
+        var wp=document.getElementById('w'+wi+'_purava')?document.getElementById('w'+wi+'_purava').value:'';
+        var wm=document.getElementById('w'+wi+'_mobile')?document.getElementById('w'+wi+'_mobile').value:'';
+        wTable+='<tr style="height:60px;"><td style="padding:6px 8px;border:1px solid #ccc;text-align:center;font-weight:700;vertical-align:top;">'+wi+'</td><td style="padding:6px 8px;border:1px solid #ccc;vertical-align:top;">'+wn+'</td><td style="padding:6px 8px;border:1px solid #ccc;vertical-align:top;">'+wf+'</td><td style="padding:6px 8px;border:1px solid #ccc;vertical-align:top;">'+wc+'</td><td style="padding:6px 8px;border:1px solid #ccc;vertical-align:top;">'+wp+'</td><td style="padding:6px 8px;border:1px solid #ccc;vertical-align:top;">'+wm+'</td><td style="padding:6px 8px;border:1px solid #ccc;text-align:center;vertical-align:top;"><div style="width:80px;height:50px;border:1px solid #999;margin:0 auto;"></div></td></tr>';
+      }
+      wTable+='</table>';
+      return wTable;
+    })()
+    + ''
+    + '<div style="display:flex;justify-content:space-between;font-size:9px;color:#888;padding:10px 0;border-top:1px solid #ddd;margin-top:6px;"><span>ग्राम पंचायत: ' + gp + ' | वि0ख0: ' + block + ' | जनपद: ' + district + '</span><span>VISRO Consultancy</span></div>'
+    // Page 3: Instructions
+    + '<div style="page-break-before:always;"></div>'
+    + '<div style="border:2px solid #1B5E20;border-radius:6px;overflow:hidden;margin-top:20px;">'
+    + '<div style="background:#1B5E20;color:white;padding:10px 16px;text-align:center;font-size:16px;font-weight:800;">📋 आवेदन के साथ सामान्य निर्देश / General Instructions</div>'
+    + '<div style="padding:16px 20px;font-size:13px;line-height:2;">'
+    + '<div style="font-weight:800;color:#1B5E20;margin-bottom:8px;font-size:14px;">📌 सामान्य निर्देश अवश्य पढ़ें।</div>'
+    + '<div>01. आवेदन से पूर्व अपने सभी महत्वपूर्ण अभिलेख/कागजात एकत्र कर लें।</div>'
+    + '<div>02. परिवार रजिस्टर में अंकन हेतु आवेदक को <b>न्यूनतम 02 वर्ष</b> से निरंतर उस ग्राम पंचायत का निवासी होना चाहिए।</div>'
+    + '<div>03. प्रत्येक सदस्य का <b>दस्तावेज आवेदन पत्र के साथ संलग्न</b> करना आवश्यक है।</div>'
+    + '<div>04. छोटे बच्चों का नाम अंकित कराने हेतु उनका <b>जन्म प्रमाण पत्र</b> संलग्न करें।</div>'
+    + '<div>05. <b>फोटोयुक्त पहचान प्रमाण पत्र</b> (आधार/पैन) तथा <b>निवास प्रमाण पत्र</b> (राशनकार्ड/मनरेगा कार्ड) अनिवार्य है।</div>'
+    + '<div>06. आवेदन पत्र <b>विकासखण्ड में सहा0 वि0 अधि0(पं0) कार्यालय</b> में जमा करें।</div>'
+    + '<div>07. विवाह के पश्चात नाम अंकित करने हेतु <b>एन.ए.सी. सर्टिफिकेट</b> अनिवार्य।</div>'
+    + '<div>08. नाम खारिज हेतु <b>नोटरी शपथ पत्र</b> के साथ आवेदन करें।</div>'
+    + '<div>09. मृत्यु की दशा में <b>मृत्यु प्रमाण पत्र</b> के साथ आवेदन करें।</div>'
+    + '<div>10. आवेदन <b>हिन्दी या अंग्रेजी</b> या दोनों भाषा में प्रस्तुत किया जा सकता है।</div>'
+    + '<div>11. स्वीकृत/निरस्त करने का अधिकार <b>सहा0 वि0 अधि0(पं0)</b> में निहित है।</div>'
+    + '<div>12. असंतुष्ट होने पर <b>उपजिलाधिकारी के न्यायालय</b> में अपील कर सकते हैं।</div>'
+    + '<div style="border-top:2px solid #a5d6a7;margin-top:14px;padding-top:12px;font-weight:800;color:#1B5E20;font-size:14px;">📌 General Instructions — Read carefully.</div>'
+    + '<div>01. Collect all important documents before applying.</div>'
+    + '<div>02. Applicant must be a <b>continuous resident for at least 02 years</b>.</div>'
+    + '<div>03. <b>Documents of each member</b> must be attached with application.</div>'
+    + '<div>04. Attach <b>Birth Certificate</b> for small children.</div>'
+    + '<div>05. <b>Photo ID</b> (Aadhaar/PAN) and <b>Residence Proof</b> (Ration Card/MGNREGA) mandatory.</div>'
+    + '<div>06. Submit application at <b>ADO(P) office</b> of your Block.</div>'
+    + '<div>07. <b>NAC Certificate</b> mandatory for adding member after marriage.</div>'
+    + '<div>08. For name deletion, submit application with <b>Notary Affidavit</b>.</div>'
+    + '<div>09. For death, submit application with <b>Death Certificate</b>.</div>'
+    + '<div>10. Application can be in <b>Hindi or English</b> or both.</div>'
+    + '<div>11. Authority to approve/reject vested with <b>ADO(P)</b>.</div>'
+    + '<div>12. If unsatisfied, appeal in <b>court of Sub-Divisional Magistrate</b>.</div>'
+    + '</div></div>';
+
+  document.getElementById('previewContent').innerHTML = html;
+  document.getElementById('previewBox').style.display = 'block';
+  document.getElementById('previewBox').scrollIntoView({ behavior: 'smooth' });
+}
+
+function printApplication() {
+  var content = document.getElementById('previewContent').innerHTML;
+  var w = window.open('', '_blank', 'width=800,height=600');
+  w.document.write('<!DOCTYPE html><html><head><title> </title><style>'
+    + '@page{size:A4 portrait;margin:20mm;}'
+    + 'body{font-family:Arial,sans-serif;font-size:13px;line-height:2;color:#000;margin:0;padding:0;}'
+    + 'table{width:100%;border-collapse:collapse;}'
+    + 'th{background:#003366;color:white;padding:5px 8px;font-size:11px;text-align:left;-webkit-print-color-adjust:exact;print-color-adjust:exact;}'
+    + 'td{padding:5px 8px;border:1px solid #ccc;font-size:12px;}'
+    + '</style></head><body>' + content + '</body></html>');
+  w.document.close();
+  setTimeout(function () { w.print(); }, 500);
+}
+</script>
+
+</body>
+</html>

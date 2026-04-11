@@ -234,7 +234,7 @@
       <div class="field-group"><label>ग्राम प्रधान का नाम <span class="req">*</span></label><input type="text" id="gp_pradhan_name" oninput="updateGPStatement()"></div>
       <div class="field-group"><label>मोबाइल नंबर</label><input type="tel" id="gp_pradhan_mobile" maxlength="10"></div>
       <div class="field-group"><label>ग्राम पंचायत (auto)</label><input type="text" id="gp_panchayat_field" readonly style="background:#f5f5f5;"></div>
-      <div class="field-group"><label>बयान की तिथि</label><input type="date" id="gp_statement_date"></div>
+      <div class="field-group"><label>बयान की तिथि</label><input type="date" id="gp_statement_date" class="dob-picker" data-placeholder="तिथि चुनें"></div>
       <div class="field-group"><label>स्थान</label><input type="text" id="gp_place" placeholder="ग्राम पंचायत भवन"></div>
     </div>
     <div style="background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;padding:12px 14px;margin-bottom:14px;"><div style="font-size:12px;font-weight:700;color:#1B5E20;margin-bottom:10px;">👥 साक्षी / Witnesses</div><div class="fields two-col"><div class="field-group"><label>साक्षी-1</label><input type="text" id="gp_witness1"></div><div class="field-group"><label>साक्षी-2</label><input type="text" id="gp_witness2"></div></div></div>
@@ -249,7 +249,7 @@
       <p style="text-align:justify;">मैं, <strong><span id="asha_name_display">______________</span></strong>, <span id="asha_designation_display">आशा बहू</span>, <span id="asha_center_label_display">उप-केंद्र</span> — <strong><span id="asha_center_display">______________</span></strong>, ग्राम पंचायत — <strong><span id="asha_gp_display">______________</span></strong>, ब्लॉक — <strong><span id="asha_block_display">______________</span></strong>, एतद्द्वारा प्रमाणित करती/करता हूँ कि <strong><span id="asha_dec_name_display">______________</span></strong>, पुत्र/पुत्री/पत्नी <strong><span id="asha_father_display">______________</span></strong>, निवासी <strong><span id="asha_locality_display">______________</span></strong> की मृत्यु दिनांक <strong><span id="asha_dod_display">______________</span></strong> को हुई है। मृत्यु का कारण — <strong><span id="asha_cause_display">______________</span></strong> है।</p>
     </div>
     <div class="fields" style="margin-bottom:14px;"><div class="field-group"><label>आशा/ANM का नाम <span class="req">*</span></label><input type="text" id="asha_name" oninput="updateAshaStatement()"></div><div class="field-group"><label>पदनाम</label><select id="asha_designation" onchange="updateAshaStatement()"><option value="आशा बहू">आशा बहू</option><option value="ANM">ANM</option><option value="आशा फैसिलिटेटर">आशा फैसिलिटेटर</option></select></div><div class="field-group"><label>मजरा / उप-केंद्र</label><input type="text" id="asha_center" oninput="updateAshaStatement()"></div></div>
-    <div class="fields"><div class="field-group"><label>मोबाइल</label><input type="tel" id="asha_mobile" maxlength="10"></div><div class="field-group"><label>बयान तिथि</label><input type="date" id="asha_statement_date" onchange="updateAshaStatement()"></div></div>
+    <div class="fields"><div class="field-group"><label>मोबाइल</label><input type="tel" id="asha_mobile" maxlength="10"></div><div class="field-group"><label>बयान तिथि</label><input type="date" id="asha_statement_date" class="dob-picker" data-placeholder="तिथि चुनें" onchange="updateAshaStatement()"></div></div>
     <div style="max-width:320px;margin-top:6px;text-align:center;"><div style="width:110px;height:90px;border:1.5px solid #aaa;border-radius:4px;margin:10px auto 6px;background:#fff;"></div><div style="font-size:12px;color:#7B1FA2;font-weight:600;">आशा / ANM के हस्ताक्षर</div><div style="font-size:10px;color:var(--muted);">दिनांक: <span id="asha_sig_date">________</span></div></div>
   </div></div>
 
@@ -261,7 +261,7 @@
       <p style="text-align:justify;">मैं, <strong><span id="ps_name_display">______________</span></strong>, <span id="ps_designation_display">पंचायत सहायक</span>, ग्राम पंचायत — <strong><span id="ps_gp_display">______________</span></strong>, ब्लॉक — <strong><span id="ps_block_display">______________</span></strong>, तहसील — <strong><span id="ps_tehsil_display">______________</span></strong>, जिला अमेठी —</p>
       <p style="text-align:justify;">एतद्द्वारा प्रमाणित करता/करती हूँ कि <strong><span id="ps_dec_name_display">______________</span></strong>, पुत्र/पुत्री/पत्नी <strong><span id="ps_father_display">______________</span></strong>, निवासी <strong><span id="ps_locality_display">______________</span></strong>, की मृत्यु दिनांक <strong><span id="ps_dod_display">______________</span></strong> को ग्राम पंचायत <strong><span id="ps_gp2_display">______________</span></strong> की सीमा के भीतर हुई है। मृत्यु का कारण — <strong><span id="ps_cause_display">______________</span></strong> है।</p>
     </div>
-    <div class="fields" style="margin-bottom:14px;"><div class="field-group"><label>पंचायत सहायक का नाम <span class="req">*</span></label><input type="text" id="ps_name" oninput="updatePSStatement()"></div><div class="field-group"><label>पदनाम</label><select id="ps_designation" onchange="updatePSStatement()"><option value="पंचायत सहायक">पंचायत सहायक</option><option value="रोजगार सेवक">रोजगार सेवक</option><option value="पंचायत मित्र">पंचायत मित्र</option><option value="ग्राम विकास अधिकारी">VDO</option></select></div><div class="field-group"><label>मोबाइल</label><input type="tel" id="ps_mobile" maxlength="10"></div><div class="field-group"><label>बयान तिथि</label><input type="date" id="ps_statement_date" onchange="updatePSStatement()"></div></div>
+    <div class="fields" style="margin-bottom:14px;"><div class="field-group"><label>पंचायत सहायक का नाम <span class="req">*</span></label><input type="text" id="ps_name" oninput="updatePSStatement()"></div><div class="field-group"><label>पदनाम</label><select id="ps_designation" onchange="updatePSStatement()"><option value="पंचायत सहायक">पंचायत सहायक</option><option value="रोजगार सेवक">रोजगार सेवक</option><option value="पंचायत मित्र">पंचायत मित्र</option><option value="ग्राम विकास अधिकारी">VDO</option></select></div><div class="field-group"><label>मोबाइल</label><input type="tel" id="ps_mobile" maxlength="10"></div><div class="field-group"><label>बयान तिथि</label><input type="date" id="ps_statement_date" class="dob-picker" data-placeholder="तिथि चुनें" onchange="updatePSStatement()"></div></div>
     <div style="max-width:320px;text-align:center;"><div style="width:110px;height:90px;border:1.5px solid #aaa;border-radius:4px;margin:10px auto 6px;background:#fff;"></div><div style="font-size:12px;color:#E65100;font-weight:600;">पंचायत सहायक हस्ताक्षर</div><div style="font-size:10px;color:var(--muted);">दिनांक: <span id="ps_sig_date">________</span></div></div>
   </div></div>
 
@@ -295,6 +295,7 @@
 <div class="toast" id="toast"></div>
 
 <script src="up-locations.js"></script>
+<script src="dob-picker.js"></script>
 <script>
 // Location data loaded from up-locations.js
 
@@ -468,8 +469,8 @@ var _pvTitles=[];
 function openFormPreview(){
   function v(id){var e=document.getElementById(id);if(!e)return '';if(e.tagName==='SELECT'){var t=e.options[e.selectedIndex]?e.options[e.selectedIndex].text:'';return(t&&t.indexOf('चुनें')===-1&&t.indexOf('Select')===-1)?t:'';}return e.value||'';}
   function radio(name){var c=document.querySelector('input[name="'+name+'"]:checked');return c?(c.closest('label')?c.closest('label').textContent.trim():c.value):'';}
-  function row(l,val){return '<tr><td style="padding:3px 8px;font-size:9px;color:#222;border-bottom:1px solid #ddd;width:38%;">'+l+'</td><td style="padding:3px 8px;font-size:9px;font-weight:700;color:#000;border-bottom:1px solid #ddd;">'+((val&&val.trim())?val:'—')+'</td></tr>';}
-  function sec(title,rows){return '<div style="margin-bottom:4px;border:1px solid #ccc;border-radius:3px;overflow:hidden;"><div style="background:#003366;color:white;padding:2px 8px;font-size:8px;font-weight:700;">'+title+'</div><table style="width:100%;border-collapse:collapse;">'+rows+'</table></div>';}
+  function row(l,val){return '<tr><td style="padding:4px 8px;font-size:11px;color:#000;font-weight:600;border-bottom:1px solid #bbb;width:38%;">'+l+'</td><td style="padding:4px 8px;font-size:11px;font-weight:800;color:#000;border-bottom:1px solid #bbb;">'+((val&&val.trim())?val:'—')+'</td></tr>';}
+  function sec(title,rows){return '<div style="margin-bottom:5px;border:1px solid #999;border-radius:3px;overflow:hidden;"><div style="background:#003366;color:white;padding:3px 8px;font-size:10px;font-weight:800;">'+title+'</div><table style="width:100%;border-collapse:collapse;">'+rows+'</table></div>';}
   function secColor(title,rows,bg){return '<div style="margin-bottom:8px;border:1px solid #ccc;border-radius:4px;overflow:hidden;"><div style="background:'+bg+';color:white;padding:4px 10px;font-size:10px;font-weight:700;">'+title+'</div><table style="width:100%;border-collapse:collapse;">'+rows+'</table></div>';}
   var dd=v('dod_dd'),mm=v('dod_mm'),yy=v('dod_yyyy');
   var dodStr=(dd&&mm&&yy)?dd+'/'+mm+'/'+yy:'';
@@ -483,15 +484,15 @@ function openFormPreview(){
   var hdrGP=v('hdr_gp'),hdrBlk=v('hdr_block'),hdrTeh=v('hdr_tehsil'),hdrDist=v('hdr_district');
   var dpType=radio('death_place_type');
   var dpAddr=v('hospital_name')||v('other_place_address')||[v('dp_purava')||v('dp_mohalla'),v('dp_town'),v('dp_subdistrict'),v('dp_district')].filter(Boolean).join(', ');
-  var hdr='<div style="background:#003366;color:white;padding:5px 10px;text-align:center;"><div style="font-size:12px;font-weight:700;">मृत्यु पंजीकरण — फॉर्म 2</div><div style="font-size:7px;opacity:.8;">Death Registration Form | RBD Act 1969</div></div>'
+  var hdr='<div style="background:#003366;color:white;padding:6px 10px;text-align:center;"><div style="font-size:14px;font-weight:800;">मृत्यु पंजीकरण — फॉर्म 2</div><div style="font-size:9px;opacity:.9;">Death Registration Form | RBD Act 1969</div></div>'
     +'<div style="height:3px;background:linear-gradient(to right,#FF9933 33%,#fff 33%,#fff 66%,#138808 66%);"></div>'
-    +'<div style="background:#E8F0F8;padding:3px 10px;display:flex;flex-wrap:wrap;gap:2px 12px;font-size:8px;border-bottom:1.5px solid #FF6B00;">'
+    +'<div style="background:#E8F0F8;padding:4px 10px;display:flex;flex-wrap:wrap;gap:2px 12px;font-size:10px;color:#000;font-weight:600;border-bottom:2px solid #FF6B00;">'
     +'<div>जिला: <b>'+hdrDist+'</b></div><div>तहसील: <b>'+hdrTeh+'</b></div><div>ब्लॉक: <b>'+hdrBlk+'</b></div><div>ग्राम पंचायत: <b>'+hdrGP+'</b></div></div>';
-  var signBox='<div style="display:flex;gap:10px;margin-top:8px;"><div style="flex:1;border:1px dashed #aaa;border-radius:3px;padding:6px;text-align:center;"><div style="height:35px;"></div><div style="border-top:1px solid #333;margin:0 14px;"></div><div style="font-size:8px;color:#000;margin-top:2px;">सूचनादाता हस्ताक्षर / अंगूठा</div></div><div style="flex:1;border:1px dashed #aaa;border-radius:3px;padding:6px;text-align:center;"><div style="height:35px;"></div><div style="border-top:1px solid #333;margin:0 14px;"></div><div style="font-size:8px;color:#000;margin-top:2px;">रजिस्ट्रार हस्ताक्षर एवं मुहर</div></div></div>';
+  var signBox='<div style="display:flex;gap:10px;margin-top:8px;"><div style="flex:1;border:1.5px dashed #666;border-radius:3px;padding:6px;text-align:center;"><div style="height:35px;"></div><div style="border-top:1.5px solid #000;margin:0 14px;"></div><div style="font-size:10px;color:#000;font-weight:700;margin-top:3px;">सूचनादाता हस्ताक्षर / अंगूठा</div></div><div style="flex:1;border:1.5px dashed #666;border-radius:3px;padding:6px;text-align:center;"><div style="height:35px;"></div><div style="border-top:1.5px solid #000;margin:0 14px;"></div><div style="font-size:10px;color:#000;font-weight:700;margin-top:3px;">रजिस्ट्रार हस्ताक्षर एवं मुहर</div></div></div>';
 
   // PAGE 1: Legal Information (All items 1-8) — compact for 1 A4 page
   var p1=hdr+'<div style="padding:6px 8px;">'
-    +'<div style="background:#003366;color:white;padding:2px 8px;font-size:9px;font-weight:700;margin-bottom:4px;border-radius:2px;">भाग-1: कानूनी सूचना | PART-1: LEGAL INFORMATION</div>'
+    +'<div style="background:#003366;color:white;padding:4px 10px;font-size:11px;font-weight:800;margin-bottom:5px;border-radius:3px;">भाग-1: कानूनी सूचना | PART-1: LEGAL INFORMATION</div>'
     +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">'
     +sec('1-2. मृत्यु विवरण',row('मृत्यु तिथि',dodStr)+row('समय',v('tod'))+row('लिंग',v('sex')))
     +sec('3. मृतक विवरण',row('नाम',decName)+row('आधार',v('dec_aadhaar'))+row('आयु',v('age_years')+' वर्ष'+(v('age_months')?' '+v('age_months')+' माह':'')))
@@ -503,7 +504,7 @@ function openFormPreview(){
     +sec('6. मृत्यु स्थान',row('प्रकार',dpType)+row('पता',dpAddr)+row('पिन',v('dp_pin')))
     +sec('7. स्थायी पता',row('पता',permAddr)+row('मकान नं.',v('perm_house_no'))+row('पिन',v('perm_pin'))+row('राज्य',v('perm_state')))
     +sec('8. सूचनादाता',row('नाम',infName)+row('संबंध',v('informant_relation'))+row('आधार',v('informant_aadhaar'))+row('मोबाइल',v('informant_mobile'))+row('पता',infAddr))
-    +'<div style="background:#fff8e1;border:1px solid #FFD600;border-radius:3px;padding:3px 8px;font-size:8px;color:#000;margin-top:4px;line-height:1.4;"><b>घोषणापत्र:</b> उपरोक्त सूचनाएँ सत्य हैं। RBD Act 1969 धारा 23 के दंड से अवगत हूँ।</div>'
+    +'<div style="background:#fff8e1;border:1px solid #FFD600;border-radius:3px;padding:3px 8px;font-size:10px;color:#000;font-weight:600;margin-top:4px;line-height:1.5;"><b>घोषणापत्र:</b> उपरोक्त सूचनाएँ सत्य हैं। RBD Act 1969 धारा 23 के दंड से अवगत हूँ।</div>'
     +signBox
     +'</div>';
 
