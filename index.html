@@ -311,6 +311,20 @@
   .testi-name { font-size: .87rem; font-weight: 700; color: var(--navy); }
   .testi-city { font-size: .74rem; color: var(--gray); }
 
+  /* ── FAQ ── */
+  #faq { background: #fff; }
+  .faq-list { max-width: 800px; margin: 40px auto 0; display: flex; flex-direction: column; gap: 12px; }
+  .faq-item { background: var(--off-white); border: 2px solid var(--light-gray); border-radius: 14px; overflow: hidden; transition: border-color .2s; }
+  .faq-item.open { border-color: var(--orange); }
+  .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; cursor: pointer; gap: 14px; }
+  .faq-q-text { font-size: .92rem; font-weight: 700; color: var(--navy); flex: 1; }
+  .faq-q-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: .82rem; color: var(--orange); font-weight: 600; margin-top: 2px; }
+  .faq-arrow { font-size: 1.2rem; color: var(--orange); transition: transform .3s; flex-shrink: 0; }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+  .faq-a-inner { padding: 0 22px 18px; font-size: .85rem; color: var(--gray); line-height: 1.8; }
+  .faq-a-inner strong { color: var(--navy); }
+
   /* ── CONTACT ── */
   #contact { background: var(--off-white); }
   .contact-inner { display: flex; gap: 50px; flex-wrap: wrap; margin-top: 50px; }
@@ -403,6 +417,7 @@
   .float-btn:hover { transform: scale(1.1); }
   .fb-orange { background: var(--orange); color: #fff; }
   .fb-green { background: var(--green); color: #fff; }
+  .fb-green:hover .wa-tooltip { opacity: 1 !important; }
 
   /* ── BACK TO TOP ── */
   .back-to-top {
@@ -837,6 +852,50 @@
   </div>
 </section>
 
+<!-- FAQ -->
+<section id="faq">
+  <div class="center reveal">
+    <div class="section-tag">FAQ</div>
+    <h2 class="section-title">अक्सर पूछे जाने वाले प्रश्न</h2>
+    <div class="section-divider"></div>
+    <p class="section-sub">Frequently Asked Questions — आपके सवालों के जवाब</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><div><div class="faq-q-text">How long does it take to get a certificate?</div><div class="faq-q-hi">प्रमाण पत्र बनने में कितना समय लगता है?</div></div><span class="faq-arrow">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">सामान्यतः <strong>7-15 कार्य दिवस</strong> में प्रमाण पत्र तैयार हो जाता है। जाति, आय, निवास प्रमाण पत्र में 7-10 दिन और जन्म/मृत्यु प्रमाण पत्र में 10-15 दिन लगते हैं। विलम्बित आवेदन में अधिक समय लग सकता है।</div></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><div><div class="faq-q-text">What documents are required?</div><div class="faq-q-hi">कौन-कौन से दस्तावेज़ चाहिए?</div></div><span class="faq-arrow">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">मूल रूप से <strong>आधार कार्ड, राशन कार्ड, पासपोर्ट साइज़ फोटो</strong> चाहिए। हर सेवा के अनुसार अतिरिक्त दस्तावेज़ अलग हो सकते हैं। हमारी टीम आपको पूरी सूची बता देगी।</div></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><div><div class="faq-q-text">Can I apply online or do I need to visit?</div><div class="faq-q-hi">क्या ऑनलाइन आवेदन हो सकता है या आना पड़ेगा?</div></div><span class="faq-arrow">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">अधिकांश सेवाओं के लिए आप <strong>WhatsApp या फोन</strong> पर दस्तावेज़ भेज सकते हैं। हम ऑनलाइन आवेदन कर देंगे। कुछ सेवाओं में व्यक्तिगत उपस्थिति आवश्यक हो सकती है।</div></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><div><div class="faq-q-text">What are your service charges?</div><div class="faq-q-hi">सेवा शुल्क कितना है?</div></div><span class="faq-arrow">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">हमारा शुल्क सेवा के अनुसार अलग-अलग है। <strong>कोई छिपा हुआ शुल्क नहीं</strong>। आवेदन से पहले पूरी फीस बता दी जाती है। WhatsApp पर संपर्क करें — <strong>+91 8840714094</strong></div></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><div><div class="faq-q-text">How can I track my application status?</div><div class="faq-q-hi">आवेदन की स्थिति कैसे पता करें?</div></div><span class="faq-arrow">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">आवेदन के बाद हम आपको <strong>WhatsApp पर regular update</strong> देते रहते हैं। आप कभी भी कॉल या WhatsApp करके status पूछ सकते हैं।</div></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><div><div class="faq-q-text">Do you provide Aadhaar correction services?</div><div class="faq-q-hi">क्या आधार कार्ड में सुधार करवा सकते हैं?</div></div><span class="faq-arrow">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">हाँ! हम <strong>आधार कार्ड में नाम, पता, जन्मतिथि, मोबाइल नंबर</strong> सभी प्रकार के सुधार करवाते हैं। आधार डाउनलोड, PVC कार्ड और बायोमेट्रिक अपडेट की सुविधा भी उपलब्ध है।</div></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><div><div class="faq-q-text">What areas do you serve?</div><div class="faq-q-hi">आप किन क्षेत्रों में सेवा देते हैं?</div></div><span class="faq-arrow">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">हम मुख्य रूप से <strong>अमेठी, लखनऊ और पूरे उत्तर प्रदेश</strong> में सेवा प्रदान करते हैं। कई सेवाएँ ऑनलाइन होने के कारण पूरे भारत से आवेदन स्वीकार किए जाते हैं।</div></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><div><div class="faq-q-text">Is PM/CM Awas Yojana registration available?</div><div class="faq-q-hi">PM/CM आवास योजना का रजिस्ट्रेशन होता है?</div></div><span class="faq-arrow">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">हाँ! हम <strong>प्रधानमंत्री आवास योजना (ग्रामीण)</strong> और <strong>मुख्यमंत्री आवास योजना</strong> दोनों के लिए पूरा आवेदन, शपथ पत्र और दस्तावेज़ तैयार करते हैं।</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="center reveal">
@@ -1094,7 +1153,7 @@
 <!-- FLOATING BUTTONS -->
 <div class="float-btns">
   <a href="tel:+918840714094" class="float-btn fb-orange" title="Call Now">📞</a>
-  <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20I%20need%20help%20with%20government%20services." class="float-btn fb-green" title="WhatsApp">💬</a>
+  <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20I%20need%20help%20with%20government%20services." class="float-btn fb-green" title="WhatsApp पर चैट करें" style="position:relative;">💬<span style="position:absolute;right:58px;top:50%;transform:translateY(-50%);background:#25D366;color:#fff;padding:6px 14px;border-radius:20px;font-size:.75rem;font-weight:700;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.15);pointer-events:none;opacity:0;transition:opacity .3s;" class="wa-tooltip">WhatsApp पर चैट करें</span></a>
 </div>
 
 <!-- BACK TO TOP -->
@@ -1157,6 +1216,20 @@
     mobileNav.classList.toggle('open');
     document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
   });
+
+  // FAQ Accordion
+  function toggleFaq(el) {
+    var wasOpen = el.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function(item) {
+      item.classList.remove('open');
+      item.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if (!wasOpen) {
+      el.classList.add('open');
+      var ans = el.querySelector('.faq-a');
+      ans.style.maxHeight = ans.scrollHeight + 'px';
+    }
+  }
 
   function closeMobileNav() {
     hamburger.classList.remove('active');

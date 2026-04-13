@@ -1002,7 +1002,7 @@ function verifyPayment(){
 function printAllPages(){
   var all=_pvPages.join('<div style="page-break-before:always;"></div>');
   var w=window.open('','_blank','width=800,height=600');
-  w.document.write('<!DOCTYPE html><html><head><title>Form-2 Print</title><style>@page{size:A4;margin:10mm;}body{font-family:Arial,sans-serif;margin:0;padding:10px;}</style></head><body>'+all+'</body></html>');
+  w.document.write('<!DOCTYPE html><html><head><title>Form-2 Print</title><style>@page{size:A4;margin:10mm;}body{font-family:Arial,sans-serif;margin:0;padding:10px;}</style></head><body>'+all+'<div style="position:fixed;right:20px;bottom:28px;z-index:200;display:flex;flex-direction:column;gap:10px;"><a href="tel:+918840714094" style="width:50px;height:50px;border-radius:50%;background:#e8640a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);text-decoration:none;" title="Call">📞</a><a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy" style="width:50px;height:50px;border-radius:50%;background:#22c55e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);text-decoration:none;" title="WhatsApp">💬</a></div></body></html>');
   w.document.close();
   setTimeout(function(){w.print();},500);
 }
