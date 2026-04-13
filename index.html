@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -470,6 +470,76 @@
   .form-modal-body { padding: 0; min-height: calc(100vh - 54px); }
   .form-modal-body iframe { width: 100%; height: calc(100vh - 54px); min-height: 600px; border: none; display: block; }
 
+  /* ── DEATH CERTIFICATE SELECTION MODAL ── */
+  .death-select-overlay {
+    display: none; position: fixed; inset: 0; z-index: 600;
+    background: rgba(7,17,42,0.85); backdrop-filter: blur(6px);
+    overflow-y: auto; padding: 40px 16px;
+    animation: fadeIn .25s ease;
+  }
+  .death-select-overlay.open { display: flex; align-items: center; justify-content: center; }
+  .death-select-box {
+    background: #fff; border-radius: 22px; padding: 36px 28px;
+    max-width: 520px; width: 100%; position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: fadeUp .3s ease both;
+  }
+  .death-select-close {
+    position: absolute; top: 14px; right: 18px;
+    background: none; border: none; font-size: 1.8rem;
+    color: var(--gray); cursor: pointer; line-height: 1;
+    transition: color .2s;
+  }
+  .death-select-close:hover { color: var(--navy); }
+  .death-select-header { text-align: center; margin-bottom: 24px; }
+  .death-select-header .death-select-icon { font-size: 2.5rem; margin-bottom: 8px; }
+  .death-select-header h3 {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 2px;
+  }
+  .death-select-header p { font-size: .82rem; color: var(--gray); }
+  .death-select-label {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: .82rem; font-weight: 700; color: var(--orange);
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px;
+  }
+  .death-select-options { display: flex; flex-direction: column; gap: 12px; }
+  .death-option {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--off-white); border: 2px solid var(--light-gray);
+    border-radius: 14px; padding: 18px 16px; cursor: pointer;
+    transition: all .2s;
+  }
+  .death-option:hover {
+    border-color: var(--orange); background: #fff;
+    transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(232,100,10,0.12);
+  }
+  .death-option-num {
+    font-size: .7rem; font-weight: 800; color: var(--orange);
+    min-width: 22px;
+  }
+  .death-option-icon { font-size: 1.4rem; }
+  .death-option-text { flex: 1; }
+  .death-option-text strong {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    display: block; font-size: .92rem; color: var(--navy); font-weight: 700;
+  }
+  .death-option-text span { font-size: .75rem; color: var(--gray); }
+  .death-option-arrow {
+    font-size: 1.1rem; color: var(--orange); font-weight: 700;
+    transition: transform .2s;
+  }
+  .death-option:hover .death-option-arrow { transform: translateX(4px); }
+  .death-back-btn {
+    background: none; border: none; color: var(--orange);
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: .85rem; font-weight: 700; cursor: pointer;
+    margin-bottom: 16px; padding: 0;
+    transition: color .2s;
+  }
+  .death-back-btn:hover { color: #b84a00; }
+
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
@@ -493,9 +563,10 @@
 </style>
 </head>
 <body>
+<a href="#services" style="position:absolute;left:-9999px;top:0;padding:8px 16px;background:#e8640a;color:#fff;z-index:9999;font-weight:700;" onfocus="this.style.left='0';" onblur="this.style.left='-9999px';">मुख्य सामग्री पर जाएं</a>
 
 <!-- NAVBAR -->
-<nav>
+<nav role="navigation" aria-label="Main Navigation">
   <a href="#home" class="nav-logo">
     <img src="logo-nav.png" alt="VISRO Consultancy Logo" style="height:46px; width:auto;">
     <div class="nav-logo-text">
@@ -517,7 +588,7 @@
 </nav>
 
 <!-- MOBILE NAV -->
-<div class="mobile-nav" id="mobileNav">
+<div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile Navigation">
   <a href="#home" onclick="closeMobileNav()">Home</a>
   <a href="#services" onclick="closeMobileNav()">Services</a>
   <a href="#about" onclick="closeMobileNav()">About</a>
@@ -550,7 +621,8 @@
 </section>
 
 <!-- SERVICES -->
-<section id="services">
+<main>
+<section id="services" aria-label="Our Services">
   <div class="center reveal">
     <div class="section-tag">What We Offer</div>
     <h2 class="section-title">Our Services / हमारी सेवाएँ</h2>
@@ -859,7 +931,8 @@
 </section>
 
 <!-- FOOTER -->
-<footer>
+</main>
+<footer role="contentinfo">
   <div class="footer-inner">
     <div class="footer-brand">
       <div class="footer-logo">
@@ -899,6 +972,124 @@
     <span class="footer-copy-hi" style="font-family:'Noto Sans Devanagari',sans-serif">सर्वाधिकार सुरक्षित</span>
   </div>
 </footer>
+
+<!-- DEATH CERTIFICATE SELECTION MODAL -->
+<div id="deathSelectModal" class="death-select-overlay">
+  <div class="death-select-box">
+    <button class="death-select-close" onclick="closeDeathSelect()">&times;</button>
+
+    <!-- STEP 1: क्षेत्र चुनें -->
+    <div id="death-step-area">
+      <div class="death-select-header">
+        <div class="death-select-icon">🪦</div>
+        <h3>मृत्यु प्रमाणपत्र आवेदन</h3>
+        <p>Death Certificate Application</p>
+      </div>
+      <div class="death-select-label">क्षेत्र चुनें / Select Area</div>
+      <div class="death-select-options">
+        <div class="death-option" onclick="selectDeathArea('rural')">
+          <div class="death-option-num">01</div>
+          <div class="death-option-icon">🏡</div>
+          <div class="death-option-text">
+            <strong>ग्रामीण क्षेत्र</strong>
+            <span>Rural Area</span>
+          </div>
+          <div class="death-option-arrow">→</div>
+        </div>
+        <div class="death-option" onclick="selectDeathArea('urban')">
+          <div class="death-option-num">02</div>
+          <div class="death-option-icon">🏙️</div>
+          <div class="death-option-text">
+            <strong>शहरी क्षेत्र</strong>
+            <span>Urban Area</span>
+          </div>
+          <div class="death-option-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2a: ग्रामीण क्षेत्र — समय अवधि -->
+    <div id="death-step-rural" style="display:none;">
+      <div class="death-select-header">
+        <div class="death-select-icon">🏡</div>
+        <h3>ग्रामीण क्षेत्र — मृत्यु प्रमाणपत्र</h3>
+        <p>Rural Area — Death Certificate</p>
+      </div>
+      <button class="death-back-btn" onclick="showDeathStep('area')">← वापस जाएँ</button>
+      <div class="death-select-label">आवेदन का प्रकार चुनें / Select Application Type</div>
+      <div class="death-select-options">
+        <div class="death-option" onclick="openDeathFormFinal('rural','within30')">
+          <div class="death-option-num">01</div>
+          <div class="death-option-icon">📅</div>
+          <div class="death-option-text">
+            <strong>घटना से 30 दिन के भीतर</strong>
+            <span>Within 30 days of occurrence</span>
+          </div>
+          <div class="death-option-arrow">→</div>
+        </div>
+        <div class="death-option" onclick="openDeathFormFinal('rural','30to1year')">
+          <div class="death-option-num">02</div>
+          <div class="death-option-icon">📆</div>
+          <div class="death-option-text">
+            <strong>30 दिन के बाद, किन्तु 1 वर्ष के भीतर</strong>
+            <span>After 30 days but within 1 year</span>
+          </div>
+          <div class="death-option-arrow">→</div>
+        </div>
+        <div class="death-option" onclick="openDeathFormFinal('rural','after1year')">
+          <div class="death-option-num">03</div>
+          <div class="death-option-icon">🗓️</div>
+          <div class="death-option-text">
+            <strong>घटना के 1 वर्ष के बाद</strong>
+            <span>After 1 year of occurrence</span>
+          </div>
+          <div class="death-option-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2b: शहरी क्षेत्र — समय अवधि -->
+    <div id="death-step-urban" style="display:none;">
+      <div class="death-select-header">
+        <div class="death-select-icon">🏙️</div>
+        <h3>शहरी क्षेत्र — मृत्यु प्रमाणपत्र</h3>
+        <p>Urban Area — Death Certificate</p>
+      </div>
+      <button class="death-back-btn" onclick="showDeathStep('area')">← वापस जाएँ</button>
+      <div class="death-select-label">आवेदन का प्रकार चुनें / Select Application Type</div>
+      <div class="death-select-options">
+        <div class="death-option" onclick="openDeathFormFinal('urban','within30')">
+          <div class="death-option-num">01</div>
+          <div class="death-option-icon">📅</div>
+          <div class="death-option-text">
+            <strong>घटना से 30 दिन के भीतर</strong>
+            <span>Within 30 days of occurrence</span>
+          </div>
+          <div class="death-option-arrow">→</div>
+        </div>
+        <div class="death-option" onclick="openDeathFormFinal('urban','30to1year')">
+          <div class="death-option-num">02</div>
+          <div class="death-option-icon">📆</div>
+          <div class="death-option-text">
+            <strong>30 दिन के बाद, किन्तु 1 वर्ष के भीतर</strong>
+            <span>After 30 days but within 1 year</span>
+          </div>
+          <div class="death-option-arrow">→</div>
+        </div>
+        <div class="death-option" onclick="openDeathFormFinal('urban','after1year')">
+          <div class="death-option-num">03</div>
+          <div class="death-option-icon">🗓️</div>
+          <div class="death-option-text">
+            <strong>घटना के 1 वर्ष के बाद</strong>
+            <span>After 1 year of occurrence</span>
+          </div>
+          <div class="death-option-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <!-- FLOATING BUTTONS -->
 <div class="float-btns">
@@ -1018,14 +1209,31 @@
     e.target.reset();
   }
 
-  // ── DEATH FORM MODAL ──
+  // ── DEATH FORM SELECTION MODAL ──
   function openDeathForm() {
-    window.location.href = 'death-certificate-form.html';
+    document.getElementById('deathSelectModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    showDeathStep('area');
   }
 
-  function closeDeathForm() {
-    document.getElementById('deathFormModal').classList.remove('open');
+  function closeDeathSelect() {
+    document.getElementById('deathSelectModal').classList.remove('open');
     document.body.style.overflow = '';
+  }
+
+  function showDeathStep(step) {
+    document.getElementById('death-step-area').style.display = step === 'area' ? 'block' : 'none';
+    document.getElementById('death-step-rural').style.display = step === 'rural' ? 'block' : 'none';
+    document.getElementById('death-step-urban').style.display = step === 'urban' ? 'block' : 'none';
+  }
+
+  function selectDeathArea(type) {
+    showDeathStep(type);
+  }
+
+  function openDeathFormFinal(area, period) {
+    closeDeathSelect();
+    window.location.href = 'death-certificate-form.html?area=' + area + '&period=' + period + '#area=' + area + '&period=' + period;
   }
 
   // ── BIRTH FORM MODAL ──

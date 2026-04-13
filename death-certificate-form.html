@@ -70,7 +70,8 @@
   .btn-print-preview { background: var(--saffron); color: white; border: none; padding: 8px 18px; border-radius: 5px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
   .toast { display: none; position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #222; color: white; padding: 10px 22px; border-radius: 20px; font-size: 13px; z-index: 2000; }
   @media print { @page { size: A4 portrait; margin: 8mm; } body > * { display: none !important; } #print-view, #gp-print-view, #asha-print-view, #ps-print-view, #witness-print-view { display: block !important; font-family: Arial, sans-serif; } .preview-overlay, .toast { display: none !important; } }
-  @media (max-width: 600px) { .fields { grid-template-columns: 1fr 1fr; } .fields.two-col { grid-template-columns: 1fr; } .header-top { grid-template-columns: 50px 1fr 50px; } .header-logo { width: 50px; height: 50px; font-size: 9px; } .header-title h1 { font-size: 16px; } }
+  @media (max-width: 768px) { .fields { grid-template-columns: 1fr 1fr; } .page-wrapper { margin: 10px; border-radius: 6px; } .form-meta { gap: 8px 14px; padding: 8px 16px; } .action-bar { padding: 10px 16px; } .form-body { padding: 14px 16px 20px; } }
+  @media (max-width: 600px) { .fields { grid-template-columns: 1fr; } .fields.two-col { grid-template-columns: 1fr; } .header-top { grid-template-columns: 50px 1fr 50px; } .header-logo { width: 50px; height: 50px; font-size: 9px; } .header-title h1 { font-size: 16px; } .form-meta { flex-direction: column; gap: 6px; } }
 </style>
 </head>
 <body>
@@ -96,7 +97,7 @@
     <div class="form-meta-item"><label>तहसील / Tehsil <span style="color:var(--required)">*</span> :</label><select id="hdr_tehsil" onchange="hdrTehsilChange()" style="border:none;border-bottom:1.5px solid var(--border);background:transparent;font-family:inherit;font-size:13px;color:var(--text);padding:2px 4px;min-width:140px;" disabled><option value="">— तहसील चुनें —</option></select></div>
     <div class="form-meta-item"><label>ब्लॉक / Block <span style="color:var(--required)">*</span> :</label><select id="hdr_block" onchange="hdrBlockChange()" style="border:none;border-bottom:1.5px solid var(--border);background:transparent;font-family:inherit;font-size:13px;color:var(--text);padding:2px 4px;min-width:140px;" disabled><option value="">— ब्लॉक चुनें —</option></select></div>
     <div class="form-meta-item"><label>ग्राम पंचायत <span style="color:var(--required)">*</span> :</label><select id="hdr_gp" style="border:none;border-bottom:1.5px solid var(--border);background:transparent;font-family:inherit;font-size:13px;color:var(--text);padding:2px 4px;min-width:200px;" disabled><option value="">— ग्राम पंचायत चुनें —</option></select></div>
-    <div class="form-meta-item"><label>आवेदन तिथि :</label><div style="display:flex;gap:4px;align-items:center;"><input type="text" id="app_dd" inputmode="numeric" maxlength="2" placeholder="DD" style="width:44px;text-align:center;border:none;border-bottom:1.5px solid var(--border);background:transparent;font-family:inherit;font-size:13px;color:var(--text);padding:2px 3px;" oninput="validateAppDatePart(this,31)" onchange="updateAppDate()"><span style="color:var(--muted);font-weight:600;">/</span><input type="text" id="app_mm" inputmode="numeric" maxlength="2" placeholder="MM" style="width:44px;text-align:center;border:none;border-bottom:1.5px solid var(--border);background:transparent;font-family:inherit;font-size:13px;color:var(--text);padding:2px 3px;" oninput="validateAppDatePart(this,12)" onchange="updateAppDate()"><span style="color:var(--muted);font-weight:600;">/</span><input type="number" id="app_yyyy" min="1900" max="2099" placeholder="YYYY" style="width:62px;text-align:center;border:none;border-bottom:1.5px solid var(--border);background:transparent;font-family:inherit;font-size:13px;color:var(--text);padding:2px 3px;" oninput="validateAppYear(this)" onchange="updateAppDate()"></div><input type="hidden" id="app_date"></div>
+    <div class="form-meta-item"><label>आवेदन तिथि :</label><div style="display:flex;gap:4px;align-items:center;"><input type="text" id="app_dd" inputmode="numeric" maxlength="2" placeholder="DD" style="width:44px;text-align:center;border:none;border-bottom:1.5px solid var(--border);background:transparent;font-family:inherit;font-size:13px;color:var(--text);padding:2px 3px;" oninput="validateAppDatePart(this,31)" onchange="updateAppDate()"><span style="color:var(--muted);font-weight:600;">/</span><input type="text" id="app_mm" inputmode="numeric" maxlength="2" placeholder="MM" style="width:44px;text-align:center;border:none;border-bottom:1.5px solid var(--border);background:transparent;font-family:inherit;font-size:13px;color:var(--text);padding:2px 3px;" oninput="validateAppDatePart(this,12)" onchange="updateAppDate()"><span style="color:var(--muted);font-weight:600;">/</span><input type="text" id="app_yyyy" inputmode="numeric" maxlength="4" placeholder="YYYY" style="width:62px;text-align:center;border:none;border-bottom:1.5px solid var(--border);background:transparent;font-family:inherit;font-size:13px;color:var(--text);padding:2px 3px;" oninput="validateAppYear(this)" onchange="updateAppDate()"></div><input type="hidden" id="app_date"></div>
   </div>
 
   <div class="action-bar">
@@ -104,12 +105,13 @@
     <span class="note-print">📋 भरें → प्रिंट करें → हस्ताक्षर करें → रजिस्ट्रार को दें</span>
   </div>
 
+  <form id="deathForm" onsubmit="return false;" novalidate>
   <div class="form-body">
     <div style="background:var(--deep-blue);color:white;padding:8px 16px;font-size:13px;font-weight:700;letter-spacing:.5px;margin-bottom:2px;">भाग-1: कानूनी सूचना — सूचनादाता द्वारा भरा जाए | PART-1: LEGAL INFORMATION</div>
 
     <!-- 1. Death Details -->
     <div class="section"><div class="section-title"><span class="num">1</span> मृत्यु विवरण (Death Details)</div><div class="section-content"><div class="fields">
-      <div class="field-group"><label>1. मृत्यु की तिथि <span class="req">*</span><br><small>Date / Month / Year</small></label><div style="display:flex;gap:6px;align-items:center;"><input type="text" id="dod_dd" inputmode="numeric" maxlength="2" placeholder="DD" style="width:60px;text-align:center;" oninput="validateDatePart(this,31);updateDOD()"><span style="font-weight:600;color:var(--muted)">/</span><input type="text" id="dod_mm" inputmode="numeric" maxlength="2" placeholder="MM" style="width:60px;text-align:center;" oninput="validateDatePart(this,12);updateDOD()"><span style="font-weight:600;color:var(--muted)">/</span><input type="number" id="dod_yyyy" min="1900" max="2099" placeholder="YYYY" style="width:90px;text-align:center;" oninput="validateYear(this);updateDOD()"></div><input type="hidden" id="dod"></div>
+      <div class="field-group"><label>1. मृत्यु की तिथि <span class="req">*</span><br><small>Date / Month / Year</small></label><div style="display:flex;gap:6px;align-items:center;"><input type="text" id="dod_dd" inputmode="numeric" maxlength="2" placeholder="DD" style="width:60px;text-align:center;" oninput="validateDatePart(this,31);updateDOD()"><span style="font-weight:600;color:var(--muted)">/</span><input type="text" id="dod_mm" inputmode="numeric" maxlength="2" placeholder="MM" style="width:60px;text-align:center;" oninput="validateDatePart(this,12);updateDOD()"><span style="font-weight:600;color:var(--muted)">/</span><input type="text" id="dod_yyyy" inputmode="numeric" maxlength="4" placeholder="YYYY" style="width:90px;text-align:center;" oninput="validateYear(this);updateDOD()"></div><input type="hidden" id="dod"></div>
       <div class="field-group"><label>मृत्यु का अनुमानित समय<br><small>Time of Death</small></label><input type="time" id="tod"></div>
       <div class="field-group"><label>2. लिंग <span class="req">*</span><br><small>Sex of Deceased</small></label><select id="sex" required><option value="">— चुनें —</option><option value="1">पुरुष / Male</option><option value="2">महिला / Female</option><option value="3">किन्नर / Transgender</option></select></div>
     </div></div></div>
@@ -119,11 +121,11 @@
       <div class="field-group"><label>पहला नाम / First Name</label><input type="text" id="dec_fname" placeholder="First Name"></div>
       <div class="field-group"><label>मध्य नाम / Middle Name</label><input type="text" id="dec_mname" placeholder="Middle Name"></div>
       <div class="field-group"><label>अंतिम नाम / Last Name</label><input type="text" id="dec_lname" placeholder="Last Name"></div>
-      <div class="field-group"><label>मृतक का आधार नंबर</label><input type="text" id="dec_aadhaar" maxlength="12" placeholder="12 अंक"></div>
-      <div class="field-group"><label>मृतक की जन्मतिथि<br><small>DOB (DD/MM/YYYY)</small></label><div style="display:flex;gap:6px;align-items:center;"><input type="text" id="dob_dec_dd" inputmode="numeric" maxlength="2" placeholder="DD" style="width:58px;text-align:center;" oninput="calcAgeFromDOB()"><span style="font-weight:600;color:var(--muted)">/</span><input type="text" id="dob_dec_mm" inputmode="numeric" maxlength="2" placeholder="MM" style="width:58px;text-align:center;" oninput="calcAgeFromDOB()"><span style="font-weight:600;color:var(--muted)">/</span><input type="number" id="dob_dec_yyyy" min="1850" max="2099" placeholder="YYYY" style="width:88px;text-align:center;" oninput="calcAgeFromDOB()"></div></div>
-      <div class="field-group"><label>आयु (वर्ष) <span class="req">*</span></label><input type="number" id="age_years" min="0" max="150" placeholder="वर्ष" required></div>
-      <div class="field-group"><label>आयु (माह)</label><input type="number" id="age_months" min="0" max="11" placeholder="माह"></div>
-      <div class="field-group"><label>आयु (दिन)</label><input type="number" id="age_days" min="0" max="30" placeholder="दिन"></div>
+      <div class="field-group"><label>मृतक का आधार नंबर</label><input type="text" id="dec_aadhaar" inputmode="numeric" maxlength="12" placeholder="12 अंक" oninput="this.value=this.value.replace(/\D/g,'').substring(0,12)"></div>
+      <div class="field-group"><label>मृतक की जन्मतिथि<br><small>DOB (DD/MM/YYYY)</small></label><div style="display:flex;gap:6px;align-items:center;"><input type="text" id="dob_dec_dd" inputmode="numeric" maxlength="2" placeholder="DD" style="width:58px;text-align:center;" oninput="calcAgeFromDOB()"><span style="font-weight:600;color:var(--muted)">/</span><input type="text" id="dob_dec_mm" inputmode="numeric" maxlength="2" placeholder="MM" style="width:58px;text-align:center;" oninput="calcAgeFromDOB()"><span style="font-weight:600;color:var(--muted)">/</span><input type="text" id="dob_dec_yyyy" inputmode="numeric" maxlength="4" placeholder="YYYY" style="width:88px;text-align:center;" oninput="calcAgeFromDOB()"></div></div>
+      <div class="field-group"><label>आयु (वर्ष) <span class="req">*</span></label><input type="text" id="age_years" inputmode="numeric" maxlength="3" placeholder="वर्ष" required oninput="this.value=this.value.replace(/\D/g,'').substring(0,3)"></div>
+      <div class="field-group"><label>आयु (माह)</label><input type="text" id="age_months" inputmode="numeric" maxlength="2" placeholder="माह" oninput="this.value=this.value.replace(/\D/g,'').substring(0,2)"></div>
+      <div class="field-group"><label>आयु (दिन)</label><input type="text" id="age_days" inputmode="numeric" maxlength="2" placeholder="दिन" oninput="this.value=this.value.replace(/\D/g,'').substring(0,2)"></div>
     </div></div></div>
 
     <!-- 4. Father/Husband -->
@@ -131,7 +133,7 @@
       <div class="field-group"><label>पहला नाम <span class="req">*</span></label><input type="text" id="father_fname" placeholder="First Name" required></div>
       <div class="field-group"><label>मध्य नाम</label><input type="text" id="father_mname" placeholder="Middle Name"></div>
       <div class="field-group"><label>अंतिम नाम</label><input type="text" id="father_lname" placeholder="Last Name"></div>
-      <div class="field-group"><label>आधार संख्या</label><input type="text" id="father_aadhaar" maxlength="12" placeholder="12 अंक"></div>
+      <div class="field-group"><label>आधार संख्या</label><input type="text" id="father_aadhaar" inputmode="numeric" maxlength="12" placeholder="12 अंक" oninput="this.value=this.value.replace(/\D/g,'').substring(0,12)"></div>
       <div class="field-group"><label>मोबाइल नंबर</label><input type="tel" id="father_mobile" maxlength="10" placeholder="10 अंक"></div>
     </div></div></div>
 
@@ -140,7 +142,7 @@
       <div class="field-group"><label>पहला नाम</label><input type="text" id="mother_fname" placeholder="First Name"></div>
       <div class="field-group"><label>मध्य नाम</label><input type="text" id="mother_mname" placeholder="Middle Name"></div>
       <div class="field-group"><label>अंतिम नाम</label><input type="text" id="mother_lname" placeholder="Last Name"></div>
-      <div class="field-group"><label>आधार संख्या</label><input type="text" id="mother_aadhaar" maxlength="12" placeholder="12 अंक"></div>
+      <div class="field-group"><label>आधार संख्या</label><input type="text" id="mother_aadhaar" inputmode="numeric" maxlength="12" placeholder="12 अंक" oninput="this.value=this.value.replace(/\D/g,'').substring(0,12)"></div>
       <div class="field-group"><label>मोबाइल नंबर</label><input type="tel" id="mother_mobile" maxlength="10" placeholder="10 अंक"></div>
     </div></div></div>
 
@@ -171,8 +173,8 @@
       <div class="field-group"><label>पहला नाम <span class="req">*</span></label><input type="text" id="informant_fname" required></div>
       <div class="field-group"><label>मध्य नाम</label><input type="text" id="informant_mname"></div>
       <div class="field-group"><label>अंतिम नाम</label><input type="text" id="informant_lname"></div>
-      <div class="field-group"><label>मृतक से संबंध <span class="req">*</span></label><select id="informant_relation" required><option value="">— चुनें —</option><option>पुत्र / Son</option><option>पुत्री / Daughter</option><option>पति / Husband</option><option>पत्नी / Wife</option><option>पिता / Father</option><option>माता / Mother</option><option>भाई / Brother</option><option>बहन / Sister</option><option>अन्य / Other</option></select></div>
-      <div class="field-group"><label>आधार संख्या</label><input type="text" id="informant_aadhaar" maxlength="12" required></div>
+      <div class="field-group"><label>मृतक, सूचनादाता का क्या लगता है <span class="req">*</span></label><select id="informant_relation" required onchange="toggleRelationOther()"><option value="">— चुनें —</option><option>पुत्र / Son</option><option>पुत्री / Daughter</option><option>पति / Husband</option><option>पत्नी / Wife</option><option>पिता / Father</option><option>माता / Mother</option><option>भाई / Brother</option><option>बहन / Sister</option><option value="अन्य">अन्य / Other</option></select><input type="text" id="informant_relation_other" placeholder="संबंध लिखें" style="display:none;margin-top:6px;"></div>
+      <div class="field-group"><label>आधार संख्या</label><input type="text" id="informant_aadhaar" inputmode="numeric" maxlength="12" placeholder="12 अंक" oninput="this.value=this.value.replace(/\D/g,'').substring(0,12)" required></div>
       <div class="field-group"><label>मोबाइल नंबर</label><input type="tel" id="informant_mobile" maxlength="10" required></div>
       <div class="field-group"><label>ईमेल</label><input type="email" id="informant_email"></div>
       <div class="field-group field-full"><div style="background:#E8F0F8;border:1px solid var(--border);border-radius:4px;padding:10px 14px;display:flex;align-items:center;gap:10px;"><input type="checkbox" id="inf_same_as_dp" onchange="copyDeathPlaceToInf(this.checked)" style="width:18px;height:18px;accent-color:var(--deep-blue);"><label for="inf_same_as_dp" style="font-size:13px;font-weight:600;color:var(--deep-blue);">✅ सूचनादाता का पता, मृत्यु स्थान के समान है</label></div></div>
@@ -284,6 +286,103 @@
     <div style="background:white;border:1px solid #ddd;border-radius:6px;padding:14px 16px;margin-bottom:12px;"><div style="font-size:12px;font-weight:700;color:#37474F;margin-bottom:10px;border-bottom:1px solid #eee;padding-bottom:6px;">गवाह 4 / Witness 4</div><div class="fields" style="grid-template-columns:repeat(5,1fr);gap:10px;"><div class="field-group"><label>नाम <span class="req">*</span></label><input type="text" id="w4_name"></div><div class="field-group"><label>पिता का नाम</label><input type="text" id="w4_father"></div><div class="field-group"><label>जाति</label><input type="text" id="w4_caste"></div><div class="field-group"><label>पुरवा / मजरा</label><input type="text" id="w4_purava"></div><div class="field-group"><label>मोबाइल</label><input type="tel" id="w4_mobile" maxlength="10"></div></div></div>
     <div style="background:white;border:1px solid #ddd;border-radius:6px;padding:14px 16px;"><div style="font-size:12px;font-weight:700;color:#37474F;margin-bottom:10px;border-bottom:1px solid #eee;padding-bottom:6px;">गवाह 5 / Witness 5</div><div class="fields" style="grid-template-columns:repeat(5,1fr);gap:10px;"><div class="field-group"><label>नाम <span class="req">*</span></label><input type="text" id="w5_name"></div><div class="field-group"><label>पिता का नाम</label><input type="text" id="w5_father"></div><div class="field-group"><label>जाति</label><input type="text" id="w5_caste"></div><div class="field-group"><label>पुरवा / मजरा</label><input type="text" id="w5_purava"></div><div class="field-group"><label>मोबाइल</label><input type="tel" id="w5_mobile" maxlength="10"></div></div></div>
   </div></div>
+  <!-- ══════ 30 दिन - 1 वर्ष: आवेदन पत्र + शपथ पत्र ══════ -->
+  <div id="late-reg-sections" style="display:none;">
+
+    <!-- आवेदन पत्र — जिला पंचायत राज अधिकारी -->
+    <div style="background:#B71C1C;color:white;padding:10px 16px;font-size:14px;font-weight:700;letter-spacing:.5px;margin-top:4px;">📋 आवेदन पत्र — जिला पंचायत राज अधिकारी के नाम</div>
+    <div class="section" style="margin:0;border-radius:0;border-top:none;">
+      <div class="section-content" style="background:#fff5f5;padding:24px;">
+        <div id="application_letter" style="background:white;border:2px solid #B71C1C;border-radius:8px;padding:28px 30px;font-size:14px;line-height:2.2;">
+
+          <div style="margin-bottom:16px;">
+            <div>सेवा में,</div>
+            <div style="padding-left:20px;font-weight:700;">जिला पंचायत राज अधिकारी</div>
+            <div style="padding-left:20px;">जनपद — <strong><span id="app_letter_district">______________</span></strong></div>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div>विषय - मृत्यु पंजीकरण हेतु बिलम्बित आवेदन — 30 दिन के बाद, किन्तु 1 वर्ष के भीतर</div>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div style="font-weight:700;">महोदय,</div>
+          </div>
+
+          <p style="text-align:justify;text-indent:30px;">सविनय निवेदन है कि प्रार्थी <strong><span id="app_letter_informant">______________</span></strong> पुत्र श्री <strong><span id="app_letter_inf_father">______________</span></strong> निवासी <strong><span id="app_letter_address">______________</span></strong>, ग्राम पंचायत — <strong><span id="app_letter_gp">______________</span></strong>, ब्लॉक — <strong><span id="app_letter_block">______________</span></strong>, तहसील — <strong><span id="app_letter_tehsil">______________</span></strong>, जिला — <strong><span id="app_letter_dist2">______________</span></strong> का मूल निवासी है। प्रार्थी <span id="app_letter_keki">के</span> <strong><span id="app_letter_relation">______________</span></strong> <strong><span id="app_letter_deceased">______________</span></strong> <span id="app_letter_putrpatni">पुत्र</span> श्री <strong><span id="app_letter_dec_father">______________</span></strong> की मृत्यु दिनांक <strong><span id="app_letter_dod">______________</span></strong> को <strong><span id="app_letter_death_place">______________</span></strong> में हो गई है। पारिवारिक परिस्थितियों एवं नियमों की जानकारी के अभाव में मृत्यु का पंजीकरण निर्धारित तिथि तक 30 दिन की अवधि में नहीं कराया जा सका।</p>
+
+          <p style="text-align:justify;text-indent:30px;margin-top:10px;">अतः आपसे सादर अनुरोध है कि <strong><span id="app_letter_deceased2">______________</span></strong> <span id="app_letter_putrpatni2">पुत्र</span> श्री <strong><span id="app_letter_dec_father2">______________</span></strong> का दिनांक <strong><span id="app_letter_dod2">______________</span></strong> का मृत्यु पंजीकरण करने हेतु कार्यवाही करने की कृपा करें।</p>
+
+          <div style="margin-top:20px;">
+            <div style="margin-bottom:8px;">संलग्नक :</div>
+            <div style="padding-left:10px;">01- मृत्यु पंजीकरण फार्म 2</div>
+            <div style="padding-left:10px;">02- नोटरी शपथ पत्र</div>
+            <div style="padding-left:10px;">03- मृतक का आधार कार्ड /पहचान पत्र</div>
+            <div style="padding-left:10px;">04- आवेदक /सूचनादाता का आधार कार्ड</div>
+            <div style="padding-left:10px;">05- पंचायत सहायक /रोजगार सेवक का बयान</div>
+            <div style="padding-left:10px;">06- ग्राम प्रधान का प्रमाण पत्र</div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:30px;">
+            <div>
+              <div style="font-size:13px;color:var(--muted);margin-bottom:6px;">दिनांक: _______________</div>
+              <div style="font-size:13px;color:var(--muted);">स्थान: _______________</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="width:140px;height:80px;border:1.5px solid #aaa;border-radius:4px;margin:0 auto 8px;background:#fff;"></div>
+              <div style="border-top:1.5px solid #333;width:180px;margin:0 auto;padding-top:4px;font-size:12px;font-weight:600;color:var(--muted);">आवेदक के हस्ताक्षर / अंगूठा</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- नोटरी शपथ पत्र -->
+    <div style="background:#4A148C;color:white;padding:10px 16px;font-size:14px;font-weight:700;letter-spacing:.5px;margin-top:4px;">📜 नोटरी शपथ पत्र — Notary Affidavit</div>
+    <div class="section" style="margin:0;border-radius:0;border-top:none;">
+      <div class="section-content" style="background:#f3e5f5;padding:24px;">
+        <div id="notary_affidavit" style="background:white;border:2px solid #4A148C;border-radius:8px;padding:28px 30px;font-size:14px;line-height:2.2;">
+
+          <div style="margin-bottom:16px;">
+            <div>सेवा में,</div>
+            <div style="padding-left:20px;font-weight:700;">जिला पंचायत राज अधिकारी</div>
+            <div style="padding-left:20px;">जनपद — <strong><span id="notary_district">______________</span></strong></div>
+          </div>
+
+          <div style="text-align:center;margin-bottom:20px;">
+            <div style="font-size:18px;font-weight:700;color:#000;text-decoration:underline;">शपथ पत्र</div>
+          </div>
+
+          <p style="text-align:justify;">मैं <strong><span id="notary_informant">______________</span></strong> <span id="notary_putrpatni">पुत्र</span> श्री <strong><span id="notary_inf_father">______________</span></strong> निवासी <strong><span id="notary_inf_address">______________</span></strong>, ग्राम पंचायत — <strong><span id="notary_gp">______________</span></strong>, तहसील — <strong><span id="notary_tehsil">______________</span></strong>, जिला — <strong><span id="notary_district2">______________</span></strong> सत्यनिष्ठापूर्वक शपथ लेकर बयान करता हूँ कि-</p>
+
+          <div style="margin:16px 0 16px 0;">
+            <p><strong>धारा 01-</strong> यह कि शपथी उपरोक्त पते का निवासी है।</p>
+            <p><strong>धारा 02-</strong> यह कि शपथी <span id="notary_keki">के</span> <strong><span id="notary_relation">______________</span></strong> श्री/श्रीमती <strong><span id="notary_deceased">______________</span></strong> <span id="notary_putrpatni2">पुत्र</span> श्री <strong><span id="notary_dec_father">______________</span></strong> की मृत्यु दिनांक <strong><span id="notary_dod">______________</span></strong> को <strong><span id="notary_death_place">______________</span></strong> में हुई है।</p>
+            <p><strong>धारा 03-</strong> यह कि उपरोक्त का मृत्यु प्रमाण पत्र जारी किया जाना आवश्यक है।</p>
+            <p><strong>धारा 04-</strong> यह कि उपरोक्त घटना की तिथि व स्थान सत्य है तथा उपरोक्त व्यक्ति का कभी भी किसी भी संस्था या निकाय द्वारा कोई भी मृत्यु प्रमाण पत्र नहीं जारी किया गया है।</p>
+            <p><strong>धारा 05-</strong> यह कि उपरोक्त के मृत्यु प्रमाण पत्र के जारी होने से पूरे भारत वर्ष में किसी भी न्यायालय में प्रचलित किसी कार्यवाही पर कोई प्रभाव नहीं पड़ेगा।</p>
+          </div>
+
+          <div style="margin-top:20px;background:#fff8e1;border:1px solid #FFD600;border-radius:6px;padding:14px 18px;">
+            <p style="text-align:justify;"><strong>शपथ-</strong> मैं शपथी स्वयं यह कथन करता हूँ कि इस शपथ पत्र की धारा 01 से 05 तक की सभी जानकारी मेरी निजी जानकारी एवं विश्वास में सत्य हैं। इसमें कोई तथ्य छिपाया नहीं गया है। भविष्य में मेरा कथन असत्य पाया जाता है तो मेरे विरुद्ध जो भी कार्यवाही होगी मुझे स्वीकार्य होगी। ईश्वर मेरी मदद करें।</p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:30px;">
+            <div>
+              <div style="font-size:13px;color:var(--muted);margin-bottom:6px;">दिनांक: _______________</div>
+              <div style="font-size:13px;color:var(--muted);margin-bottom:6px;">स्थान: _______________</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="border-top:1.5px solid #333;width:200px;margin:40px auto 0;padding-top:4px;font-size:12px;font-weight:600;color:var(--muted);">आवेदक के हस्ताक्षर / अंगूठा</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- ══════ END: Late Registration Sections ══════ -->
+
   <!-- Final Preview Button -->
   <div style="background:linear-gradient(135deg,#003366,#1a4a7a);padding:24px;text-align:center;margin:0;">
     <div style="font-size:16px;color:white;font-weight:700;margin-bottom:6px;">फॉर्म भरना पूरा हुआ? / Form Complete?</div>
@@ -291,7 +390,8 @@
     <button class="btn" style="background:var(--saffron);color:white;padding:14px 40px;font-size:16px;font-weight:700;border-radius:10px;box-shadow:0 4px 16px rgba(232,100,10,0.4);" onclick="openFormPreview()">👁 Preview देखें / View Preview</button>
   </div>
 
-  <div class="form-footer">जन्म एवं मृत्यु पंजीकरण अधिनियम, 1969 | Civil Registration System | VISRO Consultancy</div>
+  </form>
+  <div class="form-footer">जन्म एवं मृत्यु पंजीकरण अधिनियम, 1969 | Civil Registration System</div>
 </div>
 
 <div id="print-view"></div>
@@ -303,8 +403,8 @@
 <div class="preview-overlay" id="previewOverlay" onclick="if(event.target===this)closePreview()"><div class="preview-modal"><div class="preview-toolbar"><span>👁 फॉर्म Preview — मृत्यु पंजीकरण फॉर्म-2</span><button class="btn-close-preview" onclick="closePreview()">✖ बंद</button></div><div class="preview-content"><div class="preview-page" id="previewPageContent"></div></div></div></div>
 <div class="toast" id="toast"></div>
 
-<script src="up-locations.js"></script>
-<script src="dob-picker.js"></script>
+<script src="up-locations.js" onerror="alert('स्थान डेटा लोड नहीं हो सका। कृपया पेज रीफ्रेश करें।')"></script>
+<script src="dob-picker.js" onerror="console.warn('dob-picker.js failed to load')"></script>
 <script>
 // Location data loaded from up-locations.js
 
@@ -324,6 +424,25 @@ function validateYear(e){e.value=e.value.replace(/[^0-9]/g,'');if(e.value.length
 function validateAppDatePart(e,m){validateDatePart(e,m);updateAppDate();}
 function validateAppYear(e){validateYear(e);updateAppDate();}
 function updateAppDate(){var d=document.getElementById('app_dd')?document.getElementById('app_dd').value:'',m=document.getElementById('app_mm')?document.getElementById('app_mm').value:'',y=document.getElementById('app_yyyy')?document.getElementById('app_yyyy').value:'';var h=document.getElementById('app_date');if(h&&d&&m&&y&&y.length===4)h.value=y+'-'+m.padStart(2,'0')+'-'+d.padStart(2,'0');}
+// Clean relation: remove English, return only Hindi
+function getCleanRelation(){
+  var rel=getRelationValue();
+  return rel.replace(/\s*\/\s*[A-Za-z]+/g,'').trim();
+}
+// "के" or "की" based on relation gender context
+function getKeKi(){
+  var rel=getCleanRelation();
+  var femaleRels=['पत्नी','माता','बहन','पुत्री','दादी'];
+  for(var i=0;i<femaleRels.length;i++){if(rel.indexOf(femaleRels[i])!==-1)return 'की';}
+  return 'के';
+}
+// "पुत्र" or "पत्नी" based on deceased sex
+function getPutrPatni(){
+  var sex=document.getElementById('sex').value;
+  return sex==='2'?'पत्नी':'पुत्र';
+}
+function toggleRelationOther(){var sel=document.getElementById('informant_relation');var otherInput=document.getElementById('informant_relation_other');if(sel.value==='अन्य'){otherInput.style.display='block';otherInput.focus();}else{otherInput.style.display='none';otherInput.value='';}}
+function getRelationValue(){var sel=document.getElementById('informant_relation');if(sel.value==='अन्य'){var other=document.getElementById('informant_relation_other').value;return other||'अन्य';}return sel.value;}
 function toggleDeathPlace(v){document.getElementById('hospital_div').style.display=(v===1)?'block':'none';document.getElementById('home_area_div').style.display=(v===2)?'block':'none';document.getElementById('other_place_div').style.display=(v===3||v===4)?'block':'none';if(v!==2){document.getElementById('dp_village_div').style.display='none';document.getElementById('dp_town_div').style.display='none';}}
 function toggleDeathCategory(){document.getElementById('accident_div').style.display=(document.getElementById('death_category').value==='2')?'block':'none';}
 function copyDeathPlaceToPerm(checked){
@@ -475,7 +594,21 @@ var _pvPages=[];
 var _pvCurrent=0;
 var _pvTitles=[];
 
+function validateDeathForm(){
+  var errors=[];
+  if(!document.getElementById('hdr_district').value)errors.push('जिला चुनें');
+  if(!document.getElementById('dod_dd').value||!document.getElementById('dod_mm').value||!document.getElementById('dod_yyyy').value)errors.push('मृत्यु की तिथि भरें');
+  if(!document.getElementById('sex').value)errors.push('लिंग चुनें');
+  if(!document.getElementById('dec_fname').value)errors.push('मृतक का नाम भरें');
+  if(!document.getElementById('age_years').value)errors.push('आयु भरें');
+  if(!document.getElementById('father_fname').value)errors.push('पिता/पति का नाम भरें');
+  if(!document.getElementById('informant_fname').value)errors.push('सूचनादाता का नाम भरें');
+  if(!document.getElementById('informant_relation').value)errors.push('मृतक का सूचनादाता से संबंध चुनें');
+  if(errors.length>0){alert('कृपया निम्न फील्ड भरें:\n\n• '+errors.join('\n• '));return false;}
+  return true;
+}
 function openFormPreview(){
+  if(!validateDeathForm())return;
   function v(id){var e=document.getElementById(id);if(!e)return '';if(e.tagName==='SELECT'){var t=e.options[e.selectedIndex]?e.options[e.selectedIndex].text:'';return(t&&t.indexOf('चुनें')===-1&&t.indexOf('Select')===-1)?t:'';}return e.value||'';}
   function radio(name){var c=document.querySelector('input[name="'+name+'"]:checked');return c?(c.closest('label')?c.closest('label').textContent.trim():c.value):'';}
   function row(l,val){return '<tr><td style="padding:4px 8px;font-size:11px;color:#000;font-weight:600;border-bottom:1px solid #bbb;width:38%;">'+l+'</td><td style="padding:4px 8px;font-size:11px;font-weight:800;color:#000;border-bottom:1px solid #bbb;">'+((val&&val.trim())?val:'—')+'</td></tr>';}
@@ -512,7 +645,7 @@ function openFormPreview(){
     +'</div>'
     +sec('6. मृत्यु स्थान',row('प्रकार',dpType)+row('पता',dpAddr)+row('पिन',v('dp_pin')))
     +sec('7. स्थायी पता',row('पता',permAddr)+row('मकान नं.',v('perm_house_no'))+row('पिन',v('perm_pin'))+row('राज्य',v('perm_state')))
-    +sec('8. सूचनादाता',row('नाम',infName)+row('संबंध',v('informant_relation'))+row('आधार',v('informant_aadhaar'))+row('मोबाइल',v('informant_mobile'))+row('पता',infAddr))
+    +sec('8. सूचनादाता',row('नाम',infName)+row('संबंध',getCleanRelation())+row('आधार',v('informant_aadhaar'))+row('मोबाइल',v('informant_mobile'))+row('पता',infAddr))
     +'<div style="background:#fff8e1;border:1px solid #FFD600;border-radius:3px;padding:3px 8px;font-size:10px;color:#000;font-weight:600;margin-top:4px;line-height:1.5;"><b>घोषणापत्र:</b> उपरोक्त सूचनाएँ सत्य हैं। RBD Act 1969 धारा 23 के दंड से अवगत हूँ।</div>'
     +signBox
     +'</div>';
@@ -607,7 +740,7 @@ function openFormPreview(){
     // Footer
     +'<div style="display:flex;justify-content:space-between;font-size:9px;color:#888;padding:10px 16px;border-top:1px solid #ddd;margin-top:10px;">'
     +'<span>ग्राम पंचायत: '+hdrGP+' | ब्लॉक: '+hdrBlk+' | तहसील: '+hdrTeh+' | जिला: अमेठी</span>'
-    +'<span>VISRO Consultancy</span>'
+    +''
     +'</div>'
     +'</div>';
 
@@ -645,7 +778,7 @@ function openFormPreview(){
     +'<div style="font-size:9px;color:#555;margin-top:3px;">दिनांक: '+(ashaDate||'___________')+'</div>'
     +'</div></div>'
     +'<div style="display:flex;justify-content:space-between;font-size:9px;color:#888;padding:10px 16px;border-top:1px solid #ddd;margin-top:10px;">'
-    +'<span>ग्राम पंचायत: '+hdrGP+' | ब्लॉक: '+hdrBlk+' | जिला: अमेठी</span><span>VISRO Consultancy</span></div>'
+    +'<span>ग्राम पंचायत: '+hdrGP+' | ब्लॉक: '+hdrBlk+' | जिला: अमेठी</span><span></span></div>'
     +'</div>';
 
   // PAGE 5: Panchayat Sahayak Statement (PDF format)
@@ -679,7 +812,7 @@ function openFormPreview(){
     +'<div style="font-size:9px;color:#555;margin-top:3px;">दिनांक: '+(psDate||'___________')+'</div>'
     +'</div></div>'
     +'<div style="display:flex;justify-content:space-between;font-size:9px;color:#888;padding:10px 16px;border-top:1px solid #ddd;margin-top:10px;">'
-    +'<span>ग्राम पंचायत: '+hdrGP+' | ब्लॉक: '+hdrBlk+' | जिला: अमेठी</span><span>VISRO Consultancy</span></div>'
+    +'<span>ग्राम पंचायत: '+hdrGP+' | ब्लॉक: '+hdrBlk+' | जिला: अमेठी</span><span></span></div>'
     +'</div>';
 
   // PAGE 6: 5 Rural Witnesses (PDF format)
@@ -728,12 +861,73 @@ function openFormPreview(){
     // Footer
     +'<div style="display:flex;justify-content:space-between;font-size:9px;color:#888;padding:10px 16px;border-top:1px solid #ddd;margin-top:6px;">'
     +'<span>ग्राम पंचायत: '+hdrGP+' | ब्लॉक: '+hdrBlk+' | तहसील: '+hdrTeh+' | जिला: अमेठी</span>'
-    +'<span>VISRO Consultancy</span>'
+    +''
     +'</div>'
     +'</div>';
 
   _pvPages=[p1,p2,p3,p4,p5,p6];
   _pvTitles=['भाग-1: कानूनी सूचना','भाग-2: सांख्यिकीय सूचना','ग्राम प्रधान बयान','आशा/ANM बयान','पंचायत सहायक बयान','ग्रामीण गवाह'];
+
+  // Add late registration pages if period=30to1year
+  var _urlP=new URLSearchParams(window.location.search);
+  var _period=_urlP.get('period');
+  if(!_period&&window.location.hash){var _hp=new URLSearchParams(window.location.hash.substring(1));_period=_hp.get('period');}
+  if(_period==='30to1year'){
+    // PAGE: Application Letter (DPRO format)
+    var relVal=getCleanRelation()||'___________';
+    var keKi=getKeKi();
+    var putrPatni=getPutrPatni();
+    var pApp='<div style="font-family:Arial,sans-serif;padding:0;">'
+      +'<div style="display:flex;justify-content:space-between;font-size:9px;color:#555;padding:4px 10px;"><span>'+new Date().toLocaleDateString('en-IN')+'</span><span>विलम्बित मृत्यु पंजीकरण — आवेदन पत्र</span></div>'
+      +'<div style="height:5px;background:linear-gradient(to right,#FF9933 33%,#fff 33%,#fff 66%,#138808 66%);margin-bottom:16px;"></div>'
+      +'<div style="padding:0 16px;font-size:14px;line-height:2.2;color:#000;">'
+      +'<div style="margin-bottom:12px;">सेवा में,<br><div style="padding-left:16px;font-weight:700;">जिला पंचायत राज अधिकारी</div><div style="padding-left:16px;">जनपद — <b>'+hdrDist+'</b></div></div>'
+      +'<p>विषय - मृत्यु पंजीकरण हेतु बिलम्बित आवेदन — 30 दिन के बाद, किन्तु 1 वर्ष के भीतर</p>'
+      +'<p style="margin-top:10px;"><b>महोदय,</b></p>'
+      +'<p style="text-align:justify;text-indent:30px;">सविनय निवेदन है कि प्रार्थी <b>'+infName+'</b> पुत्र श्री <b>'+fatherName+'</b> निवासी <b>'+permLocality+'</b>, ग्राम पंचायत — <b>'+hdrGP+'</b>, ब्लॉक — <b>'+hdrBlk+'</b>, तहसील — <b>'+hdrTeh+'</b>, जिला — <b>'+hdrDist+'</b> का मूल निवासी है। प्रार्थी '+keKi+' <b>'+relVal+'</b> <b>'+decName+'</b> '+putrPatni+' श्री <b>'+fatherName+'</b> की मृत्यु दिनांक <b>'+dodStr+'</b> को <b>'+dpAddr+'</b> में हो गई है। पारिवारिक परिस्थितियों एवं नियमों की जानकारी के अभाव में मृत्यु का पंजीकरण निर्धारित तिथि तक 30 दिन की अवधि में नहीं कराया जा सका।</p>'
+      +'<p style="text-align:justify;text-indent:30px;margin-top:8px;">अतः आपसे सादर अनुरोध है कि <b>'+decName+'</b> '+putrPatni+' श्री <b>'+fatherName+'</b> का दिनांक <b>'+dodStr+'</b> का मृत्यु पंजीकरण करने हेतु कार्यवाही करने की कृपा करें।</p>'
+      +'<div style="margin-top:16px;"><div style="margin-bottom:6px;">संलग्नक :</div>'
+      +'<div style="padding-left:10px;">01- मृत्यु पंजीकरण फार्म 2</div>'
+      +'<div style="padding-left:10px;">02- नोटरी शपथ पत्र</div>'
+      +'<div style="padding-left:10px;">03- मृतक का आधार कार्ड /पहचान पत्र</div>'
+      +'<div style="padding-left:10px;">04- आवेदक /सूचनादाता का आधार कार्ड</div>'
+      +'<div style="padding-left:10px;">05- पंचायत सहायक /रोजगार सेवक का बयान</div>'
+      +'<div style="padding-left:10px;">06- ग्राम प्रधान का प्रमाण पत्र</div></div>'
+      +'</div>'
+      +'<div style="display:flex;gap:14px;margin:30px 16px 10px;">'
+      +'<div style="flex:1;"><div style="font-size:12px;color:#555;">दिनांक: _______________</div><div style="font-size:12px;color:#555;margin-top:4px;">स्थान: _______________</div></div>'
+      +'<div style="flex:1;text-align:center;"><div style="width:140px;height:70px;border:1px solid #aaa;border-radius:4px;margin:0 auto 6px;"></div><div style="border-top:1.5px solid #000;width:180px;margin:0 auto;padding-top:4px;font-size:11px;font-weight:600;">आवेदक के हस्ताक्षर / अंगूठा</div></div>'
+      +'</div>'
+      +'<div style="display:flex;justify-content:space-between;font-size:9px;color:#888;padding:10px 16px;border-top:1px solid #ddd;margin-top:10px;">'
+      +'<span>जनपद: '+hdrDist+' | तहसील: '+hdrTeh+' | ब्लॉक: '+hdrBlk+'</span><span></span></div>'
+      +'</div>';
+
+    // PAGE: Notary Affidavit (धारा format)
+    var deathPlacePv=dpAddr||permLocality||hdrGP||'___________';
+    var pNotary='<div style="font-family:Arial,sans-serif;padding:0;">'
+      +'<div style="height:480px;border-bottom:1px dashed #ccc;margin:0 12px 6px;position:relative;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;color:#ccc;font-weight:600;text-align:center;">— स्टाम्प पेपर का क्षेत्र —</div></div>'
+      +'<div style="padding:0 12px;font-size:12px;line-height:1.7;color:#000;">'
+      +'<div style="margin-bottom:6px;">सेवा में,<br><div style="padding-left:14px;font-weight:700;font-size:12px;">जिला पंचायत राज अधिकारी</div><div style="padding-left:14px;">जनपद — <b>'+hdrDist+'</b></div></div>'
+      +'<div style="text-align:center;margin:8px 0;"><div style="font-size:15px;font-weight:700;text-decoration:underline;">शपथ पत्र</div></div>'
+      +'<p style="text-align:justify;">मैं <b>'+infName+'</b> '+putrPatni+' श्री <b>'+fatherName+'</b> निवासी <b>'+permLocality+'</b>, ग्राम पंचायत — <b>'+hdrGP+'</b>, तहसील — <b>'+hdrTeh+'</b>, जिला — <b>'+hdrDist+'</b> सत्यनिष्ठापूर्वक शपथ लेकर बयान करता हूँ कि-</p>'
+      +'<div style="margin:6px 0;">'
+      +'<p><b>धारा 01-</b> यह कि शपथी उपरोक्त पते का निवासी है।</p>'
+      +'<p><b>धारा 02-</b> यह कि शपथी '+keKi+' <b>'+relVal+'</b> श्री/श्रीमती <b>'+decName+'</b> '+putrPatni+' श्री <b>'+fatherName+'</b> की मृत्यु दिनांक <b>'+dodStr+'</b> को <b>'+deathPlacePv+'</b> में हुई है।</p>'
+      +'<p><b>धारा 03-</b> यह कि उपरोक्त का मृत्यु प्रमाण पत्र जारी किया जाना आवश्यक है।</p>'
+      +'<p><b>धारा 04-</b> यह कि उपरोक्त घटना की तिथि व स्थान सत्य है तथा उपरोक्त व्यक्ति का कभी भी किसी भी संस्था या निकाय द्वारा कोई भी मृत्यु प्रमाण पत्र नहीं जारी किया गया है।</p>'
+      +'<p><b>धारा 05-</b> यह कि उपरोक्त के मृत्यु प्रमाण पत्र के जारी होने से पूरे भारत वर्ष में किसी भी न्यायालय में प्रचलित किसी कार्यवाही पर कोई प्रभाव नहीं पड़ेगा।</p>'
+      +'</div>'
+      +'<p style="text-align:justify;margin:6px 0;"><b>शपथ-</b> मैं शपथी स्वयं यह कथन करता हूँ कि इस शपथ पत्र की धारा 01 से 05 तक की सभी जानकारी मेरी निजी जानकारी एवं विश्वास में सत्य हैं। इसमें कोई तथ्य छिपाया नहीं गया है। भविष्य में मेरा कथन असत्य पाया जाता है तो मेरे विरुद्ध जो भी कार्यवाही होगी मुझे स्वीकार्य होगी। ईश्वर मेरी मदद करें।</p>'
+      +'</div>'
+      +'<div style="display:flex;gap:14px;margin:16px 12px 6px;">'
+      +'<div style="flex:1;"><div style="font-size:12px;color:#555;">दिनांक: _______________</div><div style="font-size:12px;color:#555;margin-top:4px;">स्थान: _______________</div></div>'
+      +'<div style="flex:1;text-align:center;"><div style="border-top:1.5px solid #000;width:200px;margin:40px auto 0;padding-top:4px;font-size:11px;font-weight:600;">आवेदक के हस्ताक्षर / अंगूठा</div></div>'
+      +'</div>'
+      +'</div>';
+
+    _pvPages.push(pApp,pNotary);
+    _pvTitles.push('आवेदन पत्र — DPRO','नोटरी शपथ पत्र');
+  }
   _pvCurrent=0;
   showPreviewPage();
   document.getElementById('previewOverlay').classList.add('active');
@@ -779,7 +973,7 @@ function openPaymentPage(){
     +'<button onclick="showPreviewPage()" style="padding:8px 20px;background:transparent;color:#555;border:1px solid #ccc;border-radius:6px;font-family:inherit;font-size:11px;cursor:pointer;">← Back to Preview</button>'
     +'</div>'
     +'</div>'
-    +'<div style="font-size:9px;color:#aaa;margin-top:14px;">Powered by Razorpay | VISRO Consultancy</div>'
+    +'<div style="font-size:9px;color:#aaa;margin-top:14px;">Powered by Razorpay</div>'
     +'</div></div>';
   document.getElementById('previewPageContent').innerHTML=html;
   document.querySelector('.preview-overlay').scrollTop=0;
@@ -800,7 +994,7 @@ function verifyPayment(){
     +'<button onclick="printCurrentPageOnly(0)" style="padding:12px 28px;background:#FF6B00;color:white;border:none;border-radius:8px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;">&#128196; Print Page by Page</button>'
     +'</div>'
     +'<div style="margin-top:16px;"><button onclick="closePreview()" style="padding:8px 20px;background:transparent;color:#555;border:1px solid #ccc;border-radius:6px;font-family:inherit;font-size:11px;cursor:pointer;">Close</button></div>'
-    +'<div style="font-size:9px;color:#aaa;margin-top:16px;">VISRO Consultancy | Thank you for your payment</div>'
+    +'<div style="font-size:9px;color:#aaa;margin-top:16px;">Thank you for your payment</div>'
     +'</div>';
   document.getElementById('previewPageContent').innerHTML=html;
 }
@@ -814,8 +1008,10 @@ function printAllPages(){
 }
 
 function printCurrentPageOnly(idx){
+  var isNotary=(_pvTitles[idx]&&_pvTitles[idx].indexOf('शपथ')!==-1);
+  var pageStyle=isNotary?'@page{size:A4;margin:5mm 10mm 10mm 10mm;}body{font-family:Arial,sans-serif;margin:0;padding:0 10px 10px 10px;}':'@page{size:A4;margin:10mm;}body{font-family:Arial,sans-serif;margin:0;padding:10px;}';
   var w=window.open('','_blank','width=800,height=600');
-  w.document.write('<!DOCTYPE html><html><head><title>Page '+(idx+1)+'</title><style>@page{size:A4;margin:10mm;}body{font-family:Arial,sans-serif;margin:0;padding:10px;}</style></head><body>'+_pvPages[idx]+'<div style="text-align:center;margin-top:20px;font-size:11px;color:#555;">Page '+(idx+1)+' of '+_pvPages.length+'</div></body></html>');
+  w.document.write('<!DOCTYPE html><html><head><title>Page '+(idx+1)+'</title><style>'+pageStyle+'</style></head><body>'+_pvPages[idx]+'<div style="text-align:center;margin-top:20px;font-size:11px;color:#555;">Page '+(idx+1)+' of '+_pvPages.length+'</div></body></html>');
   w.document.close();
   setTimeout(function(){w.print();},500);
 }
@@ -835,10 +1031,69 @@ function printAshaStatement(){if(!document.getElementById('asha_name').value.tri
 function printPSStatement(){if(!document.getElementById('ps_name').value.trim()){alert('कृपया पंचायत सहायक का नाम भरें।');return;}alert('पंचायत सहायक बयान प्रिंट हो रहा है...');window.print();}
 function printWitnessPage(){alert('गवाहों की गवाही प्रिंट हो रही है...');window.print();}
 
-['dec_aadhaar','father_aadhaar','mother_aadhaar','informant_aadhaar'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'');});});
-['father_mobile','mother_mobile','informant_mobile'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'');});});
+['dec_aadhaar','father_aadhaar','mother_aadhaar','informant_aadhaar'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').substring(0,12);});});
+['father_mobile','mother_mobile','informant_mobile','gp_pradhan_mobile','asha_mobile','ps_mobile','w1_mobile','w2_mobile','w3_mobile','w4_mobile','w5_mobile'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').substring(0,10);});});
+// Pin codes - 6 digits only
+document.querySelectorAll('input[maxlength="6"]').forEach(function(e){e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').substring(0,6);});e.setAttribute('inputmode','numeric');});
 
-document.addEventListener('DOMContentLoaded',function(){var hdrDist=document.getElementById('hdr_district');UP_DISTRICTS.forEach(function(d){hdrDist.add(new Option(d,d));});['perm','inf','dres','dp'].forEach(function(p){buildAddressSection(p);var td=document.getElementById(p+'_town_dist');if(td)UP_DISTRICTS.forEach(function(d){td.add(new Option(d,d));});});var today=new Date();document.getElementById('app_dd').value=today.getDate();document.getElementById('app_mm').value=today.getMonth()+1;document.getElementById('app_yyyy').value=today.getFullYear();document.getElementById('app_date').value=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');document.getElementById('gp_statement_date').value=new Date().toISOString().split('T')[0];document.getElementById('asha_statement_date').value=new Date().toISOString().split('T')[0];document.getElementById('ps_statement_date').value=new Date().toISOString().split('T')[0];var watchIds=['hdr_gp','hdr_block','hdr_tehsil','gp_pradhan_name','asha_name','asha_designation','asha_center','asha_statement_date','ps_name','ps_designation','ps_statement_date','dod_dd','dod_mm','dod_yyyy','dec_fname','dec_mname','dec_lname','father_fname','father_lname','cause_detail','death_category','perm_purava','gp_statement_date'];watchIds.forEach(function(id){var e=document.getElementById(id);if(e){e.addEventListener('change',updateGPStatement);e.addEventListener('input',updateGPStatement);}});setTimeout(function(){var t=document.getElementById('hdr_tehsil');if(t&&t.value)hdrTehsilChange();},150);setTimeout(updateGPStatement,300);});
+document.addEventListener('DOMContentLoaded',function(){var hdrDist=document.getElementById('hdr_district');UP_DISTRICTS.forEach(function(d){hdrDist.add(new Option(d,d));});['perm','inf','dres','dp'].forEach(function(p){buildAddressSection(p);var td=document.getElementById(p+'_town_dist');if(td)UP_DISTRICTS.forEach(function(d){td.add(new Option(d,d));});});var today=new Date();document.getElementById('app_dd').value=today.getDate();document.getElementById('app_mm').value=today.getMonth()+1;document.getElementById('app_yyyy').value=today.getFullYear();document.getElementById('app_date').value=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');document.getElementById('gp_statement_date').value=new Date().toISOString().split('T')[0];document.getElementById('asha_statement_date').value=new Date().toISOString().split('T')[0];document.getElementById('ps_statement_date').value=new Date().toISOString().split('T')[0];var watchIds=['hdr_gp','hdr_block','hdr_tehsil','gp_pradhan_name','asha_name','asha_designation','asha_center','asha_statement_date','ps_name','ps_designation','ps_statement_date','dod_dd','dod_mm','dod_yyyy','dec_fname','dec_mname','dec_lname','father_fname','father_lname','cause_detail','death_category','perm_purava','gp_statement_date'];watchIds.forEach(function(id){var e=document.getElementById(id);if(e){e.addEventListener('change',updateGPStatement);e.addEventListener('input',updateGPStatement);}});setTimeout(function(){var t=document.getElementById('hdr_tehsil');if(t&&t.value)hdrTehsilChange();},150);setTimeout(updateGPStatement,300);
+
+// Show late registration sections if period=30to1year
+// Support both query params (?period=30to1year) and hash (#period=30to1year)
+var urlParams=new URLSearchParams(window.location.search);
+var period=urlParams.get('period');
+if(!period&&window.location.hash){var hp=new URLSearchParams(window.location.hash.substring(1));period=hp.get('period');}
+if(period==='30to1year'){
+  var lrs=document.getElementById('late-reg-sections');
+  if(lrs)lrs.style.display='block';
+  // Auto-update application letter & notary from form fields
+  function updateLateRegSections(){
+    var decName=[(document.getElementById('dec_fname')||{}).value,(document.getElementById('dec_mname')||{}).value,(document.getElementById('dec_lname')||{}).value].filter(Boolean).join(' ')||'______________';
+    var infName=[(document.getElementById('informant_fname')||{}).value,(document.getElementById('informant_mname')||{}).value,(document.getElementById('informant_lname')||{}).value].filter(Boolean).join(' ')||'______________';
+    var infRelation=(typeof getRelationValue==='function')?getRelationValue():((document.getElementById('informant_relation')||{}).value||'______________');
+    var dist=(document.getElementById('hdr_district')||{}).value||'______________';
+    var tehsil=(document.getElementById('hdr_tehsil')||{}).value||'______________';
+    var block=(document.getElementById('hdr_block')||{}).value||'______________';
+    var gp=(document.getElementById('hdr_gp')||{}).value||'______________';
+    var purava=(document.getElementById('perm_purava')||{}).value||'______________';
+    var dod='______________';
+    var dd=(document.getElementById('dod_dd')||{}).value;
+    var mm=(document.getElementById('dod_mm')||{}).value;
+    var yy=(document.getElementById('dod_yyyy')||{}).value;
+    if(dd&&mm&&yy)dod=dd+'/'+mm+'/'+yy;
+    var cause=(document.getElementById('cause_detail')||{}).value||'______________';
+    var fatherName=[(document.getElementById('father_fname')||{}).value,(document.getElementById('father_lname')||{}).value].filter(Boolean).join(' ')||'______________';
+    var appDate=new Date();
+    var appDateStr=appDate.getDate()+'/'+(appDate.getMonth()+1)+'/'+appDate.getFullYear();
+    // Application letter
+    var deathPlaceAddr=[
+      (document.getElementById('hospital_name')||{}).value,
+      (document.getElementById('dp_purava')||{}).value,
+      (document.getElementById('dp_mohalla')||{}).value,
+      (document.getElementById('dp_gp_sel')||{}).value,
+      (document.getElementById('dp_blk_sel')||{}).value,
+      (document.getElementById('dp_teh_sel')||{}).value,
+      (document.getElementById('dp_dist_sel')||{}).value,
+      (document.getElementById('other_place_address')||{}).value
+    ].filter(Boolean).join(', ')||'______________';
+    var cleanRelApp=(typeof getCleanRelation==='function')?getCleanRelation():infRelation;
+    var keKiVal=(typeof getKeKi==='function')?getKeKi():'के';
+    var ppVal=(typeof getPutrPatni==='function')?getPutrPatni():'पुत्र';
+    var ids={'app_letter_district':dist,'app_letter_informant':infName,'app_letter_inf_father':fatherName,'app_letter_relation':cleanRelApp,'app_letter_deceased':decName,'app_letter_deceased2':decName,'app_letter_dec_father':fatherName,'app_letter_dec_father2':fatherName,'app_letter_address':purava,'app_letter_gp':gp,'app_letter_block':block,'app_letter_tehsil':tehsil,'app_letter_dist2':dist,'app_letter_dod':dod,'app_letter_dod2':dod,'app_letter_death_place':deathPlaceAddr,'app_letter_keki':keKiVal,'app_letter_putrpatni':ppVal,'app_letter_putrpatni2':ppVal};
+    for(var k in ids){var el=document.getElementById(k);if(el)el.textContent=ids[k];}
+    // Notary
+    var deathPlace=purava||gp||'______________';
+    var decFather=[(document.getElementById('father_fname')||{}).value,(document.getElementById('father_lname')||{}).value].filter(Boolean).join(' ')||'______________';
+    var cleanRel=(typeof getCleanRelation==='function')?getCleanRelation():infRelation;
+    var nids={'notary_informant':infName,'notary_inf_father':decFather,'notary_inf_address':purava,'notary_gp':gp,'notary_tehsil':tehsil,'notary_district':dist,'notary_district2':dist,'notary_deceased':decName,'notary_dec_father':decFather,'notary_relation':cleanRel,'notary_dod':dod,'notary_death_place':deathPlaceAddr,'notary_keki':keKiVal,'notary_putrpatni':ppVal,'notary_putrpatni2':ppVal};
+    for(var k in nids){var el=document.getElementById(k);if(el)el.textContent=nids[k];}
+  }
+  // Watch fields for auto-update
+  var lateWatchIds=['dec_fname','dec_mname','dec_lname','informant_fname','informant_mname','informant_lname','informant_relation','informant_relation_other','hdr_district','hdr_tehsil','hdr_block','hdr_gp','perm_purava','dod_dd','dod_mm','dod_yyyy','cause_detail','father_fname','father_lname','sex','dp_purava','dp_gp_sel','dp_blk_sel','dp_teh_sel','dp_dist_sel'];
+  lateWatchIds.forEach(function(id){var e=document.getElementById(id);if(e){e.addEventListener('change',updateLateRegSections);e.addEventListener('input',updateLateRegSections);}});
+  setTimeout(updateLateRegSections,500);
+}
+});
 </script>
 </body>
 </html>

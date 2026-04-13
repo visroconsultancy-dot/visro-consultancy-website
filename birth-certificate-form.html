@@ -103,6 +103,7 @@
     <span class="note-print">📋 भरें → Preview देखें → Payment करें → प्रिंट करें</span>
   </div>
 
+  <form id="birthForm" onsubmit="return false;" novalidate>
   <div class="form-body">
     <div style="background:var(--deep-blue);color:white;padding:8px 16px;font-size:13px;font-weight:700;letter-spacing:.5px;margin-bottom:2px;">भाग-1: कानूनी सूचना — सूचनादाता द्वारा भरा जाए | PART-1: LEGAL INFORMATION</div>
 
@@ -175,7 +176,7 @@
       <div class="field-group"><label>पहला नाम <span class="req">*</span><br><small>First Name</small></label><input type="text" id="informant_fname" required></div>
       <div class="field-group"><label>मध्य नाम<br><small>Middle Name</small></label><input type="text" id="informant_mname"></div>
       <div class="field-group"><label>अंतिम नाम<br><small>Last Name</small></label><input type="text" id="informant_lname"></div>
-      <div class="field-group"><label>बच्चे से संबंध <span class="req">*</span><br><small>Relation with Child</small></label><select id="informant_relation" required><option value="">— चुनें —</option><option>पिता / Father</option><option>माता / Mother</option><option>दादा / Grandfather</option><option>दादी / Grandmother</option><option>अस्पताल प्रभारी</option><option>अन्य / Other</option></select></div>
+      <div class="field-group"><label>बच्चे से संबंध <span class="req">*</span><br><small>Relation with Child</small></label><select id="informant_relation" required onchange="toggleRelationOther()"><option value="">— चुनें —</option><option>पिता / Father</option><option>माता / Mother</option><option>दादा / Grandfather</option><option>दादी / Grandmother</option><option>अस्पताल प्रभारी</option><option value="अन्य">अन्य / Other</option></select><input type="text" id="informant_relation_other" placeholder="संबंध लिखें" style="display:none;margin-top:6px;"></div>
       <div class="field-group"><label>आधार संख्या<br><small>Aadhaar No.</small></label><input type="text" id="informant_aadhaar" maxlength="12"></div>
       <div class="field-group"><label>मोबाइल नंबर<br><small>Mobile No.</small></label><input type="tel" id="informant_mobile" maxlength="10"></div>
 
@@ -307,7 +308,8 @@
     <button class="btn" style="background:var(--saffron);color:white;padding:14px 40px;font-size:16px;font-weight:700;border-radius:10px;box-shadow:0 4px 16px rgba(232,100,10,0.4);" onclick="openFormPreview()">👁 Preview देखें / View Preview</button>
   </div>
 
-  <div class="form-footer">जन्म एवं मृत्यु पंजीकरण अधिनियम, 1969 | Civil Registration System | VISRO Consultancy</div>
+  </form>
+  <div class="form-footer">जन्म एवं मृत्यु पंजीकरण अधिनियम, 1969 | Civil Registration System</div>
 </div>
 
 <div id="print-view"></div>
@@ -316,8 +318,8 @@
 <div class="preview-overlay" id="previewOverlay" onclick="if(event.target===this)closePreview()"><div class="preview-modal"><div class="preview-toolbar"><span>👁 फॉर्म Preview — जन्म पंजीकरण फॉर्म-1</span><button class="btn-close-preview" onclick="closePreview()">✖ बंद</button></div><div class="preview-content"><div class="preview-page" id="previewPageContent"></div></div></div></div>
 <div class="toast" id="toast"></div>
 
-<script src="up-locations.js"></script>
-<script src="dob-picker.js"></script>
+<script src="up-locations.js" onerror="alert('स्थान डेटा लोड नहीं हो सका। कृपया पेज रीफ्रेश करें।')"></script>
+<script src="dob-picker.js" onerror="console.warn('dob-picker.js failed to load')"></script>
 <script>
 // ===== CORE FUNCTIONS (same as death form) =====
 function hdrDistrictChange(){var d=document.getElementById('hdr_district').value;var ts=document.getElementById('hdr_tehsil');var b=document.getElementById('hdr_block');var g=document.getElementById('hdr_gp');ts.innerHTML='<option value="">— तहसील चुनें —</option>';b.innerHTML='<option value="">— ब्लॉक चुनें —</option>';g.innerHTML='<option value="">— ग्राम पंचायत चुनें —</option>';ts.disabled=true;b.disabled=true;g.disabled=true;if(!d)return;var tehsils=UP_TEHSILS[d]||[];if(tehsils.length){tehsils.forEach(function(t){ts.add(new Option(t,t));});ts.disabled=false;}}
@@ -471,6 +473,8 @@ function copyBirthPlaceToBTA(checked){
   }
   showToast('✅ जन्म के समय का पता copy हो गया!');
 }
+function toggleRelationOther(){var sel=document.getElementById('informant_relation');var otherInput=document.getElementById('informant_relation_other');if(sel.value==='अन्य'){otherInput.style.display='block';otherInput.focus();}else{otherInput.style.display='none';otherInput.value='';}}
+function getRelationValue(){var sel=document.getElementById('informant_relation');if(sel.value==='अन्य'){var other=document.getElementById('informant_relation_other').value;return other||'अन्य';}return sel.value;}
 function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(function(){t.style.display='none';},2800);}
 function closePreview(){document.getElementById('previewOverlay').classList.remove('active');document.body.style.overflow='';}
 function resetForm(){if(confirm('फॉर्म साफ करें?')){document.querySelectorAll('input:not([type="radio"]),select,textarea').forEach(function(e){if(!e.readOnly)e.value='';});document.querySelectorAll('input[type="radio"]').forEach(function(e){e.checked=false;});['bp_hospital_div','bp_home_area_div','bp_other_div'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['perm','bp'].forEach(function(p){var v=document.getElementById(p+'_village_div'),t=document.getElementById(p+'_town_div');if(v)v.style.display='none';if(t)t.style.display='none';});var today=new Date();document.getElementById('app_dd').value=today.getDate();document.getElementById('app_mm').value=today.getMonth()+1;document.getElementById('app_yyyy').value=today.getFullYear();}}
@@ -528,7 +532,7 @@ function openFormPreview(){
     +'</div>'
     +sec('5. जन्म स्थान',row('प्रकार',bpType)+row('अस्पताल',v('bp_hospital_name')))
     +sec('6. स्थायी पता',row('पता',permAddr)+row('पिन',v('perm_pin')))
-    +sec('7. सूचनादाता',row('नाम',infName)+row('संबंध',v('informant_relation'))+row('आधार',v('informant_aadhaar'))+row('मोबाइल',v('informant_mobile')))
+    +sec('7. सूचनादाता',row('नाम',infName)+row('संबंध',getRelationValue())+row('आधार',v('informant_aadhaar'))+row('मोबाइल',v('informant_mobile')))
     +'<div style="background:#fff8e1;border:1px solid #FFD600;border-radius:3px;padding:3px 8px;font-size:8px;color:#000;margin-top:4px;line-height:1.4;"><b>घोषणापत्र:</b> उपरोक्त सूचनाएँ सत्य हैं। RBD Act 1969 धारा 23 के दंड से अवगत हूँ।</div>'+signBox+'</div>';
 
   // PAGE 2: Statistical + Docs
