@@ -773,9 +773,9 @@ function openFormPreview(){
   _pvTitles=['भाग-1: कानूनी सूचना','भाग-2: सांख्यिकीय सूचना','ग्राम प्रधान बयान','आशा/ANM बयान','पंचायत सहायक बयान','ग्रामीण गवाह'];
 
   // Add late registration pages if period=30to1year
-  var _urlP=new URLSearchParams(window.location.search);
-  var _period=_urlP.get('period');
-  if(!_period&&window.location.hash){var _hp=new URLSearchParams(window.location.hash.substring(1));_period=_hp.get('period');}
+  var _period=null;
+  if(window.location.hash){var _hp=new URLSearchParams(window.location.hash.substring(1));_period=_hp.get('period');}
+  if(!_period){var _urlP=new URLSearchParams(window.location.search);_period=_urlP.get('period');}
   if(_period==='30to1year'||_period==='after1year'){
     var periodLabel=(_period==='after1year')?'घटना के 1 वर्ष के बाद':'30 दिन के बाद, किन्तु 1 वर्ष के भीतर';
     var periodSection=(_period==='after1year')?'धारा 13(3)':'धारा 13(2)';
@@ -945,10 +945,10 @@ document.querySelectorAll('input[maxlength="6"]').forEach(function(e){e.addEvent
 document.addEventListener('DOMContentLoaded',function(){var today=new Date();document.getElementById('app_dd').value=today.getDate();document.getElementById('app_mm').value=today.getMonth()+1;document.getElementById('app_yyyy').value=today.getFullYear();document.getElementById('app_date').value=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');document.getElementById('gp_statement_date').value=new Date().toISOString().split('T')[0];document.getElementById('asha_statement_date').value=new Date().toISOString().split('T')[0];document.getElementById('ps_statement_date').value=new Date().toISOString().split('T')[0];var watchIds=['hdr_gp','hdr_block','hdr_tehsil','gp_pradhan_name','asha_name','asha_designation','asha_center','asha_statement_date','ps_name','ps_designation','ps_statement_date','dod_dd','dod_mm','dod_yyyy','dec_fname','dec_mname','dec_lname','father_fname','father_lname','cause_detail','death_category','perm_purava','gp_statement_date'];watchIds.forEach(function(id){var e=document.getElementById(id);if(e){e.addEventListener('change',updateGPStatement);e.addEventListener('input',updateGPStatement);}});setTimeout(function(){var t=document.getElementById('hdr_tehsil');if(t&&t.value)hdrTehsilChange();},150);setTimeout(updateGPStatement,300);
 
 // Show late registration sections if period=30to1year
-// Support both query params (?period=30to1year) and hash (#period=30to1year)
-var urlParams=new URLSearchParams(window.location.search);
-var period=urlParams.get('period');
-if(!period&&window.location.hash){var hp=new URLSearchParams(window.location.hash.substring(1));period=hp.get('period');}
+// Hash takes priority over query params (Netlify may rewrite query params)
+var period=null;
+if(window.location.hash){var hp=new URLSearchParams(window.location.hash.substring(1));period=hp.get('period');}
+if(!period){var urlParams=new URLSearchParams(window.location.search);period=urlParams.get('period');}
 if(period==='30to1year'||period==='after1year'){
   var lrs=document.getElementById('late-reg-sections');
   if(lrs)lrs.style.display='block';
