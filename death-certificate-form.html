@@ -122,7 +122,7 @@
       <div class="field-group"><label>मध्य नाम / Middle Name</label><input type="text" id="dec_mname" placeholder="Middle Name"></div>
       <div class="field-group"><label>अंतिम नाम / Last Name</label><input type="text" id="dec_lname" placeholder="Last Name"></div>
       <div class="field-group"><label>मृतक का आधार नंबर</label><input type="text" id="dec_aadhaar" inputmode="numeric" maxlength="12" placeholder="12 अंक" oninput="this.value=this.value.replace(/\D/g,'').substring(0,12)"></div>
-      <div class="field-group"><label>मृतक की जन्मतिथि<br><small>DOB (DD/MM/YYYY)</small></label><div style="display:flex;gap:6px;align-items:center;"><input type="text" id="dob_dec_dd" inputmode="numeric" maxlength="2" placeholder="DD" style="width:58px;text-align:center;" oninput="calcAgeFromDOB()"><span style="font-weight:600;color:var(--muted)">/</span><input type="text" id="dob_dec_mm" inputmode="numeric" maxlength="2" placeholder="MM" style="width:58px;text-align:center;" oninput="calcAgeFromDOB()"><span style="font-weight:600;color:var(--muted)">/</span><input type="text" id="dob_dec_yyyy" inputmode="numeric" maxlength="4" placeholder="YYYY" style="width:88px;text-align:center;" oninput="calcAgeFromDOB()"></div></div>
+      <div class="field-group"><label>मृतक की जन्मतिथि<br><small>DOB (DD/MM/YYYY)</small></label><div style="display:flex;gap:6px;align-items:center;"><input type="text" id="dob_dec_dd" inputmode="numeric" maxlength="2" placeholder="DD" style="width:58px;text-align:center;" oninput="this.value=this.value.replace(/\D/g,'').substring(0,2);if(parseInt(this.value)>31)this.value='31';calcAgeFromDOB()"><span style="font-weight:600;color:var(--muted)">/</span><input type="text" id="dob_dec_mm" inputmode="numeric" maxlength="2" placeholder="MM" style="width:58px;text-align:center;" oninput="this.value=this.value.replace(/\D/g,'').substring(0,2);if(parseInt(this.value)>12)this.value='12';calcAgeFromDOB()"><span style="font-weight:600;color:var(--muted)">/</span><input type="text" id="dob_dec_yyyy" inputmode="numeric" maxlength="4" placeholder="YYYY" style="width:88px;text-align:center;" oninput="this.value=this.value.replace(/\D/g,'').substring(0,4);calcAgeFromDOB()"></div></div>
       <div class="field-group"><label>आयु (वर्ष) <span class="req">*</span></label><input type="text" id="age_years" inputmode="numeric" maxlength="3" placeholder="वर्ष" required oninput="this.value=this.value.replace(/\D/g,'').substring(0,3)"></div>
       <div class="field-group"><label>आयु (माह)</label><input type="text" id="age_months" inputmode="numeric" maxlength="2" placeholder="माह" oninput="this.value=this.value.replace(/\D/g,'').substring(0,2)"></div>
       <div class="field-group"><label>आयु (दिन)</label><input type="text" id="age_days" inputmode="numeric" maxlength="2" placeholder="दिन" oninput="this.value=this.value.replace(/\D/g,'').substring(0,2)"></div>
@@ -302,14 +302,14 @@
           </div>
 
           <div style="margin-bottom:12px;">
-            <div>विषय - मृत्यु पंजीकरण हेतु बिलम्बित आवेदन — 30 दिन के बाद, किन्तु 1 वर्ष के भीतर</div>
+            <div>विषय - मृत्यु पंजीकरण हेतु बिलम्बित आवेदन — <span id="app_period_text">30 दिन के बाद, किन्तु 1 वर्ष के भीतर</span></div>
           </div>
 
           <div style="margin-bottom:12px;">
             <div style="font-weight:700;">महोदय,</div>
           </div>
 
-          <p style="text-align:justify;text-indent:30px;">सविनय निवेदन है कि प्रार्थी <strong><span id="app_letter_informant">______________</span></strong> पुत्र श्री <strong><span id="app_letter_inf_father">______________</span></strong> निवासी <strong><span id="app_letter_address">______________</span></strong>, ग्राम पंचायत — <strong><span id="app_letter_gp">______________</span></strong>, ब्लॉक — <strong><span id="app_letter_block">______________</span></strong>, तहसील — <strong><span id="app_letter_tehsil">______________</span></strong>, जिला — <strong><span id="app_letter_dist2">______________</span></strong> का मूल निवासी है। प्रार्थी <span id="app_letter_keki">के</span> <strong><span id="app_letter_relation">______________</span></strong> <strong><span id="app_letter_deceased">______________</span></strong> <span id="app_letter_putrpatni">पुत्र</span> श्री <strong><span id="app_letter_dec_father">______________</span></strong> की मृत्यु दिनांक <strong><span id="app_letter_dod">______________</span></strong> को <strong><span id="app_letter_death_place">______________</span></strong> में हो गई है। पारिवारिक परिस्थितियों एवं नियमों की जानकारी के अभाव में मृत्यु का पंजीकरण निर्धारित तिथि तक 30 दिन की अवधि में नहीं कराया जा सका।</p>
+          <p style="text-align:justify;text-indent:30px;">सविनय निवेदन है कि प्रार्थी <strong><span id="app_letter_informant">______________</span></strong> पुत्र श्री <strong><span id="app_letter_inf_father">______________</span></strong> निवासी <strong><span id="app_letter_address">______________</span></strong>, ग्राम पंचायत — <strong><span id="app_letter_gp">______________</span></strong>, ब्लॉक — <strong><span id="app_letter_block">______________</span></strong>, तहसील — <strong><span id="app_letter_tehsil">______________</span></strong>, जिला — <strong><span id="app_letter_dist2">______________</span></strong> का मूल निवासी है। प्रार्थी <span id="app_letter_keki">के</span> <strong><span id="app_letter_relation">______________</span></strong> <strong><span id="app_letter_deceased">______________</span></strong> <span id="app_letter_putrpatni">पुत्र</span> श्री <strong><span id="app_letter_dec_father">______________</span></strong> की मृत्यु दिनांक <strong><span id="app_letter_dod">______________</span></strong> को <strong><span id="app_letter_death_place">______________</span></strong> में हो गई है। पारिवारिक परिस्थितियों एवं नियमों की जानकारी के अभाव में मृत्यु का पंजीकरण निर्धारित अवधि में नहीं कराया जा सका।</p>
 
           <p style="text-align:justify;text-indent:30px;margin-top:10px;">अतः आपसे सादर अनुरोध है कि <strong><span id="app_letter_deceased2">______________</span></strong> <span id="app_letter_putrpatni2">पुत्र</span> श्री <strong><span id="app_letter_dec_father2">______________</span></strong> का दिनांक <strong><span id="app_letter_dod2">______________</span></strong> का मृत्यु पंजीकरण करने हेतु कार्यवाही करने की कृपा करें।</p>
 
@@ -444,148 +444,52 @@ function toggleRelationOther(){var sel=document.getElementById('informant_relati
 function getRelationValue(){var sel=document.getElementById('informant_relation');if(sel.value==='अन्य'){var other=document.getElementById('informant_relation_other').value;return other||'अन्य';}return sel.value;}
 function toggleDeathPlace(v){document.getElementById('hospital_div').style.display=(v===1)?'block':'none';document.getElementById('home_area_div').style.display=(v===2)?'block':'none';document.getElementById('other_place_div').style.display=(v===3||v===4)?'block':'none';if(v!==2){document.getElementById('dp_village_div').style.display='none';document.getElementById('dp_town_div').style.display='none';}}
 function toggleDeathCategory(){document.getElementById('accident_div').style.display=(document.getElementById('death_category').value==='2')?'block':'none';}
+// Simple copy functions for text inputs
+function copyFields(pairs){pairs.forEach(function(p){var src=document.getElementById(p[0]),dst=document.getElementById(p[1]);if(src&&dst)dst.value=src.value;});}
+
 function copyDeathPlaceToPerm(checked){
-  if(!checked){
-    ['perm_dist_sel','perm_teh_sel','perm_blk_sel','perm_gp_sel'].forEach(function(id){var el=document.getElementById(id);if(el){el.innerHTML='<option value="">— Select —</option>';el.disabled=true;}});
-    ['perm_teh_txt','perm_gp_txt'].forEach(function(id){var el=document.getElementById(id);if(el){el.value='';el.style.display='none';}});
-    ['perm_purava','perm_house_no','perm_town_name','perm_mohalla','perm_town_house','perm_pin'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
-    document.querySelectorAll('input[name="perm_area"]').forEach(function(r){r.checked=false;});
-    document.getElementById('perm_village_div').style.display='none';
-    document.getElementById('perm_town_div').style.display='none';
-    return;
-  }
+  if(!checked){['perm_dist_sel','perm_teh_sel','perm_blk_sel','perm_gp_sel','perm_purava','perm_house_no','perm_pin','perm_town_dist','perm_town_name','perm_mohalla','perm_town_house'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});document.querySelectorAll('input[name="perm_area"]').forEach(function(r){r.checked=false;});var pv=document.getElementById('perm_village_div'),pt=document.getElementById('perm_town_div');if(pv)pv.style.display='none';if(pt)pt.style.display='none';return;}
   var dpArea=document.querySelector('input[name="dp_area"]:checked');
   if(!dpArea){alert('पहले मृत्यु स्थान का पता भरें।');document.getElementById('perm_same_as_dp').checked=false;return;}
   var atype=dpArea.value;
   var permR=document.querySelector('input[name="perm_area"][value="'+atype+'"]');
   if(permR){permR.checked=true;toggleAreaType('perm',atype);}
   if(atype==='village'){
-    var dpDist=document.getElementById('dp_dist_sel')?document.getElementById('dp_dist_sel').value:'';
-    var pDist=document.getElementById('perm_dist_sel');
-    if(pDist&&dpDist){
-      // Re-populate district options if empty
-      if(pDist.options.length<=1){pDist.innerHTML='<option value="">— जिला चुनें —</option>';UP_DISTRICTS.forEach(function(d){pDist.add(new Option(d,d));});}
-      pDist.value=dpDist;pDist.disabled=false;pDist.dispatchEvent(new Event('change'));
-      setTimeout(function(){
-        var dT=document.getElementById('dp_teh_sel')?document.getElementById('dp_teh_sel').value:'';var pT=document.getElementById('perm_teh_sel');
-        if(pT&&dT){pT.value=dT;pT.dispatchEvent(new Event('change'));}
-        setTimeout(function(){
-          var dB=document.getElementById('dp_blk_sel')?document.getElementById('dp_blk_sel').value:'';var pB=document.getElementById('perm_blk_sel');
-          if(pB&&dB){pB.value=dB;pB.dispatchEvent(new Event('change'));}
-          setTimeout(function(){
-            var dG=(document.getElementById('dp_gp_sel')?document.getElementById('dp_gp_sel').value:'')||(document.getElementById('dp_gp_txt')?document.getElementById('dp_gp_txt').value:'');
-            var pG=document.getElementById('perm_gp_sel');var pGT=document.getElementById('perm_gp_txt');
-            if(pG&&dG){pG.value=dG;if(!pG.value&&pGT){pGT.value=dG;pGT.style.display='';}}
-            var dPur=document.getElementById('dp_purava')?document.getElementById('dp_purava').value:'';
-            var dPin=document.getElementById('dp_pin')?document.getElementById('dp_pin').value:'';
-            var dHno=document.getElementById('dp_house_no')?document.getElementById('dp_house_no').value:'';
-            if(dPur)setVal('perm_purava',dPur);if(dPin)setVal('perm_pin',dPin);if(dHno)setVal('perm_house_no',dHno);
-            syncHidden('perm');
-          },400);
-        },400);
-      },400);
-    }
+    copyFields([['dp_dist_sel','perm_dist_sel'],['dp_teh_sel','perm_teh_sel'],['dp_blk_sel','perm_blk_sel'],['dp_gp_sel','perm_gp_sel'],['dp_purava','perm_purava'],['dp_house_no','perm_house_no'],['dp_pin','perm_pin']]);
   }else{
-    [['dp_town_dist','perm_town_dist'],['dp_town_name','perm_town_name'],['dp_mohalla','perm_mohalla'],['dp_tpin','perm_pin'],['dp_town_house','perm_town_house']].forEach(function(p){
-      var sv=document.getElementById(p[0])?document.getElementById(p[0]).value:'';if(sv)setVal(p[1],sv);
-    });
-    syncHidden('perm');
+    copyFields([['dp_town_dist','perm_town_dist'],['dp_town_name','perm_town_name'],['dp_mohalla','perm_mohalla'],['dp_tpin','perm_pin'],['dp_town_house','perm_town_house']]);
   }
-  showToast('✅ स्थायी पता मृत्यु स्थान से copy हो गया!');
+  syncHidden('perm');showToast('✅ स्थायी पता copy हो गया!');
 }
+
 function copyDeathPlaceToInf(checked){
-  if(!checked){
-    ['inf_dist_sel','inf_teh_sel','inf_blk_sel','inf_gp_sel'].forEach(function(id){var el=document.getElementById(id);if(el){el.innerHTML='<option value="">— Select —</option>';el.disabled=true;}});
-    ['inf_teh_txt','inf_gp_txt'].forEach(function(id){var el=document.getElementById(id);if(el){el.value='';el.style.display='none';}});
-    ['inf_purava','inf_town_name','inf_mohalla','inf_pin','inf_tpin'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
-    document.querySelectorAll('input[name="inf_area"]').forEach(function(r){r.checked=false;});
-    document.getElementById('inf_village_div').style.display='none';
-    document.getElementById('inf_town_div').style.display='none';
-    return;
-  }
+  if(!checked){['inf_dist_sel','inf_teh_sel','inf_blk_sel','inf_gp_sel','inf_purava','inf_pin','inf_town_dist','inf_town_name','inf_mohalla','inf_tpin'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});document.querySelectorAll('input[name="inf_area"]').forEach(function(r){r.checked=false;});var iv=document.getElementById('inf_village_div'),it=document.getElementById('inf_town_div');if(iv)iv.style.display='none';if(it)it.style.display='none';return;}
   var dpArea=document.querySelector('input[name="dp_area"]:checked');
   if(!dpArea){alert('पहले मृत्यु स्थान का पता भरें।');document.getElementById('inf_same_as_dp').checked=false;return;}
   var atype=dpArea.value;
   var infR=document.querySelector('input[name="inf_area"][value="'+atype+'"]');
   if(infR){infR.checked=true;toggleAreaType('inf',atype);}
   if(atype==='village'){
-    var dpDist=document.getElementById('dp_dist_sel')?document.getElementById('dp_dist_sel').value:'';
-    var iDist=document.getElementById('inf_dist_sel');
-    if(iDist&&dpDist){
-      if(iDist.options.length<=1){iDist.innerHTML='<option value="">— जिला चुनें —</option>';UP_DISTRICTS.forEach(function(d){iDist.add(new Option(d,d));});}
-      iDist.value=dpDist;iDist.disabled=false;iDist.dispatchEvent(new Event('change'));
-      setTimeout(function(){
-        var dT=document.getElementById('dp_teh_sel')?document.getElementById('dp_teh_sel').value:'';var iT=document.getElementById('inf_teh_sel');
-        if(iT&&dT){iT.value=dT;iT.dispatchEvent(new Event('change'));}
-        setTimeout(function(){
-          var dB=document.getElementById('dp_blk_sel')?document.getElementById('dp_blk_sel').value:'';var iB=document.getElementById('inf_blk_sel');
-          if(iB&&dB){iB.value=dB;iB.dispatchEvent(new Event('change'));}
-          setTimeout(function(){
-            var dG=(document.getElementById('dp_gp_sel')?document.getElementById('dp_gp_sel').value:'')||(document.getElementById('dp_gp_txt')?document.getElementById('dp_gp_txt').value:'');
-            var iG=document.getElementById('inf_gp_sel');var iGT=document.getElementById('inf_gp_txt');
-            if(iG&&dG){iG.value=dG;if(!iG.value&&iGT){iGT.value=dG;iGT.style.display='';}}
-            var dPur=document.getElementById('dp_purava')?document.getElementById('dp_purava').value:'';
-            var dPin=document.getElementById('dp_pin')?document.getElementById('dp_pin').value:'';
-            if(dPur)setVal('inf_purava',dPur);if(dPin)setVal('inf_pin',dPin);
-            syncHidden('inf');
-          },400);
-        },400);
-      },400);
-    }
+    copyFields([['dp_dist_sel','inf_dist_sel'],['dp_teh_sel','inf_teh_sel'],['dp_blk_sel','inf_blk_sel'],['dp_gp_sel','inf_gp_sel'],['dp_purava','inf_purava'],['dp_pin','inf_pin']]);
   }else{
-    [['dp_town_dist','inf_town_dist'],['dp_town_name','inf_town_name'],['dp_mohalla','inf_mohalla'],['dp_tpin','inf_pin']].forEach(function(p){
-      var sv=document.getElementById(p[0])?document.getElementById(p[0]).value:'';if(sv)setVal(p[1],sv);
-    });
-    syncHidden('inf');
+    copyFields([['dp_town_dist','inf_town_dist'],['dp_town_name','inf_town_name'],['dp_mohalla','inf_mohalla'],['dp_tpin','inf_tpin']]);
   }
-  showToast('✅ सूचनादाता का पता copy हो गया!');
+  syncHidden('inf');showToast('✅ सूचनादाता का पता copy हो गया!');
 }
+
 function copyPermToDres(checked){
-  if(!checked){
-    ['dres_dist_sel','dres_teh_sel','dres_blk_sel','dres_gp_sel'].forEach(function(id){var el=document.getElementById(id);if(el){el.innerHTML='<option value="">— Select —</option>';el.disabled=true;}});
-    ['dres_teh_txt','dres_gp_txt'].forEach(function(id){var el=document.getElementById(id);if(el){el.value='';el.style.display='none';}});
-    ['dres_purava','dres_town_name','dres_mohalla','dres_pin'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
-    document.querySelectorAll('input[name="dres_area"]').forEach(function(r){r.checked=false;});
-    document.getElementById('dres_village_div').style.display='none';
-    document.getElementById('dres_town_div').style.display='none';
-    return;
-  }
+  if(!checked){['dres_dist_sel','dres_teh_sel','dres_blk_sel','dres_gp_sel','dres_purava','dres_pin','dres_town_dist','dres_town_name','dres_mohalla','dres_tpin'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});document.querySelectorAll('input[name="dres_area"]').forEach(function(r){r.checked=false;});var dv=document.getElementById('dres_village_div'),dt=document.getElementById('dres_town_div');if(dv)dv.style.display='none';if(dt)dt.style.display='none';return;}
   var permArea=document.querySelector('input[name="perm_area"]:checked');
   if(!permArea){alert('पहले स्थायी पता भरें।');document.getElementById('dres_same_as_perm').checked=false;return;}
   var atype=permArea.value;
   var dresR=document.querySelector('input[name="dres_area"][value="'+atype+'"]');
   if(dresR){dresR.checked=true;toggleAreaType('dres',atype);}
   if(atype==='village'){
-    var permDist=document.getElementById('perm_dist_sel')?document.getElementById('perm_dist_sel').value:'';
-    var dresDist=document.getElementById('dres_dist_sel');
-    if(dresDist&&permDist){
-      if(dresDist.options.length<=1){dresDist.innerHTML='<option value="">— जिला चुनें —</option>';UP_DISTRICTS.forEach(function(d){dresDist.add(new Option(d,d));});}
-      dresDist.value=permDist;dresDist.disabled=false;dresDist.dispatchEvent(new Event('change'));
-      setTimeout(function(){
-        var pT=document.getElementById('perm_teh_sel')?document.getElementById('perm_teh_sel').value:'';var dT=document.getElementById('dres_teh_sel');
-        if(dT&&pT){dT.value=pT;dT.dispatchEvent(new Event('change'));}
-        setTimeout(function(){
-          var pB=document.getElementById('perm_blk_sel')?document.getElementById('perm_blk_sel').value:'';var dB=document.getElementById('dres_blk_sel');
-          if(dB&&pB){dB.value=pB;dB.dispatchEvent(new Event('change'));}
-          setTimeout(function(){
-            var pGP=(document.getElementById('perm_gp_sel')?document.getElementById('perm_gp_sel').value:'')||(document.getElementById('perm_gp_txt')?document.getElementById('perm_gp_txt').value:'');
-            var dGP=document.getElementById('dres_gp_sel');var dGPT=document.getElementById('dres_gp_txt');
-            if(dGP&&pGP){dGP.value=pGP;if(!dGP.value&&dGPT){dGPT.value=pGP;dGPT.style.display='';}}
-            var bp=document.getElementById('perm_purava')?document.getElementById('perm_purava').value:'';
-            var bpin=document.getElementById('perm_pin')?document.getElementById('perm_pin').value:'';
-            if(bp)setVal('dres_purava',bp);if(bpin)setVal('dres_pin',bpin);
-            syncHidden('dres');
-          },400);
-        },400);
-      },400);
-    }
+    copyFields([['perm_dist_sel','dres_dist_sel'],['perm_teh_sel','dres_teh_sel'],['perm_blk_sel','dres_blk_sel'],['perm_gp_sel','dres_gp_sel'],['perm_purava','dres_purava'],['perm_pin','dres_pin']]);
   }else{
-    [['perm_town_dist','dres_town_dist'],['perm_town_name','dres_town_name'],['perm_mohalla','dres_mohalla'],['perm_pin','dres_pin']].forEach(function(p){
-      var sv=document.getElementById(p[0])?document.getElementById(p[0]).value:'';if(sv)setVal(p[1],sv);
-    });
-    syncHidden('dres');
+    copyFields([['perm_town_dist','dres_town_dist'],['perm_town_name','dres_town_name'],['perm_mohalla','dres_mohalla'],['perm_pin','dres_pin']]);
   }
-  showToast('✅ मृतक का निवास copy हो गया!');
+  syncHidden('dres');showToast('✅ मृतक का निवास copy हो गया!');
 }
 function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(function(){t.style.display='none';},2800);}
 // ===== 6-PAGE PREVIEW =====
@@ -619,12 +523,13 @@ function openFormPreview(){
   var fatherName=[v('father_fname'),v('father_mname'),v('father_lname')].filter(Boolean).join(' ');
   var motherName=[v('mother_fname'),v('mother_mname'),v('mother_lname')].filter(Boolean).join(' ');
   var infName=[v('informant_fname'),v('informant_mname'),v('informant_lname')].filter(Boolean).join(' ');
-  var permAddr=[v('perm_purava'),v('perm_town'),v('perm_subdistrict'),v('perm_district')].filter(Boolean).join(', ');
-  var infAddr=[v('inf_purava')||v('inf_town_name'),v('inf_town'),v('inf_district')].filter(Boolean).join(', ');
-  var dresAddr=[v('dres_purava')||v('dres_mohalla'),v('dres_town'),v('dres_subdistrict'),v('dres_district')].filter(Boolean).join(', ');
+  function fmtAddr(prefix){var parts=[];var pur=v(prefix+'_purava')||v(prefix+'_mohalla');if(pur)parts.push('पुरवा- '+pur);var gp=v(prefix+'_gp_sel');if(gp)parts.push('ग्राम पंचायत- '+gp);var blk=v(prefix+'_blk_sel');if(blk)parts.push('ब्लॉक- '+blk);var dist=v(prefix+'_dist_sel')||v(prefix+'_town_dist');if(dist)parts.push('जनपद- '+dist);var tn=v(prefix+'_town_name');if(tn)parts.push(tn);if(parts.length)parts.push('उत्तर प्रदेश');return parts.join(', ');}
+  var permAddr=fmtAddr('perm');
+  var infAddr=fmtAddr('inf');
+  var dresAddr=fmtAddr('dres');
   var hdrGP=v('hdr_gp'),hdrBlk=v('hdr_block'),hdrTeh=v('hdr_tehsil'),hdrDist=v('hdr_district');
   var dpType=radio('death_place_type');
-  var dpAddr=v('hospital_name')||v('other_place_address')||[v('dp_purava')||v('dp_mohalla'),v('dp_town'),v('dp_subdistrict'),v('dp_district')].filter(Boolean).join(', ');
+  var dpAddr=v('hospital_name')||v('other_place_address')||(function(){var parts=[];var pur=v('dp_purava')||v('dp_mohalla');if(pur)parts.push('पुरवा- '+pur);var gp=v('dp_gp_sel');if(gp)parts.push('ग्राम पंचायत- '+gp);var blk=v('dp_blk_sel');if(blk)parts.push('ब्लॉक- '+blk);var dist=v('dp_dist_sel')||v('dp_town_dist');if(dist)parts.push('जनपद- '+dist);if(v('dp_town_name'))parts.push(v('dp_town_name'));if(parts.length)parts.push('उत्तर प्रदेश');return parts.join(', ');})();
   var hdr='<div style="background:#003366;color:white;padding:6px 10px;text-align:center;"><div style="font-size:14px;font-weight:800;">मृत्यु पंजीकरण — फॉर्म 2</div><div style="font-size:9px;opacity:.9;">Death Registration Form | RBD Act 1969</div></div>'
     +'<div style="height:3px;background:linear-gradient(to right,#FF9933 33%,#fff 33%,#fff 66%,#138808 66%);"></div>'
     +'<div style="background:#E8F0F8;padding:4px 10px;display:flex;flex-wrap:wrap;gap:2px 12px;font-size:10px;color:#000;font-weight:600;border-bottom:2px solid #FF6B00;">'
@@ -871,7 +776,9 @@ function openFormPreview(){
   var _urlP=new URLSearchParams(window.location.search);
   var _period=_urlP.get('period');
   if(!_period&&window.location.hash){var _hp=new URLSearchParams(window.location.hash.substring(1));_period=_hp.get('period');}
-  if(_period==='30to1year'){
+  if(_period==='30to1year'||_period==='after1year'){
+    var periodLabel=(_period==='after1year')?'घटना के 1 वर्ष के बाद':'30 दिन के बाद, किन्तु 1 वर्ष के भीतर';
+    var periodSection=(_period==='after1year')?'धारा 13(3)':'धारा 13(2)';
     // PAGE: Application Letter (DPRO format)
     var relVal=getCleanRelation()||'___________';
     var keKi=getKeKi();
@@ -881,9 +788,9 @@ function openFormPreview(){
       +'<div style="height:5px;background:linear-gradient(to right,#FF9933 33%,#fff 33%,#fff 66%,#138808 66%);margin-bottom:16px;"></div>'
       +'<div style="padding:0 16px;font-size:14px;line-height:2.2;color:#000;">'
       +'<div style="margin-bottom:12px;">सेवा में,<br><div style="padding-left:16px;font-weight:700;">जिला पंचायत राज अधिकारी</div><div style="padding-left:16px;">जनपद — <b>'+hdrDist+'</b></div></div>'
-      +'<p>विषय - मृत्यु पंजीकरण हेतु बिलम्बित आवेदन — 30 दिन के बाद, किन्तु 1 वर्ष के भीतर</p>'
+      +'<p>विषय - मृत्यु पंजीकरण हेतु बिलम्बित आवेदन — '+periodLabel+'</p>'
       +'<p style="margin-top:10px;"><b>महोदय,</b></p>'
-      +'<p style="text-align:justify;text-indent:30px;">सविनय निवेदन है कि प्रार्थी <b>'+infName+'</b> पुत्र श्री <b>'+fatherName+'</b> निवासी <b>'+permLocality+'</b>, ग्राम पंचायत — <b>'+hdrGP+'</b>, ब्लॉक — <b>'+hdrBlk+'</b>, तहसील — <b>'+hdrTeh+'</b>, जिला — <b>'+hdrDist+'</b> का मूल निवासी है। प्रार्थी '+keKi+' <b>'+relVal+'</b> <b>'+decName+'</b> '+putrPatni+' श्री <b>'+fatherName+'</b> की मृत्यु दिनांक <b>'+dodStr+'</b> को <b>'+dpAddr+'</b> में हो गई है। पारिवारिक परिस्थितियों एवं नियमों की जानकारी के अभाव में मृत्यु का पंजीकरण निर्धारित तिथि तक 30 दिन की अवधि में नहीं कराया जा सका।</p>'
+      +'<p style="text-align:justify;text-indent:30px;">सविनय निवेदन है कि प्रार्थी <b>'+infName+'</b> पुत्र श्री <b>'+fatherName+'</b> निवासी <b>'+permLocality+'</b>, ग्राम पंचायत — <b>'+hdrGP+'</b>, ब्लॉक — <b>'+hdrBlk+'</b>, तहसील — <b>'+hdrTeh+'</b>, जिला — <b>'+hdrDist+'</b> का मूल निवासी है। प्रार्थी '+keKi+' <b>'+relVal+'</b> <b>'+decName+'</b> '+putrPatni+' श्री <b>'+fatherName+'</b> की मृत्यु दिनांक <b>'+dodStr+'</b> को <b>'+dpAddr+'</b> में हो गई है। पारिवारिक परिस्थितियों एवं नियमों की जानकारी के अभाव में मृत्यु का पंजीकरण निर्धारित अवधि में नहीं कराया जा सका।</p>'
       +'<p style="text-align:justify;text-indent:30px;margin-top:8px;">अतः आपसे सादर अनुरोध है कि <b>'+decName+'</b> '+putrPatni+' श्री <b>'+fatherName+'</b> का दिनांक <b>'+dodStr+'</b> का मृत्यु पंजीकरण करने हेतु कार्यवाही करने की कृपा करें।</p>'
       +'<div style="margin-top:16px;"><div style="margin-bottom:6px;">संलग्नक :</div>'
       +'<div style="padding-left:10px;">01- मृत्यु पंजीकरण फार्म 2</div>'
@@ -1042,9 +949,15 @@ document.addEventListener('DOMContentLoaded',function(){var today=new Date();doc
 var urlParams=new URLSearchParams(window.location.search);
 var period=urlParams.get('period');
 if(!period&&window.location.hash){var hp=new URLSearchParams(window.location.hash.substring(1));period=hp.get('period');}
-if(period==='30to1year'){
+if(period==='30to1year'||period==='after1year'){
   var lrs=document.getElementById('late-reg-sections');
   if(lrs)lrs.style.display='block';
+  // Set period-specific text
+  var periodTextEl=document.getElementById('app_period_text');
+  if(periodTextEl){
+    if(period==='after1year')periodTextEl.textContent='घटना के 1 वर्ष के बाद';
+    else periodTextEl.textContent='30 दिन के बाद, किन्तु 1 वर्ष के भीतर';
+  }
   // Auto-update application letter & notary from form fields
   function updateLateRegSections(){
     var decName=[(document.getElementById('dec_fname')||{}).value,(document.getElementById('dec_mname')||{}).value,(document.getElementById('dec_lname')||{}).value].filter(Boolean).join(' ')||'______________';
@@ -1065,16 +978,7 @@ if(period==='30to1year'){
     var appDate=new Date();
     var appDateStr=appDate.getDate()+'/'+(appDate.getMonth()+1)+'/'+appDate.getFullYear();
     // Application letter
-    var deathPlaceAddr=[
-      (document.getElementById('hospital_name')||{}).value,
-      (document.getElementById('dp_purava')||{}).value,
-      (document.getElementById('dp_mohalla')||{}).value,
-      (document.getElementById('dp_gp_sel')||{}).value,
-      (document.getElementById('dp_blk_sel')||{}).value,
-      (document.getElementById('dp_teh_sel')||{}).value,
-      (document.getElementById('dp_dist_sel')||{}).value,
-      (document.getElementById('other_place_address')||{}).value
-    ].filter(Boolean).join(', ')||'______________';
+    var deathPlaceAddr=(function(){var h=(document.getElementById('hospital_name')||{}).value;if(h)return h;var o=(document.getElementById('other_place_address')||{}).value;if(o)return o;var parts=[];var pur=(document.getElementById('dp_purava')||{}).value||(document.getElementById('dp_mohalla')||{}).value;if(pur)parts.push('पुरवा- '+pur);var gp=(document.getElementById('dp_gp_sel')||{}).value;if(gp)parts.push('ग्राम पंचायत- '+gp);var blk=(document.getElementById('dp_blk_sel')||{}).value;if(blk)parts.push('ब्लॉक- '+blk);var dist=(document.getElementById('dp_dist_sel')||{}).value;if(dist)parts.push('जनपद- '+dist);if(parts.length)parts.push('उत्तर प्रदेश');return parts.join(', ')||'______________';})();
     var cleanRelApp=(typeof getCleanRelation==='function')?getCleanRelation():infRelation;
     var keKiVal=(typeof getKeKi==='function')?getKeKi():'के';
     var ppVal=(typeof getPutrPatni==='function')?getPutrPatni():'पुत्र';
