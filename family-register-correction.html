@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6449VN1F1D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6449VN1F1D');
+</script>
 <title>Family Register Correction / परिवार रजिस्टर सुधार | VISRO Consultancy</title>
 <meta name="description" content="परिवार रजिस्टर सुधार आवेदन फॉर्म। VISRO Consultancy, Prayagraj">
 <meta name="robots" content="index, follow">
@@ -130,7 +138,8 @@
     <div class="preview-box" id="previewBox">
       <div id="previewContent"></div>
       <div class="print-btns">
-        <button onclick="printApplication()" style="background:var(--navy);color:white;">🖨️ Print करें</button>
+        <button id="btnPrint" onclick="printApplication()" style="background:var(--navy);color:white;">🖨️ Print करें</button>
+        <button id="btnShare" onclick="printApplication()" style="background:#22c55e;color:white;display:none;">📤 PDF बनाएं और शेयर करें</button>
         <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20maine%20Family%20Register%20Correction%20form%20bhar%20diya%20hai.%20Please%20help." style="background:var(--green);color:white;">💬 WhatsApp Help</a>
         <button onclick="document.getElementById('previewBox').style.display='none'" style="background:#e74c3c;color:white;">✖ बंद करें</button>
       </div>
@@ -457,20 +466,71 @@ function generatePreview() {
   document.getElementById('previewBox').scrollIntoView({ behavior: 'smooth' });
 }
 
+function isMobile(){
+  return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent) || window.innerWidth < 768;
+}
+
+function showToast(msg){
+  var t = document.getElementById('toast');
+  if(!t){ t=document.createElement('div'); t.id='toast'; t.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:12px 24px;border-radius:8px;font-size:14px;z-index:9999;display:none;'; document.body.appendChild(t); }
+  t.textContent=msg; t.style.display='block';
+  setTimeout(function(){ t.style.display='none'; }, 3000);
+}
+
+function downloadPDF(blob, fileName){
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = fileName;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+  showToast('✅ PDF डाउनलोड हो गया — WhatsApp से शेयर करें');
+}
+
 function printApplication() {
   var content = document.getElementById('previewContent').innerHTML;
-  var w = window.open('', '_blank', 'width=800,height=600');
-  w.document.write('<!DOCTYPE html><html><head><title> </title><style>'
-    + '@page{size:A4 portrait;margin:20mm;}'
-    + 'body{font-family:Arial,sans-serif;font-size:13px;line-height:2;color:#000;margin:0;padding:0;}'
-    + 'table{width:100%;border-collapse:collapse;}'
-    + 'th{background:#003366;color:white;padding:5px 8px;font-size:11px;text-align:left;-webkit-print-color-adjust:exact;print-color-adjust:exact;}'
-    + 'td{padding:5px 8px;border:1px solid #ccc;font-size:12px;}'
-    + '</style></head><body>' + content + '</body></html>');
-  w.document.close();
-  setTimeout(function () { w.print(); }, 500);
+
+  if(isMobile() && typeof html2pdf !== 'undefined'){
+    showToast('📄 PDF बन रहा है...');
+    var container = document.createElement('div');
+    container.innerHTML = content;
+    container.style.cssText = 'padding:20px;font-family:Arial,sans-serif;font-size:13px;line-height:2;color:#000;';
+    document.body.appendChild(container);
+    var fileName = 'Family_Register_Correction.pdf';
+    html2pdf().set({
+      margin: [10, 12, 10, 12],
+      filename: fileName,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(container).outputPdf('blob').then(function(pdfBlob){
+      document.body.removeChild(container);
+      var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+      if(navigator.canShare && navigator.canShare({ files: [pdfFile] })){
+        navigator.share({ title: 'Family Register - Correction', files: [pdfFile] }).then(function(){
+          showToast('✅ शेयर हो गया');
+        }).catch(function(err){ if(err.name !== 'AbortError') downloadPDF(pdfBlob, fileName); });
+      } else { downloadPDF(pdfBlob, fileName); }
+    }).catch(function(){ document.body.removeChild(container); showToast('⚠️ PDF नहीं बन सका'); });
+  } else {
+    var w = window.open('', '_blank', 'width=800,height=600');
+    w.document.write('<!DOCTYPE html><html><head><title> </title><style>'
+      + '@page{size:A4 portrait;margin:20mm;}'
+      + 'body{font-family:Arial,sans-serif;font-size:13px;line-height:2;color:#000;margin:0;padding:0;}'
+      + 'table{width:100%;border-collapse:collapse;}'
+      + 'th{background:#003366;color:white;padding:5px 8px;font-size:11px;text-align:left;-webkit-print-color-adjust:exact;print-color-adjust:exact;}'
+      + 'td{padding:5px 8px;border:1px solid #ccc;font-size:12px;}'
+      + '</style></head><body>' + content + '</body></html>');
+    w.document.close();
+    setTimeout(function () { w.print(); }, 500);
+  }
+}
+
+if(isMobile()){
+  document.getElementById('btnPrint').style.display='none';
+  document.getElementById('btnShare').style.display='';
 }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 </body>
 </html>

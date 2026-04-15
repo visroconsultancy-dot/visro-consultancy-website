@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6449VN1F1D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6449VN1F1D');
+</script>
 <title>जन्म प्रमाण पत्र फॉर्म | Birth Certificate | VISRO Consultancy</title>
 <meta name="description" content="जन्म प्रमाण पत्र पंजीकरण फॉर्म-1। VISRO Consultancy, Prayagraj">
 <meta name="robots" content="index, follow">
@@ -72,12 +80,12 @@
 </style>
 </head>
 <body>
-<div style="max-width:860px;margin:0 auto;padding:10px 24px 0;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:#FF6B00;color:white;border-radius:8px;text-decoration:none;font-family:inherit;font-size:13px;font-weight:700;">← Back to Home</a></div>
+<div style="max-width:860px;margin:0 auto;padding:10px 24px 0;"><button type="button" onclick="window.history.back()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:#FF6B00;color:white;border:none;border-radius:8px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;">← Back</button></div>
 <div class="page-wrapper">
 
   <div class="form-header">
     <div class="header-top">
-      <div class="header-logo">भारत सरकार<br>🇮🇳</div>
+      <div class="header-logo" style="visibility:hidden;"></div>
       <div class="header-title">
         <div class="gov-name">Civil Registration System (CRS)</div>
         <h1>जन्म पंजीकरण — फॉर्म 1</h1>
@@ -119,6 +127,7 @@
       <div class="field-group"><label>पहला नाम / First Name</label><input type="text" id="child_fname" placeholder="First Name"></div>
       <div class="field-group"><label>मध्य नाम / Middle Name</label><input type="text" id="child_mname" placeholder="Middle Name"></div>
       <div class="field-group"><label>अंतिम नाम / Last Name</label><input type="text" id="child_lname" placeholder="Last Name"></div>
+      <div class="field-group"><label>बच्चे का आधार नंबर<br><small>Child's Aadhaar No. (if available)</small></label><input type="text" id="child_aadhaar" maxlength="12" placeholder="12 अंक" oninput="this.value=this.value.replace(/\D/g,'')"></div>
     </div></div></div>
 
     <!-- 3. Father Details -->
@@ -172,13 +181,24 @@
     </div></div>
 
     <!-- 7. Informant -->
-    <div class="section"><div class="section-title"><span class="num">9</span> सूचनादाता का विवरण (Informant's Details)</div><div class="section-content"><div class="fields">
+    <div class="section"><div class="section-title"><span class="num">9</span> सूचनादाता का विवरण (Informant's Details)</div><div class="section-content">
+      <!-- Informant Type Toggle -->
+      <div style="background:#FFF3E0;border:1px solid #FFB74D;border-radius:8px;padding:10px 14px;margin-bottom:12px;">
+        <label style="font-size:13px;font-weight:700;color:#E65100;display:block;margin-bottom:8px;">सूचनादाता कौन है? <span class="req">*</span></label>
+        <div class="radio-group" style="display:flex;gap:16px;flex-wrap:wrap;">
+          <label style="display:flex;align-items:center;gap:6px;padding:8px 16px;background:white;border:2px solid #FFB74D;border-radius:6px;cursor:pointer;font-weight:600;"><input type="radio" name="informant_type" value="person" onchange="toggleInformantType('person')" checked style="accent-color:#E65100;width:16px;height:16px;"> 👤 व्यक्ति / Person</label>
+          <label style="display:flex;align-items:center;gap:6px;padding:8px 16px;background:white;border:2px solid #FFB74D;border-radius:6px;cursor:pointer;font-weight:600;"><input type="radio" name="informant_type" value="hospital" onchange="toggleInformantType('hospital')" style="accent-color:#E65100;width:16px;height:16px;"> 🏥 अस्पताल / Hospital</label>
+        </div>
+      </div>
+
+      <!-- Person Informant Fields (default) -->
+      <div id="informant_person_div"><div class="fields">
       <div class="field-group"><label>पहला नाम <span class="req">*</span><br><small>First Name</small></label><input type="text" id="informant_fname" required></div>
       <div class="field-group"><label>मध्य नाम<br><small>Middle Name</small></label><input type="text" id="informant_mname"></div>
-      <div class="field-group"><label>अंतिम नाम<br><small>Last Name</small></label><input type="text" id="informant_lname"></div>
-      <div class="field-group"><label>बच्चे से संबंध <span class="req">*</span><br><small>Relation with Child</small></label><select id="informant_relation" required onchange="toggleRelationOther()"><option value="">— चुनें —</option><option>पिता / Father</option><option>माता / Mother</option><option>दादा / Grandfather</option><option>दादी / Grandmother</option><option>अस्पताल प्रभारी</option><option value="अन्य">अन्य / Other</option></select><input type="text" id="informant_relation_other" placeholder="संबंध लिखें" style="display:none;margin-top:6px;"></div>
-      <div class="field-group"><label>आधार संख्या<br><small>Aadhaar No.</small></label><input type="text" id="informant_aadhaar" maxlength="12"></div>
-      <div class="field-group"><label>मोबाइल नंबर<br><small>Mobile No.</small></label><input type="tel" id="informant_mobile" maxlength="10"></div>
+      <div class="field-group field-full"><label>सूचनादाता के पिता / पति का नाम <span class="req">*</span></label><div style="display:flex;gap:8px;align-items:center;"><select id="informant_parent_rel" required style="width:80px;padding:10px 4px;font-size:13px;border:1px solid var(--border);border-radius:6px;"><option value="पुत्र">S/o</option><option value="पुत्री">D/o</option><option value="पत्नी">W/o</option></select><input type="text" id="informant_father_name" required placeholder="पिता / पति का नाम लिखें" style="flex:1;"></div></div>
+      <div class="field-group"><label>बच्चे से संबंध <span class="req">*</span><br><small>Relation with Child</small></label><select id="informant_relation" required onchange="toggleRelationOther()"><option value="">— चुनें —</option><option value="पिता">पिता / Father</option><option value="माता">माता / Mother</option><option value="दादा">दादा / Grandfather</option><option value="दादी">दादी / Grandmother</option><option value="अस्पताल प्रभारी">अस्पताल प्रभारी</option><option value="अन्य">अन्य / Other</option></select><input type="text" id="informant_relation_other" placeholder="संबंध लिखें" style="display:none;margin-top:6px;"></div>
+      <div class="field-group"><label>आधार संख्या <span class="req">*</span><br><small>Aadhaar No.</small></label><input type="text" id="informant_aadhaar" inputmode="numeric" maxlength="12" placeholder="12 अंक" oninput="this.value=this.value.replace(/\D/g,'').substring(0,12)" required></div>
+      <div class="field-group"><label>मोबाइल नंबर <span class="req">*</span><br><small>Mobile No.</small></label><input type="tel" id="informant_mobile" maxlength="10" required></div>
 
       <!-- Informant Address -->
       <div class="field-group field-full" style="margin-top:8px;"><div style="background:#E8F0F8;border:1px solid var(--border);border-radius:4px;padding:10px 14px;display:flex;align-items:center;gap:10px;"><input type="checkbox" id="inf_same_as_perm" onchange="copyPermToInf(this.checked)" style="width:18px;height:18px;cursor:pointer;accent-color:var(--deep-blue);"><label for="inf_same_as_perm" style="cursor:pointer;font-size:13px;font-weight:600;color:var(--deep-blue);margin:0;">✅ सूचनादाता का पता, स्थायी पते के समान है<small style="font-weight:400;color:var(--muted);display:block;">Tick to auto-fill from permanent address</small></label></div></div>
@@ -187,7 +207,19 @@
       <div id="inf_village_div" class="field-full" style="display:none;"><div class="fields" style="margin-top:6px;"><div class="field-group"><label>जिला <span class="req">*</span></label><select id="inf_dist_sel" style="width:100%;"><option value="">— जिला —</option></select></div><div class="field-group"><label>तहसील</label><select id="inf_teh_sel" disabled style="width:100%;"><option value="">— तहसील —</option></select><input type="text" id="inf_teh_txt" style="display:none;margin-top:4px;"></div><div class="field-group"><label>ब्लॉक</label><select id="inf_blk_sel" disabled style="width:100%;"><option value="">— ब्लॉक —</option></select></div><div class="field-group"><label>ग्राम पंचायत</label><select id="inf_gp_sel" disabled style="width:100%;"><option value="">— ग्राम पंचायत —</option></select><input type="text" id="inf_gp_txt" style="display:none;margin-top:4px;"></div><div class="field-group"><label>पुरवा / मोहल्ला</label><input type="text" id="inf_purava"></div><div class="field-group"><label>पिन कोड</label><input type="text" id="inf_pin" maxlength="6"></div></div></div>
       <div id="inf_town_div" class="field-full" style="display:none;"><div class="fields" style="margin-top:6px;"><div class="field-group"><label>जिला</label><select id="inf_town_dist" style="width:100%;"><option value="">— जिला —</option></select></div><div class="field-group"><label>शहर</label><input type="text" id="inf_town_name"></div><div class="field-group"><label>मोहल्ला</label><input type="text" id="inf_mohalla"></div><div class="field-group"><label>पिन कोड</label><input type="text" id="inf_tpin" maxlength="6"></div></div></div>
       <input type="hidden" id="inf_district"><input type="hidden" id="inf_subdistrict"><input type="hidden" id="inf_town"><input type="hidden" id="inf_locality"><input type="hidden" id="inf_block_val">
-    </div></div></div>
+    </div></div>
+
+      <!-- Hospital Informant Fields (hidden by default) -->
+      <div id="informant_hospital_div" style="display:none;"><div class="fields">
+        <div class="field-group field-full"><label>अस्पताल का नाम <span class="req">*</span><br><small>Hospital Name</small></label><input type="text" id="inf_hosp_name" placeholder="अस्पताल का पूरा नाम"></div>
+        <div class="field-group"><label>अस्पताल का रजिस्ट्रेशन नंबर <span class="req">*</span><br><small>Hospital Registration No.</small></label><input type="text" id="inf_hosp_reg" placeholder="रजिस्ट्रेशन नंबर"></div>
+        <div class="field-group"><label>जन्म का पंजीकरण नंबर <span class="req">*</span><br><small>Birth Reg. No. in Hospital Register</small></label><input type="text" id="inf_hosp_birth_reg" placeholder="अस्पताल रजिस्टर मे जन्म पंजीकरण नं."></div>
+        <div class="field-group field-full"><label>अस्पताल का पूरा पता <span class="req">*</span><br><small>Hospital Full Address</small></label><input type="text" id="inf_hosp_address" placeholder="अस्पताल का पूरा पता लिखें"></div>
+        <div class="field-group"><label>प्रभारी का नाम <span class="req">*</span><br><small>In-charge Name</small></label><input type="text" id="inf_hosp_incharge" placeholder="प्रभारी / अधीक्षक का नाम"></div>
+        <div class="field-group"><label>प्रभारी का मोबाइल नंबर <span class="req">*</span><br><small>In-charge Mobile No.</small></label><input type="tel" id="inf_hosp_mobile" maxlength="10" placeholder="10 अंक" oninput="this.value=this.value.replace(/\D/g,'').substring(0,10)"></div>
+      </div></div>
+
+    </div></div>
 
     <!-- Declaration Part-1 -->
     <div class="declaration"><strong>घोषणापत्र / Declaration:</strong><br>मैं एतद्द्वारा घोषणा करता/करती हूँ कि इस फॉर्म में दी गई समस्त सूचनाएँ सत्य हैं। RBD Act 1969 की धारा 23 के दंड से अवगत हूँ।<br><em>I declare the information is true. I am aware of penalties under Section 23 of RBD Act 1969.</em></div>
@@ -258,6 +290,8 @@
   <tr style="background:#f9fbe7;"><td style="padding:5px 8px;border:1px solid #c8e6c9;text-align:center;">6</td><td style="padding:5px 8px;border:1px solid #c8e6c9;">पंचायत सहायक बयान</td><td style="border:1px solid #c8e6c9;text-align:center;font-size:16px;">☐</td><td style="border:1px solid #c8e6c9;text-align:center;font-size:16px;">☐</td></tr>
   </table></div></div>
 
+  <!-- HOME BIRTH STATEMENTS — hidden when hospital selected -->
+  <div id="home-birth-statements">
   <!-- GP Statement -->
   <div style="background:var(--saffron);color:white;padding:8px 16px;font-size:13px;font-weight:700;">ग्राम प्रधान का बयान — Gram Pradhan's Statement</div>
   <div class="section" style="margin:0;border-radius:0;"><div class="section-title" style="background:#1B5E20;"><span class="num" style="background:var(--saffron);">GP</span> ग्राम प्रधान प्रमाण-पत्र<span style="margin-left:auto;font-size:11px;opacity:.8;">Auto-filled</span></div><div class="section-content" style="background:#f1f8e9;">
@@ -301,6 +335,194 @@
     <div style="background:white;border:1px solid #ddd;border-radius:6px;padding:14px 16px;"><div style="font-size:12px;font-weight:700;color:#37474F;margin-bottom:10px;border-bottom:1px solid #eee;padding-bottom:6px;">गवाह 5</div><div class="fields" style="grid-template-columns:repeat(5,1fr);gap:10px;"><div class="field-group"><label>नाम <span class="req">*</span></label><input type="text" id="w5_name"></div><div class="field-group"><label>पिता का नाम</label><input type="text" id="w5_father"></div><div class="field-group"><label>जाति</label><input type="text" id="w5_caste"></div><div class="field-group"><label>पुरवा / मजरा</label><input type="text" id="w5_purava"></div><div class="field-group"><label>मोबाइल</label><input type="tel" id="w5_mobile" maxlength="10"></div></div></div>
   </div></div>
 
+  </div><!-- end home-birth-statements -->
+
+  <!-- HOSPITAL BIRTH CERTIFICATE — shown when hospital selected -->
+  <div id="hospital-birth-certificate" style="display:none;">
+  <div style="background:#0277BD;color:white;padding:8px 16px;font-size:13px;font-weight:700;">🏥 अस्पताल का प्रमाण पत्र — Hospital Birth Certificate</div>
+  <div class="section" style="margin:0;border-radius:0;"><div class="section-title" style="background:#01579B;"><span class="num" style="background:var(--saffron);">H</span> अस्पताल जन्म प्रमाण पत्र विवरण</div><div class="section-content" style="background:#E1F5FE;">
+    <div id="hosp_cert_preview" style="background:white;border:2px solid #0277BD;border-radius:8px;padding:20px 24px;margin-bottom:18px;font-size:14px;line-height:2.2;">
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="font-size:16px;font-weight:700;color:#01579B;">अस्पताल जन्म प्रमाण पत्र</div>
+        <div style="font-size:12px;color:var(--muted);">Hospital Birth Certificate</div>
+        <div style="border-bottom:2px solid #0277BD;margin:10px 0;"></div>
+      </div>
+      <p style="text-align:justify;">एतद्द्वारा प्रमाणित किया जाता है कि श्रीमती <strong><span id="hosp_mother_display">______________</span></strong>, पत्नी श्री <strong><span id="hosp_father_display">______________</span></strong>, निवासी <strong><span id="hosp_address_display">______________</span></strong> ने दिनांक <strong><span id="hosp_dob_display">______________</span></strong> को इस अस्पताल में एक <strong><span id="hosp_gender_display">शिशु</span></strong> को जन्म दिया है। शिशु का नाम <strong><span id="hosp_child_display">______________</span></strong> रखा गया है।</p>
+      <p style="margin-top:8px;">जन्म के समय शिशु का वजन: <strong><span id="hosp_weight_display">______________</span></strong> किलोग्राम</p>
+    </div>
+    <div class="fields" style="margin-bottom:14px;">
+      <div class="field-group field-full"><label>अस्पताल / नर्सिंग होम का नाम <span class="req">*</span></label><input type="text" id="hosp_cert_name" placeholder="अस्पताल का पूरा नाम"></div>
+      <div class="field-group"><label>अस्पताल का पता</label><input type="text" id="hosp_cert_address" placeholder="अस्पताल का पता"></div>
+      <div class="field-group"><label>अस्पताल रजिस्ट्रेशन नं.</label><input type="text" id="hosp_cert_reg" placeholder="रजिस्ट्रेशन नंबर"></div>
+      <div class="field-group"><label>डॉक्टर / दाई का नाम <span class="req">*</span></label><input type="text" id="hosp_cert_doctor" placeholder="डॉक्टर / दाई का नाम"></div>
+      <div class="field-group"><label>पदनाम</label><select id="hosp_cert_designation"><option value="चिकित्सक">चिकित्सक (Doctor)</option><option value="दाई">दाई (Midwife)</option><option value="नर्स">नर्स (Nurse)</option><option value="अन्य">अन्य</option></select></div>
+      <div class="field-group"><label>शिशु का वजन (kg)</label><input type="text" id="hosp_cert_weight" placeholder="जैसे: 2.8" oninput="this.value=this.value.replace(/[^0-9.]/g,'')"></div>
+      <div class="field-group"><label>प्रसव का प्रकार</label><select id="hosp_cert_delivery"><option value="सामान्य प्रसव">सामान्य प्रसव (Normal)</option><option value="सीजेरियन">सीजेरियन (C-Section)</option></select></div>
+      <div class="field-group"><label>प्रमाण पत्र तिथि</label><input type="date" id="hosp_cert_date" class="dob-picker" data-placeholder="तिथि चुनें"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:10px;">
+      <div style="text-align:center;background:#E3F2FD;border-radius:6px;padding:12px;">
+        <div style="width:120px;height:90px;border:1.5px solid #0277BD;border-radius:4px;margin:10px auto 6px;background:#fff;"></div>
+        <div style="font-size:12px;color:#01579B;font-weight:700;">डॉक्टर / दाई के हस्ताक्षर</div>
+      </div>
+      <div style="text-align:center;background:#E3F2FD;border-radius:6px;padding:12px;">
+        <div style="width:120px;height:90px;border:1.5px solid #0277BD;border-radius:4px;margin:10px auto 6px;background:#fff;"></div>
+        <div style="font-size:12px;color:#01579B;font-weight:700;">अस्पताल की मुहर / Stamp</div>
+      </div>
+    </div>
+  </div></div>
+  </div><!-- end hospital-birth-certificate -->
+
+  <!-- Late Registration Sections (30to1year / after1year) -->
+  <div id="late-reg-sections" style="display:none;">
+
+    <!-- आवेदन पत्र — DPRO (30to1year) -->
+    <div id="dpro-application">
+    <div style="background:#B71C1C;color:white;padding:10px 16px;font-size:14px;font-weight:700;letter-spacing:.5px;margin-top:4px;">📋 आवेदन पत्र — जिला पंचायत राज अधिकारी के नाम</div>
+    <div class="section" style="margin:0;border-radius:0;border-top:none;">
+      <div class="section-content" style="background:#fff5f5;padding:24px;">
+        <div id="application_letter" style="background:white;border:2px solid #B71C1C;border-radius:8px;padding:28px 30px;font-size:14px;line-height:2.2;">
+
+          <div style="margin-bottom:16px;">
+            <div>सेवा में,</div>
+            <div style="padding-left:20px;font-weight:700;">जिला पंचायत राज अधिकारी</div>
+            <div style="padding-left:20px;">जनपद — <strong><span id="app_letter_district">______________</span></strong></div>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div>विषय - जन्म पंजीकरण हेतु बिलम्बित आवेदन — <span id="app_period_text">30 दिन के बाद, किन्तु 1 वर्ष के भीतर</span></div>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div style="font-weight:700;">महोदय,</div>
+          </div>
+
+          <p style="text-align:justify;text-indent:30px;">सविनय निवेदन है कि प्रार्थी <strong><span id="app_letter_informant">______________</span></strong> <span id="app_letter_inf_rel">पुत्र</span> श्री <strong><span id="app_letter_inf_father">______________</span></strong> निवासी <strong><span id="app_letter_address">______________</span></strong>, ग्राम पंचायत — <strong><span id="app_letter_gp">______________</span></strong>, ब्लॉक — <strong><span id="app_letter_block">______________</span></strong>, तहसील — <strong><span id="app_letter_tehsil">______________</span></strong>, जिला — <strong><span id="app_letter_dist2">______________</span></strong> का मूल निवासी है। प्रार्थी <span id="app_letter_keki">के</span> <strong><span id="app_letter_relation">______________</span></strong> <strong><span id="app_letter_child">______________</span></strong> का जन्म दिनांक <strong><span id="app_letter_dob">______________</span></strong> को <strong><span id="app_letter_birth_place">______________</span></strong> में हुआ है। पारिवारिक परिस्थितियों एवं नियमों की जानकारी के अभाव में जन्म का पंजीकरण निर्धारित अवधि में नहीं कराया जा सका।</p>
+
+          <p style="text-align:justify;text-indent:30px;margin-top:10px;">अतः आपसे सादर अनुरोध है कि <strong><span id="app_letter_child2">______________</span></strong>, पिता <strong><span id="app_letter_father">______________</span></strong>, माता <strong><span id="app_letter_mother">______________</span></strong> का दिनांक <strong><span id="app_letter_dob2">______________</span></strong> का जन्म पंजीकरण करने हेतु कार्यवाही करने की कृपा करें।</p>
+
+          <div style="margin-top:20px;">
+            <div style="margin-bottom:8px;">संलग्नक :</div>
+            <div style="padding-left:10px;">01- जन्म पंजीकरण फार्म 1</div>
+            <div style="padding-left:10px;">02- नोटरी शपथ पत्र</div>
+            <div style="padding-left:10px;">03- माता-पिता का आधार कार्ड</div>
+            <div style="padding-left:10px;">04- आवेदक /सूचनादाता का आधार कार्ड</div>
+            <div style="padding-left:10px;">05- पंचायत सहायक /रोजगार सेवक का बयान</div>
+            <div style="padding-left:10px;">06- ग्राम प्रधान का प्रमाण पत्र</div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:30px;">
+            <div>
+              <div style="font-size:13px;color:var(--muted);margin-bottom:6px;">दिनांक: _______________</div>
+              <div style="font-size:13px;color:var(--muted);">स्थान: _______________</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="width:140px;height:80px;border:1.5px solid #aaa;border-radius:4px;margin:0 auto 8px;background:#fff;"></div>
+              <div style="border-top:1.5px solid #333;width:180px;margin:0 auto;padding-top:4px;font-size:12px;font-weight:600;color:var(--muted);">आवेदक के हस्ताक्षर / अंगूठा</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div><!-- end dpro-application -->
+
+    <!-- आवेदन पत्र — न्यायालय उपजिलाधिकारी (after1year) -->
+    <div id="sdm-application" style="display:none;">
+    <div style="background:#1B5E20;color:white;padding:10px 16px;font-size:14px;font-weight:700;letter-spacing:.5px;margin-top:4px;">📋 आवेदन पत्र — न्यायालय उपजिलाधिकारी</div>
+    <div class="section" style="margin:0;border-radius:0;border-top:none;">
+      <div class="section-content" style="background:#f1f8e9;padding:24px;">
+        <div id="sdm_application_letter" style="background:white;border:2px solid #1B5E20;border-radius:8px;padding:28px 30px;font-size:14px;line-height:2.2;">
+
+          <div style="text-align:center;margin-bottom:16px;text-decoration:underline;font-weight:700;">
+            न्यायालय उपजिलाधिकारी महोदय, तहसील — <strong><span id="sdm_tehsil">______________</span></strong> जनपद — <strong><span id="sdm_district">______________</span></strong>
+          </div>
+
+          <p><strong><span id="sdm_informant">______________</span></strong> <span id="sdm_inf_rel">पुत्र</span> श्री <strong><span id="sdm_inf_father">______________</span></strong> निवासी <strong><span id="sdm_inf_address">______________</span></strong>, ग्राम पंचायत — <strong><span id="sdm_gp">______________</span></strong>, तहसील — <strong><span id="sdm_tehsil2">______________</span></strong> जनपद — <strong><span id="sdm_district2">______________</span></strong>।</p>
+
+          <div style="text-align:center;margin:12px 0;font-weight:700;">बनाम</div>
+
+          <p>श्रीमान उपजिलाधिकारी महोदय तहसील — <strong><span id="sdm_tehsil3">______________</span></strong> जनपद — <strong><span id="sdm_district3">______________</span></strong>।</p>
+
+          <p style="text-indent:30px;margin-top:10px;">आवेदन पत्र अ0धारा 13(3) उ0प्र0 जन्म पंजीकरण नियमावली 2002 की धारा 9(3) के अंतर्गत जन्म के विलम्बित पंजीकरण का आवेदन</p>
+
+          <p style="margin-top:10px;"><strong>महोदय,</strong></p>
+          <p>प्रार्थी निम्न प्रकार विनय करता है:—</p>
+
+          <div style="margin:12px 0;">
+            <p><strong>धारा-1</strong> यह कि प्रार्थी <strong><span id="sdm_informant2">______________</span></strong> <span id="sdm_inf_rel2">पुत्र</span> <strong><span id="sdm_inf_father2">______________</span></strong> निवासी ग्राम उपरोक्त का मूल निवासी है।</p>
+
+            <p><strong>धारा-2</strong> यह कि <strong><span id="sdm_child">______________</span></strong>, पिता <strong><span id="sdm_father">______________</span></strong>, माता <strong><span id="sdm_mother">______________</span></strong> का जन्म दिनांक <strong><span id="sdm_dob">______________</span></strong> को स्थान — <strong><span id="sdm_birth_place">______________</span></strong> पर हुआ है।</p>
+
+            <p><strong>धारा-3</strong> यह कि प्रार्थी को अपने <strong><span id="sdm_relation">______________</span></strong> के जन्म प्रमाण पत्र की अत्यधिक आवश्यकता है। जानकारी के अभाव में परिस्थितिजन्य कारणों से प्रार्थी द्वारा जन्म का पंजीकरण विधिवत् अवधि में नहीं कराया जा सका जिसके कारण विलम्बित आवेदन आपके समक्ष प्रस्तुत किया जा रहा है जिसका पंजीकरण करवाकर नियमानुसार जन्म प्रमाण पत्र जारी किया जाना आवश्यक है।</p>
+
+            <p><strong>धारा-4</strong> यह कि उपरोक्त घटना की तिथि एवं स्थान सत्य है तथा उपरोक्त व्यक्ति कभी भी किसी भी संस्था या निकाय द्वारा कोई भी जन्म प्रमाण पत्र नहीं निर्गत किया गया है।</p>
+
+            <p><strong>धारा-5</strong> यह कि उपरोक्त जन्म प्रमाण पत्र के जारी होने से पूरे भारतवर्ष में किसी भी न्यायालय में प्रचलित किसी कार्यवाही पर कोई प्रतिकूल प्रभाव नहीं पड़ेगा।</p>
+          </div>
+
+          <p style="text-indent:30px;">अतः श्रीमान जी से निवेदन है कि प्रार्थी का प्रार्थनापत्र स्वीकार करके प्रार्थी के <strong><span id="sdm_relation2">______________</span></strong> <strong><span id="sdm_child2">______________</span></strong>, पिता <strong><span id="sdm_father2">______________</span></strong>, माता <strong><span id="sdm_mother2">______________</span></strong> का जन्म दिनांक — <strong><span id="sdm_dob2">______________</span></strong> का जन्म प्रमाण पत्र निर्गत करवाये जाने की कृपा की जाय।</p>
+
+          <div style="text-align:right;margin-top:24px;font-weight:700;">प्रार्थी</div>
+
+          <div style="text-align:right;margin-top:16px;line-height:1.8;font-size:13px;">
+            <strong><span id="sdm_informant3">______________</span></strong> <span id="sdm_inf_rel3">पुत्र</span> <strong><span id="sdm_inf_father3">______________</span></strong><br>
+            ग्राम — <strong><span id="sdm_inf_address2">______________</span></strong>, ग्राम पंचायत — <strong><span id="sdm_gp2">______________</span></strong><br>
+            विकासखण्ड — <strong><span id="sdm_block">______________</span></strong>, जनपद — <strong><span id="sdm_district4">______________</span></strong><br>
+            दिनांक — _______________<br>
+            मोबाइल नं0 — <strong><span id="sdm_mobile">______________</span></strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div><!-- end sdm-application -->
+
+    <!-- नोटरी शपथ पत्र -->
+    <div id="notary-section">
+    <div style="background:#4A148C;color:white;padding:10px 16px;font-size:14px;font-weight:700;letter-spacing:.5px;margin-top:4px;">📜 नोटरी शपथ पत्र — Notary Affidavit</div>
+    <div class="section" style="margin:0;border-radius:0;border-top:none;">
+      <div class="section-content" style="background:#f3e5f5;padding:24px;">
+        <div id="notary_affidavit" style="background:white;border:2px solid #4A148C;border-radius:8px;padding:28px 30px;font-size:14px;line-height:2.2;">
+
+          <div style="margin-bottom:16px;">
+            <div>सेवा में,</div>
+            <div style="padding-left:20px;font-weight:700;">जिला पंचायत राज अधिकारी</div>
+            <div style="padding-left:20px;">जनपद — <strong><span id="notary_district">______________</span></strong></div>
+          </div>
+
+          <div style="text-align:center;margin-bottom:20px;">
+            <div style="font-size:18px;font-weight:700;color:#000;text-decoration:underline;">शपथ पत्र</div>
+          </div>
+
+          <p style="text-align:justify;">मैं <strong><span id="notary_informant">______________</span></strong> <span id="notary_putrpatni">पुत्र</span> श्री <strong><span id="notary_inf_father">______________</span></strong> निवासी <strong><span id="notary_inf_address">______________</span></strong>, ग्राम पंचायत — <strong><span id="notary_gp">______________</span></strong>, तहसील — <strong><span id="notary_tehsil">______________</span></strong>, जिला — <strong><span id="notary_district2">______________</span></strong> सत्यनिष्ठापूर्वक शपथ लेकर बयान करता हूँ कि-</p>
+
+          <div style="margin:16px 0 16px 0;">
+            <p><strong>धारा 01-</strong> यह कि शपथी उपरोक्त पते का निवासी है।</p>
+            <p><strong>धारा 02-</strong> यह कि शपथी <span id="notary_keki">के</span> <strong><span id="notary_relation">______________</span></strong> <strong><span id="notary_child">______________</span></strong>, पिता <strong><span id="notary_father">______________</span></strong>, माता <strong><span id="notary_mother">______________</span></strong> का जन्म दिनांक <strong><span id="notary_dob">______________</span></strong> को <strong><span id="notary_birth_place">______________</span></strong> में हुआ है।</p>
+            <p><strong>धारा 03-</strong> यह कि उपरोक्त का जन्म प्रमाण पत्र जारी किया जाना आवश्यक है।</p>
+            <p><strong>धारा 04-</strong> यह कि उपरोक्त घटना की तिथि व स्थान सत्य है तथा उपरोक्त व्यक्ति का कभी भी किसी भी संस्था या निकाय द्वारा कोई भी जन्म प्रमाण पत्र नहीं जारी किया गया है।</p>
+            <p><strong>धारा 05-</strong> यह कि उपरोक्त के जन्म प्रमाण पत्र के जारी होने से पूरे भारत वर्ष में किसी भी न्यायालय में प्रचलित किसी कार्यवाही पर कोई प्रभाव नहीं पड़ेगा।</p>
+          </div>
+
+          <div style="margin-top:20px;background:#fff8e1;border:1px solid #FFD600;border-radius:6px;padding:14px 18px;">
+            <p style="text-align:justify;"><strong>शपथ-</strong> मैं शपथी स्वयं यह कथन करता हूँ कि इस शपथ पत्र की धारा 01 से 05 तक की सभी जानकारी मेरी निजी जानकारी एवं विश्वास में सत्य हैं। इसमें कोई तथ्य छिपाया नहीं गया है। भविष्य में मेरा कथन असत्य पाया जाता है तो मेरे विरुद्ध जो भी कार्यवाही होगी मुझे स्वीकार्य होगी। ईश्वर मेरी मदद करें।</p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:30px;">
+            <div>
+              <div style="font-size:13px;color:var(--muted);margin-bottom:6px;">दिनांक: _______________</div>
+              <div style="font-size:13px;color:var(--muted);margin-bottom:6px;">स्थान: _______________</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="border-top:1.5px solid #333;width:200px;margin:40px auto 0;padding-top:4px;font-size:12px;font-weight:600;color:var(--muted);">आवेदक के हस्ताक्षर / अंगूठा</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div><!-- end notary-section -->
+
+  </div><!-- end late-reg-sections -->
+
   <!-- Final Preview Button -->
   <div style="background:linear-gradient(135deg,#003366,#1a4a7a);padding:24px;text-align:center;margin:0;">
     <div style="font-size:16px;color:white;font-weight:700;margin-bottom:6px;">फॉर्म भरना पूरा हुआ? / Form Complete?</div>
@@ -329,9 +551,14 @@ function hdrBlockChange(){var d=document.getElementById('hdr_district').value||'
 function setVal(id,v){var e=document.getElementById(id);if(e)e.value=v;}
 function syncHidden(p){var ds=document.getElementById(p+'_dist_sel'),ts=document.getElementById(p+'_teh_sel'),bs=document.getElementById(p+'_blk_sel'),gs=document.getElementById(p+'_gp_sel');setVal(p+'_district',ds?ds.value:'');setVal(p+'_subdistrict',ts?ts.value:'');setVal(p+'_block_val',bs?bs.value:'');setVal(p+'_town',gs?gs.value:'');setVal(p+'_locality',document.getElementById(p+'_purava')?document.getElementById(p+'_purava').value:'');}
 function toggleAreaType(p,t){var v=document.getElementById(p+'_village_div'),tw=document.getElementById(p+'_town_div');if(t==='village'){if(v)v.style.display='block';if(tw)tw.style.display='none';}else{if(v)v.style.display='none';if(tw)tw.style.display='block';}}
-function buildAddressSection(p){});ds.onchange=function(){var d=this.value;if(ts){ts.innerHTML='<option value="">— तहसील —</option>';ts.disabled=true;}if(bs){bs.innerHTML='<option value="">— ब्लॉक —</option>';bs.disabled=true;}if(gs){gs.innerHTML='<option value="">— ग्राम पंचायत —</option>';gs.disabled=true;}if(gt)gt.style.display='none';syncHidden(p);if(!d||!ts)return;var th=UP_TEHSILS[d]||[];if(th.length){th.forEach(function(t){ts.add(new Option(t,t));});ts.disabled=false;}else{var tt=document.getElementById(p+'_teh_txt');if(tt){tt.style.display='';ts.style.display='none';}}};if(ts)ts.onchange=function(){var d=ds.value,t=this.value;if(bs){bs.innerHTML='<option value="">— ब्लॉक —</option>';bs.disabled=true;}if(gs){gs.innerHTML='<option value="">— ग्राम पंचायत —</option>';gs.disabled=true;}syncHidden(p);if(!t||!bs)return;var bl=UP_BLOCKS[d+'-'+t]||[];if(bl.length){bl.forEach(function(b){bs.add(new Option(b,b));});bs.disabled=false;}};if(bs)bs.onchange=function(){var d=ds.value,t=ts?ts.value:'',b=this.value;if(gs){gs.innerHTML='<option value="">— ग्राम पंचायत —</option>';gs.disabled=true;}if(gt){gt.style.display='none';if(gs)gs.style.display='';}syncHidden(p);if(!b)return;var gps=UP_GPS[d+'-'+t+'-'+b]||[];if(gps.length){gps.forEach(function(g){gs&&gs.add(new Option(g,g));});if(gs)gs.disabled=false;}else{if(gs)gs.style.display='none';if(gt)gt.style.display='';}};if(gs)gs.onchange=function(){syncHidden(p);};}
+function buildAddressSection(p){var ds=document.getElementById(p+'_district'),ts=document.getElementById(p+'_subdistrict'),bs=document.getElementById(p+'_block'),gs=document.getElementById(p+'_gp'),gt=document.getElementById(p+'_gp_text');function syncHidden(px){var hd=document.getElementById(px+'_dist_hidden');if(hd&&ds)hd.value=ds.value;var ht=document.getElementById(px+'_teh_hidden');if(ht&&ts)ht.value=ts.value;var hb=document.getElementById(px+'_block_hidden');if(hb&&bs)hb.value=bs.value;var hg=document.getElementById(px+'_gp_hidden');if(hg){if(gs&&gs.style.display!=='none')hg.value=gs.value;else if(gt&&gt.style.display!=='none')hg.value=gt.value;}}ds.onchange=function(){var d=this.value;if(ts){ts.innerHTML='<option value="">— तहसील —</option>';ts.disabled=true;}if(bs){bs.innerHTML='<option value="">— ब्लॉक —</option>';bs.disabled=true;}if(gs){gs.innerHTML='<option value="">— ग्राम पंचायत —</option>';gs.disabled=true;}if(gt)gt.style.display='none';syncHidden(p);if(!d||!ts)return;var th=UP_TEHSILS[d]||[];if(th.length){th.forEach(function(t){ts.add(new Option(t,t));});ts.disabled=false;}else{var tt=document.getElementById(p+'_teh_txt');if(tt){tt.style.display='';ts.style.display='none';}}};if(ts)ts.onchange=function(){var d=ds.value,t=this.value;if(bs){bs.innerHTML='<option value="">— ब्लॉक —</option>';bs.disabled=true;}if(gs){gs.innerHTML='<option value="">— ग्राम पंचायत —</option>';gs.disabled=true;}syncHidden(p);if(!t||!bs)return;var bl=UP_BLOCKS[d+'-'+t]||[];if(bl.length){bl.forEach(function(b){bs.add(new Option(b,b));});bs.disabled=false;}};if(bs)bs.onchange=function(){var d=ds.value,t=ts?ts.value:'',b=this.value;if(gs){gs.innerHTML='<option value="">— ग्राम पंचायत —</option>';gs.disabled=true;}if(gt){gt.style.display='none';if(gs)gs.style.display='';}syncHidden(p);if(!b)return;var gps=UP_GPS[d+'-'+t+'-'+b]||[];if(gps.length){gps.forEach(function(g){gs&&gs.add(new Option(g,g));});if(gs)gs.disabled=false;}else{if(gs)gs.style.display='none';if(gt)gt.style.display='';}};if(gs)gs.onchange=function(){syncHidden(p);};}
 
-function toggleBirthPlace(v){document.getElementById('bp_hospital_div').style.display=(v===1)?'block':'none';document.getElementById('bp_home_area_div').style.display=(v===2)?'block':'none';document.getElementById('bp_other_div').style.display=(v===3)?'block':'none';if(v!==2){document.getElementById('bp_village_div').style.display='none';document.getElementById('bp_town_div').style.display='none';}}
+function toggleBirthPlace(v){document.getElementById('bp_hospital_div').style.display=(v===1)?'block':'none';document.getElementById('bp_home_area_div').style.display=(v===2)?'block':'none';document.getElementById('bp_other_div').style.display=(v===3)?'block':'none';if(v!==2){document.getElementById('bp_village_div').style.display='none';document.getElementById('bp_town_div').style.display='none';}
+// Toggle statement sections based on birth place
+var homeStatements=document.getElementById('home-birth-statements');
+var hospCert=document.getElementById('hospital-birth-certificate');
+if(v===1){homeStatements.style.display='none';hospCert.style.display='block';}else{homeStatements.style.display='block';hospCert.style.display='none';}
+}
 
 function copyBirthPlaceToPerm(checked){
   if(!checked){
@@ -473,11 +700,22 @@ function copyBirthPlaceToBTA(checked){
   }
   showToast('✅ जन्म के समय का पता copy हो गया!');
 }
+function toggleInformantType(type){
+  var personDiv=document.getElementById('informant_person_div');
+  var hospDiv=document.getElementById('informant_hospital_div');
+  if(type==='hospital'){
+    personDiv.style.display='none';
+    hospDiv.style.display='block';
+  } else {
+    personDiv.style.display='block';
+    hospDiv.style.display='none';
+  }
+}
 function toggleRelationOther(){var sel=document.getElementById('informant_relation');var otherInput=document.getElementById('informant_relation_other');if(sel.value==='अन्य'){otherInput.style.display='block';otherInput.focus();}else{otherInput.style.display='none';otherInput.value='';}}
 function getRelationValue(){var sel=document.getElementById('informant_relation');if(sel.value==='अन्य'){var other=document.getElementById('informant_relation_other').value;return other||'अन्य';}return sel.value;}
 function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(function(){t.style.display='none';},2800);}
 function closePreview(){document.getElementById('previewOverlay').classList.remove('active');document.body.style.overflow='';}
-function resetForm(){if(confirm('फॉर्म साफ करें?')){document.querySelectorAll('input:not([type="radio"]),select,textarea').forEach(function(e){if(!e.readOnly)e.value='';});document.querySelectorAll('input[type="radio"]').forEach(function(e){e.checked=false;});['bp_hospital_div','bp_home_area_div','bp_other_div'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['perm','bp'].forEach(function(p){var v=document.getElementById(p+'_village_div'),t=document.getElementById(p+'_town_div');if(v)v.style.display='none';if(t)t.style.display='none';});var today=new Date();document.getElementById('app_dd').value=today.getDate();document.getElementById('app_mm').value=today.getMonth()+1;document.getElementById('app_yyyy').value=today.getFullYear();}}
+function resetForm(){if(confirm('फॉर्म साफ करें?')){document.querySelectorAll('input:not([type="radio"]),select,textarea').forEach(function(e){if(!e.readOnly)e.value='';});document.querySelectorAll('input[type="radio"]').forEach(function(e){e.checked=false;});['bp_hospital_div','bp_home_area_div','bp_other_div'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});['perm','bp'].forEach(function(p){var v=document.getElementById(p+'_village_div'),t=document.getElementById(p+'_town_div');if(v)v.style.display='none';if(t)t.style.display='none';});document.getElementById('informant_person_div').style.display='block';document.getElementById('informant_hospital_div').style.display='none';var personRadio=document.querySelector('input[name="informant_type"][value="person"]');if(personRadio)personRadio.checked=true;var today=new Date();document.getElementById('app_dd').value=today.getDate();document.getElementById('app_mm').value=today.getMonth()+1;document.getElementById('app_yyyy').value=today.getFullYear();}}
 
 function updateGPStatement(){
   function gv(id){var e=document.getElementById(id);return e?(e.value||''):'';}
@@ -498,10 +736,61 @@ function updateGPStatement(){
   var gpf=document.getElementById('gp_panchayat_field');if(gpf)gpf.value=(gpN!=='______________')?gpN:'';
 }
 
+// ===== HOSPITAL CERT AUTO-FILL =====
+function updateHospCert(){
+  function gv(id){var e=document.getElementById(id);return e?(e.value||''):'';}
+  var motherName=[gv('mother_fname'),gv('mother_mname'),gv('mother_lname')].filter(Boolean).join(' ')||'______________';
+  var fatherName=[gv('father_fname'),gv('father_mname'),gv('father_lname')].filter(Boolean).join(' ')||'______________';
+  var childName=[gv('child_fname'),gv('child_mname'),gv('child_lname')].filter(Boolean).join(' ')||'______________';
+  var loc=gv('perm_purava')||gv('perm_town')||'______________';
+  var dd=gv('dob_dd'),mm=gv('dob_mm'),yy=gv('dob_yyyy');
+  var dobStr=(dd&&mm&&yy)?dd+'/'+mm+'/'+yy:'______________';
+  var sex=gv('sex');var genderText=(sex==='1')?'पुत्र (बालक)':(sex==='2')?'पुत्री (बालिका)':'शिशु';
+  var weight=gv('hosp_cert_weight')||'______________';
+  function s(id,v){var e=document.getElementById(id);if(e)e.textContent=v;}
+  s('hosp_mother_display',motherName);s('hosp_father_display',fatherName);
+  s('hosp_child_display',childName);s('hosp_address_display',loc);
+  s('hosp_dob_display',dobStr);s('hosp_gender_display',genderText);
+  s('hosp_weight_display',weight);
+}
+// Watch fields for hospital cert auto-fill
+['mother_fname','mother_mname','mother_lname','father_fname','father_mname','father_lname','child_fname','child_mname','child_lname','perm_purava','dob_dd','dob_mm','dob_yyyy','sex','hosp_cert_weight'].forEach(function(id){
+  var e=document.getElementById(id);
+  if(e){e.addEventListener('change',updateHospCert);e.addEventListener('input',updateHospCert);}
+});
+
 // ===== 6-PAGE PREVIEW =====
 var _pvPages=[],_pvCurrent=0,_pvTitles=[];
 
+function validateBirthForm(){
+  var errors=[];
+  if(!document.getElementById('hdr_district').value)errors.push('जिला भरें');
+  if(!document.getElementById('dob_dd').value||!document.getElementById('dob_mm').value||!document.getElementById('dob_yyyy').value)errors.push('जन्म की तिथि भरें');
+  if(!document.getElementById('sex').value)errors.push('लिंग चुनें');
+  if(!document.getElementById('father_fname').value)errors.push('पिता का नाम भरें');
+  if(!document.getElementById('mother_fname').value)errors.push('माता का नाम भरें');
+  if(!document.querySelector('input[name="birth_place_type"]:checked'))errors.push('जन्म का स्थान चुनें');
+  if(!document.querySelector('input[name="perm_area"]:checked'))errors.push('स्थायी पता — क्षेत्र चुनें (गाँव/शहर)');
+  var infType=(document.querySelector('input[name="informant_type"]:checked')||{}).value||'person';
+  if(infType==='person'){
+    if(!document.getElementById('informant_fname').value)errors.push('सूचनादाता का नाम भरें');
+    if(!document.getElementById('informant_father_name').value)errors.push('सूचनादाता के पिता/पति का नाम भरें');
+    if(!document.getElementById('informant_relation').value)errors.push('बच्चे से संबंध चुनें');
+    if(!document.getElementById('informant_aadhaar').value)errors.push('सूचनादाता का आधार नंबर भरें');
+    if(!document.getElementById('informant_mobile').value)errors.push('सूचनादाता का मोबाइल नंबर भरें');
+  } else {
+    if(!document.getElementById('inf_hosp_name').value)errors.push('अस्पताल का नाम भरें');
+    if(!document.getElementById('inf_hosp_reg').value)errors.push('अस्पताल का रजिस्ट्रेशन नंबर भरें');
+    if(!document.getElementById('inf_hosp_address').value)errors.push('अस्पताल का पता भरें');
+    if(!document.getElementById('inf_hosp_incharge').value)errors.push('प्रभारी का नाम भरें');
+    if(!document.getElementById('inf_hosp_mobile').value)errors.push('प्रभारी का मोबाइल नंबर भरें');
+    if(!document.getElementById('inf_hosp_birth_reg').value)errors.push('जन्म का पंजीकरण नंबर भरें');
+  }
+  if(errors.length>0){alert('कृपया निम्न फील्ड भरें:\n\n• '+errors.join('\n• '));return false;}
+  return true;
+}
 function openFormPreview(){
+  if(!validateBirthForm())return;
   function v(id){var e=document.getElementById(id);if(!e)return '';if(e.tagName==='SELECT'){var t=e.options[e.selectedIndex]?e.options[e.selectedIndex].text:'';return(t&&t.indexOf('चुनें')===-1&&t.indexOf('Select')===-1)?t:'';}return e.value||'';}
   function row(l,val){return '<tr><td style="padding:3px 8px;font-size:9px;color:#222;border-bottom:1px solid #ddd;width:38%;">'+l+'</td><td style="padding:3px 8px;font-size:9px;font-weight:700;color:#000;border-bottom:1px solid #ddd;">'+((val&&val.trim())?val:'—')+'</td></tr>';}
   function sec(title,rows){return '<div style="margin-bottom:4px;border:1px solid #ccc;border-radius:3px;overflow:hidden;"><div style="background:#003366;color:white;padding:2px 8px;font-size:8px;font-weight:700;">'+title+'</div><table style="width:100%;border-collapse:collapse;">'+rows+'</table></div>';}
@@ -509,7 +798,7 @@ function openFormPreview(){
   var childName=[v('child_fname'),v('child_mname'),v('child_lname')].filter(Boolean).join(' ');
   var fatherName=[v('father_fname'),v('father_mname'),v('father_lname')].filter(Boolean).join(' ');
   var motherName=[v('mother_fname'),v('mother_mname'),v('mother_lname')].filter(Boolean).join(' ');
-  var infName=[v('informant_fname'),v('informant_mname'),v('informant_lname')].filter(Boolean).join(' ');
+  var infName=[v('informant_fname'),v('informant_mname')].filter(Boolean).join(' ');
   var permAddr=[v('perm_purava'),v('perm_town'),v('perm_subdistrict'),v('perm_district')].filter(Boolean).join(', ');
   var hdrGP=v('hdr_gp'),hdrBlk=v('hdr_block'),hdrTeh=v('hdr_tehsil'),hdrDist=v('hdr_district');
   var permLocality=v('perm_purava')||v('perm_town')||hdrGP||'___________';
@@ -532,7 +821,7 @@ function openFormPreview(){
     +'</div>'
     +sec('5. जन्म स्थान',row('प्रकार',bpType)+row('अस्पताल',v('bp_hospital_name')))
     +sec('6. स्थायी पता',row('पता',permAddr)+row('पिन',v('perm_pin')))
-    +sec('7. सूचनादाता',row('नाम',infName)+row('संबंध',getRelationValue())+row('आधार',v('informant_aadhaar'))+row('मोबाइल',v('informant_mobile')))
+    +(function(){var it=(document.querySelector('input[name="informant_type"]:checked')||{}).value||'person';if(it==='hospital'){return sec('7. सूचनादाता (अस्पताल)',row('अस्पताल',v('inf_hosp_name'))+row('रजि. नं.',v('inf_hosp_reg'))+row('पता',v('inf_hosp_address'))+row('प्रभारी',v('inf_hosp_incharge'))+row('मोबाइल',v('inf_hosp_mobile'))+row('जन्म पंजी. नं.',v('inf_hosp_birth_reg')));}return sec('7. सूचनादाता',row('नाम',infName)+row('संबंध',getRelationValue())+row('आधार',v('informant_aadhaar'))+row('मोबाइल',v('informant_mobile')));})()
     +'<div style="background:#fff8e1;border:1px solid #FFD600;border-radius:3px;padding:3px 8px;font-size:8px;color:#000;margin-top:4px;line-height:1.4;"><b>घोषणापत्र:</b> उपरोक्त सूचनाएँ सत्य हैं। RBD Act 1969 धारा 23 के दंड से अवगत हूँ।</div>'+signBox+'</div>';
 
   // PAGE 2: Statistical + Docs
@@ -574,8 +863,148 @@ function openFormPreview(){
   for(var i=1;i<=5;i++){var wn=v('w'+i+'_name'),wf=v('w'+i+'_father'),wc=v('w'+i+'_caste'),wp=v('w'+i+'_purava'),wm=v('w'+i+'_mobile');wRows+='<tr style="height:60px;"><td style="padding:6px 8px;border:1px solid #ccc;text-align:center;font-size:14px;font-weight:700;vertical-align:top;">'+i+'</td><td style="padding:6px 8px;border:1px solid #ccc;vertical-align:top;">'+(wn||'')+'</td><td style="padding:6px 8px;border:1px solid #ccc;vertical-align:top;">'+(wf||'')+'</td><td style="padding:6px 8px;border:1px solid #ccc;vertical-align:top;">'+(wc||'')+'</td><td style="padding:6px 8px;border:1px solid #ccc;vertical-align:top;">'+(wp||'')+'</td><td style="padding:6px 8px;border:1px solid #ccc;vertical-align:top;">'+(wm||'')+'</td><td style="padding:6px 8px;border:1px solid #ccc;text-align:center;vertical-align:top;"><div style="width:80px;height:50px;border:1px solid #999;margin:0 auto;"></div></td></tr>';}
   var p6='<div style="font-family:Arial,sans-serif;padding:0;"><div style="background:#37474F;color:white;padding:12px 16px;text-align:center;"><div style="font-size:18px;font-weight:700;">ग्रामीण गवाहों की गवाही | Statement of Rural Witnesses</div><div style="font-size:10px;opacity:.8;margin-top:2px;">जन्म पंजीकरण फॉर्म-1 | Birth Registration Form-1 | RBD Act 1969</div></div><div style="background:#f5f5f5;border-bottom:2px solid #FF6B00;padding:6px 14px;display:flex;flex-wrap:wrap;gap:4px 16px;font-size:10px;"><div>ग्राम पंचायत: <b>'+hdrGP+'</b></div><div>ब्लॉक: <b>'+hdrBlk+'</b></div><div>बच्चे का नाम: <b>'+childName+'</b></div><div>जन्म तिथि: <b>'+dobStr+'</b></div><div>पिता: <b>'+fatherName+'</b></div><div>माता: <b>'+motherName+'</b></div></div><div style="background:#fff8e1;border:1px solid #FFD600;padding:8px 14px;font-size:11px;line-height:1.7;margin:10px 14px;">हम प्रमाणित करते हैं कि <b>'+childName+'</b> का जन्म दिनांक <b>'+dobStr+'</b> को ग्राम पंचायत <b>'+hdrGP+'</b> की सीमा में हुआ है। पिता — <b>'+fatherName+'</b>, माता — <b>'+motherName+'</b>।<br><em style="font-size:10px;color:#555;">We certify that <b>'+childName+'</b> was born on <b>'+dobStr+'</b> in GP <b>'+hdrGP+'</b>. Father: <b>'+fatherName+'</b>, Mother: <b>'+motherName+'</b>.</em></div><div style="padding:8px 14px;"><table style="width:100%;border-collapse:collapse;font-size:11px;"><tr style="background:#37474F;color:white;"><th style="padding:6px 8px;border:1px solid #455A64;width:5%;">क्र.</th><th style="padding:6px 8px;border:1px solid #455A64;">गवाह का नाम</th><th style="padding:6px 8px;border:1px solid #455A64;">पिता का नाम</th><th style="padding:6px 8px;border:1px solid #455A64;">जाति</th><th style="padding:6px 8px;border:1px solid #455A64;">पुरवा</th><th style="padding:6px 8px;border:1px solid #455A64;">मोबाइल</th><th style="padding:6px 8px;border:1px solid #455A64;width:12%;">हस्ताक्षर</th></tr>'+wRows+'</table></div><div style="display:flex;justify-content:space-between;font-size:9px;color:#888;padding:10px 16px;border-top:1px solid #ddd;margin-top:6px;"><span>'+hdrGP+' | '+hdrBlk+' | अमेठी</span><span>VISRO Consultancy</span></div></div>';
 
-  _pvPages=[p1,p2,p3,p4,p5,p6];
-  _pvTitles=['भाग-1: कानूनी सूचना','भाग-2: सांख्यिकीय सूचना','ग्राम प्रधान बयान','आशा/ANM बयान','पंचायत सहायक बयान','ग्रामीण गवाह'];
+  // Check if Hospital birth place selected
+  var isHospitalBirth = (document.querySelector('input[name="birth_place_type"]:checked')||{}).value === '1';
+  if(isHospitalBirth){
+    // Hospital Certificate Preview Page
+    var hospName=v('hosp_cert_name')||v('bp_hospital_name')||'___________';
+    var hospAddr=v('hosp_cert_address')||'___________';
+    var hospReg=v('hosp_cert_reg')||'___________';
+    var hospDoc=v('hosp_cert_doctor')||'___________';
+    var hospDes=v('hosp_cert_designation')||'चिकित्सक (Doctor)';
+    var hospWt=v('hosp_cert_weight')||'___________';
+    var hospDel=v('hosp_cert_delivery')||'सामान्य प्रसव (Normal)';
+    var hospDate=v('hosp_cert_date');if(hospDate){var hsp=hospDate.split('-');hospDate=hsp[2]+'/'+hsp[1]+'/'+hsp[0];}
+    var sexText=v('sex');var genderHindi=(sexText.indexOf('पुरुष')!==-1)?'पुत्र (बालक)':(sexText.indexOf('महिला')!==-1)?'पुत्री (बालिका)':'शिशु';
+    var pHosp='<div style="font-family:Arial,sans-serif;padding:0;">'
+      +'<div style="display:flex;justify-content:space-between;font-size:9px;color:#555;padding:4px 10px;"><span>'+new Date().toLocaleDateString('en-IN')+'</span><span>अस्पताल जन्म प्रमाण पत्र | Hospital Birth Certificate</span></div>'
+      +'<div style="height:5px;background:linear-gradient(to right,#FF9933 33%,#fff 33%,#fff 66%,#138808 66%);margin-bottom:16px;"></div>'
+      +'<div style="text-align:center;margin-bottom:4px;"><div style="font-size:20px;font-weight:700;color:#0277BD;">अस्पताल जन्म प्रमाण पत्र</div><div style="font-size:13px;color:#333;margin-top:2px;">Hospital Birth Certificate</div></div>'
+      +'<div style="border-bottom:2px solid #0277BD;margin:10px 16px 14px;"></div>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:6px 24px;padding:6px 16px 10px;font-size:11px;border:1px solid #ddd;margin:0 16px 16px;border-radius:4px;background:#f9f9f9;">'
+      +'<div>अस्पताल: <b>'+hospName+'</b></div><div>पता: <b>'+hospAddr+'</b></div><div>रजि. नं.: <b>'+hospReg+'</b></div></div>'
+      +'<div style="padding:0 16px;font-size:14px;line-height:2.2;">'
+      +'<p style="text-align:justify;">एतद्द्वारा प्रमाणित किया जाता है कि श्रीमती <b>'+motherName+'</b>, पत्नी श्री <b>'+fatherName+'</b>, निवासी <b>'+permLocality+'</b> ने दिनांक <b>'+dobStr+'</b> को इस अस्पताल में एक <b>'+genderHindi+'</b> को जन्म दिया है। शिशु का नाम <b>'+childName+'</b> रखा गया है।</p>'
+      +'<p>जन्म के समय शिशु का वजन: <b>'+hospWt+'</b> किलोग्राम</p>'
+      +'<p>प्रसव का प्रकार: <b>'+hospDel+'</b></p>'
+      +'</div>'
+      +'<div style="padding:10px 16px 0;font-size:11px;color:#555;font-style:italic;line-height:1.7;">'
+      +'<p>This is to certify that <b>'+motherName+'</b>, wife of <b>'+fatherName+'</b>, resident of <b>'+permLocality+'</b>, gave birth to a baby (<b>'+genderHindi+'</b>) on <b>'+dobStr+'</b> at this hospital. The baby has been named <b>'+childName+'</b>. Birth weight: <b>'+hospWt+' kg</b>. Delivery type: <b>'+hospDel+'</b>.</p>'
+      +'</div>'
+      +'<div style="display:flex;gap:14px;margin:30px 16px 10px;">'
+      +'<div style="flex:1;text-align:center;background:#e1f5fe;border:1px solid #4fc3f7;border-radius:6px;padding:10px;">'
+      +'<div style="font-size:11px;font-weight:700;color:#0277BD;">'+hospDes+'</div>'
+      +'<div style="font-size:13px;font-weight:700;">'+hospDoc+'</div>'
+      +'<div style="width:100%;height:70px;border:1px solid #0277BD;border-radius:4px;margin:6px 0;"></div>'
+      +'<div style="font-size:10px;color:#0277BD;font-weight:700;">हस्ताक्षर</div>'
+      +'</div>'
+      +'<div style="flex:1;text-align:center;background:#e1f5fe;border:1px solid #4fc3f7;border-radius:6px;padding:10px;">'
+      +'<div style="font-size:11px;font-weight:700;color:#0277BD;">अस्पताल की मुहर</div>'
+      +'<div style="font-size:13px;font-weight:700;">'+hospName+'</div>'
+      +'<div style="width:100%;height:70px;border:1px solid #0277BD;border-radius:4px;margin:6px 0;"></div>'
+      +'<div style="font-size:10px;color:#0277BD;font-weight:700;">Stamp / Seal</div>'
+      +'</div></div>'
+      +'<div style="background:#fff8e1;border:1px solid #FFD600;border-radius:3px;padding:6px 14px;font-size:10px;color:#000;margin:16px;line-height:1.5;"><b>दिनांक:</b> '+(hospDate||'___________')+'</div>'
+      +'<div style="display:flex;justify-content:space-between;font-size:9px;color:#888;padding:10px 16px;border-top:1px solid #ddd;margin-top:10px;"><span>'+hospName+'</span><span>VISRO Consultancy</span></div></div>';
+    _pvPages=[p1,p2,pHosp];
+    _pvTitles=['भाग-1: कानूनी सूचना','भाग-2: सांख्यिकीय सूचना','अस्पताल प्रमाण पत्र'];
+  } else {
+    _pvPages=[p1,p2,p3,p4,p5,p6];
+    _pvTitles=['भाग-1: कानूनी सूचना','भाग-2: सांख्यिकीय सूचना','ग्राम प्रधान बयान','आशा/ANM बयान','पंचायत सहायक बयान','ग्रामीण गवाह'];
+  }
+
+  // Add late registration pages if period=30to1year or after1year
+  var _period=null;
+  if(window.location.hash){var _hp=new URLSearchParams(window.location.hash.substring(1));_period=_hp.get('period');}
+  if(!_period){var _urlP=new URLSearchParams(window.location.search);_period=_urlP.get('period');}
+  if(_period==='30to1year'||_period==='after1year'){
+    var periodLabel=(_period==='after1year')?'घटना के 1 वर्ष के बाद':'30 दिन के बाद, किन्तु 1 वर्ष के भीतर';
+    var relVal=getRelationValue()||'___________';
+    var infFatherName=(document.getElementById('informant_father_name')||{}).value||'___________';
+    var infParentRel=(document.getElementById('informant_parent_rel')||{}).value||'पुत्र';
+    var bpAddr=(function(){var h=v('bp_hospital_name');if(h)return h;return permLocality||hdrGP||'___________';})();
+
+    // PAGE: Application Letter (DPRO format)
+    var pApp='<div style="font-family:Arial,sans-serif;padding:0;">'
+      +'<div style="display:flex;justify-content:space-between;font-size:9px;color:#555;padding:4px 10px;"><span>'+new Date().toLocaleDateString('en-IN')+'</span><span>विलम्बित जन्म पंजीकरण — आवेदन पत्र</span></div>'
+      +'<div style="height:5px;background:linear-gradient(to right,#FF9933 33%,#fff 33%,#fff 66%,#138808 66%);margin-bottom:16px;"></div>'
+      +'<div style="padding:0 16px;font-size:14px;line-height:2.2;color:#000;">'
+      +'<div style="margin-bottom:12px;">सेवा में,<br><div style="padding-left:16px;font-weight:700;">जिला पंचायत राज अधिकारी</div><div style="padding-left:16px;">जनपद — <b>'+hdrDist+'</b></div></div>'
+      +'<p>विषय - जन्म पंजीकरण हेतु बिलम्बित आवेदन — '+periodLabel+'</p>'
+      +'<p style="margin-top:10px;"><b>महोदय,</b></p>'
+      +'<p style="text-align:justify;text-indent:30px;">सविनय निवेदन है कि प्रार्थी <b>'+infName+'</b> '+infParentRel+' श्री <b>'+infFatherName+'</b> निवासी <b>'+permLocality+'</b>, ग्राम पंचायत — <b>'+hdrGP+'</b>, ब्लॉक — <b>'+hdrBlk+'</b>, तहसील — <b>'+hdrTeh+'</b>, जिला — <b>'+hdrDist+'</b> का मूल निवासी है। प्रार्थी के <b>'+relVal+'</b> <b>'+childName+'</b> का जन्म दिनांक <b>'+dobStr+'</b> को <b>'+bpAddr+'</b> में हुआ है। पारिवारिक परिस्थितियों एवं नियमों की जानकारी के अभाव में जन्म का पंजीकरण निर्धारित अवधि में नहीं कराया जा सका।</p>'
+      +'<p style="text-align:justify;text-indent:30px;margin-top:8px;">अतः आपसे सादर अनुरोध है कि <b>'+childName+'</b>, पिता <b>'+fatherName+'</b>, माता <b>'+motherName+'</b> का दिनांक <b>'+dobStr+'</b> का जन्म पंजीकरण करने हेतु कार्यवाही करने की कृपा करें।</p>'
+      +'<div style="margin-top:16px;"><div style="margin-bottom:6px;">संलग्नक :</div>'
+      +'<div style="padding-left:10px;">01- जन्म पंजीकरण फार्म 1</div>'
+      +'<div style="padding-left:10px;">02- नोटरी शपथ पत्र</div>'
+      +'<div style="padding-left:10px;">03- माता-पिता का आधार कार्ड</div>'
+      +'<div style="padding-left:10px;">04- आवेदक /सूचनादाता का आधार कार्ड</div>'
+      +'<div style="padding-left:10px;">05- पंचायत सहायक /रोजगार सेवक का बयान</div>'
+      +'<div style="padding-left:10px;">06- ग्राम प्रधान का प्रमाण पत्र</div></div>'
+      +'</div>'
+      +'<div style="display:flex;gap:14px;margin:30px 16px 10px;">'
+      +'<div style="flex:1;"><div style="font-size:12px;color:#555;">दिनांक: _______________</div><div style="font-size:12px;color:#555;margin-top:4px;">स्थान: _______________</div></div>'
+      +'<div style="flex:1;text-align:center;"><div style="width:140px;height:70px;border:1px solid #aaa;border-radius:4px;margin:0 auto 6px;"></div><div style="border-top:1.5px solid #000;width:180px;margin:0 auto;padding-top:4px;font-size:11px;font-weight:600;">आवेदक के हस्ताक्षर / अंगूठा</div></div>'
+      +'</div>'
+      +'<div style="display:flex;justify-content:space-between;font-size:9px;color:#888;padding:10px 16px;border-top:1px solid #ddd;margin-top:10px;">'
+      +'<span>जनपद: '+hdrDist+' | तहसील: '+hdrTeh+' | ब्लॉक: '+hdrBlk+'</span><span></span></div>'
+      +'</div>';
+
+    // PAGE: Notary Affidavit
+    var pNotary='<div style="font-family:Arial,sans-serif;padding:0;">'
+      +'<div style="height:480px;border-bottom:1px dashed #ccc;margin:0 12px 6px;position:relative;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;color:#ccc;font-weight:600;text-align:center;">— स्टाम्प पेपर का क्षेत्र —</div></div>'
+      +'<div style="padding:0 12px;font-size:12px;line-height:1.7;color:#000;">'
+      +'<div style="margin-bottom:6px;">सेवा में,<br><div style="padding-left:14px;font-weight:700;font-size:12px;">जिला पंचायत राज अधिकारी</div><div style="padding-left:14px;">जनपद — <b>'+hdrDist+'</b></div></div>'
+      +'<div style="text-align:center;margin:8px 0;"><div style="font-size:15px;font-weight:700;text-decoration:underline;">शपथ पत्र</div></div>'
+      +'<p style="text-align:justify;">मैं <b>'+infName+'</b> '+infParentRel+' श्री <b>'+infFatherName+'</b> निवासी <b>'+permLocality+'</b>, ग्राम पंचायत — <b>'+hdrGP+'</b>, तहसील — <b>'+hdrTeh+'</b>, जिला — <b>'+hdrDist+'</b> सत्यनिष्ठापूर्वक शपथ लेकर बयान करता हूँ कि-</p>'
+      +'<div style="margin:6px 0;">'
+      +'<p><b>धारा 01-</b> यह कि शपथी उपरोक्त पते का निवासी है।</p>'
+      +'<p><b>धारा 02-</b> यह कि शपथी के <b>'+relVal+'</b> <b>'+childName+'</b>, पिता <b>'+fatherName+'</b>, माता <b>'+motherName+'</b> का जन्म दिनांक <b>'+dobStr+'</b> को <b>'+bpAddr+'</b> में हुआ है।</p>'
+      +'<p><b>धारा 03-</b> यह कि उपरोक्त का जन्म प्रमाण पत्र जारी किया जाना आवश्यक है।</p>'
+      +'<p><b>धारा 04-</b> यह कि उपरोक्त घटना की तिथि व स्थान सत्य है तथा उपरोक्त व्यक्ति का कभी भी किसी भी संस्था या निकाय द्वारा कोई भी जन्म प्रमाण पत्र नहीं जारी किया गया है।</p>'
+      +'<p><b>धारा 05-</b> यह कि उपरोक्त के जन्म प्रमाण पत्र के जारी होने से पूरे भारत वर्ष में किसी भी न्यायालय में प्रचलित किसी कार्यवाही पर कोई प्रभाव नहीं पड़ेगा।</p>'
+      +'</div>'
+      +'<p style="text-align:justify;margin:6px 0;"><b>शपथ-</b> मैं शपथी स्वयं यह कथन करता हूँ कि इस शपथ पत्र की धारा 01 से 05 तक की सभी जानकारी मेरी निजी जानकारी एवं विश्वास में सत्य हैं। इसमें कोई तथ्य छिपाया नहीं गया है। भविष्य में मेरा कथन असत्य पाया जाता है तो मेरे विरुद्ध जो भी कार्यवाही होगी मुझे स्वीकार्य होगी। ईश्वर मेरी मदद करें।</p>'
+      +'</div>'
+      +'<div style="display:flex;gap:14px;margin:16px 12px 6px;">'
+      +'<div style="flex:1;"><div style="font-size:12px;color:#555;">दिनांक: _______________</div><div style="font-size:12px;color:#555;margin-top:4px;">स्थान: _______________</div></div>'
+      +'<div style="flex:1;text-align:center;"><div style="border-top:1.5px solid #000;width:200px;margin:40px auto 0;padding-top:4px;font-size:11px;font-weight:600;">आवेदक के हस्ताक्षर / अंगूठा</div></div>'
+      +'</div>'
+      +'</div>';
+
+    if(_period==='after1year'){
+      // SDM Application Letter for after1year
+      var pSDM='<div style="font-family:Arial,sans-serif;padding:0;">'
+        +'<div style="text-align:center;margin:16px;text-decoration:underline;font-size:15px;font-weight:700;line-height:1.6;">न्यायालय उपजिलाधिकारी महोदय, तहसील — <b>'+hdrTeh+'</b> जनपद — <b>'+hdrDist+'</b></div>'
+        +'<div style="padding:0 16px;font-size:13px;line-height:2;color:#000;">'
+        +'<p><b>'+infName+'</b> '+infParentRel+' श्री <b>'+infFatherName+'</b> निवासी <b>'+permLocality+'</b>, ग्राम पंचायत — <b>'+hdrGP+'</b>, तहसील — <b>'+hdrTeh+'</b> जनपद — <b>'+hdrDist+'</b>।</p>'
+        +'<div style="text-align:center;font-weight:700;margin:8px 0;">बनाम</div>'
+        +'<p>श्रीमान उपजिलाधिकारी महोदय तहसील — <b>'+hdrTeh+'</b> जनपद — <b>'+hdrDist+'</b>।</p>'
+        +'<p style="text-indent:30px;margin-top:8px;">आवेदन पत्र अ0धारा 13(3) उ0प्र0 जन्म पंजीकरण नियमावली 2002 की धारा 9(3) के अंतर्गत जन्म के विलम्बित पंजीकरण का आवेदन</p>'
+        +'<p style="margin-top:8px;"><b>महोदय,</b></p>'
+        +'<p>प्रार्थी निम्न प्रकार विनय करता है:—</p>'
+        +'<p><b>धारा-1</b> यह कि प्रार्थी <b>'+infName+'</b> '+infParentRel+' <b>'+infFatherName+'</b> निवासी ग्राम उपरोक्त का मूल निवासी है।</p>'
+        +'<p><b>धारा-2</b> यह कि <b>'+childName+'</b>, पिता <b>'+fatherName+'</b>, माता <b>'+motherName+'</b> का जन्म दिनांक <b>'+dobStr+'</b> को स्थान — <b>'+bpAddr+'</b> पर हुआ है।</p>'
+        +'<p><b>धारा-3</b> यह कि प्रार्थी को अपने <b>'+relVal+'</b> के जन्म प्रमाण पत्र की अत्यधिक आवश्यकता है। जानकारी के अभाव में परिस्थितिजन्य कारणों से प्रार्थी द्वारा जन्म का पंजीकरण विधिवत् अवधि में नहीं कराया जा सका जिसके कारण विलम्बित आवेदन आपके समक्ष प्रस्तुत किया जा रहा है जिसका पंजीकरण करवाकर नियमानुसार जन्म प्रमाण पत्र जारी किया जाना आवश्यक है।</p>'
+        +'<p><b>धारा-4</b> यह कि उपरोक्त घटना की तिथि एवं स्थान सत्य है तथा उपरोक्त व्यक्ति कभी भी किसी भी संस्था या निकाय द्वारा कोई भी जन्म प्रमाण पत्र नहीं निर्गत किया गया है।</p>'
+        +'<p><b>धारा-5</b> यह कि उपरोक्त जन्म प्रमाण पत्र के जारी होने से पूरे भारतवर्ष में किसी भी न्यायालय में प्रचलित किसी कार्यवाही पर कोई प्रतिकूल प्रभाव नहीं पड़ेगा।</p>'
+        +'<p style="text-indent:30px;margin-top:8px;">अतः श्रीमान जी से निवेदन है कि प्रार्थी का प्रार्थनापत्र स्वीकार करके प्रार्थी के <b>'+relVal+'</b> <b>'+childName+'</b>, पिता <b>'+fatherName+'</b>, माता <b>'+motherName+'</b> का जन्म दिनांक — <b>'+dobStr+'</b> का जन्म प्रमाण पत्र निर्गत करवाये जाने की कृपा की जाय।</p>'
+        +'<div style="text-align:right;font-weight:700;margin-top:20px;">प्रार्थी</div>'
+        +'<div style="text-align:right;margin-top:12px;font-size:12px;line-height:1.8;">'
+        +'<b>'+infName+'</b> '+infParentRel+' <b>'+infFatherName+'</b><br>'
+        +'ग्राम — <b>'+permLocality+'</b>, ग्राम पंचायत — <b>'+hdrGP+'</b><br>'
+        +'विकासखण्ड — <b>'+hdrBlk+'</b>, जनपद — <b>'+hdrDist+'</b><br>'
+        +'दिनांक — _______________<br>'
+        +'मोबाइल नं0 — <b>'+(v('informant_mobile')||'___________')+'</b>'
+        +'</div></div></div>';
+      _pvPages.push(pSDM,pSDM);
+      _pvTitles.push('आवेदन पत्र — प्रति 1','आवेदन पत्र — प्रति 2');
+    } else {
+      _pvPages.push(pApp,pNotary);
+      _pvTitles.push('आवेदन पत्र — DPRO','नोटरी शपथ पत्र');
+    }
+  }
+
   _pvCurrent=0;
   showPreviewPage();
   document.getElementById('previewOverlay').classList.add('active');
@@ -609,16 +1038,113 @@ function verifyPayment(){
   document.getElementById('previewPageContent').innerHTML='<div style="font-family:Arial,sans-serif;text-align:center;padding:30px;"><div style="font-size:60px;margin-bottom:10px;">&#10004;</div><div style="font-size:22px;font-weight:700;color:#1B5E20;margin-bottom:4px;">Payment Successful!</div><div style="font-size:13px;color:#555;margin-bottom:6px;">Transaction ID: <b>'+txn+'</b></div><div style="border-top:1px solid #eee;margin:16px 0;"></div><div style="font-size:14px;color:#333;margin-bottom:16px;font-weight:600;">Now you can download or print your form:</div><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;"><button onclick="printAllPages()" style="padding:12px 28px;background:#003366;color:white;border:none;border-radius:8px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;">&#128424; Print All Pages</button><button onclick="printCurrentPageOnly(0)" style="padding:12px 28px;background:#FF6B00;color:white;border:none;border-radius:8px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;">&#128196; Print Page by Page</button></div><div style="margin-top:16px;"><button onclick="closePreview()" style="padding:8px 20px;background:transparent;color:#555;border:1px solid #ccc;border-radius:6px;font-family:inherit;font-size:11px;cursor:pointer;">Close</button></div><div style="font-size:9px;color:#aaa;margin-top:16px;">VISRO Consultancy</div></div>';
 }
 
-function printAllPages(){var all=_pvPages.join('<div style="page-break-before:always;"></div>');var w=window.open('','_blank','width=800,height=600');w.document.write('<!DOCTYPE html><html><head><title>Birth Form-1</title><style>@page{size:A4;margin:10mm;}body{font-family:Arial,sans-serif;margin:0;padding:10px;}</style></head><body>'+all+'<div style="position:fixed;right:20px;bottom:28px;z-index:200;display:flex;flex-direction:column;gap:10px;"><a href="tel:+918840714094" style="width:50px;height:50px;border-radius:50%;background:#e8640a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);text-decoration:none;" title="Call">📞</a><a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy" style="width:50px;height:50px;border-radius:50%;background:#22c55e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);text-decoration:none;" title="WhatsApp">💬</a></div></body></html>');w.document.close();setTimeout(function(){w.print();},500);}
-function printCurrentPageOnly(idx){var w=window.open('','_blank','width=800,height=600');w.document.write('<!DOCTYPE html><html><head><title>Page '+(idx+1)+'</title><style>@page{size:A4;margin:10mm;}body{font-family:Arial,sans-serif;margin:0;padding:10px;}</style></head><body>'+_pvPages[idx]+'</body></html>');w.document.close();setTimeout(function(){w.print();},500);}
+function isMobile(){
+  return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent) || window.innerWidth < 768;
+}
+function downloadPDF(blob, fileName){
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a'); a.href = url; a.download = fileName;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  showToast('✅ PDF डाउनलोड हो गया — WhatsApp से शेयर करें');
+}
+
+function printAllPages(){
+  var all=_pvPages.join('<div style="page-break-before:always;"></div>');
+  if(isMobile() && typeof html2pdf !== 'undefined'){
+    showToast('📄 PDF बन रहा है...');
+    var container = document.createElement('div');
+    container.innerHTML = all;
+    container.style.cssText = 'padding:10px;font-family:Arial,sans-serif;';
+    document.body.appendChild(container);
+    var fileName = 'Birth_Certificate_Form.pdf';
+    html2pdf().set({
+      margin: [10, 10, 10, 10], filename: fileName,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(container).outputPdf('blob').then(function(pdfBlob){
+      document.body.removeChild(container);
+      var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+      if(navigator.canShare && navigator.canShare({ files: [pdfFile] })){
+        navigator.share({ title: 'Birth Certificate Form', files: [pdfFile] }).then(function(){
+          showToast('✅ शेयर हो गया');
+        }).catch(function(err){ if(err.name !== 'AbortError') downloadPDF(pdfBlob, fileName); });
+      } else { downloadPDF(pdfBlob, fileName); }
+    }).catch(function(){ document.body.removeChild(container); showToast('⚠️ PDF नहीं बन सका'); });
+  } else {
+    var w=window.open('','_blank','width=800,height=600');
+    w.document.write('<!DOCTYPE html><html><head><title>Birth Form-1</title><style>@page{size:A4;margin:10mm;}body{font-family:Arial,sans-serif;margin:0;padding:10px;}</style></head><body>'+all+'</body></html>');
+    w.document.close();setTimeout(function(){w.print();},500);
+  }
+}
+
+function printCurrentPageOnly(idx){
+  if(isMobile() && typeof html2pdf !== 'undefined'){
+    showToast('📄 PDF बन रहा है...');
+    var container = document.createElement('div');
+    container.innerHTML = _pvPages[idx];
+    container.style.cssText = 'padding:10px;font-family:Arial,sans-serif;';
+    document.body.appendChild(container);
+    var fileName = 'Birth_Form_Page_'+(idx+1)+'.pdf';
+    html2pdf().set({
+      margin: [10, 10, 10, 10], filename: fileName,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(container).outputPdf('blob').then(function(pdfBlob){
+      document.body.removeChild(container);
+      var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+      if(navigator.canShare && navigator.canShare({ files: [pdfFile] })){
+        navigator.share({ title: 'Birth Form Page '+(idx+1), files: [pdfFile] }).then(function(){
+          showToast('✅ शेयर हो गया');
+        }).catch(function(err){ if(err.name !== 'AbortError') downloadPDF(pdfBlob, fileName); });
+      } else { downloadPDF(pdfBlob, fileName); }
+    }).catch(function(){ document.body.removeChild(container); showToast('⚠️ PDF नहीं बन सका'); });
+  } else {
+    var w=window.open('','_blank','width=800,height=600');
+    w.document.write('<!DOCTYPE html><html><head><title>Page '+(idx+1)+'</title><style>@page{size:A4;margin:10mm;}body{font-family:Arial,sans-serif;margin:0;padding:10px;}</style></head><body>'+_pvPages[idx]+'</body></html>');
+    w.document.close();setTimeout(function(){w.print();},500);
+  }
+}
+
+// ===== LATE REGISTRATION AUTO-FILL =====
+function updateLateRegSections(){
+  var childName=[(document.getElementById('child_fname')||{}).value,(document.getElementById('child_mname')||{}).value,(document.getElementById('child_lname')||{}).value].filter(Boolean).join(' ')||'______________';
+  var fatherName=[(document.getElementById('father_fname')||{}).value,(document.getElementById('father_mname')||{}).value,(document.getElementById('father_lname')||{}).value].filter(Boolean).join(' ')||'______________';
+  var motherName=[(document.getElementById('mother_fname')||{}).value,(document.getElementById('mother_mname')||{}).value,(document.getElementById('mother_lname')||{}).value].filter(Boolean).join(' ')||'______________';
+  var infName=[(document.getElementById('informant_fname')||{}).value,(document.getElementById('informant_mname')||{}).value].filter(Boolean).join(' ')||'______________';
+  var infRelation=(typeof getRelationValue==='function')?getRelationValue():((document.getElementById('informant_relation')||{}).value||'______________');
+  var dist=(document.getElementById('hdr_district')||{}).value||'______________';
+  var tehsil=(document.getElementById('hdr_tehsil')||{}).value||'______________';
+  var block=(document.getElementById('hdr_block')||{}).value||'______________';
+  var gp=(document.getElementById('hdr_gp')||{}).value||'______________';
+  var purava=(document.getElementById('perm_purava')||{}).value||'______________';
+  var dob='______________';
+  var dd=(document.getElementById('dob_dd')||{}).value;
+  var mm=(document.getElementById('dob_mm')||{}).value;
+  var yy=(document.getElementById('dob_yyyy')||{}).value;
+  if(dd&&mm&&yy)dob=dd+'/'+mm+'/'+yy;
+  var infFatherName=(document.getElementById('informant_father_name')||{}).value||'______________';
+  var infParentRel=(document.getElementById('informant_parent_rel')||{}).value||'पुत्र';
+  var birthPlaceAddr=(function(){var h=(document.getElementById('bp_hospital_name')||{}).value;if(h)return h;return purava||gp||'______________';})();
+  var infMobile=(document.getElementById('informant_mobile')||{}).value||'______________';
+  // DPRO application letter
+  var appIds={'app_letter_district':dist,'app_letter_informant':infName,'app_letter_inf_rel':infParentRel,'app_letter_inf_father':infFatherName,'app_letter_relation':infRelation,'app_letter_child':childName,'app_letter_child2':childName,'app_letter_father':fatherName,'app_letter_mother':motherName,'app_letter_address':purava,'app_letter_gp':gp,'app_letter_block':block,'app_letter_tehsil':tehsil,'app_letter_dist2':dist,'app_letter_dob':dob,'app_letter_dob2':dob,'app_letter_birth_place':birthPlaceAddr,'app_letter_keki':'के'};
+  for(var k in appIds){var el=document.getElementById(k);if(el)el.textContent=appIds[k];}
+  // Notary
+  var nids={'notary_informant':infName,'notary_putrpatni':infParentRel,'notary_inf_father':infFatherName,'notary_inf_address':purava,'notary_gp':gp,'notary_tehsil':tehsil,'notary_district':dist,'notary_district2':dist,'notary_child':childName,'notary_father':fatherName,'notary_mother':motherName,'notary_relation':infRelation,'notary_dob':dob,'notary_birth_place':birthPlaceAddr,'notary_keki':'के'};
+  for(var k in nids){var el=document.getElementById(k);if(el)el.textContent=nids[k];}
+  // SDM application
+  var sdmIds={'sdm_tehsil':tehsil,'sdm_district':dist,'sdm_informant':infName,'sdm_inf_rel':infParentRel,'sdm_inf_father':infFatherName,'sdm_inf_address':purava,'sdm_gp':gp,'sdm_tehsil2':tehsil,'sdm_district2':dist,'sdm_tehsil3':tehsil,'sdm_district3':dist,'sdm_informant2':infName,'sdm_inf_rel2':infParentRel,'sdm_inf_father2':infFatherName,'sdm_child':childName,'sdm_father':fatherName,'sdm_mother':motherName,'sdm_dob':dob,'sdm_birth_place':birthPlaceAddr,'sdm_relation':infRelation,'sdm_relation2':infRelation,'sdm_child2':childName,'sdm_father2':fatherName,'sdm_mother2':motherName,'sdm_dob2':dob,'sdm_informant3':infName,'sdm_inf_rel3':infParentRel,'sdm_inf_father3':infFatherName,'sdm_inf_address2':purava,'sdm_gp2':gp,'sdm_block':block,'sdm_district4':dist,'sdm_mobile':infMobile};
+  for(var k in sdmIds){var el=document.getElementById(k);if(el)el.textContent=sdmIds[k];}
+}
 
 // ===== INIT =====
 ['father_aadhaar','mother_aadhaar','informant_aadhaar'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'');});});
 ['father_mobile','mother_mobile','informant_mobile'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'');});});
 
 document.addEventListener('DOMContentLoaded',function(){
-  });
-  ['perm','bp','inf','bta'].forEach(function(p){buildAddressSection(p);var td=document.getElementById(p+'_town_dist');if(td)UP_DISTRICTS.forEach(function(d){td.add(new Option(d,d));});});
+  ['perm','bp','inf','bta'].forEach(function(p){buildAddressSection(p);var td=document.getElementById(p+'_town_dist');if(td&&typeof UP_DISTRICTS!=='undefined')UP_DISTRICTS.forEach(function(d){td.add(new Option(d,d));});});
   var today=new Date();document.getElementById('app_dd').value=today.getDate();document.getElementById('app_mm').value=today.getMonth()+1;document.getElementById('app_yyyy').value=today.getFullYear();document.getElementById('app_date').value=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
   document.getElementById('gp_statement_date').value=new Date().toISOString().split('T')[0];
   document.getElementById('asha_statement_date').value=new Date().toISOString().split('T')[0];
@@ -626,7 +1152,36 @@ document.addEventListener('DOMContentLoaded',function(){
   var watchIds=['hdr_gp','hdr_block','hdr_tehsil','gp_pradhan_name','dob_dd','dob_mm','dob_yyyy','child_fname','child_mname','child_lname','father_fname','father_lname','mother_fname','mother_lname','perm_purava','gp_statement_date'];
   watchIds.forEach(function(id){var e=document.getElementById(id);if(e){e.addEventListener('change',updateGPStatement);e.addEventListener('input',updateGPStatement);}});
   setTimeout(updateGPStatement,300);
+
+  // Period-based late registration sections
+  var period=null;
+  if(window.location.hash){var hp=new URLSearchParams(window.location.hash.substring(1));period=hp.get('period');}
+  if(!period){var urlParams=new URLSearchParams(window.location.search);period=urlParams.get('period');}
+  if(period==='30to1year'||period==='after1year'){
+    var lrs=document.getElementById('late-reg-sections');
+    if(lrs)lrs.style.display='block';
+    var periodTextEl=document.getElementById('app_period_text');
+    var dproApp=document.getElementById('dpro-application');
+    var sdmApp=document.getElementById('sdm-application');
+    var notarySec=document.getElementById('notary-section');
+    if(period==='after1year'){
+      if(periodTextEl)periodTextEl.textContent='घटना के 1 वर्ष के बाद';
+      if(dproApp)dproApp.style.display='none';
+      if(sdmApp)sdmApp.style.display='block';
+      if(notarySec)notarySec.style.display='none';
+    }else{
+      if(periodTextEl)periodTextEl.textContent='30 दिन के बाद, किन्तु 1 वर्ष के भीतर';
+      if(dproApp)dproApp.style.display='block';
+      if(sdmApp)sdmApp.style.display='none';
+    }
+  }
+
+  // Watch fields for late reg auto-fill
+  var lateWatchIds=['child_fname','child_mname','child_lname','father_fname','father_mname','father_lname','mother_fname','mother_mname','mother_lname','informant_fname','informant_mname','informant_father_name','informant_parent_rel','informant_relation','hdr_district','hdr_tehsil','hdr_block','hdr_gp','perm_purava','dob_dd','dob_mm','dob_yyyy','informant_mobile','bp_hospital_name'];
+  lateWatchIds.forEach(function(id){var e=document.getElementById(id);if(e){e.addEventListener('change',updateLateRegSections);e.addEventListener('input',updateLateRegSections);}});
+  setTimeout(updateLateRegSections,500);
 });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>
 </html>

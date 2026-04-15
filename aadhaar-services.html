@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6449VN1F1D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6449VN1F1D');
+</script>
 <title>Aadhaar Services / आधार सेवाएँ | VISRO Consultancy</title>
 <meta name="description" content="आधार कार्ड सेवाएं — नया आधार, आधार अपडेट, मोबाइल लिंक, आधार प्रिंट। VISRO Consultancy, Prayagraj">
 <meta name="robots" content="index, follow">
@@ -48,7 +56,7 @@
 </head>
 <body>
 
-<nav style="position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 4%;height:56px;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);box-shadow:0 2px 12px rgba(13,27,62,0.08);"><a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;"><img src="logo-nav.png" alt="VISRO" style="height:38px;width:auto;"><span style="font-size:.85rem;font-weight:700;color:#0d1b3e;">VISRO Consultancy</span></a><div style="display:flex;align-items:center;gap:12px;"><a href="tel:+918840714094" style="font-size:.78rem;font-weight:600;color:#e8640a;text-decoration:none;">📞 8840714094</a><a href="index.html" style="padding:6px 14px;background:#0d1b3e;color:#fff;border-radius:6px;font-size:.78rem;font-weight:600;text-decoration:none;">← Home</a></div></nav>
+<nav style="position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 4%;height:56px;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);box-shadow:0 2px 12px rgba(13,27,62,0.08);"><a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;"><img src="logo-nav.png" alt="VISRO" style="height:38px;width:auto;"><span style="font-size:.85rem;font-weight:700;color:#0d1b3e;">VISRO Consultancy</span></a><div style="display:flex;align-items:center;gap:12px;"><a href="tel:+918840714094" style="font-size:.78rem;font-weight:600;color:#e8640a;text-decoration:none;">📞 Call Now</a><a href="index.html" style="padding:6px 14px;background:#0d1b3e;color:#fff;border-radius:6px;font-size:.78rem;font-weight:600;text-decoration:none;">← Home</a></div></nav>
 
 <div class="page">
   <div class="hero">
@@ -148,7 +156,7 @@
     <div class="cta-box">
       <h3>आधार से जुड़ी कोई भी समस्या?</h3>
       <p>हमसे संपर्क करें — हम आपकी मदद करेंगे!</p>
-      <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20mujhe%20Aadhaar%20service%20chahiye" class="link-btn green">💬 WhatsApp — 88407 14094</a>
+      <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20mujhe%20Aadhaar%20service%20chahiye" class="link-btn green">💬 WhatsApp करें</a>
       <a href="tel:+918840714094" class="link-btn">📞 Call करें</a>
     </div>
 
@@ -235,7 +243,7 @@
         <div onclick="showStep('step1')" style="color:var(--orange);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:12px;">← वापस जाएँ / Back</div>
         <p style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px;">📝 Name Limit Cross</p>
         <p style="font-size:12px;color:var(--gray);margin-bottom:14px;">यह सुविधा जल्द उपलब्ध होगी। अभी WhatsApp पर संपर्क करें:</p>
-        <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20mera%20Aadhaar%20Name%20Limit%20Cross%20ho%20gaya%20hai.%20Help%20chahiye." style="display:inline-flex;align-items:center;gap:6px;padding:12px 24px;background:var(--green);color:white;border-radius:8px;text-decoration:none;font-size:14px;font-weight:700;">💬 WhatsApp — 88407 14094</a>
+        <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20mera%20Aadhaar%20Name%20Limit%20Cross%20ho%20gaya%20hai.%20Help%20chahiye." style="display:inline-flex;align-items:center;gap:6px;padding:12px 24px;background:var(--green);color:white;border-radius:8px;text-decoration:none;font-size:14px;font-weight:700;">💬 WhatsApp करें</a>
       </div>
 
       <!-- Form Display -->
@@ -244,7 +252,8 @@
         <div id="formTitle" style="font-size:14px;font-weight:800;color:var(--navy);margin-bottom:10px;padding:8px 12px;background:var(--off-white);border-radius:6px;"></div>
         <div id="formContent" style="font-size:14px;line-height:3;color:#222;border:1px solid #ccc;border-radius:8px;padding:24px;background:white;"></div>
         <div style="display:flex;gap:10px;margin-top:14px;justify-content:center;flex-wrap:wrap;">
-          <button onclick="printForm()" style="padding:10px 24px;background:var(--navy);color:white;border:none;border-radius:8px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;">🖨️ Print Form</button>
+          <button id="btnPrint" onclick="printForm()" style="padding:10px 24px;background:var(--navy);color:white;border:none;border-radius:8px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;">🖨️ Print Form</button>
+          <button id="btnShare" onclick="printForm()" style="padding:10px 24px;background:#22c55e;color:white;border:none;border-radius:8px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:none;">📤 PDF बनाएं और शेयर करें</button>
           <a href="https://wa.me/918840714094?text=Hello%20VISRO%20Consultancy%2C%20mujhe%20Aadhaar%20DOB%20Correction%20form%20bhrwana%20hai." style="padding:10px 24px;background:var(--green);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">💬 WhatsApp Help</a>
         </div>
       </div>
@@ -400,14 +409,28 @@ function showResult(formId) {
   if (window.initAllDobPickers) setTimeout(initAllDobPickers, 100);
 }
 
+function isMobile(){
+  return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent) || window.innerWidth < 768;
+}
+function showToast(msg){
+  var t = document.getElementById('toast');
+  if(!t){ t=document.createElement('div'); t.id='toast'; t.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:12px 24px;border-radius:8px;font-size:14px;z-index:9999;display:none;'; document.body.appendChild(t); }
+  t.textContent=msg; t.style.display='block';
+  setTimeout(function(){ t.style.display='none'; }, 3000);
+}
+function downloadPDF(blob, fileName){
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a'); a.href = url; a.download = fileName;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  showToast('✅ PDF डाउनलोड हो गया — WhatsApp से शेयर करें');
+}
+
 function printForm() {
-  // First: set all input values as attributes so innerHTML captures them
   var fc = document.getElementById('formContent');
   fc.querySelectorAll('input').forEach(function(inp){
     inp.setAttribute('value', inp.value);
   });
   fc.querySelectorAll('select').forEach(function(sel){
-    // Set selected attribute on chosen option
     for(var i=0;i<sel.options.length;i++){
       sel.options[i].removeAttribute('selected');
       if(sel.options[i].value === sel.value || sel.selectedIndex === i){
@@ -416,26 +439,56 @@ function printForm() {
     }
   });
   var content = fc.innerHTML;
-  var w = window.open('','_blank','width=800,height=600');
-  w.document.write('<!DOCTYPE html><html><head><title> </title><style>'
-    +'@page{size:A4 portrait;margin:25mm 14mm 12mm 14mm;marks:none;}'
-    +'@page:first{margin-top:170mm;}'
-    +'html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}'
-    +'body{font-family:Arial,sans-serif;font-size:11px;line-height:1.6;color:#000;margin:0;padding:0 4px;}'
-    +'p{margin:3px 0;}'
-    +'div[style*="text-align:center"]{margin-bottom:2px !important;}'
-    +'div[style*="font-size:16px"]{font-size:13px !important;}'
-    +'div[style*="font-size:13px"]{font-size:11px !important;}'
-    +'input,select{border:none;border-bottom:1px solid #333;background:transparent;font-family:inherit;font-size:11px;font-weight:700;min-width:120px;padding:1px 3px;color:#000;}'
-    +'input[type="date"]{min-width:110px;}'
-    +'div[style*="margin-top:30px"]{margin-top:12px !important;}'
-    +'div[style*="height:50px"]{height:25px !important;}'
-    +'.hi-only{display:none !important;}'
-    +'.no-print{display:none !important;}'
-    +'</style></head><body>'+content+'</body></html>');
-  w.document.close();
-  setTimeout(function(){w.print();},500);
+
+  if(isMobile() && typeof html2pdf !== 'undefined'){
+    showToast('📄 PDF बन रहा है...');
+    var container = document.createElement('div');
+    container.innerHTML = content;
+    container.style.cssText = 'padding:20px;font-family:Arial,sans-serif;font-size:11px;line-height:1.6;color:#000;';
+    document.body.appendChild(container);
+    var fileName = 'Aadhaar_Correction_Form.pdf';
+    html2pdf().set({
+      margin: [10, 12, 10, 12], filename: fileName,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(container).outputPdf('blob').then(function(pdfBlob){
+      document.body.removeChild(container);
+      var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+      if(navigator.canShare && navigator.canShare({ files: [pdfFile] })){
+        navigator.share({ title: 'Aadhaar Correction Form', files: [pdfFile] }).then(function(){
+          showToast('✅ शेयर हो गया');
+        }).catch(function(err){ if(err.name !== 'AbortError') downloadPDF(pdfBlob, fileName); });
+      } else { downloadPDF(pdfBlob, fileName); }
+    }).catch(function(){ document.body.removeChild(container); showToast('⚠️ PDF नहीं बन सका'); });
+  } else {
+    var w = window.open('','_blank','width=800,height=600');
+    w.document.write('<!DOCTYPE html><html><head><title> </title><style>'
+      +'@page{size:A4 portrait;margin:25mm 14mm 12mm 14mm;marks:none;}'
+      +'@page:first{margin-top:170mm;}'
+      +'html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}'
+      +'body{font-family:Arial,sans-serif;font-size:11px;line-height:1.6;color:#000;margin:0;padding:0 4px;}'
+      +'p{margin:3px 0;}'
+      +'div[style*="text-align:center"]{margin-bottom:2px !important;}'
+      +'div[style*="font-size:16px"]{font-size:13px !important;}'
+      +'div[style*="font-size:13px"]{font-size:11px !important;}'
+      +'input,select{border:none;border-bottom:1px solid #333;background:transparent;font-family:inherit;font-size:11px;font-weight:700;min-width:120px;padding:1px 3px;color:#000;}'
+      +'input[type="date"]{min-width:110px;}'
+      +'div[style*="margin-top:30px"]{margin-top:12px !important;}'
+      +'div[style*="height:50px"]{height:25px !important;}'
+      +'.hi-only{display:none !important;}'
+      +'.no-print{display:none !important;}'
+      +'</style></head><body>'+content+'</body></html>');
+    w.document.close();
+    setTimeout(function(){w.print();},500);
+  }
+}
+
+if(isMobile()){
+  var bp = document.getElementById('btnPrint'); if(bp) bp.style.display='none';
+  var bs = document.getElementById('btnShare'); if(bs) bs.style.display='';
 }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>
 </html>
