@@ -260,6 +260,30 @@
               </label>
             </div>
           </div>
+          <!-- Out of GP: optional birth place details -->
+          <div class="field-full" id="ak_out_gp_place_wrap" style="display:none;grid-column:1/-1;">
+            <div style="padding:14px 16px;background:#fff3e0;border:1.5px solid #ffb74d;border-radius:6px;">
+              <div style="font-size:12px;font-weight:600;color:#e65100;margin-bottom:8px;">📍 अगर बच्चे के जन्म स्थान के बारे में पता है तो नीचे भरें (वैकल्पिक)</div>
+              <div class="fields" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <div class="field-group">
+                  <label>जन्म स्थान / ग्राम / मोहल्ला</label>
+                  <input type="text" id="ak_out_bp_place" placeholder="जैसे: ग्राम सुल्तानपुर">
+                </div>
+                <div class="field-group">
+                  <label>ग्राम पंचायत / नगर निकाय</label>
+                  <input type="text" id="ak_out_bp_gp" placeholder="ग्राम पंचायत या नगर निकाय">
+                </div>
+                <div class="field-group">
+                  <label>विकासखण्ड / तहसील</label>
+                  <input type="text" id="ak_out_bp_block" placeholder="विकासखण्ड या तहसील">
+                </div>
+                <div class="field-group">
+                  <label>जनपद</label>
+                  <input type="text" id="ak_out_bp_district" placeholder="जनपद">
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- जन्म स्थान dropdown (hidden when out_gp) -->
           <div class="field-group field-full" id="ak_bp_type_wrap">
             <label>जन्म स्थान <span class="req">*</span></label>
@@ -472,17 +496,20 @@ function handleBPScope(){
   var hospWrap = document.getElementById('ak_hospital_wrap');
   var evidenceSection = document.getElementById('ak_evidence_section');
   var witnessSection = document.getElementById('ak_witness_section');
+  var outGPPlaceWrap = document.getElementById('ak_out_gp_place_wrap');
   if(outGP){
     wrap.style.display = 'none';
     homeWrap.style.display = 'none';
     hospWrap.style.display = 'none';
     evidenceSection.style.display = 'none';
     witnessSection.style.display = 'none';
+    outGPPlaceWrap.style.display = '';
     document.getElementById('ak_birth_place_type').value = '';
   } else {
     wrap.style.display = '';
     evidenceSection.style.display = '';
     witnessSection.style.display = '';
+    outGPPlaceWrap.style.display = 'none';
     // re-trigger to show correct sub-section
     var v = document.getElementById('ak_birth_place_type').value;
     homeWrap.style.display = (v==='घर') ? '' : 'none';
@@ -740,6 +767,22 @@ function buildAkhyaHTML(){
 
   if(bpOutGP){
     // --- अधिकार क्षेत्र के बाहर ---
+    // Check if user provided birth place details
+    var outBpPlace = val('ak_out_bp_place');
+    var outBpGP = val('ak_out_bp_gp');
+    var outBpBlock = val('ak_out_bp_block');
+    var outBpDistrict = val('ak_out_bp_district');
+    var hasOutBpInfo = outBpPlace || outBpGP || outBpBlock || outBpDistrict;
+    var outBpFull = '';
+    if(hasOutBpInfo){
+      var parts = [];
+      if(outBpPlace) parts.push(outBpPlace);
+      if(outBpGP) parts.push('ग्राम पंचायत / नगर निकाय ' + outBpGP);
+      if(outBpBlock) parts.push('विकासखण्ड / तहसील ' + outBpBlock);
+      if(outBpDistrict) parts.push('जनपद ' + outBpDistrict);
+      outBpFull = parts.join(', ');
+    }
+
     html += '<div style="text-indent:40px;text-align:justify;">';
     html += 'उक्त के क्रम मे सादर अवगत कराना है कि प्रकरण की जांच की गई। जांच में यह पाया गया कि ';
     if(isSelf){
@@ -748,6 +791,9 @@ function buildAkhyaHTML(){
       html += 'आवेदक के ' + cg + ' <strong>' + childName + '</strong> ' + cg + ' श्री <strong>' + childFather + '</strong>';
     }
     html += ' का जन्म स्थान ग्राम पंचायत <strong>' + gp + '</strong> के अधिकार क्षेत्र में नहीं है।';
+    if(hasOutBpInfo){
+      html += ' आवेदक के अनुसार जन्म स्थान <strong>' + outBpFull + '</strong> है।';
+    }
     html += '</div>';
 
     html += '<div style="text-indent:40px;text-align:justify;">';
@@ -757,7 +803,11 @@ function buildAkhyaHTML(){
     html += '</div>';
 
     html += '<div style="text-indent:40px;text-align:justify;">';
-    html += 'आवेदक को सलाह दी जाती है कि वह उस ग्राम पंचायत / नगर निकाय में आवेदन प्रस्तुत करें जिसके अधिकार क्षेत्र में जन्म हुआ है।';
+    if(hasOutBpInfo){
+      html += 'आवेदक को सलाह दी जाती है कि वह <strong>' + outBpFull + '</strong> की ग्राम पंचायत / नगर निकाय में आवेदन प्रस्तुत करें जिसके अधिकार क्षेत्र में जन्म हुआ है।';
+    } else {
+      html += 'आवेदक को सलाह दी जाती है कि वह उस ग्राम पंचायत / नगर निकाय में आवेदन प्रस्तुत करें जिसके अधिकार क्षेत्र में जन्म हुआ है।';
+    }
     html += '</div>';
 
     html += '<div style="text-indent:40px;margin-top:4px;">';
