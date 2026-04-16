@@ -21,6 +21,9 @@
 <meta property="og:title" content="मृत्यु प्रमाण पत्र | VISRO Consultancy">
 <meta property="og:description" content="मृत्यु प्रमाण पत्र पंजीकरण फॉर्म। VISRO Consultancy, Prayagraj">
 <meta property="og:url" content="https://visroconsultancy.in/death-certificate-form.html">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root { --saffron: #FF6B00; --deep-blue: #003366; --light-blue: #E8F0F8; --border: #B0C4DE; --text: #1a1a2e; --muted: #5a6a7a; --white: #ffffff; --green: #1B5E20; --field-bg: #F8FBFF; --required: #c0392b; }
@@ -1022,15 +1025,17 @@ function printAllPages(){
   var all=_pvPages.join('<div style="page-break-before:always;"></div>');
   if(isMobile() && typeof html2pdf !== 'undefined'){
     showToast('📄 PDF बन रहा है...');
+    closePreview();
     var container = document.createElement('div');
     container.innerHTML = all;
-    container.style.cssText = 'padding:10px;font-family:Arial,sans-serif;';
+    container.style.cssText = 'position:fixed;top:0;left:0;width:800px;padding:10px;background:white;z-index:9999;font-family:Arial,sans-serif;color:#000;';
     document.body.appendChild(container);
     var fileName = 'Death_Certificate_Form.pdf';
+    setTimeout(function(){
     html2pdf().set({
       margin: [10, 10, 10, 10], filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
+      html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 800 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }).from(container).outputPdf('blob').then(function(pdfBlob){
       document.body.removeChild(container);
@@ -1041,6 +1046,7 @@ function printAllPages(){
         }).catch(function(err){ if(err.name !== 'AbortError') downloadPDF(pdfBlob, fileName); });
       } else { downloadPDF(pdfBlob, fileName); }
     }).catch(function(){ document.body.removeChild(container); showToast('⚠️ PDF नहीं बन सका'); });
+    }, 300);
   } else {
     var w=window.open('','_blank','width=800,height=600');
     w.document.write('<!DOCTYPE html><html><head><title>Form-2 Print</title><style>@page{size:A4;margin:10mm;}body{font-family:Arial,sans-serif;margin:0;padding:10px;}</style></head><body>'+all+'</body></html>');
@@ -1052,15 +1058,17 @@ function printCurrentPageOnly(idx){
   var isNotary=(_pvTitles[idx]&&_pvTitles[idx].indexOf('शपथ')!==-1);
   if(isMobile() && typeof html2pdf !== 'undefined'){
     showToast('📄 PDF बन रहा है...');
+    closePreview();
     var container = document.createElement('div');
     container.innerHTML = _pvPages[idx];
-    container.style.cssText = 'padding:10px;font-family:Arial,sans-serif;';
+    container.style.cssText = 'position:fixed;top:0;left:0;width:800px;padding:10px;background:white;z-index:9999;font-family:Arial,sans-serif;color:#000;';
     document.body.appendChild(container);
     var fileName = 'Death_Form_Page_'+(idx+1)+'.pdf';
+    setTimeout(function(){
     html2pdf().set({
       margin: isNotary ? [5, 10, 10, 10] : [10, 10, 10, 10], filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
+      html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 800 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }).from(container).outputPdf('blob').then(function(pdfBlob){
       document.body.removeChild(container);
@@ -1071,6 +1079,7 @@ function printCurrentPageOnly(idx){
         }).catch(function(err){ if(err.name !== 'AbortError') downloadPDF(pdfBlob, fileName); });
       } else { downloadPDF(pdfBlob, fileName); }
     }).catch(function(){ document.body.removeChild(container); showToast('⚠️ PDF नहीं बन सका'); });
+    }, 300);
   } else {
     var pageStyle=isNotary?'@page{size:A4;margin:5mm 10mm 10mm 10mm;}body{font-family:Arial,sans-serif;margin:0;padding:0 10px 10px 10px;}':'@page{size:A4;margin:10mm;}body{font-family:Arial,sans-serif;margin:0;padding:10px;}';
     var w=window.open('','_blank','width=800,height=600');
@@ -1095,12 +1104,13 @@ function mobilePrintElement(elementId, fileName, title){
     var el = document.getElementById(elementId);
     if(!el){ window.print(); return; }
     var content = el.cloneNode(true);
-    content.style.cssText = 'padding:20px;font-family:Arial,sans-serif;';
+    content.style.cssText = 'position:fixed;top:0;left:0;width:800px;padding:20px;background:white;z-index:9999;font-family:Arial,sans-serif;color:#000;';
     document.body.appendChild(content);
+    setTimeout(function(){
     html2pdf().set({
       margin: [10, 12, 10, 12], filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
+      html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 800 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }).from(content).outputPdf('blob').then(function(pdfBlob){
       document.body.removeChild(content);
@@ -1111,6 +1121,7 @@ function mobilePrintElement(elementId, fileName, title){
         }).catch(function(err){ if(err.name !== 'AbortError') downloadPDF(pdfBlob, fileName); });
       } else { downloadPDF(pdfBlob, fileName); }
     }).catch(function(){ document.body.removeChild(content); window.print(); });
+    }, 300);
   } else { window.print(); }
 }
 function printGPStatement(){if(!document.getElementById('gp_pradhan_name').value.trim()){alert('कृपया ग्राम प्रधान का नाम भरें।');return;}if(isMobile()){mobilePrintElement('gp-print-view','GP_Statement.pdf','ग्राम प्रधान बयान');}else{alert('ग्राम प्रधान बयान प्रिंट हो रहा है...');window.print();}}

@@ -17,6 +17,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root { --saffron: #FF6B00; --deep-blue: #003366; --border: #B0C4DE; --text: #1a1a2e; --muted: #5a6a7a; --green: #1B5E20; --field-bg: #F8FBFF; --required: #c0392b; }
@@ -352,36 +355,52 @@
     <div class="section" id="ak_evidence_section">
       <div class="section-title"><div class="num">5</div> साक्ष्य विवरण (Evidence Details)</div>
       <div class="section-content">
-        <div class="fields two-col">
-          <div class="field-group">
-            <label>प्रमाण पत्र <span class="req">*</span></label>
-            <select id="ak_edu_cert">
-              <option value="">चुनें</option>
-              <option value="प्राथमिक विद्यालय का प्रमाण पत्र">प्राथमिक विद्यालय का प्रमाण पत्र</option>
-              <option value="माध्यमिक विद्यालय का प्रमाण पत्र">माध्यमिक विद्यालय का प्रमाण पत्र</option>
-              <option value="हाईस्कूल की अंकतालिका">हाईस्कूल की अंकतालिका</option>
-              <option value="इंटरमीडिएट की अंकतालिका">इंटरमीडिएट की अंकतालिका</option>
-              <option value="स्थानांतरण प्रमाण पत्र (TC)">स्थानांतरण प्रमाण पत्र (TC)</option>
-              <option value="आंगनवाड़ी रजिस्टर">आंगनवाड़ी रजिस्टर</option>
-              <option value="कोर्ट ऑर्डर">कोर्ट ऑर्डर</option>
-              <option value="ग्राम सभा की बैठक की कार्यवाही">ग्राम सभा की बैठक की कार्यवाही</option>
-              <option value="अन्य">अन्य</option>
-            </select>
+        <div id="ak_evidence_list">
+          <!-- Evidence Item 1 -->
+          <div class="ak-evidence-item" style="border:1px solid #dde4ed;border-radius:6px;padding:12px 14px;margin-bottom:10px;background:#fff;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <span style="font-size:12px;font-weight:700;color:var(--deep-blue);">साक्ष्य 1</span>
+            </div>
+            <div class="fields two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div class="field-group">
+                <label>प्रमाण पत्र <span class="req">*</span></label>
+                <select class="ak_edu_cert_sel" onchange="handleEvidenceChange(this)">
+                  <option value="">चुनें</option>
+                  <option value="प्राथमिक विद्यालय का प्रमाण पत्र">प्राथमिक विद्यालय का प्रमाण पत्र</option>
+                  <option value="माध्यमिक विद्यालय का प्रमाण पत्र">माध्यमिक विद्यालय का प्रमाण पत्र</option>
+                  <option value="हाईस्कूल की अंकतालिका">हाईस्कूल की अंकतालिका</option>
+                  <option value="इंटरमीडिएट की अंकतालिका">इंटरमीडिएट की अंकतालिका</option>
+                  <option value="स्थानांतरण प्रमाण पत्र (TC)">स्थानांतरण प्रमाण पत्र (TC)</option>
+                  <option value="आंगनवाड़ी रजिस्टर">आंगनवाड़ी रजिस्टर</option>
+                  <option value="आशा बहू डायरी">आशा बहू डायरी</option>
+                  <option value="टीकाकरण कार्ड">टीकाकरण कार्ड</option>
+                  <option value="कोर्ट ऑर्डर">कोर्ट ऑर्डर</option>
+                  <option value="ग्राम सभा की बैठक की कार्यवाही">ग्राम सभा की बैठक की कार्यवाही</option>
+                  <option value="अन्य">अन्य</option>
+                </select>
+              </div>
+              <div class="field-group ak_edu_other_wrap" style="display:none;">
+                <label>अन्य प्रमाण पत्र का नाम</label>
+                <input type="text" class="ak_edu_other_inp" placeholder="प्रमाण पत्र का नाम लिखें">
+              </div>
+            </div>
           </div>
-          <div class="field-group" id="ak_edu_other_wrap" style="display:none;">
-            <label>अन्य प्रमाण पत्र का नाम</label>
-            <input type="text" id="ak_edu_other" placeholder="प्रमाण पत्र का नाम लिखें">
-          </div>
+        </div>
+        <!-- Add more evidence button -->
+        <button type="button" onclick="addEvidence()" style="margin-bottom:12px;padding:8px 18px;background:#e3f2fd;color:#0d47a1;border:1.5px dashed #90caf9;border-radius:6px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;">
+          ➕ और साक्ष्य जोड़ें
+        </button>
+        <div class="fields two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
           <div class="field-group">
             <label>आधार कार्ड संख्या (यदि उपलब्ध हो)</label>
             <input type="text" id="ak_aadhaar" maxlength="12" placeholder="12 अंक (वैकल्पिक)" oninput="this.value=this.value.replace(/\D/g,'')">
           </div>
-          <div class="field-full" style="grid-column:1/-1;margin-top:6px;">
-            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:10px 14px;background:#fff8e1;border:1.5px solid #FFD600;border-radius:6px;">
-              <input type="checkbox" id="ak_no_evidence" style="width:18px;height:18px;cursor:pointer;">
-              <span style="font-size:13px;font-weight:600;color:#b71c1c;">⚠️ कोई साक्ष्य नहीं प्रस्तुत किया जा सका</span>
-            </label>
-          </div>
+        </div>
+        <div style="margin-top:10px;">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:10px 14px;background:#fff8e1;border:1.5px solid #FFD600;border-radius:6px;">
+            <input type="checkbox" id="ak_no_evidence" style="width:18px;height:18px;cursor:pointer;">
+            <span style="font-size:13px;font-weight:600;color:#b71c1c;">⚠️ कोई साक्ष्य नहीं प्रस्तुत किया जा सका</span>
+          </label>
         </div>
       </div>
     </div>
@@ -484,23 +503,88 @@ document.getElementById('ak_home_same_addr').addEventListener('change', function
   document.getElementById('ak_home_diff_addr').style.display = this.checked ? 'none' : '';
 });
 
-// Show/hide other edu cert field
-document.getElementById('ak_edu_cert').addEventListener('change', function(){
-  document.getElementById('ak_edu_other_wrap').style.display = this.value==='अन्य' ? '' : 'none';
-});
+// Evidence: handle change for "अन्य" option
+function handleEvidenceChange(sel){
+  var otherWrap = sel.closest('.ak-evidence-item').querySelector('.ak_edu_other_wrap');
+  if(otherWrap) otherWrap.style.display = sel.value==='अन्य' ? '' : 'none';
+}
+
+// Evidence: add more
+var _evidenceCount = 1;
+function addEvidence(){
+  _evidenceCount++;
+  var list = document.getElementById('ak_evidence_list');
+  var item = document.createElement('div');
+  item.className = 'ak-evidence-item';
+  item.style.cssText = 'border:1px solid #dde4ed;border-radius:6px;padding:12px 14px;margin-bottom:10px;background:#fff;';
+  item.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">'
+    + '<span style="font-size:12px;font-weight:700;color:#003366;">साक्ष्य ' + _evidenceCount + '</span>'
+    + '<button type="button" onclick="removeEvidence(this)" style="background:#fee;color:#c00;border:1px solid #fcc;border-radius:4px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;">✕ हटाएं</button>'
+    + '</div>'
+    + '<div class="fields two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">'
+    + '<div class="field-group"><label>प्रमाण पत्र</label>'
+    + '<select class="ak_edu_cert_sel" onchange="handleEvidenceChange(this)">'
+    + '<option value="">चुनें</option>'
+    + '<option value="प्राथमिक विद्यालय का प्रमाण पत्र">प्राथमिक विद्यालय का प्रमाण पत्र</option>'
+    + '<option value="माध्यमिक विद्यालय का प्रमाण पत्र">माध्यमिक विद्यालय का प्रमाण पत्र</option>'
+    + '<option value="हाईस्कूल की अंकतालिका">हाईस्कूल की अंकतालिका</option>'
+    + '<option value="इंटरमीडिएट की अंकतालिका">इंटरमीडिएट की अंकतालिका</option>'
+    + '<option value="स्थानांतरण प्रमाण पत्र (TC)">स्थानांतरण प्रमाण पत्र (TC)</option>'
+    + '<option value="आंगनवाड़ी रजिस्टर">आंगनवाड़ी रजिस्टर</option>'
+    + '<option value="आशा बहू डायरी">आशा बहू डायरी</option>'
+    + '<option value="टीकाकरण कार्ड">टीकाकरण कार्ड</option>'
+    + '<option value="कोर्ट ऑर्डर">कोर्ट ऑर्डर</option>'
+    + '<option value="ग्राम सभा की बैठक की कार्यवाही">ग्राम सभा की बैठक की कार्यवाही</option>'
+    + '<option value="अन्य">अन्य</option>'
+    + '</select></div>'
+    + '<div class="field-group ak_edu_other_wrap" style="display:none;"><label>अन्य प्रमाण पत्र का नाम</label>'
+    + '<input type="text" class="ak_edu_other_inp" placeholder="प्रमाण पत्र का नाम लिखें"></div>'
+    + '</div>';
+  list.appendChild(item);
+}
+function removeEvidence(btn){
+  var item = btn.closest('.ak-evidence-item');
+  item.remove();
+  // Re-number
+  var items = document.querySelectorAll('.ak-evidence-item');
+  for(var i=0;i<items.length;i++){
+    items[i].querySelector('span').textContent = 'साक्ष्य ' + (i+1);
+  }
+  _evidenceCount = items.length;
+}
+
+// Collect all evidence texts
+function getAllEvidenceTexts(){
+  var items = document.querySelectorAll('.ak-evidence-item');
+  var texts = [];
+  for(var i=0;i<items.length;i++){
+    var sel = items[i].querySelector('.ak_edu_cert_sel');
+    var v = sel ? sel.value : '';
+    if(v === 'अन्य'){
+      var inp = items[i].querySelector('.ak_edu_other_inp');
+      v = (inp && inp.value.trim()) ? inp.value.trim() : 'अन्य प्रमाण पत्र';
+    }
+    if(v) texts.push(v);
+  }
+  return texts;
+}
 
 // Checkbox: कोई साक्ष्य नहीं — disable/enable edu fields
 document.getElementById('ak_no_evidence').addEventListener('change', function(){
-  var eduSel = document.getElementById('ak_edu_cert');
-  var eduOtherWrap = document.getElementById('ak_edu_other_wrap');
+  var list = document.getElementById('ak_evidence_list');
+  var sels = list.querySelectorAll('.ak_edu_cert_sel');
   if(this.checked){
-    eduSel.value = '';
-    eduSel.disabled = true;
-    eduSel.style.opacity = '0.5';
-    eduOtherWrap.style.display = 'none';
+    for(var i=0;i<sels.length;i++){
+      sels[i].value = '';
+      sels[i].disabled = true;
+      sels[i].style.opacity = '0.5';
+    }
+    list.querySelectorAll('.ak_edu_other_wrap').forEach(function(w){ w.style.display='none'; });
   } else {
-    eduSel.disabled = false;
-    eduSel.style.opacity = '1';
+    for(var i=0;i<sels.length;i++){
+      sels[i].disabled = false;
+      sels[i].style.opacity = '1';
+    }
   }
 });
 
@@ -546,9 +630,9 @@ function buildAkhyaHTML(){
   var bpBlock = val('ak_bp_block');
   var bpTehsil = val('ak_bp_tehsil');
   var bpDistrict = val('ak_bp_district');
-  var eduCert = val('ak_edu_cert');
-  var eduOther = val('ak_edu_other');
+  var evidenceTexts = getAllEvidenceTexts();
   var aadhaar = val('ak_aadhaar');
+  var isSelf = (childRelation === 'स्वयं');
   var secretary = val('ak_secretary_name');
   // pradhan field removed
 
@@ -573,7 +657,7 @@ function buildAkhyaHTML(){
   if(!childRelation) missing.push('आवेदक का बच्चे से संबंध');
   if(!dd||!mm||!yyyy) missing.push('जन्म तिथि');
   if(!bpOutGP && !birthPlaceType) missing.push('जन्म स्थान');
-  if(!bpOutGP && !eduCert && !document.getElementById('ak_no_evidence').checked) missing.push('प्रमाण पत्र');
+  if(!bpOutGP && evidenceTexts.length === 0 && !document.getElementById('ak_no_evidence').checked) missing.push('प्रमाण पत्र');
 
   if(missing.length > 0){
     showToast('⚠️ कृपया भरें: ' + missing.join(', '));
@@ -603,7 +687,7 @@ function buildAkhyaHTML(){
 
   // Education cert text
   var noEvidence = document.getElementById('ak_no_evidence').checked;
-  var eduText = eduCert === 'अन्य' ? (eduOther || 'अन्य प्रमाण पत्र') : eduCert;
+  var eduText = evidenceTexts.length > 0 ? evidenceTexts.join(', ') : '';
 
   // Aadhaar text
   var aadhaarText = '';
@@ -634,12 +718,10 @@ function buildAkhyaHTML(){
   // महोदय
   html += '<div style="margin-bottom:4px;"><strong>महोदय,</strong></div>';
 
-  // Build relation text: if applicant is पिता/माता, say "अपने पुत्र/पुत्री"
+  // Build relation text based on applicant's relationship to child
   var crText;
-  if(childRelation === 'स्वयं'){
+  if(isSelf){
     crText = 'अपना';
-  } else if(childRelation === 'पिता' || childRelation === 'माता'){
-    crText = 'अपने ' + cg;
   } else {
     crText = 'अपने ' + cg;
   }
@@ -648,15 +730,24 @@ function buildAkhyaHTML(){
   html += '<div style="text-indent:40px;text-align:justify;">';
   html += '<strong>' + applicant + '</strong> ' + relText + ' <strong>' + fatherHusband + '</strong>';
   html += ' निवासी- ग्राम ' + addrVillage + ', ग्राम पंचायत ' + addrGP + ', विकासखण्ड ' + addrBlock + ', तहसील ' + addrTehsil + ', जनपद ' + addrDistrict;
-  html += ' द्वारा ' + crText + ' <strong>' + childName + '</strong> का जन्म प्रमाण पत्र बनाने के लिए उपजिलाधिकारी महोदय के न्यायालय मे';
+  if(isSelf){
+    html += ' द्वारा अपना जन्म प्रमाण पत्र बनाने के लिए उपजिलाधिकारी महोदय के न्यायालय मे';
+  } else {
+    html += ' द्वारा ' + crText + ' <strong>' + childName + '</strong> का जन्म प्रमाण पत्र बनाने के लिए उपजिलाधिकारी महोदय के न्यायालय मे';
+  }
   html += ' आवेदन प्रस्तुत किया था जिसकी जांच आपके द्वारा अधोहस्ताक्षरी को करने हेतु निर्देशित किया गया था।';
   html += '</div>';
 
   if(bpOutGP){
     // --- अधिकार क्षेत्र के बाहर ---
     html += '<div style="text-indent:40px;text-align:justify;">';
-    html += 'उक्त के क्रम मे सादर अवगत कराना है कि प्रकरण की जांच की गई। जांच में यह पाया गया कि आवेदक के ' + cg + ' <strong>' + childName + '</strong>';
-    html += ' ' + cg + ' श्री <strong>' + childFather + '</strong> का जन्म स्थान ग्राम पंचायत <strong>' + gp + '</strong> के अधिकार क्षेत्र में नहीं है।';
+    html += 'उक्त के क्रम मे सादर अवगत कराना है कि प्रकरण की जांच की गई। जांच में यह पाया गया कि ';
+    if(isSelf){
+      html += 'आवेदक <strong>' + childName + '</strong> ' + rel + ' श्री <strong>' + childFather + '</strong>';
+    } else {
+      html += 'आवेदक के ' + cg + ' <strong>' + childName + '</strong> ' + cg + ' श्री <strong>' + childFather + '</strong>';
+    }
+    html += ' का जन्म स्थान ग्राम पंचायत <strong>' + gp + '</strong> के अधिकार क्षेत्र में नहीं है।';
     html += '</div>';
 
     html += '<div style="text-indent:40px;text-align:justify;">';
@@ -677,8 +768,12 @@ function buildAkhyaHTML(){
     // --- अधिकार क्षेत्र में — normal flow ---
     // Para 2
     html += '<div style="text-indent:40px;text-align:justify;">';
-    html += 'उक्त के क्रम मे सादर अवगत कराना है कि प्रकरण की जांच की गई। प्रकरण विलम्बित प्रकृति का है। आवेदक द्वारा बयान दिया गया कि उसके ';
-    html += cg + ' <strong>' + childName + '</strong> का जन्म दिनांक <strong>' + dobText + '</strong> को ';
+    html += 'उक्त के क्रम मे सादर अवगत कराना है कि प्रकरण की जांच की गई। प्रकरण विलम्बित प्रकृति का है। आवेदक द्वारा बयान दिया गया कि ';
+    if(isSelf){
+      html += 'उसका जन्म दिनांक <strong>' + dobText + '</strong> को ';
+    } else {
+      html += 'उसके ' + cg + ' <strong>' + childName + '</strong> का जन्म दिनांक <strong>' + dobText + '</strong> को ';
+    }
     html += birthPlaceFull + ' में हुआ है।';
     // Build witness list from checkboxes
     var wList = [];
@@ -691,7 +786,11 @@ function buildAkhyaHTML(){
     if(noEvidence){
       html += ', किन्तु आवेदक द्वारा जन्मतिथि को प्रमाणित करने वाला कोई साक्ष्य नहीं प्रस्तुत किया जा सका।';
     } else {
-      html += ', साथ ही अपने ' + cg + ' का <strong>' + eduText + '</strong> प्रस्तुत किया।';
+      if(isSelf){
+        html += ', साथ ही <strong>' + eduText + '</strong> प्रस्तुत किया।';
+      } else {
+        html += ', साथ ही अपने ' + cg + ' का <strong>' + eduText + '</strong> प्रस्तुत किया।';
+      }
     }
     if(aadhaarText) html += aadhaarText;
 
@@ -705,7 +804,11 @@ function buildAkhyaHTML(){
       html += ' का प्रमाण पत्र जन्म मृत्यु अधिनियम के नियमानुसार जारी किया जाना <strong>नियमोचित नहीं है</strong>।';
       html += '</div>';
     } else {
-      html += ' इन सभी साक्ष्यों मे आवेदक के ' + cg + ' की जन्म तिथि दिनांक <strong>' + dobText + ' (' + dobNum + ')</strong>';
+      if(isSelf){
+        html += ' इन सभी साक्ष्यों मे आवेदक की जन्म तिथि दिनांक <strong>' + dobText + ' (' + dobNum + ')</strong>';
+      } else {
+        html += ' इन सभी साक्ष्यों मे आवेदक के ' + cg + ' की जन्म तिथि दिनांक <strong>' + dobText + ' (' + dobNum + ')</strong>';
+      }
       html += ' अंकित पाई गई तथा स्थान की पुष्टि गवाहों के लिखित बयानों से की गई।';
       html += '</div>';
 
@@ -764,49 +867,55 @@ function printAkhya(){
   if(isMobile() && typeof html2pdf !== 'undefined'){
     // Mobile: Generate PDF and share/download
     showToast('📄 PDF बन रहा है...');
+
+    // Close preview overlay first so it doesn't block html2canvas
+    closePreview();
+
     var container = document.createElement('div');
     container.innerHTML = html;
-    container.style.padding = '20px';
+    container.style.cssText = 'position:fixed;top:0;left:0;width:800px;padding:20px 24px;background:white;z-index:9999;font-family:Noto Sans Devanagari,sans-serif;font-size:14.5px;line-height:2.1;color:#000;';
     document.body.appendChild(container);
 
     var childName = val('ak_child_name') || 'akhya';
     var fileName = 'जन्म_आख्या_' + childName.replace(/\s+/g,'_') + '.pdf';
 
-    html2pdf().set({
-      margin: [10, 12, 10, 12],
-      filename: fileName,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    }).from(container).outputPdf('blob').then(function(pdfBlob){
-      document.body.removeChild(container);
-      var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+    // Small delay to let fonts render in container
+    setTimeout(function(){
+      html2pdf().set({
+        margin: [10, 12, 10, 12],
+        filename: fileName,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 800 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      }).from(container).outputPdf('blob').then(function(pdfBlob){
+        document.body.removeChild(container);
+        var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
 
-      // Try Web Share API (share to WhatsApp etc.)
-      if(navigator.canShare && navigator.canShare({ files: [pdfFile] })){
-        navigator.share({
-          title: 'जन्म प्रमाण पत्र — जांच आख्या',
-          text: childName + ' की जन्म आख्या',
-          files: [pdfFile]
-        }).then(function(){
-          showToast('✅ शेयर हो गया');
-        }).catch(function(err){
-          if(err.name !== 'AbortError'){
-            // Fallback: download PDF
-            downloadPDF(pdfBlob, fileName);
-          }
-        });
-      } else {
-        // Fallback: download PDF
-        downloadPDF(pdfBlob, fileName);
-      }
-    }).catch(function(){
-      document.body.removeChild(container);
-      showToast('⚠️ PDF नहीं बन सका, प्रिंट से प्रयास करें');
-      document.getElementById('print-view').innerHTML = html;
-      closePreview();
-      setTimeout(function(){ window.print(); }, 200);
-    });
+        // Try Web Share API (share to WhatsApp etc.)
+        if(navigator.canShare && navigator.canShare({ files: [pdfFile] })){
+          navigator.share({
+            title: 'जन्म प्रमाण पत्र — जांच आख्या',
+            text: childName + ' की जन्म आख्या',
+            files: [pdfFile]
+          }).then(function(){
+            showToast('✅ शेयर हो गया');
+          }).catch(function(err){
+            if(err.name !== 'AbortError'){
+              // Fallback: download PDF
+              downloadPDF(pdfBlob, fileName);
+            }
+          });
+        } else {
+          // Fallback: download PDF
+          downloadPDF(pdfBlob, fileName);
+        }
+      }).catch(function(){
+        document.body.removeChild(container);
+        showToast('⚠️ PDF नहीं बन सका, प्रिंट से प्रयास करें');
+        document.getElementById('print-view').innerHTML = html;
+        setTimeout(function(){ window.print(); }, 200);
+      });
+    }, 300);
   } else {
     // Desktop: normal print
     document.getElementById('print-view').innerHTML = html;

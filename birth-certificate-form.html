@@ -21,6 +21,9 @@
 <meta property="og:title" content="जन्म प्रमाण पत्र | VISRO Consultancy">
 <meta property="og:description" content="जन्म प्रमाण पत्र पंजीकरण फॉर्म। VISRO Consultancy, Prayagraj">
 <meta property="og:url" content="https://visroconsultancy.in/birth-certificate-form.html">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root { --saffron: #FF6B00; --deep-blue: #003366; --border: #B0C4DE; --text: #1a1a2e; --muted: #5a6a7a; --green: #1B5E20; --field-bg: #F8FBFF; --required: #c0392b; }
@@ -1052,15 +1055,17 @@ function printAllPages(){
   var all=_pvPages.join('<div style="page-break-before:always;"></div>');
   if(isMobile() && typeof html2pdf !== 'undefined'){
     showToast('📄 PDF बन रहा है...');
+    closePreview();
     var container = document.createElement('div');
     container.innerHTML = all;
-    container.style.cssText = 'padding:10px;font-family:Arial,sans-serif;';
+    container.style.cssText = 'position:fixed;top:0;left:0;width:800px;padding:10px;background:white;z-index:9999;font-family:Arial,sans-serif;color:#000;';
     document.body.appendChild(container);
     var fileName = 'Birth_Certificate_Form.pdf';
+    setTimeout(function(){
     html2pdf().set({
       margin: [10, 10, 10, 10], filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
+      html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 800 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }).from(container).outputPdf('blob').then(function(pdfBlob){
       document.body.removeChild(container);
@@ -1071,6 +1076,7 @@ function printAllPages(){
         }).catch(function(err){ if(err.name !== 'AbortError') downloadPDF(pdfBlob, fileName); });
       } else { downloadPDF(pdfBlob, fileName); }
     }).catch(function(){ document.body.removeChild(container); showToast('⚠️ PDF नहीं बन सका'); });
+    }, 300);
   } else {
     var w=window.open('','_blank','width=800,height=600');
     w.document.write('<!DOCTYPE html><html><head><title>Birth Form-1</title><style>@page{size:A4;margin:10mm;}body{font-family:Arial,sans-serif;margin:0;padding:10px;}</style></head><body>'+all+'</body></html>');
@@ -1081,15 +1087,17 @@ function printAllPages(){
 function printCurrentPageOnly(idx){
   if(isMobile() && typeof html2pdf !== 'undefined'){
     showToast('📄 PDF बन रहा है...');
+    closePreview();
     var container = document.createElement('div');
     container.innerHTML = _pvPages[idx];
-    container.style.cssText = 'padding:10px;font-family:Arial,sans-serif;';
+    container.style.cssText = 'position:fixed;top:0;left:0;width:800px;padding:10px;background:white;z-index:9999;font-family:Arial,sans-serif;color:#000;';
     document.body.appendChild(container);
     var fileName = 'Birth_Form_Page_'+(idx+1)+'.pdf';
+    setTimeout(function(){
     html2pdf().set({
       margin: [10, 10, 10, 10], filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
+      html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 800 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }).from(container).outputPdf('blob').then(function(pdfBlob){
       document.body.removeChild(container);
@@ -1100,6 +1108,7 @@ function printCurrentPageOnly(idx){
         }).catch(function(err){ if(err.name !== 'AbortError') downloadPDF(pdfBlob, fileName); });
       } else { downloadPDF(pdfBlob, fileName); }
     }).catch(function(){ document.body.removeChild(container); showToast('⚠️ PDF नहीं बन सका'); });
+    }, 300);
   } else {
     var w=window.open('','_blank','width=800,height=600');
     w.document.write('<!DOCTYPE html><html><head><title>Page '+(idx+1)+'</title><style>@page{size:A4;margin:10mm;}body{font-family:Arial,sans-serif;margin:0;padding:10px;}</style></head><body>'+_pvPages[idx]+'</body></html>');
