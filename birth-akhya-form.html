@@ -777,8 +777,8 @@ function buildAkhyaHTML(){
     if(hasOutBpInfo){
       var parts = [];
       if(outBpPlace) parts.push(outBpPlace);
-      if(outBpGP) parts.push('ग्राम पंचायत / नगर निकाय ' + outBpGP);
-      if(outBpBlock) parts.push('विकासखण्ड / तहसील ' + outBpBlock);
+      if(outBpGP) parts.push(outBpGP);
+      if(outBpBlock) parts.push(outBpBlock);
       if(outBpDistrict) parts.push('जनपद ' + outBpDistrict);
       outBpFull = parts.join(', ');
     }
@@ -792,7 +792,7 @@ function buildAkhyaHTML(){
     }
     html += ' का जन्म स्थान ग्राम पंचायत <strong>' + gp + '</strong> के अधिकार क्षेत्र में नहीं है।';
     if(hasOutBpInfo){
-      html += ' आवेदक के अनुसार जन्म स्थान <strong>' + outBpFull + '</strong> है।';
+      html += ' जांच मे साक्ष्य परीक्षण मे पाया गया कि जन्म स्थान <strong>' + outBpFull + '</strong> है।';
     }
     html += '</div>';
 
@@ -915,57 +915,61 @@ function printAkhya(){
   if(!html) return;
 
   if(isMobile() && typeof html2pdf !== 'undefined'){
-    // Mobile: Generate PDF and share/download
+    // Mobile: Use the already-rendered preview-page element directly
     showToast('📄 PDF बन रहा है...');
 
-    // Close preview overlay first so it doesn't block html2canvas
-    closePreview();
-
-    var container = document.createElement('div');
-    container.innerHTML = html;
-    container.style.cssText = 'position:fixed;top:0;left:0;width:800px;padding:20px 24px;background:white;z-index:9999;font-family:Noto Sans Devanagari,sans-serif;font-size:14.5px;line-height:2.1;color:#000;';
-    document.body.appendChild(container);
+    var previewPage = document.querySelector('#previewContent .preview-page');
+    if(!previewPage){
+      showToast('⚠️ प्रीव्यू नहीं मिला');
+      return;
+    }
 
     var childName = val('ak_child_name') || 'akhya';
     var fileName = 'जन्म_आख्या_' + childName.replace(/\s+/g,'_') + '.pdf';
 
-    // Small delay to let fonts render in container
-    setTimeout(function(){
-      html2pdf().set({
-        margin: [10, 12, 10, 12],
-        filename: fileName,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 800 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      }).from(container).outputPdf('blob').then(function(pdfBlob){
-        document.body.removeChild(container);
-        var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+    // Clone the preview page so we can style it for PDF without affecting display
+    var clone = previewPage.cloneNode(true);
+    clone.style.cssText = 'background:white;padding:36px 40px;font-size:14px;line-height:2;font-family:Noto Sans Devanagari,sans-serif;color:#000;width:760px;';
+    // Hide clone off-screen but keep it rendered
+    var wrapper = document.createElement('div');
+    wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;width:800px;background:white;';
+    wrapper.appendChild(clone);
+    document.body.appendChild(wrapper);
 
-        // Try Web Share API (share to WhatsApp etc.)
-        if(navigator.canShare && navigator.canShare({ files: [pdfFile] })){
-          navigator.share({
-            title: 'जन्म प्रमाण पत्र — जांच आख्या',
-            text: childName + ' की जन्म आख्या',
-            files: [pdfFile]
-          }).then(function(){
-            showToast('✅ शेयर हो गया');
-          }).catch(function(err){
-            if(err.name !== 'AbortError'){
-              // Fallback: download PDF
-              downloadPDF(pdfBlob, fileName);
-            }
-          });
-        } else {
-          // Fallback: download PDF
-          downloadPDF(pdfBlob, fileName);
-        }
-      }).catch(function(){
-        document.body.removeChild(container);
-        showToast('⚠️ PDF नहीं बन सका, प्रिंट से प्रयास करें');
-        document.getElementById('print-view').innerHTML = html;
-        setTimeout(function(){ window.print(); }, 200);
-      });
-    }, 300);
+    html2pdf().set({
+      margin: [10, 12, 10, 12],
+      filename: fileName,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, logging: false, width: 760, scrollX: 0, scrollY: 0 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(clone).outputPdf('blob').then(function(pdfBlob){
+      document.body.removeChild(wrapper);
+      closePreview();
+      var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+
+      // Try Web Share API (share to WhatsApp etc.)
+      if(navigator.canShare && navigator.canShare({ files: [pdfFile] })){
+        navigator.share({
+          title: 'जन्म प्रमाण पत्र — जांच आख्या',
+          text: childName + ' की जन्म आख्या',
+          files: [pdfFile]
+        }).then(function(){
+          showToast('✅ शेयर हो गया');
+        }).catch(function(err){
+          if(err.name !== 'AbortError'){
+            downloadPDF(pdfBlob, fileName);
+          }
+        });
+      } else {
+        downloadPDF(pdfBlob, fileName);
+      }
+    }).catch(function(){
+      document.body.removeChild(wrapper);
+      closePreview();
+      showToast('⚠️ PDF नहीं बन सका, प्रिंट से प्रयास करें');
+      document.getElementById('print-view').innerHTML = html;
+      setTimeout(function(){ window.print(); }, 200);
+    });
   } else {
     // Desktop: normal print
     document.getElementById('print-view').innerHTML = html;

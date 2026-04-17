@@ -1055,28 +1055,29 @@ function printAllPages(){
   var all=_pvPages.join('<div style="page-break-before:always;"></div>');
   if(isMobile() && typeof html2pdf !== 'undefined'){
     showToast('📄 PDF बन रहा है...');
-    closePreview();
-    var container = document.createElement('div');
-    container.innerHTML = all;
-    container.style.cssText = 'position:fixed;top:0;left:0;width:800px;padding:10px;background:white;z-index:9999;font-family:Arial,sans-serif;color:#000;';
-    document.body.appendChild(container);
+    var clone = document.createElement('div');
+    clone.innerHTML = all;
+    clone.style.cssText = 'background:white;padding:10px;font-family:Arial,sans-serif;color:#000;width:760px;';
+    var wrapper = document.createElement('div');
+    wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;width:800px;background:white;';
+    wrapper.appendChild(clone);
+    document.body.appendChild(wrapper);
     var fileName = 'Birth_Certificate_Form.pdf';
-    setTimeout(function(){
     html2pdf().set({
       margin: [10, 10, 10, 10], filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 800 },
+      html2canvas: { scale: 2, useCORS: true, logging: false, width: 760, scrollX: 0, scrollY: 0 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    }).from(container).outputPdf('blob').then(function(pdfBlob){
-      document.body.removeChild(container);
+    }).from(clone).outputPdf('blob').then(function(pdfBlob){
+      document.body.removeChild(wrapper);
+      closePreview();
       var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
       if(navigator.canShare && navigator.canShare({ files: [pdfFile] })){
         navigator.share({ title: 'Birth Certificate Form', files: [pdfFile] }).then(function(){
           showToast('✅ शेयर हो गया');
         }).catch(function(err){ if(err.name !== 'AbortError') downloadPDF(pdfBlob, fileName); });
       } else { downloadPDF(pdfBlob, fileName); }
-    }).catch(function(){ document.body.removeChild(container); showToast('⚠️ PDF नहीं बन सका'); });
-    }, 300);
+    }).catch(function(){ document.body.removeChild(wrapper); closePreview(); showToast('⚠️ PDF नहीं बन सका'); });
   } else {
     var w=window.open('','_blank','width=800,height=600');
     w.document.write('<!DOCTYPE html><html><head><title>Birth Form-1</title><style>@page{size:A4;margin:10mm;}body{font-family:Arial,sans-serif;margin:0;padding:10px;}</style></head><body>'+all+'</body></html>');
@@ -1087,28 +1088,29 @@ function printAllPages(){
 function printCurrentPageOnly(idx){
   if(isMobile() && typeof html2pdf !== 'undefined'){
     showToast('📄 PDF बन रहा है...');
-    closePreview();
-    var container = document.createElement('div');
-    container.innerHTML = _pvPages[idx];
-    container.style.cssText = 'position:fixed;top:0;left:0;width:800px;padding:10px;background:white;z-index:9999;font-family:Arial,sans-serif;color:#000;';
-    document.body.appendChild(container);
+    var clone = document.createElement('div');
+    clone.innerHTML = _pvPages[idx];
+    clone.style.cssText = 'background:white;padding:10px;font-family:Arial,sans-serif;color:#000;width:760px;';
+    var wrapper = document.createElement('div');
+    wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;width:800px;background:white;';
+    wrapper.appendChild(clone);
+    document.body.appendChild(wrapper);
     var fileName = 'Birth_Form_Page_'+(idx+1)+'.pdf';
-    setTimeout(function(){
     html2pdf().set({
       margin: [10, 10, 10, 10], filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 800 },
+      html2canvas: { scale: 2, useCORS: true, logging: false, width: 760, scrollX: 0, scrollY: 0 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    }).from(container).outputPdf('blob').then(function(pdfBlob){
-      document.body.removeChild(container);
+    }).from(clone).outputPdf('blob').then(function(pdfBlob){
+      document.body.removeChild(wrapper);
+      closePreview();
       var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
       if(navigator.canShare && navigator.canShare({ files: [pdfFile] })){
         navigator.share({ title: 'Birth Form Page '+(idx+1), files: [pdfFile] }).then(function(){
           showToast('✅ शेयर हो गया');
         }).catch(function(err){ if(err.name !== 'AbortError') downloadPDF(pdfBlob, fileName); });
       } else { downloadPDF(pdfBlob, fileName); }
-    }).catch(function(){ document.body.removeChild(container); showToast('⚠️ PDF नहीं बन सका'); });
-    }, 300);
+    }).catch(function(){ document.body.removeChild(wrapper); closePreview(); showToast('⚠️ PDF नहीं बन सका'); });
   } else {
     var w=window.open('','_blank','width=800,height=600');
     w.document.write('<!DOCTYPE html><html><head><title>Page '+(idx+1)+'</title><style>@page{size:A4;margin:10mm;}body{font-family:Arial,sans-serif;margin:0;padding:10px;}</style></head><body>'+_pvPages[idx]+'</body></html>');

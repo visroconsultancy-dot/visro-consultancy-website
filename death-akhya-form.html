@@ -779,51 +779,55 @@ function printAkhya(){
   if(isMobile() && typeof html2pdf !== 'undefined'){
     showToast('📄 PDF बन रहा है...');
 
-    // Close preview overlay first so it doesn't block html2canvas
-    closePreview();
-
-    var container = document.createElement('div');
-    container.innerHTML = html;
-    container.style.cssText = 'position:fixed;top:0;left:0;width:800px;padding:20px 24px;background:white;z-index:9999;font-family:Noto Sans Devanagari,sans-serif;font-size:14.5px;line-height:2.1;color:#000;';
-    document.body.appendChild(container);
+    var previewPage = document.querySelector('#previewContent .preview-page');
+    if(!previewPage){
+      showToast('⚠️ प्रीव्यू नहीं मिला');
+      return;
+    }
 
     var decName = val('dk_deceased_name') || 'akhya';
     var fileName = 'मृत्यु_आख्या_' + decName.replace(/\s+/g,'_') + '.pdf';
 
-    // Small delay to let fonts render in container
-    setTimeout(function(){
-      html2pdf().set({
-        margin: [10, 12, 10, 12],
-        filename: fileName,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 800 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      }).from(container).outputPdf('blob').then(function(pdfBlob){
-        document.body.removeChild(container);
-        var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+    var clone = previewPage.cloneNode(true);
+    clone.style.cssText = 'background:white;padding:36px 40px;font-size:14px;line-height:2;font-family:Noto Sans Devanagari,sans-serif;color:#000;width:760px;';
+    var wrapper = document.createElement('div');
+    wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;width:800px;background:white;';
+    wrapper.appendChild(clone);
+    document.body.appendChild(wrapper);
 
-        if(navigator.canShare && navigator.canShare({ files: [pdfFile] })){
-          navigator.share({
-            title: 'मृत्यु प्रमाण पत्र — जांच आख्या',
-            text: decName + ' की मृत्यु आख्या',
-            files: [pdfFile]
-          }).then(function(){
-            showToast('✅ शेयर हो गया');
-          }).catch(function(err){
-            if(err.name !== 'AbortError'){
-              downloadPDF(pdfBlob, fileName);
-            }
-          });
-        } else {
-          downloadPDF(pdfBlob, fileName);
-        }
-      }).catch(function(){
-        document.body.removeChild(container);
-        showToast('⚠️ PDF नहीं बन सका, प्रिंट से प्रयास करें');
-        document.getElementById('print-view').innerHTML = html;
-        setTimeout(function(){ window.print(); }, 200);
-      });
-    }, 300);
+    html2pdf().set({
+      margin: [10, 12, 10, 12],
+      filename: fileName,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, logging: false, width: 760, scrollX: 0, scrollY: 0 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(clone).outputPdf('blob').then(function(pdfBlob){
+      document.body.removeChild(wrapper);
+      closePreview();
+      var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+
+      if(navigator.canShare && navigator.canShare({ files: [pdfFile] })){
+        navigator.share({
+          title: 'मृत्यु प्रमाण पत्र — जांच आख्या',
+          text: decName + ' की मृत्यु आख्या',
+          files: [pdfFile]
+        }).then(function(){
+          showToast('✅ शेयर हो गया');
+        }).catch(function(err){
+          if(err.name !== 'AbortError'){
+            downloadPDF(pdfBlob, fileName);
+          }
+        });
+      } else {
+        downloadPDF(pdfBlob, fileName);
+      }
+    }).catch(function(){
+      document.body.removeChild(wrapper);
+      closePreview();
+      showToast('⚠️ PDF नहीं बन सका, प्रिंट से प्रयास करें');
+      document.getElementById('print-view').innerHTML = html;
+      setTimeout(function(){ window.print(); }, 200);
+    });
   } else {
     document.getElementById('print-view').innerHTML = html;
     closePreview();

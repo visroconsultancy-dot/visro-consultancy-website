@@ -55,6 +55,15 @@
 
   @media (max-width: 600px) { .level-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } .level-box { padding: 14px 10px; } .level-name { font-size: .76rem; } }
 
+  .go-rules-bar { background: linear-gradient(135deg, #fff8f0 0%, #fff 100%); border: 2px solid var(--orange); border-radius: 12px; padding: 18px 20px; margin-bottom: 22px; box-shadow: 0 3px 14px rgba(230,126,34,0.10); text-align: center; }
+  .go-rules-title { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+  .go-rules-title span { color: var(--orange); }
+  .go-rules-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .go-rule-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--navy); color: #fff; font-family: 'Noto Sans Devanagari', sans-serif; font-size: .8rem; font-weight: 600; padding: 8px 16px; border-radius: 8px; text-decoration: none; transition: all .2s; border: none; cursor: pointer; }
+  .go-rule-btn:hover { background: var(--orange); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .go-rule-btn .go-icon { font-size: 1rem; }
+  @media (max-width: 600px) { .go-rule-btn { font-size: .72rem; padding: 7px 12px; } }
+
   .info-bar { background: #fff; border-left: 4px solid var(--orange); border-radius: 8px; padding: 14px 18px; margin-bottom: 28px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
   .info-bar-title { font-family: 'Noto Sans Devanagari', sans-serif; font-size: .95rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
   .info-bar-sub { font-size: .78rem; color: var(--gray); }
@@ -81,9 +90,40 @@
   .subject-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: .76rem; font-weight: 600; color: var(--navy); line-height: 1.4; }
   .subject-en { font-size: .65rem; color: var(--gray); margin-top: 3px; line-height: 1.3; }
 
+  .subject-card.clickable { cursor: pointer; position: relative; }
+  .subject-card.clickable::after { content: '▼'; position: absolute; top: 6px; right: 8px; font-size: .6rem; color: var(--orange); }
+  .subject-card.clickable.active { border-color: var(--orange); background: #fff8f0; }
+  .subject-card.clickable.active::after { content: '▲'; }
+
+  .subject-detail-panel { display: none; grid-column: 1 / -1; background: #fff; border: 2px solid var(--orange); border-radius: 12px; padding: 20px; box-shadow: 0 4px 20px rgba(230,126,34,0.12); animation: slideDown .3s ease; }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  .subject-detail-panel.show { display: block; }
+
+  .rules-section { background: linear-gradient(135deg, #fff8f0, #fff); border: 2px solid var(--orange); border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; }
+  .rules-section-title { font-family: 'Noto Sans Devanagari', sans-serif; font-size: .95rem; font-weight: 700; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .rules-section-title span { color: var(--orange); }
+  .rules-list { display: flex; flex-direction: column; gap: 8px; }
+  .rules-btn { display: flex; align-items: center; gap: 10px; background: #fff; border: 1.5px solid #e0e0e0; color: var(--navy); font-family: 'Noto Sans Devanagari', sans-serif; font-size: .82rem; font-weight: 600; padding: 10px 16px; border-radius: 10px; text-decoration: none; transition: all .25s; cursor: pointer; }
+  .rules-btn:hover { border-color: var(--orange); background: #fff8f0; transform: translateX(4px); box-shadow: 0 3px 12px rgba(230,126,34,0.12); }
+  .rules-btn .rules-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .rules-btn .rules-text { line-height: 1.4; }
+  .rules-btn .rules-tag { font-size: .6rem; background: var(--orange); color: #fff; padding: 2px 8px; border-radius: 4px; margin-left: auto; flex-shrink: 0; }
+
+  .library-info { font-family: 'Noto Sans Devanagari', sans-serif; color: #333; line-height: 1.9; }
+  .library-info h3 { color: var(--navy); font-size: 1rem; margin: 16px 0 8px; border-bottom: 2px solid var(--orange); display: inline-block; padding-bottom: 2px; }
+  .library-info h3:first-child { margin-top: 0; }
+  .library-info p { font-size: .82rem; margin: 6px 0; }
+  .library-info ul { padding-left: 20px; margin: 8px 0; }
+  .library-info li { font-size: .8rem; margin: 5px 0; position: relative; }
+  .library-info li::marker { color: var(--orange); }
+  .library-info .highlight-box { background: linear-gradient(135deg, #f0f4ff, #e8f0fe); border-left: 4px solid var(--navy); border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .library-info .highlight-box p { font-size: .8rem; color: var(--navy); }
+
+  .library-info a.scheme-link:hover { color: var(--orange) !important; }
+
   .footer { background: var(--navy); color: rgba(255,255,255,0.6); text-align: center; padding: 16px; font-size: 11px; }
 
-  @media (max-width: 600px) { .content { padding: 20px 16px 40px; } .hero { padding: 24px 16px 30px; } .hero h1 { font-size: 1.3rem; } .subjects-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .content { padding: 20px 16px 40px; } .hero { padding: 24px 16px 30px; } .hero h1 { font-size: 1.3rem; } .subjects-grid { grid-template-columns: 1fr; } .rules-btn { font-size: .8rem; padding: 10px 18px; } }
 </style>
 </head>
 <body>
@@ -190,186 +230,244 @@
     </div>
   </div>
 
+  <div class="go-rules-bar">
+    <div class="go-rules-title">📜 <span>शासनादेश व नियम</span> देखें</div>
+    <div class="go-rules-links" id="go-rules-content">
+      <!-- Links will be added as per user instructions -->
+    </div>
+  </div>
+
   <div class="info-bar">
     <div class="info-bar-title">73वाँ संविधान संशोधन (1992) — 11वीं अनुसूची</div>
     <div class="info-bar-sub">भारतीय संविधान के अनुच्छेद 243G के तहत पंचायतों को 29 विषय आवंटित किए गए हैं</div>
   </div>
 
   <div class="subjects-grid">
-    <div class="subject-card"><div class="subject-num">1</div>
+    <div class="subject-card clickable" id="subject-card-1" onclick="toggleSubjectDetail(1)"><div class="subject-num">1</div>
       <div class="subject-text">
         <div class="subject-hi">कृषि, कृषि विस्तार सहित</div>
         <div class="subject-en">Agriculture, including agricultural extension</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">2</div>
+    <div class="subject-card clickable" id="subject-card-2" onclick="toggleSubjectDetail(2)"><div class="subject-num">2</div>
       <div class="subject-text">
         <div class="subject-hi">भूमि सुधार, भूमि सुधारों का कार्यान्वयन, भूमि समेकन एवं मृदा संरक्षण</div>
         <div class="subject-en">Land improvement, implementation of land reforms, land consolidation and soil conservation</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">3</div>
+    <div class="subject-card clickable" id="subject-card-3" onclick="toggleSubjectDetail(3)"><div class="subject-num">3</div>
       <div class="subject-text">
         <div class="subject-hi">लघु सिंचाई, जल प्रबंधन एवं जलविभाजक विकास</div>
         <div class="subject-en">Minor irrigation, water management and watershed development</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">4</div>
+    <div class="subject-card clickable" id="subject-card-4" onclick="toggleSubjectDetail(4)"><div class="subject-num">4</div>
       <div class="subject-text">
         <div class="subject-hi">पशुपालन, डेयरी एवं कुक्कुट पालन</div>
         <div class="subject-en">Animal husbandry, dairying and poultry</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">5</div>
+    <div class="subject-card clickable" id="subject-card-5" onclick="toggleSubjectDetail(5)"><div class="subject-num">5</div>
       <div class="subject-text">
         <div class="subject-hi">मत्स्य पालन</div>
         <div class="subject-en">Fisheries</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">6</div>
+    <div class="subject-card clickable" id="subject-card-6" onclick="toggleSubjectDetail(6)"><div class="subject-num">6</div>
       <div class="subject-text">
         <div class="subject-hi">सामाजिक वानिकी एवं कृषि वानिकी</div>
         <div class="subject-en">Social forestry and farm forestry</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">7</div>
+    <div class="subject-card clickable" id="subject-card-7" onclick="toggleSubjectDetail(7)"><div class="subject-num">7</div>
       <div class="subject-text">
         <div class="subject-hi">लघु वन उपज</div>
         <div class="subject-en">Minor forest produce</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">8</div>
+    <div class="subject-card clickable" id="subject-card-8" onclick="toggleSubjectDetail(8)"><div class="subject-num">8</div>
       <div class="subject-text">
         <div class="subject-hi">लघु उद्योग, खाद्य प्रसंस्करण उद्योग सहित</div>
         <div class="subject-en">Small scale industries, including food processing industries</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">9</div>
+    <div class="subject-card clickable" id="subject-card-9" onclick="toggleSubjectDetail(9)"><div class="subject-num">9</div>
       <div class="subject-text">
         <div class="subject-hi">खादी, ग्रामोद्योग एवं कुटीर उद्योग</div>
         <div class="subject-en">Khadi, village and cottage industries</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">10</div>
+    <div class="subject-card clickable" id="subject-card-10" onclick="toggleSubjectDetail(10)"><div class="subject-num">10</div>
       <div class="subject-text">
         <div class="subject-hi">ग्रामीण आवास</div>
         <div class="subject-en">Rural housing</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">11</div>
+    <div class="subject-card clickable" id="subject-card-11" onclick="toggleSubjectDetail(11)"><div class="subject-num">11</div>
       <div class="subject-text">
         <div class="subject-hi">पेयजल</div>
         <div class="subject-en">Drinking water</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">12</div>
+    <div class="subject-card clickable" id="subject-card-12" onclick="toggleSubjectDetail(12)"><div class="subject-num">12</div>
       <div class="subject-text">
         <div class="subject-hi">ईंधन एवं चारा</div>
         <div class="subject-en">Fuel and fodder</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">13</div>
+    <div class="subject-card clickable" id="subject-card-13" onclick="toggleSubjectDetail(13)"><div class="subject-num">13</div>
       <div class="subject-text">
         <div class="subject-hi">सड़कें, पुलिया, पुल, नौघाट, जलमार्ग एवं संचार के अन्य साधन</div>
         <div class="subject-en">Roads, culverts, bridges, ferries, waterways and other means of communication</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">14</div>
+    <div class="subject-card clickable" id="subject-card-14" onclick="toggleSubjectDetail(14)"><div class="subject-num">14</div>
       <div class="subject-text">
         <div class="subject-hi">ग्रामीण विद्युतीकरण, विद्युत वितरण सहित</div>
         <div class="subject-en">Rural electrification, including distribution of electricity</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">15</div>
+    <div class="subject-card clickable" id="subject-card-15" onclick="toggleSubjectDetail(15)"><div class="subject-num">15</div>
       <div class="subject-text">
         <div class="subject-hi">गैर-परम्परागत ऊर्जा स्रोत</div>
         <div class="subject-en">Non-conventional energy sources</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">16</div>
+    <div class="subject-card clickable" id="subject-card-16" onclick="toggleSubjectDetail(16)"><div class="subject-num">16</div>
       <div class="subject-text">
         <div class="subject-hi">गरीबी उन्मूलन कार्यक्रम</div>
         <div class="subject-en">Poverty alleviation programme</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">17</div>
+    <div class="subject-card clickable" id="subject-card-17" onclick="toggleSubjectDetail(17)"><div class="subject-num">17</div>
       <div class="subject-text">
         <div class="subject-hi">शिक्षा, प्राथमिक एवं माध्यमिक विद्यालय सहित</div>
         <div class="subject-en">Education, including primary and secondary schools</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">18</div>
+    <div class="subject-card clickable" id="subject-card-18" onclick="toggleSubjectDetail(18)"><div class="subject-num">18</div>
       <div class="subject-text">
         <div class="subject-hi">तकनीकी प्रशिक्षण एवं व्यावसायिक शिक्षा</div>
         <div class="subject-en">Technical training and vocational education</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">19</div>
+    <div class="subject-card clickable" id="subject-card-19" onclick="toggleSubjectDetail(19)"><div class="subject-num">19</div>
       <div class="subject-text">
         <div class="subject-hi">प्रौढ़ एवं अनौपचारिक शिक्षा</div>
         <div class="subject-en">Adult and non-formal education</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">20</div>
+    <div class="subject-card clickable" onclick="toggleSubjectDetail(20)" id="library-card"><div class="subject-num">20</div>
       <div class="subject-text">
         <div class="subject-hi">पुस्तकालय</div>
         <div class="subject-en">Libraries</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">21</div>
+
+    <div class="subject-detail-panel" id="library-detail">
+      <div class="rules-section">
+        <div class="rules-section-title">📜 <span>नियमों को पढ़ें</span></div>
+        <div class="rules-list">
+          <a class="rules-btn" href="Letter-to-all-DPRO-about-DL-SOP.pdf" target="_blank">
+            <span class="rules-icon">📄</span>
+            <span class="rules-text">डिजिटल लाइब्रेरी परियोजना के क्रियान्वयन हेतु S.O.P.</span>
+            <span class="rules-tag">PDF</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="library-info">
+        <h3>📚 पब्लिक पुस्तकालय — जनता के लिए लाभ</h3>
+        <p>पंचायतराज विभाग के अंतर्गत ग्राम पंचायत स्तर पर पुस्तकालय की स्थापना एवं संचालन का प्रावधान है। भारतीय संविधान की 11वीं अनुसूची में <strong>विषय संख्या 20 — "पुस्तकालय"</strong> को पंचायतों के अधिकार क्षेत्र में रखा गया है।</p>
+
+        <div class="highlight-box">
+          <p>🏛️ <strong>डिजिटल लाइब्रेरी (Digital Library)</strong> — उत्तर प्रदेश शासन द्वारा ग्राम पंचायत स्तर पर डिजिटल पुस्तकालय की स्थापना की जा रही है जिससे ग्रामीण क्षेत्रों में शिक्षा, ज्ञान और डिजिटल साक्षरता को बढ़ावा मिले।</p>
+        </div>
+
+        <h3>🎯 पुस्तकालय के उद्देश्य</h3>
+        <ul>
+          <li>ग्रामीण क्षेत्रों में शिक्षा एवं साक्षरता को बढ़ावा देना</li>
+          <li>प्रतियोगी परीक्षाओं की तैयारी के लिए निःशुल्क पुस्तकें उपलब्ध कराना</li>
+          <li>डिजिटल साक्षरता एवं कम्प्यूटर शिक्षा का प्रसार</li>
+          <li>बच्चों, महिलाओं एवं युवाओं को ज्ञानवर्धक सामग्री उपलब्ध कराना</li>
+          <li>सरकारी योजनाओं एवं नियमों की जानकारी जनता तक पहुँचाना</li>
+        </ul>
+
+        <h3>📖 जनता को मिलने वाली सुविधाएँ</h3>
+        <ul>
+          <li><strong>निःशुल्क पठन-पाठन</strong> — किसी भी व्यक्ति को बिना शुल्क पुस्तकें पढ़ने की सुविधा</li>
+          <li><strong>प्रतियोगी परीक्षा सामग्री</strong> — UPSC, SSC, Railway, UP Board आदि की पुस्तकें</li>
+          <li><strong>डिजिटल सुविधा</strong> — कम्प्यूटर, इंटरनेट एवं ई-बुक्स की सुविधा</li>
+          <li><strong>समाचार पत्र एवं पत्रिकाएँ</strong> — दैनिक समाचार पत्र एवं मासिक पत्रिकाएँ</li>
+          <li><strong>बाल साहित्य</strong> — बच्चों के लिए कहानी, चित्रकथा एवं शैक्षिक पुस्तकें</li>
+          <li><strong>सरकारी योजना जानकारी</strong> — केंद्र एवं राज्य सरकार की योजनाओं की पुस्तिकाएँ</li>
+        </ul>
+
+        <h3>⚙️ संचालन एवं प्रबंधन</h3>
+        <p>पुस्तकालय का संचालन ग्राम पंचायत के अधीन होता है। जिला पंचायतराज अधिकारी (DPRO) के निर्देशन में डिजिटल लाइब्रेरी हेतु SOP (Standard Operating Procedure) जारी किया गया है। विस्तृत नियमों के लिए ऊपर <strong>"नियमों को पढ़ें"</strong> बटन पर क्लिक करें।</p>
+
+        <div class="highlight-box">
+          <p>📌 <strong>नोट:</strong> प्रत्येक ग्राम पंचायत को अपने क्षेत्र में पुस्तकालय की स्थापना एवं रख-रखाव सुनिश्चित करना चाहिए। इससे ग्रामीण विकास एवं शिक्षा के स्तर में सुधार होता है।</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="subject-card clickable" id="subject-card-21" onclick="toggleSubjectDetail(21)"><div class="subject-num">21</div>
       <div class="subject-text">
         <div class="subject-hi">सांस्कृतिक कार्यक्रम</div>
         <div class="subject-en">Cultural activities</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">22</div>
+    <div class="subject-card clickable" id="subject-card-22" onclick="toggleSubjectDetail(22)"><div class="subject-num">22</div>
       <div class="subject-text">
         <div class="subject-hi">बाजार एवं मेले</div>
         <div class="subject-en">Markets and fairs</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">23</div>
+    <div class="subject-card clickable" id="subject-card-23" onclick="toggleSubjectDetail(23)"><div class="subject-num">23</div>
       <div class="subject-text">
         <div class="subject-hi">स्वास्थ्य एवं स्वच्छता, अस्पताल, प्राथमिक स्वास्थ्य केन्द्र एवं औषधालय सहित</div>
         <div class="subject-en">Health and sanitation, including hospitals, PHCs and dispensaries</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">24</div>
+    <div class="subject-card clickable" id="subject-card-24" onclick="toggleSubjectDetail(24)"><div class="subject-num">24</div>
       <div class="subject-text">
         <div class="subject-hi">परिवार कल्याण</div>
         <div class="subject-en">Family welfare</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">25</div>
+    <div class="subject-card clickable" id="subject-card-25" onclick="toggleSubjectDetail(25)"><div class="subject-num">25</div>
       <div class="subject-text">
         <div class="subject-hi">महिला एवं बाल विकास</div>
         <div class="subject-en">Women and child development</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">26</div>
+    <div class="subject-card clickable" id="subject-card-26" onclick="toggleSubjectDetail(26)"><div class="subject-num">26</div>
       <div class="subject-text">
         <div class="subject-hi">समाज कल्याण, विकलांग एवं मानसिक रूप से अशक्त व्यक्तियों के कल्याण सहित</div>
         <div class="subject-en">Social welfare, including welfare of the handicapped and mentally retarded</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">27</div>
+    <div class="subject-card clickable" id="subject-card-27" onclick="toggleSubjectDetail(27)"><div class="subject-num">27</div>
       <div class="subject-text">
         <div class="subject-hi">कमजोर वर्गों का कल्याण, विशेषकर अनुसूचित जाति एवं अनुसूचित जनजाति</div>
         <div class="subject-en">Welfare of the weaker sections, in particular of SC and ST</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">28</div>
+    <div class="subject-card clickable" id="subject-card-28" onclick="toggleSubjectDetail(28)"><div class="subject-num">28</div>
       <div class="subject-text">
         <div class="subject-hi">सार्वजनिक वितरण प्रणाली</div>
         <div class="subject-en">Public distribution system</div>
       </div>
     </div>
-    <div class="subject-card"><div class="subject-num">29</div>
+    <div class="subject-card clickable" id="subject-card-29" onclick="toggleSubjectDetail(29)"><div class="subject-num">29</div>
       <div class="subject-text">
         <div class="subject-hi">सामुदायिक सम्पत्तियों का रख-रखाव</div>
         <div class="subject-en">Maintenance of community assets</div>
       </div>
     </div>
+
+    <div class="subject-detail-panel" id="subject-detail-dynamic"></div>
   </div>
 </div>
 
@@ -386,6 +484,359 @@ function toggleGPSection(){
   } else {
     el.style.display='none';
   }
+}
+
+var currentOpenSubject = null;
+
+var subjectData = {
+  1: {
+    title: 'कृषि, कृषि विस्तार सहित',
+    legal: 'भारतीय संविधान की 11वीं अनुसूची (अनुच्छेद 243G) में विषय संख्या 1 के रूप में "कृषि, कृषि विस्तार सहित" को पंचायतों के कार्यक्षेत्र में शामिल किया गया है। राज्य सरकार द्वारा पंचायतों को कृषि विकास से संबंधित योजनाओं के क्रियान्वयन का अधिकार दिया गया है।',
+    highlight: 'ग्राम पंचायत कृषि विस्तार सेवाओं, बीज वितरण, कृषि प्रशिक्षण एवं किसानों को सरकारी योजनाओं से जोड़ने में महत्वपूर्ण भूमिका निभाती है।',
+    acts: ['भारतीय कृषि अनुसंधान परिषद अधिनियम, 1990','UP कृषि उत्पादन मंडी अधिनियम, 1964','आवश्यक वस्तु अधिनियम, 1955','कीटनाशक अधिनियम, 1968','बीज अधिनियम, 1966','उर्वरक (नियंत्रण) आदेश, 1985'],
+    roles: ['कृषि विस्तार कार्यक्रमों का ग्राम स्तर पर क्रियान्वयन','किसानों को उन्नत बीज, खाद एवं कृषि तकनीक की जानकारी देना','कृषि मेला, किसान गोष्ठी एवं प्रशिक्षण शिविर का आयोजन','फसल बीमा एवं किसान क्रेडिट कार्ड हेतु सहायता','कृषि योजनाओं के लाभार्थियों का चयन एवं सत्यापन'],
+    schemes: [{name:'प्रधानमंत्री किसान सम्मान निधि (PM-KISAN) — ₹6000 वार्षिक',url:'https://pmkisan.gov.in'},{name:'प्रधानमंत्री फसल बीमा योजना (PMFBY)',url:'https://pmfby.gov.in'},{name:'UP कृषि यन्त्र अनुदान योजना'},{name:'मुख्यमंत्री कृषक दुर्घटना कल्याण योजना'},{name:'किसान क्रेडिट कार्ड (KCC) योजना',url:'https://eseva.csccloud.in/KisanCreditCard/Default.aspx'},{name:'राष्ट्रीय कृषि विकास योजना (RKVY)',url:'https://rkvy.nic.in'},{name:'परम्परागत कृषि विकास योजना (जैविक खेती)',url:'https://pgsindia-ncof.gov.in'},{name:'UP कृषि विभाग — निःशुल्क बीज वितरण',url:'https://upagripardarshi.gov.in'}],
+    benefits: ['किसानों को सरकारी योजनाओं का सीधा लाभ','कृषि उत्पादकता में वृद्धि','आधुनिक कृषि तकनीक की जानकारी','फसल नुकसान पर बीमा सुरक्षा','कृषि यंत्रों पर अनुदान']
+  },
+  2: {
+    title: 'भूमि सुधार, भूमि समेकन एवं मृदा संरक्षण',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 2 के अंतर्गत "भूमि सुधार, भूमि सुधारों का कार्यान्वयन, भूमि समेकन एवं मृदा संरक्षण" पंचायतों को सौंपा गया है। उत्तर प्रदेश में भूमि सुधार का इतिहास जमींदारी उन्मूलन से प्रारम्भ होता है।',
+    highlight: 'उत्तर प्रदेश जमींदारी उन्मूलन एवं भूमि व्यवस्था अधिनियम, 1950 भारत के सबसे व्यापक भूमि सुधार कानूनों में से एक है। चकबंदी के माध्यम से बिखरी हुई भूमि को समेकित किया जाता है।',
+    acts: ['UP जमींदारी उन्मूलन एवं भूमि व्यवस्था अधिनियम, 1950','UP चकबंदी अधिनियम, 1953','UP भूमि संरक्षण अधिनियम','UP राजस्व संहिता, 2006','भूमि अधिग्रहण अधिनियम, 2013','UP भूमि सीमांकन अधिनियम'],
+    roles: ['भूमि अभिलेखों के रख-रखाव में सहयोग','चकबंदी प्रक्रिया में ग्राम सभा की भूमिका','मृदा संरक्षण कार्यक्रमों का क्रियान्वयन','भू-क्षरण रोकथाम हेतु वृक्षारोपण','ग्राम स्तर पर भूमि विवादों के निपटारे में सहायता'],
+    schemes: [{name:'डिजिटल भू-अभिलेख (भूलेख) — UP',url:'https://upbhulekh.gov.in'},{name:'स्वामित्व योजना (ग्रामीण आबादी क्षेत्र का सर्वेक्षण)',url:'https://svamitva.nic.in'},{name:'मृदा स्वास्थ्य कार्ड योजना',url:'https://soilhealth.dac.gov.in'},{name:'UP चकबंदी कार्यक्रम'},{name:'राष्ट्रीय भूमि अभिलेख आधुनिकीकरण कार्यक्रम (NLRMP)',url:'https://dilrmp.gov.in'}],
+    benefits: ['भूमि स्वामित्व का स्पष्ट अभिलेख','चकबंदी से सिंचाई एवं खेती में सुविधा','मृदा परीक्षण से उचित खाद-उर्वरक की जानकारी','भूमि विवादों में कमी','ग्रामीण आबादी क्षेत्र में सम्पत्ति अधिकार']
+  },
+  3: {
+    title: 'लघु सिंचाई, जल प्रबंधन एवं जलविभाजक विकास',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 3 के अंतर्गत "लघु सिंचाई, जल प्रबंधन एवं जलविभाजक विकास" पंचायतों को सौंपा गया है। जल संसाधनों के प्रबंधन एवं लघु सिंचाई परियोजनाओं का क्रियान्वयन पंचायत स्तर पर किया जाता है।',
+    highlight: 'प्रधानमंत्री कृषि सिंचाई योजना (PMKSY) के अंतर्गत "हर खेत को पानी" एवं "पर ड्रॉप मोर क्रॉप" के लक्ष्य के साथ ग्राम पंचायत स्तर पर सिंचाई सुविधाओं का विस्तार किया जा रहा है।',
+    acts: ['UP सिंचाई अधिनियम','भूजल (प्रबंधन एवं नियमन) अधिनियम','UP नहर एवं ड्रेनेज अधिनियम, 1873','जल (प्रदूषण निवारण एवं नियंत्रण) अधिनियम, 1974','UP लघु सिंचाई कार्य अधिनियम'],
+    roles: ['तालाब, बोरवेल एवं कुओं के निर्माण एवं रख-रखाव','लिफ्ट सिंचाई योजनाओं का क्रियान्वयन','जल संचयन (रेन वॉटर हार्वेस्टिंग) को बढ़ावा देना','जलविभाजक विकास कार्यक्रमों का संचालन','सिंचाई सुविधाओं के लाभार्थियों का चयन'],
+    schemes: [{name:'प्रधानमंत्री कृषि सिंचाई योजना (PMKSY)',url:'https://pmksy.gov.in'},{name:'UP लघु सिंचाई विभाग — बोरवेल/नलकूप योजना'},{name:'अटल भूजल योजना',url:'https://ataljal.mowr.gov.in'},{name:'जल जीवन मिशन (ग्रामीण जल आपूर्ति)',url:'https://jaljeevanmission.gov.in'},{name:'वाटरशेड विकास कार्यक्रम'},{name:'मनरेगा के अंतर्गत जल संरक्षण कार्य'}],
+    benefits: ['सिंचाई सुविधा से फसल उत्पादन में वृद्धि','भूजल स्तर में सुधार','जल संकट से राहत','जलविभाजक विकास से मृदा एवं जल संरक्षण','किसानों की आय में वृद्धि']
+  },
+  4: {
+    title: 'पशुपालन, डेयरी एवं कुक्कुट पालन',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 4 के अंतर्गत "पशुपालन, डेयरी एवं कुक्कुट पालन" पंचायतों के कार्यक्षेत्र में शामिल है। पशु स्वास्थ्य, नस्ल सुधार एवं डेयरी विकास ग्राम पंचायत की जिम्मेदारी है।',
+    highlight: 'उत्तर प्रदेश सरकार द्वारा नंदिनी कृषक बीमा योजना, कामधेनु योजना एवं गौशालाओं के संचालन हेतु विशेष प्रावधान किए गए हैं। गौशालाओं का प्रबंधन ग्राम पंचायत के अधीन है।',
+    acts: ['पशु क्रूरता निवारण अधिनियम, 1960','UP गोवध निवारण अधिनियम, 1955','UP गौशाला अधिनियम, 1964','पशुधन आयात अधिनियम, 1898','खाद्य सुरक्षा एवं मानक अधिनियम, 2006 (डेयरी उत्पाद)'],
+    roles: ['पशु चिकित्सा शिविरों का आयोजन','गौशालाओं का प्रबंधन एवं संचालन','पशु टीकाकरण कार्यक्रम में सहयोग','दुग्ध सहकारी समितियों को बढ़ावा देना','कुक्कुट पालन एवं बकरी पालन प्रशिक्षण'],
+    schemes: [{name:'नंदिनी कृषक बीमा योजना (UP)'},{name:'मुख्यमंत्री निराश्रित गोवंश सहभागिता योजना'},{name:'कामधेनु योजना'},{name:'राष्ट्रीय पशुधन मिशन',url:'https://nlm.udyamimitra.in'},{name:'UP गौशाला विकास योजना'},{name:'राष्ट्रीय गोकुल मिशन',url:'https://dahd.nic.in'},{name:'डेयरी उद्यमिता विकास योजना (DEDS)',url:'https://dahd.nic.in'}],
+    benefits: ['पशुपालकों को निःशुल्क पशु चिकित्सा','दूध उत्पादन एवं आय में वृद्धि','गोवंश संरक्षण एवं गौशाला सुविधा','कुक्कुट पालन से अतिरिक्त आय','पशु बीमा से आर्थिक सुरक्षा']
+  },
+  5: {
+    title: 'मत्स्य पालन',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 5 के अंतर्गत "मत्स्य पालन" पंचायतों के कार्यक्षेत्र में शामिल है। ग्रामीण क्षेत्रों में तालाबों एवं जलाशयों में मत्स्य पालन को बढ़ावा देना पंचायत का दायित्व है।',
+    highlight: 'प्रधानमंत्री मत्स्य सम्पदा योजना (PMMSY) के अंतर्गत मत्स्य पालन को "नीली क्रांति" के रूप में बढ़ावा दिया जा रहा है। UP में तालाब आधारित मत्स्य पालन का विशेष महत्व है।',
+    acts: ['भारतीय मत्स्य अधिनियम, 1897','UP मत्स्य अधिनियम','जलीय कृषि प्राधिकरण अधिनियम','पर्यावरण संरक्षण अधिनियम, 1986','UP तालाब एवं जलाशय नियमावली'],
+    roles: ['ग्राम पंचायत तालाबों में मत्स्य पालन को बढ़ावा देना','मत्स्य पालन प्रशिक्षण का आयोजन','मत्स्य बीज वितरण में सहायता','जलाशयों के रख-रखाव एवं संरक्षण','मत्स्य पालन सहकारी समितियों का गठन'],
+    schemes: [{name:'प्रधानमंत्री मत्स्य सम्पदा योजना (PMMSY)',url:'https://pmmsy.dof.gov.in'},{name:'नीली क्रांति योजना'},{name:'UP मत्स्य विकास योजना'},{name:'मत्स्य पालक विकास अभिकरण (FFDA)'},{name:'KCC — मत्स्य पालकों हेतु किसान क्रेडिट कार्ड'},{name:'राष्ट्रीय मत्स्य विकास बोर्ड योजनाएँ',url:'https://nfdb.gov.in'}],
+    benefits: ['ग्रामीण रोजगार सृजन','मत्स्य पालकों को अनुदान एवं ऋण सुविधा','पोषण सुरक्षा — प्रोटीन की उपलब्धता','तालाबों का उपयोगी विकास','आय में वृद्धि']
+  },
+  6: {
+    title: 'सामाजिक वानिकी एवं कृषि वानिकी',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 6 के अंतर्गत "सामाजिक वानिकी एवं कृषि वानिकी" पंचायतों के कार्यक्षेत्र में शामिल है। ग्राम पंचायत को वृक्षारोपण, हरित आवरण बढ़ाने एवं पर्यावरण संरक्षण की जिम्मेदारी दी गई है।',
+    highlight: 'उत्तर प्रदेश सरकार द्वारा वृहद वृक्षारोपण अभियान चलाया जाता है। ग्राम पंचायत स्तर पर सड़कों, तालाबों एवं सार्वजनिक भूमि पर वृक्षारोपण किया जाता है।',
+    acts: ['भारतीय वन अधिनियम, 1927','पर्यावरण (संरक्षण) अधिनियम, 1986','UP वन (ग्राम) नियमावली','वन संरक्षण अधिनियम, 1980','जैव विविधता अधिनियम, 2002','वृक्ष संरक्षण अधिनियम (विभिन्न राज्य)'],
+    roles: ['सार्वजनिक भूमि पर वृक्षारोपण अभियान','कृषि वानिकी को बढ़ावा देना','वन भूमि का संरक्षण एवं देखभाल','पर्यावरण जागरूकता कार्यक्रम','नर्सरी का संचालन एवं पौध वितरण'],
+    schemes: [{name:'UP वृहद वृक्षारोपण अभियान'},{name:'राष्ट्रीय हरित भारत मिशन (GIM)',url:'https://moef.gov.in'},{name:'उप-वन संरक्षक कार्यालय — पौध वितरण'},{name:'मनरेगा अंतर्गत वृक्षारोपण कार्य'},{name:'राष्ट्रीय कृषि वानिकी नीति, 2014',url:'https://agricoop.nic.in'},{name:'प्रति व्यक्ति पौधा अभियान — UP'}],
+    benefits: ['पर्यावरण संरक्षण एवं हरित आवरण में वृद्धि','किसानों को कृषि वानिकी से अतिरिक्त आय','निःशुल्क पौध वितरण','भू-क्षरण एवं बाढ़ नियंत्रण','स्वच्छ वायु एवं जलवायु संतुलन']
+  },
+  7: {
+    title: 'लघु वन उपज',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 7 के अंतर्गत "लघु वन उपज" पंचायतों के कार्यक्षेत्र में शामिल है। वनवासी एवं आदिवासी समुदायों के लिए लघु वन उपज आजीविका का प्रमुख स्रोत है।',
+    highlight: 'वन अधिकार अधिनियम, 2006 के तहत अनुसूचित जनजातियों एवं अन्य परम्परागत वन निवासियों को लघु वन उपज पर अधिकार दिया गया है। Van Dhan Vikas Yojana के माध्यम से वन उपज का मूल्य संवर्धन किया जा रहा है।',
+    acts: ['अनुसूचित जनजाति एवं अन्य परम्परागत वन निवासी (वन अधिकारों की मान्यता) अधिनियम, 2006','भारतीय वन अधिनियम, 1927','वन संरक्षण अधिनियम, 1980','पेसा अधिनियम (पंचायत उपबंध अनुसूचित क्षेत्र विस्तार) 1996','UP वन विभाग नियमावली'],
+    roles: ['लघु वन उपज के संग्रहण एवं विपणन में सहायता','वन अधिकार पत्र वितरण में ग्राम सभा की भूमिका','वन धन विकास केन्द्रों का संचालन','तेंदूपत्ता, महुआ, शहद आदि के संग्रहण का प्रबंधन','वन संरक्षण समितियों का गठन'],
+    schemes: [{name:'वन धन विकास योजना (Van Dhan Yojana)',url:'https://trifed.tribal.gov.in'},{name:'न्यूनतम समर्थन मूल्य (MSP) — लघु वन उपज'},{name:'TRIFED — ट्राइबल कोऑपरेटिव मार्केटिंग',url:'https://trifed.tribal.gov.in'},{name:'PM वन धन विकास केन्द्र'},{name:'एकीकृत जनजातीय विकास कार्यक्रम'},{name:'UP वन विभाग — वन उपज विपणन योजना'}],
+    benefits: ['वनवासियों को वन उपज पर कानूनी अधिकार','लघु वन उपज का उचित मूल्य','मूल्य संवर्धन से आय में वृद्धि','रोजगार एवं आजीविका सुरक्षा','वन संरक्षण में सामुदायिक भागीदारी']
+  },
+  8: {
+    title: 'लघु उद्योग, खाद्य प्रसंस्करण उद्योग सहित',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 8 के अंतर्गत "लघु उद्योग, खाद्य प्रसंस्करण उद्योग सहित" पंचायतों के कार्यक्षेत्र में शामिल है। ग्रामीण क्षेत्रों में लघु एवं कुटीर उद्योगों को बढ़ावा देना पंचायतों का दायित्व है।',
+    highlight: 'उत्तर प्रदेश सरकार की "एक जिला एक उत्पाद" (ODOP) योजना के अंतर्गत प्रत्येक जिले के पारम्परिक उत्पाद को बढ़ावा दिया जा रहा है। ग्राम पंचायत स्तर पर ODOP एवं PMEGP योजनाओं का क्रियान्वयन किया जाता है।',
+    acts: ['सूक्ष्म, लघु एवं मध्यम उद्यम विकास अधिनियम (MSMED Act), 2006','खाद्य सुरक्षा एवं मानक अधिनियम (FSSAI), 2006','UP औद्योगिक नीति','कारखाना अधिनियम, 1948','UP MSME नीति, 2017'],
+    roles: ['लघु उद्योगों की स्थापना हेतु प्रोत्साहन','ODOP उत्पादों के प्रचार-प्रसार में सहयोग','खाद्य प्रसंस्करण इकाइयों की स्थापना में मार्गदर्शन','उद्यमिता प्रशिक्षण कार्यक्रम का आयोजन','PMEGP एवं अन्य योजनाओं के लाभार्थियों का चयन'],
+    schemes: [{name:'प्रधानमंत्री रोजगार सृजन कार्यक्रम (PMEGP)',url:'https://www.kviconline.gov.in/pmegpeportal'},{name:'एक जिला एक उत्पाद (ODOP) — UP',url:'https://odopup.in'},{name:'PM सूक्ष्म खाद्य उद्यम उन्नयन योजना (PM FME)',url:'https://pmfme.mofpi.gov.in'},{name:'मुद्रा योजना (MUDRA Loan)',url:'https://www.mudra.org.in'},{name:'UP विश्वकर्मा श्रम सम्मान योजना',url:'https://diupmsme.upsdc.gov.in'},{name:'स्टार्टअप इंडिया — ग्रामीण उद्यमिता'},{name:'UP MSME सम्बल योजना'}],
+    benefits: ['ग्रामीण रोजगार सृजन','लघु उद्यमियों को ऋण एवं अनुदान','खाद्य प्रसंस्करण से किसानों की आय में वृद्धि','स्थानीय उत्पादों को बाजार','कौशल विकास एवं आत्मनिर्भरता']
+  },
+  9: {
+    title: 'खादी, ग्रामोद्योग एवं कुटीर उद्योग',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 9 के अंतर्गत "खादी, ग्रामोद्योग एवं कुटीर उद्योग" पंचायतों के कार्यक्षेत्र में शामिल है। महात्मा गांधी की ग्राम स्वराज की अवधारणा के अंतर्गत खादी एवं ग्रामोद्योग का विशेष महत्व है।',
+    highlight: 'खादी एवं ग्रामोद्योग आयोग (KVIC) के माध्यम से ग्रामीण क्षेत्रों में खादी वस्त्र उत्पादन, मधुमक्खी पालन, अगरबत्ती निर्माण जैसे कुटीर उद्योगों को बढ़ावा दिया जा रहा है।',
+    acts: ['खादी एवं ग्रामोद्योग आयोग अधिनियम (KVIC Act), 1956','सूक्ष्म, लघु एवं मध्यम उद्यम विकास अधिनियम, 2006','UP खादी तथा ग्रामोद्योग बोर्ड अधिनियम','UP कुटीर एवं ग्रामोद्योग नीति'],
+    roles: ['खादी वस्त्र उत्पादन को बढ़ावा देना','कुटीर उद्योगों हेतु प्रशिक्षण कार्यक्रम','ग्रामोद्योग उत्पादों के विपणन में सहायता','KVIC योजनाओं के लाभार्थियों का चयन','स्वरोजगार हेतु मार्गदर्शन'],
+    schemes: [{name:'KVIC — खादी अनुदान योजना',url:'https://www.kvic.gov.in'},{name:'प्रधानमंत्री रोजगार सृजन कार्यक्रम (PMEGP)',url:'https://www.kviconline.gov.in/pmegpeportal'},{name:'शहद मिशन (Honey Mission) — KVIC'},{name:'UP खादी एवं ग्रामोद्योग बोर्ड योजनाएँ'},{name:'मधुमक्खी पालन योजना'},{name:'कुम्हार सशक्तिकरण योजना'},{name:'UP विश्वकर्मा श्रम सम्मान योजना',url:'https://diupmsme.upsdc.gov.in'}],
+    benefits: ['ग्रामीण कारीगरों को रोजगार','खादी उत्पादों पर सरकारी अनुदान','कुटीर उद्योगों से घर बैठे आय','पारम्परिक कला-शिल्प का संरक्षण','महिलाओं के लिए स्वरोजगार के अवसर']
+  },
+  10: {
+    title: 'ग्रामीण आवास',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 10 के अंतर्गत "ग्रामीण आवास" पंचायतों के कार्यक्षेत्र में शामिल है। प्रत्येक परिवार को पक्का मकान उपलब्ध कराना सरकार एवं पंचायत का लक्ष्य है।',
+    highlight: 'प्रधानमंत्री आवास योजना-ग्रामीण (PMAY-G) के अंतर्गत BPL एवं बेघर परिवारों को पक्का मकान बनाने हेतु ₹1,20,000 (मैदानी क्षेत्र) की सहायता दी जाती है। लाभार्थी चयन ग्राम सभा द्वारा किया जाता है।',
+    acts: ['प्रधानमंत्री आवास योजना-ग्रामीण (PMAY-G) दिशानिर्देश','UP पंचायतराज अधिनियम, 1947','UP भवन एवं अन्य सन्निर्माण कर्मकार अधिनियम','भूमि अधिग्रहण अधिनियम, 2013','UP शहरी नियोजन एवं विकास अधिनियम'],
+    roles: ['PMAY-G लाभार्थियों का ग्राम सभा में चयन एवं सत्यापन','आवास निर्माण की मॉनिटरिंग — जियो-टैगिंग','मकान निर्माण की गुणवत्ता जाँच','बेघर परिवारों की सूची तैयार करना','आवास भूमि आवंटन में सहायता'],
+    schemes: [{name:'प्रधानमंत्री आवास योजना-ग्रामीण (PMAY-G)',url:'https://pmayg.nic.in'},{name:'मुख्यमंत्री आवास योजना (UP)'},{name:'इंदिरा आवास योजना (पूर्ववर्ती)'},{name:'स्वामित्व योजना — आवासीय भूमि का मैपिंग',url:'https://svamitva.nic.in'},{name:'मनरेगा के साथ कनवर्जेन्स — 90/95 दिन श्रम'}],
+    benefits: ['BPL परिवारों को निःशुल्क पक्का मकान','₹1,20,000 से ₹1,30,000 तक सहायता राशि','शौचालय निर्माण के लिए अतिरिक्त ₹12,000','मनरेगा से 90/95 दिन का अतिरिक्त रोजगार','महिला के नाम पर मकान का स्वामित्व']
+  },
+  11: {
+    title: 'पेयजल',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 11 के अंतर्गत "पेयजल" पंचायतों के कार्यक्षेत्र में शामिल है। स्वच्छ एवं सुरक्षित पेयजल की आपूर्ति सुनिश्चित करना ग्राम पंचायत का प्रमुख दायित्व है।',
+    highlight: 'जल जीवन मिशन (JJM) के अंतर्गत 2024 तक प्रत्येक ग्रामीण घर को "हर घर नल" से जोड़ने का लक्ष्य रखा गया है। ग्राम पंचायत इस मिशन की क्रियान्वयन इकाई है।',
+    acts: ['जल जीवन मिशन (JJM) दिशानिर्देश','UP पंचायतराज अधिनियम, 1947','जल (प्रदूषण निवारण एवं नियंत्रण) अधिनियम, 1974','UP जल संभरण एवं सीवरेज अधिनियम','राष्ट्रीय ग्रामीण पेयजल कार्यक्रम दिशानिर्देश'],
+    roles: ['जल जीवन मिशन का ग्राम स्तर पर क्रियान्वयन','हैंडपंप एवं नल जल योजनाओं का रख-रखाव','पानी समिति (VWSC) का गठन एवं संचालन','जल गुणवत्ता परीक्षण','पेयजल स्रोतों का संरक्षण एवं रख-रखाव'],
+    schemes: [{name:'जल जीवन मिशन (Har Ghar Nal Se Jal)',url:'https://jaljeevanmission.gov.in'},{name:'UP जल निगम — ग्रामीण जल आपूर्ति योजना'},{name:'स्वजलधारा योजना'},{name:'राष्ट्रीय ग्रामीण पेयजल कार्यक्रम (NRDWP)'},{name:'अटल भूजल योजना',url:'https://ataljal.mowr.gov.in'},{name:'हैंडपंप स्थापना एवं मरम्मत योजना'}],
+    benefits: ['प्रत्येक घर में नल से स्वच्छ पेयजल','जलजनित बीमारियों में कमी','महिलाओं को पानी भरने से मुक्ति','निःशुल्क हैंडपंप स्थापना एवं मरम्मत','जल गुणवत्ता की निगरानी']
+  },
+  12: {
+    title: 'ईंधन एवं चारा',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 12 के अंतर्गत "ईंधन एवं चारा" पंचायतों के कार्यक्षेत्र में शामिल है। ग्रामीण क्षेत्रों में स्वच्छ ईंधन की उपलब्धता एवं पशुओं के लिए चारे की व्यवस्था पंचायत का दायित्व है।',
+    highlight: 'प्रधानमंत्री उज्ज्वला योजना के अंतर्गत BPL महिलाओं को निःशुल्क LPG कनेक्शन दिया जा रहा है जिससे ग्रामीण महिलाओं को चूल्हे के धुएँ से मुक्ति मिल रही है।',
+    acts: ['प्रधानमंत्री उज्ज्वला योजना दिशानिर्देश','UP पंचायतराज अधिनियम, 1947','पर्यावरण (संरक्षण) अधिनियम, 1986','वन अधिनियम, 1927 (ईंधन लकड़ी)','UP चारागाह भूमि नियमावली'],
+    roles: ['उज्ज्वला योजना के लाभार्थियों का चयन','चारागाह भूमि का संरक्षण एवं विकास','चारा विकास कार्यक्रम का क्रियान्वयन','स्वच्छ ईंधन के उपयोग को बढ़ावा देना','बायोगैस प्लांट स्थापना में सहायता'],
+    schemes: [{name:'प्रधानमंत्री उज्ज्वला योजना (PMUY)',url:'https://www.pmuy.gov.in'},{name:'UP बायोगैस विकास कार्यक्रम'},{name:'राष्ट्रीय चारा विकास योजना'},{name:'UP गौशाला — चारा विकास'},{name:'मनरेगा अंतर्गत चारागाह विकास'},{name:'सोलर चूल्हा वितरण योजना'}],
+    benefits: ['BPL महिलाओं को निःशुल्क LPG कनेक्शन','धुआँ मुक्त रसोई — स्वास्थ्य सुधार','पशुओं के लिए चारे की व्यवस्था','बायोगैस से स्वच्छ ऊर्जा','चारागाह भूमि का विकास']
+  },
+  13: {
+    title: 'सड़कें, पुलिया, पुल, नौघाट, जलमार्ग एवं संचार के अन्य साधन',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 13 के अंतर्गत "सड़कें, पुलिया, पुल, नौघाट, जलमार्ग एवं संचार के अन्य साधन" पंचायतों के कार्यक्षेत्र में शामिल है। ग्रामीण संपर्क सड़कें ग्राम विकास की रीढ़ हैं।',
+    highlight: 'प्रधानमंत्री ग्राम सड़क योजना (PMGSY) के अंतर्गत प्रत्येक गाँव को ऑल-वेदर सड़क से जोड़ने का लक्ष्य है। ग्राम पंचायत PMGSY एवं मनरेगा से सड़क निर्माण कार्य करवाती है।',
+    acts: ['प्रधानमंत्री ग्राम सड़क योजना (PMGSY) दिशानिर्देश','UP पंचायतराज अधिनियम, 1947','राष्ट्रीय राजमार्ग अधिनियम, 1956','UP लोक निर्माण विभाग नियमावली','मनरेगा अधिनियम, 2005 (सड़क निर्माण)'],
+    roles: ['ग्रामीण सड़कों का निर्माण एवं रख-रखाव','PMGSY सड़कों की मॉनिटरिंग','पुलिया एवं छोटे पुलों का निर्माण','मनरेगा से सड़क निर्माण कार्य','सड़क निर्माण हेतु भूमि उपलब्ध कराना'],
+    schemes: [{name:'प्रधानमंत्री ग्राम सड़क योजना (PMGSY)',url:'https://pmgsy.nic.in'},{name:'मनरेगा — ग्रामीण सड़क निर्माण'},{name:'15वें वित्त आयोग — ग्रामीण सड़कें'},{name:'मुख्यमंत्री ग्राम सड़क योजना (UP)'},{name:'PMGSY-III — ग्रामीण संपर्क सड़कें'},{name:'UP ग्रामीण अभियन्त्रण सेवा — पुलिया/पुल'}],
+    benefits: ['गाँवों को शहरों से सड़क संपर्क','बारिश में भी आवागमन की सुविधा','कृषि उत्पादों के परिवहन में सुविधा','स्वास्थ्य सेवाओं तक पहुँच','शिक्षा एवं रोजगार के अवसरों में वृद्धि']
+  },
+  14: {
+    title: 'ग्रामीण विद्युतीकरण, विद्युत वितरण सहित',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 14 के अंतर्गत "ग्रामीण विद्युतीकरण, विद्युत वितरण सहित" पंचायतों के कार्यक्षेत्र में शामिल है। प्रत्येक ग्रामीण घर में बिजली पहुँचाना राष्ट्रीय लक्ष्य है।',
+    highlight: 'सौभाग्य योजना (PMSHBY) के अंतर्गत प्रत्येक ग्रामीण घर में विद्युत कनेक्शन देने का लक्ष्य रखा गया। दीनदयाल उपाध्याय ग्राम ज्योति योजना (DDUGJY) से ग्रामीण विद्युत अवसंरचना का विकास किया जा रहा है।',
+    acts: ['विद्युत अधिनियम, 2003','UP विद्युत विनियामक आयोग नियमावली','सौभाग्य योजना दिशानिर्देश','दीनदयाल उपाध्याय ग्राम ज्योति योजना दिशानिर्देश','ऊर्जा संरक्षण अधिनियम, 2001'],
+    roles: ['विद्युत कनेक्शन हेतु आवेदनों में सहायता','ग्रामीण विद्युतीकरण की मॉनिटरिंग','स्ट्रीट लाइट का रख-रखाव','बिजली चोरी रोकने में सहयोग','सोलर स्ट्रीट लाइट की स्थापना'],
+    schemes: [{name:'सौभाग्य योजना (PM Sahaj Bijli Har Ghar Yojana)',url:'https://saubhagya.gov.in'},{name:'दीनदयाल उपाध्याय ग्राम ज्योति योजना (DDUGJY)',url:'https://ddugjy.gov.in'},{name:'UP — निःशुल्क विद्युत कनेक्शन योजना'},{name:'15वें वित्त आयोग से LED स्ट्रीट लाइट'},{name:'ग्राम स्वराज अभियान — विद्युतीकरण'},{name:'कृषि पंप कनेक्शन योजना — UP'}],
+    benefits: ['प्रत्येक घर में बिजली का कनेक्शन','निःशुल्क/रियायती बिजली कनेक्शन','ग्राम स्तर पर स्ट्रीट लाइटिंग','कृषि सिंचाई हेतु बिजली','डिजिटल सुविधाओं तक पहुँच']
+  },
+  15: {
+    title: 'गैर-परम्परागत ऊर्जा स्रोत',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 15 के अंतर्गत "गैर-परम्परागत ऊर्जा स्रोत" पंचायतों के कार्यक्षेत्र में शामिल है। सौर ऊर्जा, बायोगैस, पवन ऊर्जा जैसे नवीकरणीय ऊर्जा स्रोतों को बढ़ावा देना पंचायत का दायित्व है।',
+    highlight: 'PM-KUSUM योजना के अंतर्गत किसानों को सोलर पंप एवं सोलर पावर प्लांट की सुविधा दी जा रही है। UP सरकार द्वारा सोलर रूफटॉप एवं सोलर स्ट्रीट लाइट को विशेष प्रोत्साहन दिया जा रहा है।',
+    acts: ['ऊर्जा संरक्षण अधिनियम, 2001','नवीन एवं नवीकरणीय ऊर्जा मंत्रालय दिशानिर्देश','UP सोलर ऊर्जा नीति','विद्युत अधिनियम, 2003','राष्ट्रीय सौर मिशन दिशानिर्देश'],
+    roles: ['सोलर स्ट्रीट लाइट की स्थापना एवं रख-रखाव','PM-KUSUM योजना के लाभार्थियों का चयन','बायोगैस प्लांट स्थापना में सहायता','सौर ऊर्जा के प्रति जागरूकता','ग्राम पंचायत भवनों पर सोलर पैनल लगवाना'],
+    schemes: [{name:'PM-KUSUM (किसान ऊर्जा सुरक्षा उत्थान महाअभियान)',url:'https://pmkusum.mnre.gov.in'},{name:'सोलर रूफटॉप सब्सिडी योजना'},{name:'UP सोलर पंप योजना'},{name:'राष्ट्रीय बायोगैस एवं खाद प्रबंधन कार्यक्रम'},{name:'UP नवीन एवं नवीकरणीय ऊर्जा विकास अभिकरण (UPNEDA)',url:'https://upneda.org.in'},{name:'सोलर स्ट्रीट लाइट योजना'}],
+    benefits: ['निःशुल्क सोलर स्ट्रीट लाइट','किसानों को सोलर पंप पर अनुदान','बिजली बिल में बचत','स्वच्छ एवं हरित ऊर्जा','ग्रामीण ऊर्जा सुरक्षा']
+  },
+  16: {
+    title: 'गरीबी उन्मूलन कार्यक्रम',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 16 के अंतर्गत "गरीबी उन्मूलन कार्यक्रम" पंचायतों के कार्यक्षेत्र में शामिल है। गरीबी रेखा से नीचे जीवन यापन करने वाले परिवारों के उत्थान हेतु विभिन्न कार्यक्रम चलाए जाते हैं।',
+    highlight: 'महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार गारण्टी अधिनियम (मनरेगा) प्रत्येक ग्रामीण परिवार को 100 दिन के रोजगार की गारण्टी देता है। ग्राम पंचायत मनरेगा की प्रमुख क्रियान्वयन एजेंसी है।',
+    acts: ['महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार गारण्टी अधिनियम (MGNREGA), 2005','दीनदयाल अंत्योदय योजना-राष्ट्रीय ग्रामीण आजीविका मिशन (DAY-NRLM) दिशानिर्देश','UP पंचायतराज अधिनियम, 1947','राष्ट्रीय खाद्य सुरक्षा अधिनियम, 2013'],
+    roles: ['मनरेगा कार्यों की योजना बनाना एवं क्रियान्वयन','जॉब कार्ड जारी करना','मनरेगा श्रमिकों की मस्टर रोल बनाना','स्वयं सहायता समूहों (SHG) का गठन','BPL सूची तैयार करना एवं अद्यतन करना'],
+    schemes: [{name:'महात्मा गांधी नरेगा (MGNREGA) — 100 दिन रोजगार',url:'https://nrega.nic.in'},{name:'दीनदयाल अंत्योदय योजना-NRLM',url:'https://nrlm.gov.in'},{name:'UP — मुख्यमंत्री अभ्युदय योजना'},{name:'राष्ट्रीय ग्रामीण आजीविका मिशन (NRLM)'},{name:'अन्त्योदय अन्न योजना'},{name:'UP आजीविका मिशन'}],
+    benefits: ['प्रत्येक परिवार को 100 दिन रोजगार गारण्टी','दैनिक मजदूरी सीधे बैंक खाते में','SHG के माध्यम से महिला सशक्तिकरण','BPL परिवारों को विभिन्न सरकारी योजनाओं का लाभ','कौशल विकास एवं स्वरोजगार']
+  },
+  17: {
+    title: 'शिक्षा, प्राथमिक एवं माध्यमिक विद्यालय सहित',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 17 के अंतर्गत "शिक्षा, प्राथमिक एवं माध्यमिक विद्यालय सहित" पंचायतों के कार्यक्षेत्र में शामिल है। शिक्षा का अधिकार अधिनियम (RTE), 2009 के अंतर्गत 6-14 वर्ष के बच्चों को निःशुल्क एवं अनिवार्य शिक्षा का अधिकार है।',
+    highlight: 'ग्राम पंचायत विद्यालय प्रबंधन समिति (SMC) के माध्यम से प्राथमिक विद्यालयों की देखरेख करती है। मिड-डे मील योजना, निःशुल्क पुस्तकें एवं यूनिफॉर्म का वितरण ग्राम स्तर पर होता है।',
+    acts: ['शिक्षा का अधिकार अधिनियम (RTE Act), 2009','UP बेसिक शिक्षा अधिनियम, 1972','UP माध्यमिक शिक्षा सेवा चयन बोर्ड अधिनियम','राष्ट्रीय शिक्षा नीति (NEP), 2020','निःशुल्क एवं अनिवार्य बाल शिक्षा अधिकार नियमावली'],
+    roles: ['विद्यालय प्रबंधन समिति (SMC) का गठन एवं संचालन','बच्चों के नामांकन एवं उपस्थिति की निगरानी','मिड-डे मील की गुणवत्ता जाँच','स्कूल ड्रॉपआउट रोकने हेतु जागरूकता','विद्यालय भवन के रख-रखाव में सहयोग'],
+    schemes: [{name:'समग्र शिक्षा अभियान (Samagra Shiksha)',url:'https://samagra.education.gov.in'},{name:'मिड-डे मील योजना (PM-POSHAN)',url:'https://pmposhan.education.gov.in'},{name:'UP निःशुल्क पुस्तक वितरण योजना'},{name:'UP निःशुल्क यूनिफॉर्म योजना'},{name:'UP कन्या विद्या धन योजना'},{name:'राष्ट्रीय शिक्षा नीति 2020 — फाउंडेशन स्टेज'},{name:'UP बेसिक शिक्षा परिषद — स्कूल अपग्रेडेशन',url:'https://basiceducation.up.gov.in'}],
+    benefits: ['6-14 वर्ष के बच्चों को निःशुल्क शिक्षा','मिड-डे मील से पोषण सुरक्षा','निःशुल्क पुस्तकें, यूनिफॉर्म, स्कूल बैग','बालिका शिक्षा को प्रोत्साहन','गुणवत्तापूर्ण शिक्षा तक पहुँच']
+  },
+  18: {
+    title: 'तकनीकी प्रशिक्षण एवं व्यावसायिक शिक्षा',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 18 के अंतर्गत "तकनीकी प्रशिक्षण एवं व्यावसायिक शिक्षा" पंचायतों के कार्यक्षेत्र में शामिल है। कौशल विकास एवं रोजगारपरक शिक्षा ग्रामीण युवाओं के लिए अत्यंत महत्वपूर्ण है।',
+    highlight: 'प्रधानमंत्री कौशल विकास योजना (PMKVY) के अंतर्गत ग्रामीण युवाओं को निःशुल्क कौशल प्रशिक्षण दिया जाता है। UP सरकार द्वारा विश्वकर्मा श्रम सम्मान योजना एवं कौशल सतरंग योजना चलाई जा रही है।',
+    acts: ['राष्ट्रीय कौशल विकास एजेंसी (NSDA) दिशानिर्देश','PMKVY दिशानिर्देश','UP कौशल विकास मिशन','औद्योगिक प्रशिक्षण संस्थान (ITI) नियमावली','UP व्यावसायिक शिक्षा नीति'],
+    roles: ['कौशल विकास शिविरों का ग्राम स्तर पर आयोजन','युवाओं को ITI एवं कौशल प्रशिक्षण केन्द्रों की जानकारी देना','PMKVY लाभार्थियों का चयन एवं मार्गदर्शन','रोजगार मेला का आयोजन','स्वरोजगार हेतु प्रशिक्षण कार्यक्रम'],
+    schemes: [{name:'प्रधानमंत्री कौशल विकास योजना (PMKVY)',url:'https://pmkvyofficial.org'},{name:'UP कौशल सतरंग योजना'},{name:'UP विश्वकर्मा श्रम सम्मान योजना'},{name:'दीनदयाल उपाध्याय ग्रामीण कौशल्य योजना (DDU-GKY)',url:'https://ddugky.gov.in'},{name:'UP सेवायोजन विभाग — रोजगार मेला'},{name:'PM-DAKSH — कौशल प्रशिक्षण (SC/ST)'}],
+    benefits: ['निःशुल्क कौशल प्रशिक्षण','प्रशिक्षण के बाद रोजगार सहायता','सर्टिफिकेट — राष्ट्रीय मान्यता प्राप्त','स्वरोजगार हेतु तकनीकी ज्ञान','ग्रामीण युवाओं का शहरी पलायन कम']
+  },
+  19: {
+    title: 'प्रौढ़ एवं अनौपचारिक शिक्षा',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 19 के अंतर्गत "प्रौढ़ एवं अनौपचारिक शिक्षा" पंचायतों के कार्यक्षेत्र में शामिल है। निरक्षर वयस्कों को साक्षर बनाना एवं जीवनपर्यन्त शिक्षा का प्रसार पंचायत का दायित्व है।',
+    highlight: 'नव भारत साक्षरता कार्यक्रम (New India Literacy Programme — NILP) 2022-27 के अंतर्गत 15 वर्ष एवं उससे अधिक आयु के निरक्षर व्यक्तियों को बुनियादी साक्षरता एवं संख्या ज्ञान प्रदान किया जा रहा है।',
+    acts: ['नव भारत साक्षरता कार्यक्रम (NILP) दिशानिर्देश','राष्ट्रीय शिक्षा नीति (NEP), 2020','UP साक्षरता मिशन','साक्षर भारत मिशन (पूर्ववर्ती) दिशानिर्देश','UP पंचायतराज अधिनियम, 1947'],
+    roles: ['निरक्षर व्यक्तियों का सर्वेक्षण एवं चिह्नित करना','प्रौढ़ शिक्षा केन्द्रों का संचालन','स्वयंसेवक शिक्षकों की नियुक्ति में सहायता','साक्षरता अभियान का प्रचार-प्रसार','डिजिटल साक्षरता कार्यक्रम का क्रियान्वयन'],
+    schemes: [{name:'नव भारत साक्षरता कार्यक्रम (NILP)',url:'https://ullas.education.gov.in'},{name:'प्रधानमंत्री ग्रामीण डिजिटल साक्षरता अभियान (PMGDISHA)',url:'https://pmgdisha.in'},{name:'UP साक्षरता मिशन'},{name:'साक्षर भारत मिशन (पूर्ववर्ती)'},{name:'राष्ट्रीय शिक्षा नीति 2020 — प्रौढ़ शिक्षा'},{name:'UP मुख्यमंत्री अभ्युदय योजना — निःशुल्क कोचिंग'}],
+    benefits: ['निःशुल्क प्रौढ़ शिक्षा','डिजिटल साक्षरता — कम्प्यूटर एवं मोबाइल ज्ञान','हस्ताक्षर करने की क्षमता','सरकारी योजनाओं की जानकारी','बैंकिंग एवं वित्तीय साक्षरता']
+  },
+  21: {
+    title: 'सांस्कृतिक कार्यक्रम',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 21 के अंतर्गत "सांस्कृतिक कार्यक्रम" पंचायतों के कार्यक्षेत्र में शामिल है। ग्रामीण संस्कृति, लोक कला, पारम्परिक ज्ञान एवं सामुदायिक भावना को बढ़ावा देना पंचायत का दायित्व है।',
+    highlight: 'उत्तर प्रदेश सरकार "एक जिला एक उत्सव" एवं "सांस्कृतिक विरासत संरक्षण" कार्यक्रम के माध्यम से ग्रामीण लोक कला, नृत्य, संगीत एवं पारम्परिक त्योहारों को बढ़ावा दे रही है।',
+    acts: ['UP पंचायतराज अधिनियम, 1947','प्राचीन स्मारक एवं पुरातात्विक स्थल अधिनियम, 1958','UP संस्कृति विभाग दिशानिर्देश','राष्ट्रीय संस्कृति कोष नियमावली'],
+    roles: ['ग्राम स्तर पर सांस्कृतिक कार्यक्रमों का आयोजन','लोक कला एवं लोक नृत्य को बढ़ावा देना','स्वतंत्रता दिवस, गणतंत्र दिवस आदि का आयोजन','ग्रामीण खेलकूद प्रतियोगिताएँ','सामुदायिक उत्सवों का प्रबंधन'],
+    schemes: [{name:'UP संस्कृति विभाग — लोक कला संरक्षण'},{name:'एक जिला एक उत्सव — UP'},{name:'ग्रामीण खेलकूद प्रतियोगिता — खेलो इंडिया',url:'https://kheloindia.gov.in'},{name:'फिट इंडिया अभियान'},{name:'राष्ट्रीय ग्राम स्वराज अभियान — सांस्कृतिक गतिविधियाँ'}],
+    benefits: ['ग्रामीण संस्कृति का संरक्षण','लोक कलाकारों को मंच एवं प्रोत्साहन','सामुदायिक एकता में वृद्धि','युवाओं को सकारात्मक मंच','पर्यटन से आय सृजन']
+  },
+  22: {
+    title: 'बाजार एवं मेले',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 22 के अंतर्गत "बाजार एवं मेले" पंचायतों के कार्यक्षेत्र में शामिल है। ग्रामीण हाट बाजार, साप्ताहिक बाजार एवं मेलों का आयोजन एवं प्रबंधन पंचायत करती है।',
+    highlight: 'ग्राम पंचायत हाट बाजारों एवं कृषि मंडियों के माध्यम से किसानों एवं ग्रामीण उत्पादकों को सीधे बाजार उपलब्ध कराती है। ग्रामीण मेले सामुदायिक व्यापार का प्रमुख केन्द्र हैं।',
+    acts: ['UP कृषि उत्पादन मंडी अधिनियम, 1964','UP पंचायतराज अधिनियम, 1947','UP नगर पालिका अधिनियम (बाजार प्रबंधन)','आवश्यक वस्तु अधिनियम, 1955','UP मेला नियमावली'],
+    roles: ['हाट बाजारों का आयोजन एवं प्रबंधन','मेलों का आयोजन एवं सुरक्षा व्यवस्था','बाजार शुल्क का संग्रहण','किसानों को कृषि मंडी से जोड़ना','व्यापारिक लाइसेंस एवं अनुमति'],
+    schemes: [{name:'ग्रामीण हाट योजना — UP'},{name:'eNAM — राष्ट्रीय कृषि बाजार (ई-मंडी)',url:'https://enam.gov.in'},{name:'UP कृषि मंडी परिषद'},{name:'ग्रामीण हाट बाजार विकास कार्यक्रम'},{name:'PM-FME — खाद्य प्रसंस्करण (मेलों में विपणन)'},{name:'ODOP मेला — UP'}],
+    benefits: ['किसानों को स्थानीय बाजार','उचित मूल्य पर कृषि उत्पादों की बिक्री','ग्रामीण व्यापार को बढ़ावा','रोजगार के अवसर','सामाजिक-सांस्कृतिक आदान-प्रदान']
+  },
+  23: {
+    title: 'स्वास्थ्य एवं स्वच्छता',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 23 के अंतर्गत "स्वास्थ्य एवं स्वच्छता, अस्पताल, प्राथमिक स्वास्थ्य केन्द्र एवं औषधालय सहित" पंचायतों के कार्यक्षेत्र में शामिल है।',
+    highlight: 'आयुष्मान भारत योजना (PM-JAY) के अंतर्गत प्रत्येक पात्र परिवार को ₹5 लाख तक का निःशुल्क स्वास्थ्य बीमा मिलता है। स्वच्छ भारत मिशन-ग्रामीण के तहत ODF (खुले में शौच मुक्त) गाँव बनाने में ग्राम पंचायत की मुख्य भूमिका है।',
+    acts: ['राष्ट्रीय स्वास्थ्य मिशन (NHM) दिशानिर्देश','स्वच्छ भारत मिशन-ग्रामीण दिशानिर्देश','आयुष्मान भारत (PM-JAY) दिशानिर्देश','UP लोक स्वास्थ्य सेवा अधिनियम','महामारी रोग अधिनियम, 1897','UP पंचायतराज अधिनियम, 1947'],
+    roles: ['स्वच्छ भारत मिशन — शौचालय निर्माण एवं ODF','ग्रामीण स्वास्थ्य एवं स्वच्छता समिति (VHSNC) का संचालन','टीकाकरण अभियान में सहयोग','स्वास्थ्य शिविरों का आयोजन','कचरा प्रबंधन एवं स्वच्छता अभियान'],
+    schemes: [{name:'आयुष्मान भारत — PM Jan Arogya Yojana (₹5 लाख बीमा)',url:'https://pmjay.gov.in'},{name:'स्वच्छ भारत मिशन-ग्रामीण (SBM-G) Phase II',url:'https://sbm.gov.in'},{name:'राष्ट्रीय स्वास्थ्य मिशन (NHM)',url:'https://nhm.gov.in'},{name:'जननी सुरक्षा योजना (JSY)',url:'https://nhm.gov.in'},{name:'UP मुख्यमंत्री जन आरोग्य योजना'},{name:'आयुष्मान भारत — स्वास्थ्य एवं कल्याण केन्द्र (HWC)'},{name:'UP गोबरधन योजना — जैविक कचरा प्रबंधन'}],
+    benefits: ['₹5 लाख तक निःशुल्क इलाज','निःशुल्क शौचालय निर्माण','ग्रामीण क्षेत्र में स्वास्थ्य सेवाएँ','निःशुल्क टीकाकरण','मातृ एवं शिशु स्वास्थ्य सेवाएँ']
+  },
+  24: {
+    title: 'परिवार कल्याण',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 24 के अंतर्गत "परिवार कल्याण" पंचायतों के कार्यक्षेत्र में शामिल है। परिवार नियोजन, मातृ-शिशु स्वास्थ्य एवं जनसंख्या स्थिरीकरण पंचायत स्तर पर क्रियान्वित किया जाता है।',
+    highlight: 'जननी सुरक्षा योजना (JSY) के अंतर्गत संस्थागत प्रसव पर माताओं को आर्थिक सहायता दी जाती है। ASHA कार्यकर्ता ग्राम स्तर पर परिवार कल्याण सेवाओं की प्रमुख कड़ी हैं।',
+    acts: ['राष्ट्रीय जनसंख्या नीति, 2000','UP जनसंख्या नीति, 2021-2030','UP जनसंख्या (नियंत्रण, स्थिरीकरण एवं कल्याण) विधेयक','राष्ट्रीय स्वास्थ्य मिशन दिशानिर्देश','गर्भ का चिकित्सकीय समापन अधिनियम (MTP Act)'],
+    roles: ['परिवार नियोजन जागरूकता अभियान','ASHA कार्यकर्ताओं के माध्यम से सेवाएँ','गर्भवती महिलाओं का पंजीकरण','संस्थागत प्रसव को बढ़ावा देना','मातृ एवं शिशु पोषण कार्यक्रम'],
+    schemes: [{name:'जननी सुरक्षा योजना (JSY)',url:'https://nhm.gov.in'},{name:'जननी शिशु सुरक्षा कार्यक्रम (JSSK)'},{name:'प्रधानमंत्री मातृ वन्दना योजना (PMMVY) — ₹5000',url:'https://pmmvy.wcd.gov.in'},{name:'राष्ट्रीय परिवार नियोजन कार्यक्रम'},{name:'मिशन इन्द्रधनुष (टीकाकरण)',url:'https://nhm.gov.in'},{name:'UP मुख्यमंत्री सामूहिक विवाह योजना'}],
+    benefits: ['संस्थागत प्रसव पर आर्थिक सहायता','निःशुल्क गर्भावस्था जाँच','मातृ एवं शिशु टीकाकरण','गर्भवती महिलाओं को ₹5000 सहायता','परिवार नियोजन साधन निःशुल्क']
+  },
+  25: {
+    title: 'महिला एवं बाल विकास',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 25 के अंतर्गत "महिला एवं बाल विकास" पंचायतों के कार्यक्षेत्र में शामिल है। महिला सशक्तिकरण, बाल संरक्षण एवं पोषण सुरक्षा पंचायत की प्रमुख जिम्मेदारी है।',
+    highlight: 'समेकित बाल विकास सेवा (ICDS) के अंतर्गत आँगनवाड़ी केन्द्रों के माध्यम से 0-6 वर्ष के बच्चों एवं गर्भवती/धात्री महिलाओं को पूरक पोषण, स्वास्थ्य जाँच एवं पूर्व-प्राथमिक शिक्षा दी जाती है।',
+    acts: ['समेकित बाल विकास सेवा (ICDS) दिशानिर्देश','बाल अधिकार संरक्षण आयोग अधिनियम (NCPCR), 2005','महिलाओं का कार्यस्थल पर यौन उत्पीड़न (रोकथाम) अधिनियम, 2013','घरेलू हिंसा से महिलाओं का संरक्षण अधिनियम, 2005','बालश्रम (प्रतिषेध एवं विनियमन) अधिनियम, 1986','पोक्सो अधिनियम, 2012'],
+    roles: ['आँगनवाड़ी केन्द्रों की देखरेख','पोषण अभियान का क्रियान्वयन','बालिका शिक्षा को प्रोत्साहन','महिला स्वयं सहायता समूहों (SHG) का गठन','बाल विवाह रोकथाम में सहयोग','कुपोषित बच्चों की पहचान एवं उपचार'],
+    schemes: [{name:'समेकित बाल विकास सेवा (ICDS)',url:'https://icds-wcd.nic.in'},{name:'पोषण अभियान (POSHAN Abhiyan)',url:'https://poshanabhiyaan.gov.in'},{name:'बेटी बचाओ बेटी पढ़ाओ',url:'https://wcd.nic.in'},{name:'UP कन्या सुमंगला योजना',url:'https://mksy.up.gov.in'},{name:'प्रधानमंत्री मातृ वन्दना योजना'},{name:'UP मुख्यमंत्री कन्या सुमंगला योजना — ₹15,000'},{name:'UP महिला सामर्थ्य योजना'}],
+    benefits: ['आँगनवाड़ी से बच्चों को निःशुल्क पोषण','गर्भवती महिलाओं को स्वास्थ्य सेवाएँ','बालिकाओं को आर्थिक सहायता (कन्या सुमंगला)','महिला SHG से आय सृजन','बाल संरक्षण एवं शिक्षा']
+  },
+  26: {
+    title: 'समाज कल्याण',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 26 के अंतर्गत "समाज कल्याण, विकलांग एवं मानसिक रूप से अशक्त व्यक्तियों के कल्याण सहित" पंचायतों के कार्यक्षेत्र में शामिल है।',
+    highlight: 'दिव्यांगजन अधिकार अधिनियम, 2016 के अंतर्गत दिव्यांग व्यक्तियों को समान अवसर एवं अधिकार दिए गए हैं। UP सरकार वृद्धावस्था पेंशन, विधवा पेंशन एवं दिव्यांग पेंशन योजनाएँ चला रही है।',
+    acts: ['दिव्यांगजन अधिकार अधिनियम, 2016','मानसिक स्वास्थ्य देखभाल अधिनियम, 2017','वरिष्ठ नागरिकों के भरण-पोषण अधिनियम, 2007','UP पंचायतराज अधिनियम, 1947','राष्ट्रीय सामाजिक सहायता कार्यक्रम (NSAP) दिशानिर्देश'],
+    roles: ['पेंशन लाभार्थियों का चयन एवं सत्यापन','दिव्यांग प्रमाण पत्र बनवाने में सहायता','वृद्धाश्रम एवं दिव्यांग सहायता केन्द्र','सामाजिक सुरक्षा योजनाओं का प्रचार','निराश्रित व्यक्तियों की पहचान एवं सहायता'],
+    schemes: [{name:'इंदिरा गांधी राष्ट्रीय वृद्धावस्था पेंशन योजना'},{name:'UP वृद्धावस्था पेंशन योजना',url:'https://sspy-up.gov.in'},{name:'UP विधवा पेंशन योजना',url:'https://sspy-up.gov.in'},{name:'UP दिव्यांग पेंशन योजना',url:'https://sspy-up.gov.in'},{name:'UP कुष्ठावस्था पेंशन योजना'},{name:'राष्ट्रीय सामाजिक सहायता कार्यक्रम (NSAP)',url:'https://nsap.nic.in'},{name:'दिव्यांगजन सहायक उपकरण योजना (ADIP)'}],
+    benefits: ['वृद्ध, विधवा एवं दिव्यांगों को मासिक पेंशन','दिव्यांगों को सहायक उपकरण','वरिष्ठ नागरिकों की देखभाल','निराश्रित व्यक्तियों को सामाजिक सुरक्षा','समाज में समावेशन एवं समानता']
+  },
+  27: {
+    title: 'कमजोर वर्गों का कल्याण',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 27 के अंतर्गत "कमजोर वर्गों का कल्याण, विशेषकर अनुसूचित जाति एवं अनुसूचित जनजाति" पंचायतों के कार्यक्षेत्र में शामिल है। संविधान के अनुच्छेद 46 में राज्य को कमजोर वर्गों के शैक्षिक एवं आर्थिक हितों की रक्षा का निर्देश है।',
+    highlight: 'अनुसूचित जाति उप-योजना (SCSP) एवं जनजातीय उप-योजना (TSP) के अंतर्गत SC/ST परिवारों के लिए विशेष बजट आवंटन किया जाता है। UP में SC जनसंख्या का प्रतिशत सर्वाधिक है।',
+    acts: ['अनुसूचित जाति एवं अनुसूचित जनजाति (अत्याचार निवारण) अधिनियम, 1989','नागरिक अधिकार संरक्षण अधिनियम, 1955','अनुसूचित जाति/जनजाति आदेश (संशोधन) अधिनियम','UP अनुसूचित जाति वित्त एवं विकास निगम','संविधान अनुच्छेद 15, 16, 17, 46 (कमजोर वर्ग संरक्षण)'],
+    roles: ['SC/ST कल्याण योजनाओं का क्रियान्वयन','छात्रवृत्ति एवं शिक्षा सहायता हेतु आवेदन में सहयोग','जातिगत भेदभाव के विरुद्ध जागरूकता','SC/ST लाभार्थियों का चयन एवं सत्यापन','अत्याचार रोकथाम में सहयोग'],
+    schemes: [{name:'अनुसूचित जाति उप-योजना (SCSP)'},{name:'UP — श्री संत रविदास शिक्षा सहायता योजना'},{name:'UP — मान्यवर कांशीराम जी शहरी/ग्रामीण आवास योजना'},{name:'पोस्ट मैट्रिक छात्रवृत्ति (SC/ST)',url:'https://scholarship.up.gov.in'},{name:'UP अनुसूचित जाति वित्त एवं विकास निगम — ऋण योजना'},{name:'PM-DAKSH योजना'},{name:'स्टैंड अप इंडिया — SC/ST उद्यमिता',url:'https://www.standupmitra.in'}],
+    benefits: ['SC/ST छात्रों को छात्रवृत्ति','आवास निर्माण में प्राथमिकता','स्वरोजगार हेतु ऋण एवं अनुदान','शिक्षा सहायता','सामाजिक न्याय एवं समानता']
+  },
+  28: {
+    title: 'सार्वजनिक वितरण प्रणाली',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 28 के अंतर्गत "सार्वजनिक वितरण प्रणाली" पंचायतों के कार्यक्षेत्र में शामिल है। राशन कार्ड एवं उचित मूल्य दुकानों के माध्यम से खाद्य सुरक्षा सुनिश्चित करना पंचायत की जिम्मेदारी है।',
+    highlight: 'राष्ट्रीय खाद्य सुरक्षा अधिनियम (NFSA), 2013 के अंतर्गत प्रत्येक पात्र परिवार को ₹1-3/kg पर गेहूँ, चावल एवं मोटा अनाज उपलब्ध कराया जाता है। PM गरीब कल्याण अन्न योजना (PMGKAY) से निःशुल्क अनाज वितरण किया जा रहा है।',
+    acts: ['राष्ट्रीय खाद्य सुरक्षा अधिनियम (NFSA), 2013','आवश्यक वस्तु अधिनियम, 1955','UP उचित मूल्य दुकान (लाइसेंसधारी) नियंत्रण आदेश','UP खाद्य एवं रसद विभाग नियमावली','सार्वजनिक वितरण प्रणाली (नियंत्रण) आदेश, 2001'],
+    roles: ['उचित मूल्य दुकानों की निगरानी','राशन कार्ड सत्यापन में सहयोग','खाद्यान्न वितरण की मॉनिटरिंग','PDS शिकायतों का निवारण','पात्र लाभार्थियों की सूची अद्यतन करना'],
+    schemes: [{name:'राष्ट्रीय खाद्य सुरक्षा अधिनियम (NFSA)',url:'https://nfsa.gov.in'},{name:'PM गरीब कल्याण अन्न योजना (PMGKAY)'},{name:'अन्त्योदय अन्न योजना (AAY)'},{name:'UP राशन कार्ड — ePDS',url:'https://fcs.up.gov.in'},{name:'एक देश एक राशन कार्ड (ONORC)',url:'https://impds.nic.in'},{name:'UP खाद्य सुरक्षा योजना'}],
+    benefits: ['₹1-3/kg पर गेहूँ, चावल, दाल','निःशुल्क अनाज (PMGKAY)','BPL/AAY परिवारों को विशेष राशन','राशन कार्ड से अन्य योजनाओं का लाभ','खाद्य सुरक्षा एवं पोषण']
+  },
+  29: {
+    title: 'सामुदायिक सम्पत्तियों का रख-रखाव',
+    legal: 'संविधान की 11वीं अनुसूची में विषय संख्या 29 के अंतर्गत "सामुदायिक सम्पत्तियों का रख-रखाव" पंचायतों के कार्यक्षेत्र में शामिल है। ग्राम सभा की सम्पत्तियों — तालाब, चरागाह, सामुदायिक भवन, श्मशान आदि — का रख-रखाव ग्राम पंचायत करती है।',
+    highlight: 'ग्राम सभा की सम्पत्तियाँ सामूहिक स्वामित्व में होती हैं और इनका अतिक्रमण गैर-कानूनी है। UP सरकार द्वारा ग्राम पंचायत भवन, सामुदायिक शौचालय, तालाब एवं चरागाह भूमि के संरक्षण पर विशेष ध्यान दिया जा रहा है।',
+    acts: ['UP पंचायतराज अधिनियम, 1947','UP राजस्व संहिता, 2006','UP ग्राम सभा सम्पत्ति नियमावली','UP भूमि संरक्षण अधिनियम','सार्वजनिक सम्पत्ति नुकसान निवारण अधिनियम, 1984'],
+    roles: ['ग्राम सभा की सम्पत्तियों का रख-रखाव','तालाबों, चरागाहों का संरक्षण','अतिक्रमण हटाने की कार्रवाई','सामुदायिक भवनों का निर्माण एवं मरम्मत','श्मशान/कब्रिस्तान का रख-रखाव','पंचायत भवन का रख-रखाव'],
+    schemes: [{name:'15वें वित्त आयोग — सामुदायिक सम्पत्ति रख-रखाव'},{name:'मनरेगा — तालाब जीर्णोद्धार, चरागाह विकास'},{name:'UP ग्राम पंचायत भवन निर्माण योजना'},{name:'स्वच्छ भारत मिशन — सामुदायिक शौचालय',url:'https://sbm.gov.in'},{name:'अमृत सरोवर योजना — तालाब जीर्णोद्धार',url:'https://amritsarovar.gov.in'},{name:'UP सामुदायिक शौचालय निर्माण योजना'}],
+    benefits: ['तालाबों से सिंचाई एवं मत्स्य पालन','चरागाह भूमि का संरक्षण','सामुदायिक भवन — बैठक एवं कार्यक्रम हेतु','श्मशान/कब्रिस्तान की उचित व्यवस्था','ग्राम सभा की सम्पत्तियों पर सबका अधिकार']
+  }
+};
+
+function toggleSubjectDetail(n) {
+  // For subject 20, use the existing hardcoded panel
+  if (n === 20) {
+    var panel = document.getElementById('library-detail');
+    var card = document.getElementById('library-card');
+    var dynPanel = document.getElementById('subject-detail-dynamic');
+    // Close dynamic panel if open
+    if (dynPanel.classList.contains('show')) {
+      dynPanel.classList.remove('show');
+      if (currentOpenSubject && currentOpenSubject !== 20) {
+        var prevCard = document.getElementById('subject-card-' + currentOpenSubject);
+        if (prevCard) prevCard.classList.remove('active');
+      }
+    }
+    if (panel.classList.contains('show')) {
+      panel.classList.remove('show');
+      card.classList.remove('active');
+      currentOpenSubject = null;
+    } else {
+      panel.classList.add('show');
+      card.classList.add('active');
+      currentOpenSubject = 20;
+      setTimeout(function(){ panel.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
+    }
+    return;
+  }
+
+  // For all other subjects
+  var dynPanel = document.getElementById('subject-detail-dynamic');
+  var libPanel = document.getElementById('library-detail');
+  var libCard = document.getElementById('library-card');
+
+  // Close library panel if open
+  if (libPanel.classList.contains('show')) {
+    libPanel.classList.remove('show');
+    libCard.classList.remove('active');
+  }
+
+  // If clicking same subject, close it
+  if (currentOpenSubject === n && dynPanel.classList.contains('show')) {
+    dynPanel.classList.remove('show');
+    var card = document.getElementById('subject-card-' + n);
+    if (card) card.classList.remove('active');
+    currentOpenSubject = null;
+    return;
+  }
+
+  // Remove active from previous card
+  if (currentOpenSubject && currentOpenSubject !== 20) {
+    var prevCard = document.getElementById('subject-card-' + currentOpenSubject);
+    if (prevCard) prevCard.classList.remove('active');
+  }
+
+  // Get subject data
+  var data = subjectData[n];
+  if (!data) return;
+
+  // Build HTML
+  var html = '<div class="library-info">';
+  html += '<h3>\u2696\uFE0F \u0938\u0902\u0935\u0948\u0927\u093E\u0928\u093F\u0915/\u0915\u093E\u0928\u0942\u0928\u0940 \u0906\u0927\u093E\u0930</h3>';
+  html += '<p>' + data.legal + '</p>';
+  html += '<div class="highlight-box"><p>' + data.highlight + '</p></div>';
+  html += '<h3>\uD83D\uDCCB \u0938\u0902\u092C\u0902\u0927\u093F\u0924 \u0905\u0927\u093F\u0928\u093F\u092F\u092E \u090F\u0935\u0902 \u0928\u093F\u092F\u092E</h3><ul>';
+  for (var i = 0; i < data.acts.length; i++) { html += '<li>' + data.acts[i] + '</li>'; }
+  html += '</ul>';
+  html += '<h3>\uD83C\uDFD8\uFE0F \u0917\u094D\u0930\u093E\u092E \u092A\u0902\u091A\u093E\u092F\u0924 \u0915\u0940 \u092D\u0942\u092E\u093F\u0915\u093E</h3><ul>';
+  for (var i = 0; i < data.roles.length; i++) { html += '<li>' + data.roles[i] + '</li>'; }
+  html += '</ul>';
+  html += '<h3>\uD83C\uDFDB\uFE0F \u092A\u094D\u0930\u092E\u0941\u0916 \u0938\u0930\u0915\u093E\u0930\u0940 \u092F\u094B\u091C\u0928\u093E\u090F\u0901</h3><ul>';
+  for (var i = 0; i < data.schemes.length; i++) {
+    var s = data.schemes[i];
+    if (typeof s === 'object' && s.url) {
+      html += '<li><a href="' + s.url + '" target="_blank" rel="noopener" class="scheme-link" style="color:var(--navy);text-decoration:none;border-bottom:1.5px dashed var(--orange);font-weight:600;transition:color .2s;">' + s.name + ' \uD83D\uDD17</a></li>';
+    } else {
+      html += '<li>' + (typeof s === 'object' ? s.name : s) + '</li>';
+    }
+  }
+  html += '</ul>';
+  html += '<h3>\uD83D\uDC65 \u091C\u0928\u0924\u093E \u0915\u094B \u0932\u093E\u092D</h3><ul>';
+  for (var i = 0; i < data.benefits.length; i++) { html += '<li>' + data.benefits[i] + '</li>'; }
+  html += '</ul></div>';
+
+  dynPanel.innerHTML = html;
+
+  // Move dynamic panel after the clicked card in the grid
+  var card = document.getElementById('subject-card-' + n);
+  if (card) {
+    card.parentNode.insertBefore(dynPanel, card.nextSibling);
+    card.classList.add('active');
+  }
+
+  dynPanel.classList.add('show');
+  currentOpenSubject = n;
+  setTimeout(function(){ dynPanel.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
 }
 </script>
 </body>
