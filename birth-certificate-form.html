@@ -1054,7 +1054,7 @@ function downloadPDF(blob, fileName){
 }
 
 function printAllPages(){
-  var all=_pvPages.join('<div style="page-break-before:always;"></div>');
+  var all=_pvPages.join("<div class=\"html2pdf__page-break\"></div>");
   if(isMobile() && typeof html2pdf !== 'undefined'){
     showToast('📄 PDF बन रहा है...');
     var clone = document.createElement('div');
