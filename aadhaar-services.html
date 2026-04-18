@@ -56,6 +56,30 @@
   .link-btn.green { background: var(--green); }
   .footer { background: var(--navy); color: rgba(255,255,255,0.6); text-align: center; padding: 16px; font-size: 11px; }
   @media (max-width: 600px) { .content { padding: 20px 16px 30px; } .hero { padding: 24px 16px; } .hero h1 { font-size: 22px; } .services-grid { grid-template-columns: 1fr 1fr; gap: 10px; } .svc-card { padding: 16px 12px; } }
+
+  /* Correction Modal — Mobile responsive (DOB/Name Limit Cross forms) */
+  @media (max-width: 700px) {
+    #correctionContent { padding: 14px 12px 30px !important; }
+    #formContent { padding: 14px !important; font-size: 13px !important; line-height: 2.4 !important; }
+    #formContent p { margin: 8px 0 !important; word-break: break-word; }
+    #formContent .form-inp { min-width: 90px !important; max-width: 100%; width: auto !important; font-size: 12.5px !important; padding: 3px 5px !important; box-sizing: border-box; }
+    #formContent input.form-inp { display: inline-block; vertical-align: baseline; margin: 2px 0; }
+    #formContent select.form-inp { font-size: 12px !important; padding: 3px 4px !important; }
+    #formContent .hi-only { font-size: 10px !important; display: inline-block; }
+    #formTitle { font-size: 12px !important; padding: 6px 10px !important; }
+    #formTitle > div { font-size: 11px !important; }
+    /* Modal header itself */
+    #correctionModal > div > div:first-child { padding: 12px 14px !important; }
+    #correctionModal > div > div:first-child > div:first-child { font-size: 14px !important; }
+  }
+  @media (max-width: 480px) {
+    #correctionContent { padding: 12px 10px 24px !important; }
+    #formContent { padding: 12px !important; font-size: 12.5px !important; }
+    #formContent .form-inp { min-width: 70px !important; font-size: 12px !important; }
+    /* Make signature block stack on very narrow screens */
+    #formContent > div[style*="display:flex"][style*="gap:20px"] { flex-direction: column !important; gap: 20px !important; }
+    #formContent > div[style*="display:flex"][style*="gap:20px"] > div { text-align: center !important; }
+  }
 </style>
 </head>
 <body>
@@ -458,7 +482,8 @@ function printForm() {
       margin: [10, 12, 10, 12], filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true, logging: false, width: 760, scrollX: 0, scrollY: 0 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['css', 'legacy'], before: '.page-break', avoid: ['img', 'table'] }
     }).from(container).outputPdf('blob').then(function(pdfBlob){
       document.body.removeChild(wrapper);
       var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });

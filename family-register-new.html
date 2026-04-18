@@ -88,13 +88,29 @@
           <div class="field"><label>पिता / पति का नाम <span style="color:#c0392b">*</span></label><input type="text" id="app_father" placeholder="पिता या पति का पूरा नाम"></div>
         </div>
         <div class="row">
-          <div class="field"><label>जनपद (जिला) <span style="color:#c0392b">*</span></label><select id="app_district" onchange="loadBlocks()"><option value="">— जिला चुनें —</option></select></div>
-          <div class="field"><label>विकासखण्ड (ब्लॉक) <span style="color:#c0392b">*</span></label><select id="app_block" disabled><option value="">— पहले जिला चुनें —</option></select></div>
+          <div class="field"><label>जनपद (जिला) <span style="color:#c0392b">*</span></label><input type="text" id="app_district" placeholder="जिला का नाम"></div>
+          <div class="field"><label>विकासखण्ड (ब्लॉक) <span style="color:#c0392b">*</span></label><input type="text" id="app_block" placeholder="ब्लॉक का नाम"></div>
         </div>
         <div class="row">
-          <div class="field"><label>ग्राम पंचायत <span style="color:#c0392b">*</span></label><select id="app_gp" disabled><option value="">— पहले ब्लॉक चुनें —</option></select></div>
+          <div class="field"><label>ग्राम पंचायत <span style="color:#c0392b">*</span></label><input type="text" id="app_gp" placeholder="ग्राम पंचायत का नाम"></div>
           <div class="field"><label>ग्राम / मोहल्ला <span style="color:#c0392b">*</span></label><input type="text" id="app_village" placeholder="गाँव या मोहल्ला का नाम"></div>
           <div class="field"><label>मोबाइल नंबर <span style="color:#c0392b">*</span></label><input type="tel" id="app_mobile" maxlength="10" placeholder="10 अंकों का मोबाइल नंबर" oninput="this.value=this.value.replace(/\D/g,'')"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- House Boundaries (चौहद्दी) -->
+    <div class="section">
+      <div class="section-title">🏠 मकान की चौहद्दी / House Boundaries</div>
+      <div class="section-content">
+        <div style="font-size:12px;color:#666;margin-bottom:10px;">आपके मकान के चारों ओर क्या है, वो लिखें (वैकल्पिक) / Describe what surrounds your house on each side (optional)</div>
+        <div class="row">
+          <div class="field"><label>पूर्व में / East</label><input type="text" id="bound_east" placeholder="पड़ोसी का मकान / रास्ता / खेत"></div>
+          <div class="field"><label>पश्चिम में / West</label><input type="text" id="bound_west" placeholder="पश्चिम में क्या है"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>उत्तर में / North</label><input type="text" id="bound_north" placeholder="उत्तर में क्या है"></div>
+          <div class="field"><label>दक्षिण में / South</label><input type="text" id="bound_south" placeholder="दक्षिण में क्या है"></div>
         </div>
       </div>
     </div>
@@ -285,71 +301,10 @@ var UP_ALL_BLOCKS = {
   'Varanasi':['Arajiline','Baragaon','Chiraigaon','Cholapur','Harahua','Kashi Vidyapeeth','Pindra','Sewapuri']
 };
 
-// Populate district dropdown on load
-document.addEventListener('DOMContentLoaded', function() {
-  var distSel = document.getElementById('app_district');
-  var districts = Object.keys(UP_ALL_BLOCKS).sort();
-  districts.forEach(function(d) {
-    distSel.add(new Option(d, d));
-  });
-});
-
-function loadBlocks() {
-  var dist = document.getElementById('app_district').value;
-  var blkSel = document.getElementById('app_block');
-  var gpSel = document.getElementById('app_gp');
-  blkSel.innerHTML = '<option value="">— ब्लॉक चुनें —</option>';
-  gpSel.innerHTML = '<option value="">— पहले ब्लॉक चुनें —</option>';
-  blkSel.disabled = true;
-  gpSel.disabled = true;
-  if (!dist) return;
-  var blocks = UP_ALL_BLOCKS[dist] || [];
-  blocks.forEach(function(b) {
-    blkSel.add(new Option(b, b));
-  });
-  if (blocks.length) blkSel.disabled = false;
-  blkSel.onchange = loadGPs;
-}
-
-function loadGPs() {
-  var gpSel = document.getElementById('app_gp');
-  gpSel.innerHTML = '<option value="">— ग्राम पंचायत चुनें —</option>';
-  gpSel.disabled = true;
-  // Extract English block name from "जामो (Jamo)" format
-  var blkVal = document.getElementById('app_block').value;
-  var distVal = document.getElementById('app_district').value;
-  if (!blkVal || !distVal) return;
-  // Extract English names for UP_GPS lookup
-  // Format is "Amethi (अमेठी)" or "अमेठी (Amethi)" — extract the part without Hindi
-  var distEn = distVal.split('(')[0].trim().split(' ')[0].trim();
-  if (!distEn || /[\u0900-\u097F]/.test(distEn)) { var m=distVal.match(/\(([A-Za-z\s]+)\)/); distEn=m?m[1].trim():distVal; }
-  var blkEn = blkVal.match(/\(([A-Za-z\s]+)\)/);
-  blkEn = blkEn ? blkEn[1].trim() : blkVal.split('(')[0].trim();
-  // Find tehsil - try all tehsils for this district
-  var tehsils = (typeof UP_TEHSILS !== 'undefined' && UP_TEHSILS[distEn]) ? UP_TEHSILS[distEn] : [];
-  var gps = [];
-  tehsils.forEach(function(teh) {
-    var key = distEn + '-' + teh + '-' + blkEn;
-    if (typeof UP_GPS !== 'undefined' && UP_GPS[key]) {
-      gps = UP_GPS[key];
-    }
-  });
-  if (gps.length) {
-    gps.forEach(function(g) {
-      gpSel.add(new Option(g, g));
-    });
-    gpSel.disabled = false;
-  } else {
-    // No GP data - allow manual entry
-    gpSel.innerHTML = '<option value="">— GP डेटा उपलब्ध नहीं — नीचे लिखें —</option>';
-    var inp = document.createElement('input');
-    inp.type = 'text';
-    inp.id = 'app_gp_manual';
-    inp.placeholder = 'ग्राम पंचायत का नाम लिखें';
-    inp.style.cssText = 'border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:inherit;font-size:13px;width:100%;margin-top:6px;';
-    gpSel.parentNode.appendChild(inp);
-  }
-}
+// District/Block/GP are now manual text inputs — user fills them directly.
+// Legacy loadBlocks/loadGPs kept as no-ops for backward compatibility.
+function loadBlocks(){}
+function loadGPs(){}
 
 var memberCount = 1;
 
@@ -385,6 +340,12 @@ function generatePreview() {
   var block = document.getElementById('app_block').value || '___________';
   var district = document.getElementById('app_district').value || '___________';
   var mobile = document.getElementById('app_mobile').value || '______________';
+  // House boundaries (चौहद्दी) — optional
+  var bEast = (document.getElementById('bound_east')||{}).value || '';
+  var bWest = (document.getElementById('bound_west')||{}).value || '';
+  var bNorth = (document.getElementById('bound_north')||{}).value || '';
+  var bSouth = (document.getElementById('bound_south')||{}).value || '';
+  var hasBoundaries = bEast || bWest || bNorth || bSouth;
   var today = new Date(); var dd=String(today.getDate()).padStart(2,'0'); var mm=String(today.getMonth()+1).padStart(2,'0'); var yyyy=today.getFullYear(); var dateStr=dd+'/'+mm+'/'+yyyy;
 
   // Collect members
@@ -411,6 +372,17 @@ function generatePreview() {
     + '<p style="text-indent:40px;margin-top:6px;">प्रार्थी के परिवार के सदस्यों का विवरण निम्नवत् है–</p>'
     + '</div>'
     + '<table class="preview-table"><tr><th>क्र. सं.</th><th>परिवार के सदस्य का नाम</th><th>पिता/पति का नाम</th><th>मुखिया से संबंध</th><th>जन्मतिथि</th><th>जाति</th><th>व्यवसाय</th></tr>' + rows + '</table>'
+    + (hasBoundaries ? (
+        '<div style="font-size:14px;line-height:2.2;margin-top:10px;">'
+      + '<p style="text-indent:40px;"><b>प्रार्थी के मकान की चौहद्दी निम्नवत् है–</b></p>'
+      + '</div>'
+      + '<table class="preview-table" style="margin-top:6px;"><tr><th style="width:25%;">दिशा</th><th>विवरण</th></tr>'
+      + '<tr><td style="text-align:center;"><b>पूर्व में</b></td><td>' + (bEast || '—') + '</td></tr>'
+      + '<tr><td style="text-align:center;"><b>पश्चिम में</b></td><td>' + (bWest || '—') + '</td></tr>'
+      + '<tr><td style="text-align:center;"><b>उत्तर में</b></td><td>' + (bNorth || '—') + '</td></tr>'
+      + '<tr><td style="text-align:center;"><b>दक्षिण में</b></td><td>' + (bSouth || '—') + '</td></tr>'
+      + '</table>'
+    ) : '')
     + '<div style="font-size:14px;line-height:2.2;">'
     + '<p style="text-align:justify;">अतः आपसे अनुरोध है कि प्रार्थी के परिवार का नाम परिवार रजिस्टर में अंकित करने हेतु सम्बन्धित को निर्देशित करने की कृपा करें।</p>'
     + '</div>'
@@ -511,7 +483,8 @@ function printApplication() {
       filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true, logging: false, width: 760, scrollX: 0, scrollY: 0 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['css', 'legacy'], before: '.page-break' }
     }).from(container).outputPdf('blob').then(function(pdfBlob){
       document.body.removeChild(wrapper);
       var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });

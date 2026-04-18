@@ -88,11 +88,11 @@
           <div class="field"><label>पिता / पति का नाम <span style="color:#c0392b">*</span></label><input type="text" id="app_father" placeholder="पिता या पति का पूरा नाम"></div>
         </div>
         <div class="row">
-          <div class="field"><label>जनपद (जिला) <span style="color:#c0392b">*</span></label><select id="app_district" onchange="loadBlocks()"><option value="">— जिला चुनें —</option></select></div>
-          <div class="field"><label>विकासखण्ड (ब्लॉक) <span style="color:#c0392b">*</span></label><select id="app_block" disabled><option value="">— पहले जिला चुनें —</option></select></div>
+          <div class="field"><label>जनपद (जिला) <span style="color:#c0392b">*</span></label><input type="text" id="app_district" placeholder="जिला का नाम"></div>
+          <div class="field"><label>विकासखण्ड (ब्लॉक) <span style="color:#c0392b">*</span></label><input type="text" id="app_block" placeholder="ब्लॉक का नाम"></div>
         </div>
         <div class="row">
-          <div class="field"><label>ग्राम पंचायत <span style="color:#c0392b">*</span></label><select id="app_gp" disabled><option value="">— पहले ब्लॉक चुनें —</option></select></div>
+          <div class="field"><label>ग्राम पंचायत <span style="color:#c0392b">*</span></label><input type="text" id="app_gp" placeholder="ग्राम पंचायत का नाम"></div>
           <div class="field"><label>ग्राम / मोहल्ला <span style="color:#c0392b">*</span></label><input type="text" id="app_village" placeholder="गाँव या मोहल्ला का नाम"></div>
           <div class="field"><label>मोबाइल नंबर <span style="color:#c0392b">*</span></label><input type="tel" id="app_mobile" maxlength="10" placeholder="10 अंकों का मोबाइल नंबर" oninput="this.value=this.value.replace(/\D/g,'')"></div>
         </div>
@@ -295,71 +295,10 @@ var UP_ALL_BLOCKS = {
   'Varanasi':['Arajiline','Baragaon','Chiraigaon','Cholapur','Harahua','Kashi Vidyapeeth','Pindra','Sewapuri']
 };
 
-// Populate district dropdown on load
-document.addEventListener('DOMContentLoaded', function() {
-  var distSel = document.getElementById('app_district');
-  var districts = Object.keys(UP_ALL_BLOCKS).sort();
-  districts.forEach(function(d) {
-    distSel.add(new Option(d, d));
-  });
-});
-
-function loadBlocks() {
-  var dist = document.getElementById('app_district').value;
-  var blkSel = document.getElementById('app_block');
-  var gpSel = document.getElementById('app_gp');
-  blkSel.innerHTML = '<option value="">— ब्लॉक चुनें —</option>';
-  gpSel.innerHTML = '<option value="">— पहले ब्लॉक चुनें —</option>';
-  blkSel.disabled = true;
-  gpSel.disabled = true;
-  if (!dist) return;
-  var blocks = UP_ALL_BLOCKS[dist] || [];
-  blocks.forEach(function(b) {
-    blkSel.add(new Option(b, b));
-  });
-  if (blocks.length) blkSel.disabled = false;
-  blkSel.onchange = loadGPs;
-}
-
-function loadGPs() {
-  var gpSel = document.getElementById('app_gp');
-  gpSel.innerHTML = '<option value="">— ग्राम पंचायत चुनें —</option>';
-  gpSel.disabled = true;
-  // Extract English block name from "जामो (Jamo)" format
-  var blkVal = document.getElementById('app_block').value;
-  var distVal = document.getElementById('app_district').value;
-  if (!blkVal || !distVal) return;
-  // Extract English names for UP_GPS lookup
-  // Format is "Amethi (अमेठी)" or "अमेठी (Amethi)" — extract the part without Hindi
-  var distEn = distVal.split('(')[0].trim().split(' ')[0].trim();
-  if (!distEn || /[\u0900-\u097F]/.test(distEn)) { var m=distVal.match(/\(([A-Za-z\s]+)\)/); distEn=m?m[1].trim():distVal; }
-  var blkEn = blkVal.match(/\(([A-Za-z\s]+)\)/);
-  blkEn = blkEn ? blkEn[1].trim() : blkVal.split('(')[0].trim();
-  // Find tehsil - try all tehsils for this district
-  var tehsils = (typeof UP_TEHSILS !== 'undefined' && UP_TEHSILS[distEn]) ? UP_TEHSILS[distEn] : [];
-  var gps = [];
-  tehsils.forEach(function(teh) {
-    var key = distEn + '-' + teh + '-' + blkEn;
-    if (typeof UP_GPS !== 'undefined' && UP_GPS[key]) {
-      gps = UP_GPS[key];
-    }
-  });
-  if (gps.length) {
-    gps.forEach(function(g) {
-      gpSel.add(new Option(g, g));
-    });
-    gpSel.disabled = false;
-  } else {
-    // No GP data - allow manual entry
-    gpSel.innerHTML = '<option value="">— GP डेटा उपलब्ध नहीं — नीचे लिखें —</option>';
-    var inp = document.createElement('input');
-    inp.type = 'text';
-    inp.id = 'app_gp_manual';
-    inp.placeholder = 'ग्राम पंचायत का नाम लिखें';
-    inp.style.cssText = 'border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:inherit;font-size:13px;width:100%;margin-top:6px;';
-    gpSel.parentNode.appendChild(inp);
-  }
-}
+// District/Block/GP are now manual text inputs — user fills them directly.
+// Legacy loadBlocks/loadGPs kept as no-ops for backward compatibility.
+function loadBlocks(){}
+function loadGPs(){}
 
 var memberCount = 1;
 
@@ -524,7 +463,8 @@ function printApplication() {
       filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true, logging: false, width: 760, scrollX: 0, scrollY: 0 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['css', 'legacy'], before: '.page-break' }
     }).from(container).outputPdf('blob').then(function(pdfBlob){
       document.body.removeChild(wrapper);
       var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });

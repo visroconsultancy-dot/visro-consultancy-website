@@ -125,19 +125,19 @@
         <div class="fields">
           <div class="field-group">
             <label>जनपद <span class="req">*</span></label>
-            <input type="text" id="dk_district" placeholder="जैसे: अमेठी">
+            <input type="text" id="dk_district" placeholder="अपने जिले का नाम">
           </div>
           <div class="field-group">
             <label>तहसील <span class="req">*</span></label>
-            <input type="text" id="dk_tehsil" placeholder="जैसे: गौरीगंज">
+            <input type="text" id="dk_tehsil" placeholder="अपनी तहसील का नाम">
           </div>
           <div class="field-group">
             <label>विकासखण्ड <span class="req">*</span></label>
-            <input type="text" id="dk_block" placeholder="जैसे: जामों">
+            <input type="text" id="dk_block" placeholder="अपने ब्लॉक का नाम">
           </div>
           <div class="field-group">
             <label>ग्राम पंचायत <span class="req">*</span></label>
-            <input type="text" id="dk_gp" placeholder="जैसे: भेलसर">
+            <input type="text" id="dk_gp" placeholder="अपनी ग्राम पंचायत का नाम">
           </div>
           <div class="field-group">
             <label>रिपोर्टिंग अधिकारी <span class="req">*</span></label>
@@ -806,7 +806,8 @@ function printAkhya(){
       filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true, logging: false, width: 760, scrollX: 0, scrollY: 0 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['css', 'legacy'], before: '.page-break', avoid: ['img', 'table'] }
     }).from(clone).outputPdf('blob').then(function(pdfBlob){
       document.body.removeChild(wrapper);
       closePreview();

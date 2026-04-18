@@ -147,7 +147,7 @@
       <div class="section-content">
         <div class="row">
           <div class="field"><label>शपथ पत्र की तिथि <span style="color:#c0392b">*</span></label><input type="date" id="s_date"></div>
-          <div class="field"><label>स्थान</label><input type="text" id="s_place" placeholder="जैसे: मुसाफ़िरखाना"></div>
+          <div class="field"><label>स्थान</label><input type="text" id="s_place" placeholder="आपका नगर / कस्बा"></div>
         </div>
       </div>
     </div>
@@ -304,7 +304,8 @@ function printIt() {
       margin: [10, 12, 10, 12], filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true, logging: false, width: 760, scrollX: 0, scrollY: 0 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['css', 'legacy'], before: '.page-break', avoid: ['img', 'table'] }
     }).from(content).outputPdf('blob').then(function(pdfBlob){
       document.body.removeChild(wrapper);
       var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
