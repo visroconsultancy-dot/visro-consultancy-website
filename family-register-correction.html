@@ -497,24 +497,27 @@ function printApplication() {
     showToast('📄 PDF बन रहा है...');
     var container = document.createElement('div');
     container.innerHTML = content;
-    container.style.cssText = 'padding:20px;font-family:Arial,sans-serif;font-size:13px;line-height:2;color:#000;';
-    document.body.appendChild(container);
+    container.style.cssText = 'background:white;padding:20px;font-family:Arial,sans-serif;font-size:13px;line-height:2;color:#000;width:760px;';
+    var wrapper = document.createElement('div');
+    wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;width:800px;background:white;';
+    wrapper.appendChild(container);
+    document.body.appendChild(wrapper);
     var fileName = 'Family_Register_Correction.pdf';
     html2pdf().set({
       margin: [10, 12, 10, 12],
       filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
+      html2canvas: { scale: 2, useCORS: true, logging: false, width: 760, scrollX: 0, scrollY: 0 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }).from(container).outputPdf('blob').then(function(pdfBlob){
-      document.body.removeChild(container);
+      document.body.removeChild(wrapper);
       var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
       if(navigator.canShare && navigator.canShare({ files: [pdfFile] })){
         navigator.share({ title: 'Family Register - Correction', files: [pdfFile] }).then(function(){
           showToast('✅ शेयर हो गया');
         }).catch(function(err){ if(err.name !== 'AbortError') downloadPDF(pdfBlob, fileName); });
       } else { downloadPDF(pdfBlob, fileName); }
-    }).catch(function(){ document.body.removeChild(container); showToast('⚠️ PDF नहीं बन सका'); });
+    }).catch(function(){ document.body.removeChild(wrapper); showToast('⚠️ PDF नहीं बन सका'); });
   } else {
     var w = window.open('', '_blank', 'width=800,height=600');
     w.document.write('<!DOCTYPE html><html><head><title> </title><style>'

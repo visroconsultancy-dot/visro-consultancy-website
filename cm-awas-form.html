@@ -780,23 +780,26 @@ function printPreview() {
   if(isMobile() && typeof html2pdf !== 'undefined'){
     showToast('📄 PDF बन रहा है...');
     var content = document.getElementById('previewContent').cloneNode(true);
-    content.style.cssText = 'padding:20px;font-family:Arial,sans-serif;';
-    document.body.appendChild(content);
+    content.style.cssText = 'background:white;padding:20px;font-family:Arial,sans-serif;color:#000;width:760px;';
+    var wrapper = document.createElement('div');
+    wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;width:800px;background:white;';
+    wrapper.appendChild(content);
+    document.body.appendChild(wrapper);
     var fileName = 'CM_Awas_Application.pdf';
     html2pdf().set({
       margin: [10, 12, 10, 12], filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
+      html2canvas: { scale: 2, useCORS: true, logging: false, width: 760, scrollX: 0, scrollY: 0 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }).from(content).outputPdf('blob').then(function(pdfBlob){
-      document.body.removeChild(content);
+      document.body.removeChild(wrapper);
       var pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
       if(navigator.canShare && navigator.canShare({ files: [pdfFile] })){
         navigator.share({ title: 'CM Awas Application', files: [pdfFile] }).then(function(){
           showToast('✅ शेयर हो गया');
         }).catch(function(err){ if(err.name !== 'AbortError') downloadPDF(pdfBlob, fileName); });
       } else { downloadPDF(pdfBlob, fileName); }
-    }).catch(function(){ document.body.removeChild(content); showToast('⚠️ PDF नहीं बन सका'); window.print(); });
+    }).catch(function(){ document.body.removeChild(wrapper); showToast('⚠️ PDF नहीं बन सका'); window.print(); });
   } else {
     document.title = ' ';
     window.print();
