@@ -797,14 +797,15 @@ function validateBirthForm(){
 function openFormPreview(){
   if(!validateBirthForm())return;
   function v(id){var e=document.getElementById(id);if(!e)return '';if(e.tagName==='SELECT'){var t=e.options[e.selectedIndex]?e.options[e.selectedIndex].text:'';return(t&&t.indexOf('चुनें')===-1&&t.indexOf('Select')===-1)?t:'';}return e.value||'';}
+  function vA(id){var val=v(id);return val&&val.length===12?val.substring(0,4)+' '+val.substring(4,8)+' '+val.substring(8,12):val;}
   function row(l,val){return '<tr><td style="padding:3px 8px;font-size:9px;color:#222;border-bottom:1px solid #ddd;width:38%;">'+l+'</td><td style="padding:3px 8px;font-size:9px;font-weight:700;color:#000;border-bottom:1px solid #ddd;">'+((val&&val.trim())?val:'—')+'</td></tr>';}
   function sec(title,rows){return '<div style="margin-bottom:4px;border:1px solid #ccc;border-radius:3px;overflow:hidden;"><div style="background:#003366;color:white;padding:2px 8px;font-size:8px;font-weight:700;">'+title+'</div><table style="width:100%;border-collapse:collapse;">'+rows+'</table></div>';}
   var dd=v('dob_dd'),mm=v('dob_mm'),yy=v('dob_yyyy'),dobStr=(dd&&mm&&yy)?dd+'/'+mm+'/'+yy:'';
-  var childName=[v('child_fname'),v('child_mname'),v('child_lname')].filter(Boolean).join(' ');
-  var fatherName=[v('father_fname'),v('father_mname'),v('father_lname')].filter(Boolean).join(' ');
-  var motherName=[v('mother_fname'),v('mother_mname'),v('mother_lname')].filter(Boolean).join(' ');
-  var infName=[v('informant_fname'),v('informant_mname')].filter(Boolean).join(' ');
-  var permAddr=[v('perm_purava'),v('perm_town'),v('perm_subdistrict'),v('perm_district')].filter(Boolean).join(', ');
+  var childName=[v('child_fname'),v('child_mname'),v('child_lname')].filter(Boolean).join(' ')||'___________';
+  var fatherName=[v('father_fname'),v('father_mname'),v('father_lname')].filter(Boolean).join(' ')||'___________';
+  var motherName=[v('mother_fname'),v('mother_mname'),v('mother_lname')].filter(Boolean).join(' ')||'___________';
+  var infName=[v('informant_fname'),v('informant_mname')].filter(Boolean).join(' ')||'___________';
+  var permAddr=[v('perm_purava'),v('perm_town_name'),v('perm_tehsil'),v('perm_district')].filter(Boolean).join(', ')||'___________';
   var hdrGP=v('hdr_gp'),hdrBlk=v('hdr_block'),hdrTeh=v('hdr_tehsil'),hdrDist=v('hdr_district');
   var permLocality=v('perm_purava')||v('perm_town')||hdrGP||'___________';
   var hdr='<div style="background:#003366;color:white;padding:5px 10px;text-align:center;"><div style="font-size:12px;font-weight:700;">जन्म पंजीकरण — फॉर्म 1</div><div style="font-size:7px;opacity:.8;">Birth Registration Form | RBD Act 1969</div></div>'
@@ -821,22 +822,21 @@ function openFormPreview(){
     +sec('2. बच्चे का नाम',row('नाम',childName))
     +'</div>'
     +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">'
-    +sec('3. पिता विवरण',row('नाम',fatherName)+row('आधार',v('father_aadhaar'))+row('मोबाइल',v('father_mobile'))+row('शिक्षा',v('father_edu'))+row('व्यवसाय',v('father_occ'))+row('धर्म',v('father_religion')))
-    +sec('4. माता विवरण',row('नाम',motherName)+row('आधार',v('mother_aadhaar'))+row('मोबाइल',v('mother_mobile'))+row('शिक्षा',v('mother_edu'))+row('व्यवसाय',v('mother_occ'))+row('धर्म',v('mother_religion')))
+    +sec('3. पिता विवरण',row('नाम',fatherName)+row('आधार',vA('father_aadhaar'))+row('मोबाइल',v('father_mobile'))+row('शिक्षा',v('father_edu'))+row('व्यवसाय',v('father_occ'))+row('धर्म',v('father_religion')))
+    +sec('4. माता विवरण',row('नाम',motherName)+row('आधार',vA('mother_aadhaar'))+row('मोबाइल',v('mother_mobile'))+row('शिक्षा',v('mother_edu'))+row('व्यवसाय',v('mother_occ'))+row('धर्म',v('mother_religion')))
     +'</div>'
     +sec('5. जन्म स्थान',row('प्रकार',bpType)+row('अस्पताल',v('bp_hospital_name')))
     +sec('6. स्थायी पता',row('पता',permAddr)+row('पिन',v('perm_pin')))
-    +(function(){var it=(document.querySelector('input[name="informant_type"]:checked')||{}).value||'person';if(it==='hospital'){return sec('7. सूचनादाता (अस्पताल)',row('अस्पताल',v('inf_hosp_name'))+row('रजि. नं.',v('inf_hosp_reg'))+row('पता',v('inf_hosp_address'))+row('प्रभारी',v('inf_hosp_incharge'))+row('मोबाइल',v('inf_hosp_mobile'))+row('जन्म पंजी. नं.',v('inf_hosp_birth_reg')));}return sec('7. सूचनादाता',row('नाम',infName)+row('संबंध',getRelationValue())+row('आधार',v('informant_aadhaar'))+row('मोबाइल',v('informant_mobile')));})()
+    +(function(){var it=(document.querySelector('input[name="informant_type"]:checked')||{}).value||'person';if(it==='hospital'){return sec('7. सूचनादाता (अस्पताल)',row('अस्पताल',v('inf_hosp_name'))+row('रजि. नं.',v('inf_hosp_reg'))+row('पता',v('inf_hosp_address'))+row('प्रभारी',v('inf_hosp_incharge'))+row('मोबाइल',v('inf_hosp_mobile'))+row('जन्म पंजी. नं.',v('inf_hosp_birth_reg')));}return sec('7. सूचनादाता',row('नाम',infName)+row('संबंध',getRelationValue())+row('आधार',vA('informant_aadhaar'))+row('मोबाइल',v('informant_mobile')));})()
     +'<div style="background:#fff8e1;border:1px solid #FFD600;border-radius:3px;padding:3px 8px;font-size:8px;color:#000;margin-top:4px;line-height:1.4;"><b>घोषणापत्र:</b> उपरोक्त सूचनाएँ सत्य हैं। RBD Act 1969 धारा 23 के दंड से अवगत हूँ।</div>'+signBox+'</div>';
 
   // PAGE 2: Statistical + Docs
   var docTable='<div style="margin-top:10px;border:1px solid #a5d6a7;border-radius:4px;overflow:hidden;"><div style="background:#1B5E20;color:white;padding:3px 8px;font-size:9px;font-weight:700;">संलग्न दस्तावेज</div><table style="width:100%;border-collapse:collapse;font-size:9px;"><tr style="background:#e8f5e9;"><th style="padding:3px 6px;border:1px solid #c8e6c9;width:5%;">क्र.</th><th style="padding:3px 6px;border:1px solid #c8e6c9;">दस्तावेज</th><th style="padding:3px 6px;border:1px solid #c8e6c9;width:10%;">☑</th><th style="padding:3px 6px;border:1px solid #c8e6c9;width:10%;">☐</th></tr><tr><td style="padding:2px 6px;border:1px solid #c8e6c9;text-align:center;">1</td><td style="padding:2px 6px;border:1px solid #c8e6c9;">माता आधार</td><td style="border:1px solid #c8e6c9;text-align:center;">☐</td><td style="border:1px solid #c8e6c9;text-align:center;">☐</td></tr><tr><td style="padding:2px 6px;border:1px solid #c8e6c9;text-align:center;">2</td><td style="padding:2px 6px;border:1px solid #c8e6c9;">पिता आधार</td><td style="border:1px solid #c8e6c9;text-align:center;">☐</td><td style="border:1px solid #c8e6c9;text-align:center;">☐</td></tr><tr><td style="padding:2px 6px;border:1px solid #c8e6c9;text-align:center;">3</td><td style="padding:2px 6px;border:1px solid #c8e6c9;">अस्पताल स्लिप / GP-ASHA-PS बयान</td><td style="border:1px solid #c8e6c9;text-align:center;">☐</td><td style="border:1px solid #c8e6c9;text-align:center;">☐</td></tr></table></div>';
   var p2=hdr+'<div style="padding:12px;"><div style="background:#FF6B00;color:white;padding:4px 10px;font-size:11px;font-weight:700;margin-bottom:6px;border-radius:3px;">भाग-2: सांख्यिकीय सूचना | PART-2</div>'
-    +sec('8. जन्म क्रम',row('क्रम',v('birth_order')))
-    +sec('9. प्रसव विवरण',row('प्रकार',v('delivery_type'))+row('विधि',v('delivery_method')))
-    +sec('10. वजन / गर्भ अवधि',row('वजन (ग्राम)',v('birth_weight'))+row('गर्भ अवधि (सप्ताह)',v('pregnancy_weeks')))
-    +sec('11. प्रसव उपस्थिति',row('उपस्थित',v('delivery_attention')))
-    +sec('12. विवाह विवरण',row('विवाह तिथि',v('marriage_date'))+row('माता की आयु',v('mother_marriage_age')))
+    +sec('8. जन्म क्रम',row('क्रम',v('birth_order'))+row('अब तक जीवित बच्चे',v('children_born_alive')))
+    +sec('9. प्रसव विवरण',row('प्रकार',v('delivery_type'))+row('उपस्थित',v('delivery_attention')))
+    +sec('10. वजन / गर्भ अवधि',row('वजन (किग्रा)',v('birth_weight'))+row('गर्भ अवधि (सप्ताह)',v('pregnancy_weeks')))
+    +sec('11. माता की आयु',row('विवाह के समय',v('mother_marriage_age'))+row('जन्म के समय',v('mother_birth_age')))
     +docTable+signBox+'</div>';
 
   // PAGE 3: GP Bayan (PDF format)
@@ -1154,9 +1154,19 @@ function updateLateRegSections(){
   for(var k in sdmIds){var el=document.getElementById(k);if(el)el.textContent=sdmIds[k];}
 }
 
-// ===== INIT =====
-['father_aadhaar','mother_aadhaar','informant_aadhaar'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'');});});
-['father_mobile','mother_mobile','informant_mobile'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'');});});
+// ===== INPUT VALIDATION =====
+// Aadhaar: digits only, max 12
+['child_aadhaar','father_aadhaar','mother_aadhaar','informant_aadhaar'].forEach(function(id){var e=document.getElementById(id);if(e){e.setAttribute('inputmode','numeric');e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').substring(0,12);});}});
+// Mobile: digits only, max 10, first digit must be 6-9
+['father_mobile','mother_mobile','informant_mobile','inf_hosp_mobile','gp_pradhan_mobile','asha_mobile','ps_mobile','w1_mobile','w2_mobile','w3_mobile','w4_mobile','w5_mobile'].forEach(function(id){var e=document.getElementById(id);if(e){e.setAttribute('inputmode','numeric');e.addEventListener('input',function(){var v=this.value.replace(/\D/g,'').substring(0,10);if(v.length>0 && !/^[6-9]/.test(v))v=v.substring(1);this.value=v;});}});
+// Date dd: 1-31, mm: 1-12, numeric only
+['dob_dd','app_dd'].forEach(function(id){var e=document.getElementById(id);if(e){e.setAttribute('inputmode','numeric');e.addEventListener('input',function(){var v=parseInt(this.value.replace(/\D/g,'').substring(0,2))||'';this.value=(v>31?31:v)||'';});}});
+['dob_mm','app_mm'].forEach(function(id){var e=document.getElementById(id);if(e){e.setAttribute('inputmode','numeric');e.addEventListener('input',function(){var v=parseInt(this.value.replace(/\D/g,'').substring(0,2))||'';this.value=(v>12?12:v)||'';});}});
+['dob_yyyy','app_yyyy'].forEach(function(id){var e=document.getElementById(id);if(e){e.setAttribute('inputmode','numeric');e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').substring(0,4);});}});
+// PIN codes: digits only, max 6
+document.querySelectorAll('input[maxlength="6"]').forEach(function(e){e.setAttribute('inputmode','numeric');e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').substring(0,6);});});
+// Name fields: add reasonable maxlength (100)
+document.querySelectorAll('input[id$="_fname"],input[id$="_mname"],input[id$="_lname"]').forEach(function(e){if(!e.hasAttribute('maxlength'))e.setAttribute('maxlength','60');});
 
 document.addEventListener('DOMContentLoaded',function(){
   ['perm','bp','inf','bta'].forEach(function(p){buildAddressSection(p);var td=document.getElementById(p+'_town_dist');if(td&&typeof UP_DISTRICTS!=='undefined')UP_DISTRICTS.forEach(function(d){td.add(new Option(d,d));});});

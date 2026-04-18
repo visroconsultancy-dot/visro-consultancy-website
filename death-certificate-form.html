@@ -589,16 +589,17 @@ function validateDeathForm(){
 function openFormPreview(){
   if(!validateDeathForm())return;
   function v(id){var e=document.getElementById(id);if(!e)return '';if(e.tagName==='SELECT'){var t=e.options[e.selectedIndex]?e.options[e.selectedIndex].text:'';return(t&&t.indexOf('चुनें')===-1&&t.indexOf('Select')===-1)?t:'';}return e.value||'';}
+  function vA(id){var val=v(id);return val&&val.length===12?val.substring(0,4)+' '+val.substring(4,8)+' '+val.substring(8,12):val;}
   function radio(name){var c=document.querySelector('input[name="'+name+'"]:checked');return c?(c.closest('label')?c.closest('label').textContent.trim():c.value):'';}
   function row(l,val){return '<tr><td style="padding:4px 8px;font-size:11px;color:#000;font-weight:600;border-bottom:1px solid #bbb;width:38%;">'+l+'</td><td style="padding:4px 8px;font-size:11px;font-weight:800;color:#000;border-bottom:1px solid #bbb;">'+((val&&val.trim())?val:'—')+'</td></tr>';}
   function sec(title,rows){return '<div style="margin-bottom:5px;border:1px solid #999;border-radius:3px;overflow:hidden;"><div style="background:#003366;color:white;padding:3px 8px;font-size:10px;font-weight:800;">'+title+'</div><table style="width:100%;border-collapse:collapse;">'+rows+'</table></div>';}
   function secColor(title,rows,bg){return '<div style="margin-bottom:8px;border:1px solid #ccc;border-radius:4px;overflow:hidden;"><div style="background:'+bg+';color:white;padding:4px 10px;font-size:10px;font-weight:700;">'+title+'</div><table style="width:100%;border-collapse:collapse;">'+rows+'</table></div>';}
   var dd=v('dod_dd'),mm=v('dod_mm'),yy=v('dod_yyyy');
   var dodStr=(dd&&mm&&yy)?dd+'/'+mm+'/'+yy:'';
-  var decName=[v('dec_fname'),v('dec_mname'),v('dec_lname')].filter(Boolean).join(' ');
-  var fatherName=[v('father_fname'),v('father_mname'),v('father_lname')].filter(Boolean).join(' ');
-  var motherName=[v('mother_fname'),v('mother_mname'),v('mother_lname')].filter(Boolean).join(' ');
-  var infName=[v('informant_fname'),v('informant_mname')].filter(Boolean).join(' ');
+  var decName=[v('dec_fname'),v('dec_mname'),v('dec_lname')].filter(Boolean).join(' ')||'___________';
+  var fatherName=[v('father_fname'),v('father_mname'),v('father_lname')].filter(Boolean).join(' ')||'___________';
+  var motherName=[v('mother_fname'),v('mother_mname'),v('mother_lname')].filter(Boolean).join(' ')||'___________';
+  var infName=[v('informant_fname'),v('informant_mname')].filter(Boolean).join(' ')||'___________';
   var infFatherName=v('informant_father_name')||'';
   var infParentRel=(document.getElementById('informant_parent_rel')||{}).value||'पुत्र';
   function fmtAddr(prefix){var parts=[];var pur=v(prefix+'_purava')||v(prefix+'_mohalla');if(pur)parts.push('पुरवा- '+pur);var gp=v(prefix+'_gp_sel');if(gp)parts.push('ग्राम पंचायत- '+gp);var blk=v(prefix+'_blk_sel');if(blk)parts.push('ब्लॉक- '+blk);var dist=v(prefix+'_dist_sel')||v(prefix+'_town_dist');if(dist)parts.push('जनपद- '+dist);var tn=v(prefix+'_town_name');if(tn)parts.push(tn);if(parts.length)parts.push('उत्तर प्रदेश');return parts.join(', ');}
@@ -619,15 +620,15 @@ function openFormPreview(){
     +'<div style="background:#003366;color:white;padding:4px 10px;font-size:11px;font-weight:800;margin-bottom:5px;border-radius:3px;">भाग-1: कानूनी सूचना | PART-1: LEGAL INFORMATION</div>'
     +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">'
     +sec('1-2. मृत्यु विवरण',row('मृत्यु तिथि',dodStr)+row('समय',v('tod'))+row('लिंग',v('sex')))
-    +sec('3. मृतक विवरण',row('नाम',decName)+row('आधार',v('dec_aadhaar'))+row('आयु',v('age_years')+' वर्ष'+(v('age_months')?' '+v('age_months')+' माह':'')))
+    +sec('3. मृतक विवरण',row('नाम',decName)+row('आधार',vA('dec_aadhaar'))+row('आयु',v('age_years')+' वर्ष'+(v('age_months')?' '+v('age_months')+' माह':'')))
     +'</div>'
     +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">'
-    +sec('4. पिता / पति',row('नाम',fatherName)+row('आधार',v('father_aadhaar'))+row('मोबाइल',v('father_mobile')))
-    +sec('5. माता',row('नाम',motherName)+row('आधार',v('mother_aadhaar')))
+    +sec('4. पिता / पति',row('नाम',fatherName)+row('आधार',vA('father_aadhaar'))+row('मोबाइल',v('father_mobile')))
+    +sec('5. माता',row('नाम',motherName)+row('आधार',vA('mother_aadhaar')))
     +'</div>'
     +sec('6. मृत्यु स्थान',row('प्रकार',dpType)+row('पता',dpAddr)+row('पिन',v('dp_pin')))
     +sec('7. स्थायी पता',row('पता',permAddr)+row('मकान नं.',v('perm_house_no'))+row('पिन',v('perm_pin'))+row('राज्य',v('perm_state')))
-    +sec('8. सूचनादाता',row('नाम',infName)+row('संबंध',getCleanRelation())+row('आधार',v('informant_aadhaar'))+row('मोबाइल',v('informant_mobile'))+row('पता',infAddr))
+    +sec('8. सूचनादाता',row('नाम',infName)+row('संबंध',getCleanRelation())+row('आधार',vA('informant_aadhaar'))+row('मोबाइल',v('informant_mobile'))+row('पता',infAddr))
     +'<div style="background:#fff8e1;border:1px solid #FFD600;border-radius:3px;padding:3px 8px;font-size:10px;color:#000;font-weight:600;margin-top:4px;line-height:1.5;"><b>घोषणापत्र:</b> उपरोक्त सूचनाएँ सत्य हैं। RBD Act 1969 धारा 23 के दंड से अवगत हूँ।</div>'
     +signBox
     +'</div>';
@@ -676,16 +677,16 @@ function openFormPreview(){
     +'<div style="border-bottom:2px solid #1B5E20;margin:10px 16px 14px;"></div>'
     // Meta bar
     +'<div style="display:flex;flex-wrap:wrap;gap:6px 24px;padding:6px 16px 10px;font-size:11px;border:1px solid #ddd;margin:0 16px 16px;border-radius:4px;background:#f9f9f9;">'
-    +'<div>ग्राम पंचायत: <b>'+hdrGP+' ('+hdrGP+')</b></div>'
+    +'<div>ग्राम पंचायत: <b>'+hdrGP+'</b></div>'
     +'<div>ब्लॉक: <b>'+hdrBlk+'</b></div>'
-    +'<div>तहसील: <b>'+hdrTeh+' ('+hdrTeh+')</b></div>'
+    +'<div>तहसील: <b>'+hdrTeh+'</b></div>'
     +'<div>जिला: <b>'+hdrDist+'</b></div>'
     +'<div>दिनांक: <b>'+(gpDate||'___________')+'</b></div>'
     +'</div>'
     // Hindi Statement
     +'<div style="padding:0 16px;font-size:14px;line-height:2.2;color:#000;">'
-    +'<p style="text-align:justify;">मैं, <b>'+gpName+'</b>, ग्राम प्रधान, ग्राम पंचायत <b>'+hdrGP+' ('+hdrGP+')</b>, ब्लॉक <b>'+hdrBlk+'</b>, तहसील <b>'+hdrTeh+' ('+hdrTeh+')</b>, जिला '+hdrDist+', उत्तर प्रदेश —</p>'
-    +'<p style="text-align:justify;">— एतद्द्वारा प्रमाणित करता/करती हूँ कि <b>'+decName+'</b>, पुत्र/पुत्री/पत्नी <b>'+fatherName+'</b>, निवासी ग्राम/मोहल्ला <b>'+permLocality+'</b>, की मृत्यु मेरी जानकारी में दिनांक <b>'+dodStr+'</b> को इस ग्राम पंचायत (<b>'+hdrGP+' ('+hdrGP+')</b>) की सीमा के भीतर हुई है।</p>'
+    +'<p style="text-align:justify;">मैं, <b>'+gpName+'</b>, ग्राम प्रधान, ग्राम पंचायत <b>'+hdrGP+'</b>, ब्लॉक <b>'+hdrBlk+'</b>, तहसील <b>'+hdrTeh+'</b>, जिला '+hdrDist+', उत्तर प्रदेश —</p>'
+    +'<p style="text-align:justify;">— एतद्द्वारा प्रमाणित करता/करती हूँ कि <b>'+decName+'</b>, पुत्र/पुत्री/पत्नी <b>'+fatherName+'</b>, निवासी ग्राम/मोहल्ला <b>'+permLocality+'</b>, की मृत्यु मेरी जानकारी में दिनांक <b>'+dodStr+'</b> को इस ग्राम पंचायत (<b>'+hdrGP+'</b>) की सीमा के भीतर हुई है।</p>'
     +'<p style="margin-top:8px;">मृत्यु का कारण — <b>'+causeText+'</b> है।</p>'
     +'</div>'
     // English Statement (italic)
@@ -823,8 +824,8 @@ function openFormPreview(){
     +'</div>'
     // Declaration (yellow)
     +'<div style="background:#fff8e1;border:1px solid #FFD600;padding:8px 14px;font-size:11px;line-height:1.7;margin:10px 14px;">'
-    +'<p>हम नीचे हस्ताक्षरकर्ता ग्रामीण गवाह प्रमाणित करते हैं कि <b>'+decName+'</b> की मृत्यु दिनांक <b>'+dodStr+'</b> को ग्राम पंचायत <b>'+hdrGP+'</b> की सीमा में हुई है। पिता — <b>'+fatherName+'</b>, निवासी <b>'+permLocality+'</b>, ग्रा.पं. <b>'+hdrGP+'</b>, ब्लॉक <b>'+hdrBlk+'</b>, '+hdrTeh+', '+hdrDist+'(permPinV?', PIN-'+permPinV:'')+'। मृत्यु का कारण <b>'+causeText+'</b> था। यह गवाही स्वेच्छा से एवं सत्य तथ्यों पर आधारित है।</p>'
-    +'<p style="font-style:italic;color:#555;margin-top:4px;font-size:10px;">We the undersigned witnesses certify that <b>'+decName+'</b> died on <b>'+dodStr+'</b> in GP <b>'+hdrGP+'</b>, S/o D/o <b>'+fatherName+'</b>, resident of <b>'+permLocality+'</b>, Block <b>'+hdrBlk+'</b>, '+hdrTeh+', '+hdrDist+'(permPinV?', PIN-'+permPinV:'')+'. Cause: <b>'+causeText+'</b>. This statement is voluntary and truthful.</p>'
+    +'<p>हम नीचे हस्ताक्षरकर्ता ग्रामीण गवाह प्रमाणित करते हैं कि <b>'+decName+'</b> की मृत्यु दिनांक <b>'+dodStr+'</b> को ग्राम पंचायत <b>'+hdrGP+'</b> की सीमा में हुई है। पिता — <b>'+fatherName+'</b>, निवासी <b>'+permLocality+'</b>, ग्रा.पं. <b>'+hdrGP+'</b>, ब्लॉक <b>'+hdrBlk+'</b>, '+hdrTeh+', '+hdrDist+(permPinV?', PIN-'+permPinV:'')+'। मृत्यु का कारण <b>'+causeText+'</b> था। यह गवाही स्वेच्छा से एवं सत्य तथ्यों पर आधारित है।</p>'
+    +'<p style="font-style:italic;color:#555;margin-top:4px;font-size:10px;">We the undersigned witnesses certify that <b>'+decName+'</b> died on <b>'+dodStr+'</b> in GP <b>'+hdrGP+'</b>, S/o D/o <b>'+fatherName+'</b>, resident of <b>'+permLocality+'</b>, Block <b>'+hdrBlk+'</b>, '+hdrTeh+', '+hdrDist+(permPinV?', PIN-'+permPinV:'')+'. Cause: <b>'+causeText+'</b>. This statement is voluntary and truthful.</p>'
     +'</div>'
     // Witness Table
     +'<div style="padding:8px 14px;">'
@@ -1136,10 +1137,16 @@ function printAshaStatement(){if(!document.getElementById('asha_name').value.tri
 function printPSStatement(){if(!document.getElementById('ps_name').value.trim()){alert('कृपया पंचायत सहायक का नाम भरें।');return;}if(isMobile()){mobilePrintElement('ps-print-view','PS_Statement.pdf','पंचायत सहायक बयान');}else{alert('पंचायत सहायक बयान प्रिंट हो रहा है...');window.print();}}
 function printWitnessPage(){if(isMobile()){mobilePrintElement('witness-print-view','Witness_Statement.pdf','गवाहों की गवाही');}else{alert('गवाहों की गवाही प्रिंट हो रही है...');window.print();}}
 
-['dec_aadhaar','father_aadhaar','mother_aadhaar','informant_aadhaar'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').substring(0,12);});});
-['father_mobile','mother_mobile','informant_mobile','gp_pradhan_mobile','asha_mobile','ps_mobile','w1_mobile','w2_mobile','w3_mobile','w4_mobile','w5_mobile'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').substring(0,10);});});
+// ===== INPUT VALIDATION =====
+['dec_aadhaar','father_aadhaar','mother_aadhaar','informant_aadhaar'].forEach(function(id){var e=document.getElementById(id);if(e){e.setAttribute('inputmode','numeric');e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').substring(0,12);});}});
+// Mobile: 10 digits, first digit must be 6-9
+['father_mobile','mother_mobile','informant_mobile','gp_pradhan_mobile','asha_mobile','ps_mobile','w1_mobile','w2_mobile','w3_mobile','w4_mobile','w5_mobile'].forEach(function(id){var e=document.getElementById(id);if(e){e.setAttribute('inputmode','numeric');e.addEventListener('input',function(){var v=this.value.replace(/\D/g,'').substring(0,10);if(v.length>0 && !/^[6-9]/.test(v))v=v.substring(1);this.value=v;});}});
+// Age: 0-150
+var ageEl=document.getElementById('age_years');if(ageEl){ageEl.setAttribute('inputmode','numeric');ageEl.addEventListener('input',function(){var v=parseInt(this.value.replace(/\D/g,'').substring(0,3))||'';this.value=(v>150?150:v)||'';});}
 // Pin codes - 6 digits only
 document.querySelectorAll('input[maxlength="6"]').forEach(function(e){e.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').substring(0,6);});e.setAttribute('inputmode','numeric');});
+// Name fields: max 60 chars
+document.querySelectorAll('input[id$="_fname"],input[id$="_mname"],input[id$="_lname"]').forEach(function(e){if(!e.hasAttribute('maxlength'))e.setAttribute('maxlength','60');});
 
 document.addEventListener('DOMContentLoaded',function(){var today=new Date();document.getElementById('app_dd').value=today.getDate();document.getElementById('app_mm').value=today.getMonth()+1;document.getElementById('app_yyyy').value=today.getFullYear();document.getElementById('app_date').value=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');document.getElementById('gp_statement_date').value=new Date().toISOString().split('T')[0];document.getElementById('asha_statement_date').value=new Date().toISOString().split('T')[0];document.getElementById('ps_statement_date').value=new Date().toISOString().split('T')[0];var watchIds=['hdr_gp','hdr_block','hdr_tehsil','gp_pradhan_name','asha_name','asha_designation','asha_center','asha_statement_date','ps_name','ps_designation','ps_statement_date','dod_dd','dod_mm','dod_yyyy','dec_fname','dec_mname','dec_lname','father_fname','father_lname','cause_detail','death_category','perm_purava','gp_statement_date'];watchIds.forEach(function(id){var e=document.getElementById(id);if(e){e.addEventListener('change',updateGPStatement);e.addEventListener('input',updateGPStatement);}});setTimeout(function(){var t=document.getElementById('hdr_tehsil');if(t&&t.value)hdrTehsilChange();},150);setTimeout(updateGPStatement,300);
 

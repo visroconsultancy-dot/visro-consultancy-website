@@ -238,9 +238,9 @@
           <div class="field-group">
             <label>जन्म तिथि <span class="req">*</span></label>
             <div style="display:flex;gap:6px;align-items:center;">
-              <input type="text" id="ak_dob_dd" maxlength="2" placeholder="दिन" style="width:55px;text-align:center;" oninput="this.value=this.value.replace(/\D/g,'');if(this.value.length===2)document.getElementById('ak_dob_mm').focus();">
+              <input type="text" id="ak_dob_dd" maxlength="2" inputmode="numeric" placeholder="दिन" style="width:55px;text-align:center;" oninput="var v=parseInt(this.value.replace(/\D/g,'').substring(0,2))||'';this.value=(v>31?31:v)||'';if(this.value.length===2)document.getElementById('ak_dob_mm').focus();">
               <span style="color:var(--muted);font-weight:700;">/</span>
-              <input type="text" id="ak_dob_mm" maxlength="2" placeholder="माह" style="width:55px;text-align:center;" oninput="this.value=this.value.replace(/\D/g,'');if(this.value.length===2)document.getElementById('ak_dob_yyyy').focus();">
+              <input type="text" id="ak_dob_mm" maxlength="2" inputmode="numeric" placeholder="माह" style="width:55px;text-align:center;" oninput="var v=parseInt(this.value.replace(/\D/g,'').substring(0,2))||'';this.value=(v>12?12:v)||'';if(this.value.length===2)document.getElementById('ak_dob_yyyy').focus();">
               <span style="color:var(--muted);font-weight:700;">/</span>
               <input type="text" id="ak_dob_yyyy" maxlength="4" placeholder="वर्ष" style="width:70px;text-align:center;" oninput="this.value=this.value.replace(/\D/g,'');">
             </div>
@@ -1000,8 +1000,9 @@ function downloadPDF(blob, fileName){
 function resetForm(){
   var inputs = document.querySelectorAll('.form-body input, .form-body select, .form-body textarea');
   inputs.forEach(function(el){ el.value = ''; });
-  document.getElementById('ak_hospital_wrap').style.display = 'none';
-  document.getElementById('ak_edu_other_wrap').style.display = 'none';
+  var hw = document.getElementById('ak_hospital_wrap');
+  if(hw) hw.style.display = 'none';
+  document.querySelectorAll('.ak_edu_other_wrap').forEach(function(w){ w.style.display = 'none'; });
   showToast('✓ फॉर्म रीसेट हो गया');
 }
 

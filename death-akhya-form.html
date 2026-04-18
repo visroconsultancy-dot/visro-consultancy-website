@@ -238,9 +238,9 @@
           <div class="field-group">
             <label>मृत्यु तिथि <span class="req">*</span></label>
             <div style="display:flex;gap:6px;align-items:center;">
-              <input type="text" id="dk_dod_dd" maxlength="2" placeholder="दिन" style="width:55px;text-align:center;" oninput="this.value=this.value.replace(/\D/g,'');if(this.value.length===2)document.getElementById('dk_dod_mm').focus();">
+              <input type="text" id="dk_dod_dd" maxlength="2" inputmode="numeric" placeholder="दिन" style="width:55px;text-align:center;" oninput="var v=parseInt(this.value.replace(/\D/g,'').substring(0,2))||'';this.value=(v>31?31:v)||'';if(this.value.length===2)document.getElementById('dk_dod_mm').focus();">
               <span style="color:var(--muted);font-weight:700;">/</span>
-              <input type="text" id="dk_dod_mm" maxlength="2" placeholder="माह" style="width:55px;text-align:center;" oninput="this.value=this.value.replace(/\D/g,'');if(this.value.length===2)document.getElementById('dk_dod_yyyy').focus();">
+              <input type="text" id="dk_dod_mm" maxlength="2" inputmode="numeric" placeholder="माह" style="width:55px;text-align:center;" oninput="var v=parseInt(this.value.replace(/\D/g,'').substring(0,2))||'';this.value=(v>12?12:v)||'';if(this.value.length===2)document.getElementById('dk_dod_yyyy').focus();">
               <span style="color:var(--muted);font-weight:700;">/</span>
               <input type="text" id="dk_dod_yyyy" maxlength="4" placeholder="वर्ष" style="width:70px;text-align:center;" oninput="this.value=this.value.replace(/\D/g,'');">
             </div>
