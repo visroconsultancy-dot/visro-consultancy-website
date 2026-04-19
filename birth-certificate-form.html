@@ -564,10 +564,41 @@ var hospCert=document.getElementById('hospital-birth-certificate');
 if(v===1){homeStatements.style.display='none';hospCert.style.display='block';}else{homeStatements.style.display='block';hospCert.style.display='none';}
 }
 
+// Helper: read value from any field (text or select)
+function getFieldVal(id){var el=document.getElementById(id);return el?(el.value||''):'';}
+
+// Helper: set value on any field. Handles both text inputs and select dropdowns.
+// If target is select and value not in options, adds it dynamically.
+function setFieldVal(id, value){
+  var el=document.getElementById(id);
+  if(!el) return;
+  if(value===undefined||value===null) value='';
+  if(el.tagName==='SELECT'){
+    el.disabled=false;
+    if(value){
+      var has=false;
+      for(var i=0;i<el.options.length;i++){if(el.options[i].value===value){has=true;break;}}
+      if(!has) el.add(new Option(value,value));
+    }
+    el.value=value;
+  }else{
+    el.value=value;
+  }
+}
+
+// Clear target fields (works for both text and select)
+function clearFields(ids){
+  ids.forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el) return;
+    if(el.tagName==='SELECT') el.selectedIndex=0;
+    else el.value='';
+  });
+}
+
 function copyBirthPlaceToPerm(checked){
   if(!checked){
-    ['perm_dist_sel','perm_teh_sel','perm_blk_sel','perm_gp_sel'].forEach(function(id){var el=document.getElementById(id);if(el){el.innerHTML='<option value="">— Select —</option>';el.disabled=true;}});
-    ['perm_purava','perm_house_no','perm_town_name','perm_mohalla','perm_town_house','perm_pin'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+    clearFields(['perm_dist_sel','perm_teh_sel','perm_blk_sel','perm_gp_sel','perm_purava','perm_house_no','perm_town_dist','perm_town_name','perm_mohalla','perm_town_house','perm_pin']);
     document.querySelectorAll('input[name="perm_area"]').forEach(function(r){r.checked=false;});
     document.getElementById('perm_village_div').style.display='none';
     document.getElementById('perm_town_div').style.display='none';
@@ -579,42 +610,27 @@ function copyBirthPlaceToPerm(checked){
   var permR=document.querySelector('input[name="perm_area"][value="'+atype+'"]');
   if(permR){permR.checked=true;toggleAreaType('perm',atype);}
   if(atype==='village'){
-    var bpDist=document.getElementById('bp_dist_sel')?document.getElementById('bp_dist_sel').value:'';
-    var pDist=document.getElementById('perm_dist_sel');
-    if(pDist&&bpDist){
-      if(pDist.options.length<=1){pDist.innerHTML='<option value="">— जिला —</option>';UP_DISTRICTS.forEach(function(d){pDist.add(new Option(d,d));});}
-      pDist.value=bpDist;pDist.disabled=false;pDist.dispatchEvent(new Event('change'));
-      setTimeout(function(){
-        var bT=document.getElementById('bp_teh_sel')?document.getElementById('bp_teh_sel').value:'';var pT=document.getElementById('perm_teh_sel');
-        if(pT&&bT){pT.value=bT;pT.dispatchEvent(new Event('change'));}
-        setTimeout(function(){
-          var bB=document.getElementById('bp_blk_sel')?document.getElementById('bp_blk_sel').value:'';var pB=document.getElementById('perm_blk_sel');
-          if(pB&&bB){pB.value=bB;pB.dispatchEvent(new Event('change'));}
-          setTimeout(function(){
-            var bG=(document.getElementById('bp_gp_sel')?document.getElementById('bp_gp_sel').value:'')||(document.getElementById('bp_gp_txt')?document.getElementById('bp_gp_txt').value:'');
-            var pG=document.getElementById('perm_gp_sel');
-            if(pG&&bG)pG.value=bG;
-            var bPur=document.getElementById('bp_purava')?document.getElementById('bp_purava').value:'';
-            var bPin=document.getElementById('bp_pin')?document.getElementById('bp_pin').value:'';
-            var bHno=document.getElementById('bp_house_no')?document.getElementById('bp_house_no').value:'';
-            if(bPur)setVal('perm_purava',bPur);if(bPin)setVal('perm_pin',bPin);if(bHno)setVal('perm_house_no',bHno);
-            syncHidden('perm');
-          },400);
-        },400);
-      },400);
-    }
+    setFieldVal('perm_dist_sel', getFieldVal('bp_dist_sel'));
+    setFieldVal('perm_teh_sel', getFieldVal('bp_teh_sel'));
+    setFieldVal('perm_blk_sel', getFieldVal('bp_blk_sel'));
+    setFieldVal('perm_gp_sel', getFieldVal('bp_gp_sel')||getFieldVal('bp_gp_txt'));
+    setFieldVal('perm_purava', getFieldVal('bp_purava'));
+    setFieldVal('perm_house_no', getFieldVal('bp_house_no'));
+    setFieldVal('perm_pin', getFieldVal('bp_pin'));
   }else{
-    [['bp_town_dist','perm_town_dist'],['bp_town_name','perm_town_name'],['bp_mohalla','perm_mohalla'],['bp_tpin','perm_pin'],['bp_town_house','perm_town_house']].forEach(function(p){
-      var sv=document.getElementById(p[0])?document.getElementById(p[0]).value:'';if(sv)setVal(p[1],sv);
-    });
-    syncHidden('perm');
+    setFieldVal('perm_town_dist', getFieldVal('bp_town_dist'));
+    setFieldVal('perm_town_name', getFieldVal('bp_town_name'));
+    setFieldVal('perm_mohalla', getFieldVal('bp_mohalla'));
+    setFieldVal('perm_pin', getFieldVal('bp_tpin'));
+    setFieldVal('perm_town_house', getFieldVal('bp_town_house'));
   }
+  if(typeof syncHidden==='function') syncHidden('perm');
   showToast('✅ स्थायी पता जन्म स्थान से copy हो गया!');
 }
+
 function copyPermToInf(checked){
   if(!checked){
-    ['inf_dist_sel','inf_teh_sel','inf_blk_sel','inf_gp_sel'].forEach(function(id){var el=document.getElementById(id);if(el){el.innerHTML='<option value="">— Select —</option>';el.disabled=true;}});
-    ['inf_purava','inf_town_name','inf_mohalla','inf_pin'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+    clearFields(['inf_dist_sel','inf_teh_sel','inf_blk_sel','inf_gp_sel','inf_purava','inf_town_dist','inf_town_name','inf_mohalla','inf_pin','inf_tpin']);
     document.querySelectorAll('input[name="inf_area"]').forEach(function(r){r.checked=false;});
     var iv=document.getElementById('inf_village_div'),it=document.getElementById('inf_town_div');
     if(iv)iv.style.display='none';if(it)it.style.display='none';
@@ -626,41 +642,25 @@ function copyPermToInf(checked){
   var infR=document.querySelector('input[name="inf_area"][value="'+atype+'"]');
   if(infR){infR.checked=true;toggleAreaType('inf',atype);}
   if(atype==='village'){
-    var pDist=document.getElementById('perm_dist_sel')?document.getElementById('perm_dist_sel').value:'';
-    var iDist=document.getElementById('inf_dist_sel');
-    if(iDist&&pDist){
-      if(iDist.options.length<=1){iDist.innerHTML='<option value="">— जिला —</option>';UP_DISTRICTS.forEach(function(d){iDist.add(new Option(d,d));});}
-      iDist.value=pDist;iDist.disabled=false;iDist.dispatchEvent(new Event('change'));
-      setTimeout(function(){
-        var pT=document.getElementById('perm_teh_sel')?document.getElementById('perm_teh_sel').value:'';var iT=document.getElementById('inf_teh_sel');
-        if(iT&&pT){iT.value=pT;iT.dispatchEvent(new Event('change'));}
-        setTimeout(function(){
-          var pB=document.getElementById('perm_blk_sel')?document.getElementById('perm_blk_sel').value:'';var iB=document.getElementById('inf_blk_sel');
-          if(iB&&pB){iB.value=pB;iB.dispatchEvent(new Event('change'));}
-          setTimeout(function(){
-            var pGP=(document.getElementById('perm_gp_sel')?document.getElementById('perm_gp_sel').value:'');
-            var iGP=document.getElementById('inf_gp_sel');
-            if(iGP&&pGP)iGP.value=pGP;
-            var pp=document.getElementById('perm_purava')?document.getElementById('perm_purava').value:'';
-            var ppin=document.getElementById('perm_pin')?document.getElementById('perm_pin').value:'';
-            if(pp)setVal('inf_purava',pp);if(ppin)setVal('inf_pin',ppin);
-            syncHidden('inf');
-          },400);
-        },400);
-      },400);
-    }
+    setFieldVal('inf_dist_sel', getFieldVal('perm_dist_sel'));
+    setFieldVal('inf_teh_sel', getFieldVal('perm_teh_sel'));
+    setFieldVal('inf_blk_sel', getFieldVal('perm_blk_sel'));
+    setFieldVal('inf_gp_sel', getFieldVal('perm_gp_sel'));
+    setFieldVal('inf_purava', getFieldVal('perm_purava'));
+    setFieldVal('inf_pin', getFieldVal('perm_pin'));
   }else{
-    [['perm_town_dist','inf_town_dist'],['perm_town_name','inf_town_name'],['perm_mohalla','inf_mohalla'],['perm_pin','inf_pin']].forEach(function(p){
-      var sv=document.getElementById(p[0])?document.getElementById(p[0]).value:'';if(sv)setVal(p[1],sv);
-    });
-    syncHidden('inf');
+    setFieldVal('inf_town_dist', getFieldVal('perm_town_dist'));
+    setFieldVal('inf_town_name', getFieldVal('perm_town_name'));
+    setFieldVal('inf_mohalla', getFieldVal('perm_mohalla'));
+    setFieldVal('inf_tpin', getFieldVal('perm_pin'));
   }
+  if(typeof syncHidden==='function') syncHidden('inf');
   showToast('✅ सूचनादाता का पता copy हो गया!');
 }
+
 function copyBirthPlaceToBTA(checked){
   if(!checked){
-    ['bta_dist_sel','bta_teh_sel','bta_blk_sel','bta_gp_sel'].forEach(function(id){var el=document.getElementById(id);if(el){el.innerHTML='<option value="">— Select —</option>';el.disabled=true;}});
-    ['bta_purava','bta_house_no','bta_town_name','bta_mohalla','bta_town_house','bta_pin'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+    clearFields(['bta_dist_sel','bta_teh_sel','bta_blk_sel','bta_gp_sel','bta_purava','bta_house_no','bta_town_dist','bta_town_name','bta_mohalla','bta_town_house','bta_pin']);
     document.querySelectorAll('input[name="bta_area"]').forEach(function(r){r.checked=false;});
     var bv=document.getElementById('bta_village_div'),bt=document.getElementById('bta_town_div');
     if(bv)bv.style.display='none';if(bt)bt.style.display='none';
@@ -672,36 +672,21 @@ function copyBirthPlaceToBTA(checked){
   var btaR=document.querySelector('input[name="bta_area"][value="'+atype+'"]');
   if(btaR){btaR.checked=true;toggleAreaType('bta',atype);}
   if(atype==='village'){
-    var bpDist=document.getElementById('bp_dist_sel')?document.getElementById('bp_dist_sel').value:'';
-    var bDist=document.getElementById('bta_dist_sel');
-    if(bDist&&bpDist){
-      if(bDist.options.length<=1){bDist.innerHTML='<option value="">— जिला —</option>';UP_DISTRICTS.forEach(function(d){bDist.add(new Option(d,d));});}
-      bDist.value=bpDist;bDist.disabled=false;bDist.dispatchEvent(new Event('change'));
-      setTimeout(function(){
-        var bT=document.getElementById('bp_teh_sel')?document.getElementById('bp_teh_sel').value:'';var tS=document.getElementById('bta_teh_sel');
-        if(tS&&bT){tS.value=bT;tS.dispatchEvent(new Event('change'));}
-        setTimeout(function(){
-          var bB=document.getElementById('bp_blk_sel')?document.getElementById('bp_blk_sel').value:'';var bS=document.getElementById('bta_blk_sel');
-          if(bS&&bB){bS.value=bB;bS.dispatchEvent(new Event('change'));}
-          setTimeout(function(){
-            var bG=(document.getElementById('bp_gp_sel')?document.getElementById('bp_gp_sel').value:'');
-            var gS=document.getElementById('bta_gp_sel');
-            if(gS&&bG)gS.value=bG;
-            var bPur=document.getElementById('bp_purava')?document.getElementById('bp_purava').value:'';
-            var bPin=document.getElementById('bp_pin')?document.getElementById('bp_pin').value:'';
-            var bHno=document.getElementById('bp_house_no')?document.getElementById('bp_house_no').value:'';
-            if(bPur)setVal('bta_purava',bPur);if(bPin)setVal('bta_pin',bPin);if(bHno)setVal('bta_house_no',bHno);
-            syncHidden('bta');
-          },400);
-        },400);
-      },400);
-    }
+    setFieldVal('bta_dist_sel', getFieldVal('bp_dist_sel'));
+    setFieldVal('bta_teh_sel', getFieldVal('bp_teh_sel'));
+    setFieldVal('bta_blk_sel', getFieldVal('bp_blk_sel'));
+    setFieldVal('bta_gp_sel', getFieldVal('bp_gp_sel')||getFieldVal('bp_gp_txt'));
+    setFieldVal('bta_purava', getFieldVal('bp_purava'));
+    setFieldVal('bta_house_no', getFieldVal('bp_house_no'));
+    setFieldVal('bta_pin', getFieldVal('bp_pin'));
   }else{
-    [['bp_town_dist','bta_town_dist'],['bp_town_name','bta_town_name'],['bp_mohalla','bta_mohalla'],['bp_tpin','bta_pin']].forEach(function(p){
-      var sv=document.getElementById(p[0])?document.getElementById(p[0]).value:'';if(sv)setVal(p[1],sv);
-    });
-    syncHidden('bta');
+    setFieldVal('bta_town_dist', getFieldVal('bp_town_dist'));
+    setFieldVal('bta_town_name', getFieldVal('bp_town_name'));
+    setFieldVal('bta_mohalla', getFieldVal('bp_mohalla'));
+    setFieldVal('bta_pin', getFieldVal('bp_tpin'));
+    setFieldVal('bta_town_house', getFieldVal('bp_town_house'));
   }
+  if(typeof syncHidden==='function') syncHidden('bta');
   showToast('✅ जन्म के समय का पता copy हो गया!');
 }
 function toggleInformantType(type){
