@@ -1024,7 +1024,11 @@ function downloadPDF(blob, fileName){
 }
 
 function printAllPages(){
-  var all=_pvPages.join("<div class=\"html2pdf__page-break\"></div>");
+  // Wrap each page in a div with pdf-page class; add page-break-before on all but first
+  var all = _pvPages.map(function(p, i){
+    var style = (i === 0) ? '' : 'page-break-before:always;break-before:page;';
+    return '<div class="pdf-page" style="'+style+'">'+p+'</div>';
+  }).join('');
   if(isMobile() && typeof html2pdf !== 'undefined'){
     showToast('📄 PDF बन रहा है...');
     var clone = document.createElement('div');
@@ -1040,7 +1044,7 @@ function printAllPages(){
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true, logging: false, width: 760, scrollX: 0, scrollY: 0 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      pagebreak: { mode: ['css', 'legacy'], before: '.page-break', avoid: ['img', 'table'] }
+      pagebreak: { mode: ['css', 'legacy'], before: '.pdf-page', avoid: ['img', 'table'] }
     }).from(clone).outputPdf('blob').then(function(pdfBlob){
       document.body.removeChild(wrapper);
       closePreview();
